@@ -1,0 +1,45 @@
+{
+  "issue": "Amarillo (City of), TX Combo Tax&Rev COO, Series 2026A",
+  "concatenated_doc_types": "Prelim | NOS | S&P'S",
+  "documents": [
+    {
+      "date": "03/10/2026",
+      "issue": "Amarillo (City of), TX Combo Tax&Rev COO, Series 2026A",
+      "manager_fa": "Specialized Public Finance Inc. (FA)",
+      "par_amt": "29,310,000.00",
+      "doc_type": "Prelim",
+      "type": "Comp",
+      "size_mb": "12.95",
+      "source_href": "/api/PdfDownload/101297?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101297?action=Get",
+      "file_name": "01_Prelim.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/10/2026",
+      "issue": "Amarillo (City of), TX Combo Tax&Rev COO, Series 2026A",
+      "manager_fa": "Specialized Public Finance Inc. (FA)",
+      "par_amt": "29,310,000.00",
+      "doc_type": "NOS",
+      "type": "Comp",
+      "size_mb": ".33",
+      "source_href": "/api/PdfDownload/101298?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101298?action=Get",
+      "file_name": "02_NOS.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/10/2026",
+      "issue": "Amarillo (City of), TX Combo Tax&Rev COO, Series 2026A",
+      "manager_fa": "Specialized Public Finance Inc. (FA)",
+      "par_amt": "29,310,000.00",
+      "doc_type": "S&P'S",
+      "type": "Comp",
+      "size_mb": ".15",
+      "source_href": "/api/PdfDownload/101299?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101299?action=Get",
+      "file_name": "03_S&PS.pdf",
+      "status": "downloaded"
+    }
+  ]
+}

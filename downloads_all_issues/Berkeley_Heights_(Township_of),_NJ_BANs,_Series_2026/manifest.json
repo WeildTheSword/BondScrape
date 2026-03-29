@@ -1,0 +1,58 @@
+{
+  "issue": "Berkeley Heights (Township of), NJ BAN's, Series 2026",
+  "concatenated_doc_types": "Prelim | NOS | Moodys | Credit",
+  "documents": [
+    {
+      "date": "03/12/2026",
+      "issue": "Berkeley Heights (Township of), NJ BAN's, Series 2026",
+      "manager_fa": "NW Financial Group, LLC (FA)",
+      "par_amt": "8,528,000.00",
+      "doc_type": "Prelim",
+      "type": "Comp",
+      "size_mb": "5.74",
+      "source_href": "/api/PdfDownload/101314?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101314?action=Get",
+      "file_name": "01_Prelim.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/12/2026",
+      "issue": "Berkeley Heights (Township of), NJ BAN's, Series 2026",
+      "manager_fa": "NW Financial Group, LLC (FA)",
+      "par_amt": "8,528,000.00",
+      "doc_type": "NOS",
+      "type": "Comp",
+      "size_mb": ".10",
+      "source_href": "/api/PdfDownload/101315?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101315?action=Get",
+      "file_name": "02_NOS.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/12/2026",
+      "issue": "Berkeley Heights (Township of), NJ BAN's, Series 2026",
+      "manager_fa": "NW Financial Group, LLC (FA)",
+      "par_amt": "8,528,000.00",
+      "doc_type": "Moodys",
+      "type": "Comp",
+      "size_mb": ".05",
+      "source_href": "/api/PdfDownload/101316?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101316?action=Get",
+      "file_name": "03_Moodys.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/12/2026",
+      "issue": "Berkeley Heights (Township of), NJ BAN's, Series 2026",
+      "manager_fa": "NW Financial Group, LLC (FA)",
+      "par_amt": "8,528,000.00",
+      "doc_type": "Credit",
+      "type": "Comp",
+      "size_mb": ".08",
+      "source_href": "/api/PdfDownload/101317?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101317?action=Get",
+      "file_name": "04_Credit.pdf",
+      "status": "downloaded"
+    }
+  ]
+}

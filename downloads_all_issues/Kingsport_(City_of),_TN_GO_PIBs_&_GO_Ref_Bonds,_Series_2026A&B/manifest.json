@@ -1,0 +1,32 @@
+{
+  "issue": "Kingsport (City of), TN GO PIBs & GO Ref Bonds, Series 2026A&B",
+  "concatenated_doc_types": "Prelim | NOS",
+  "documents": [
+    {
+      "date": "03/04/2026",
+      "issue": "Kingsport (City of), TN GO PIBs & GO Ref Bonds, Series 2026A&B",
+      "manager_fa": "Raymond James (FA)",
+      "par_amt": "26,590,000.00",
+      "doc_type": "Prelim",
+      "type": "Comp",
+      "size_mb": ".99",
+      "source_href": "/api/PdfDownload/101235?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101235?action=Get",
+      "file_name": "01_Prelim.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/04/2026",
+      "issue": "Kingsport (City of), TN GO PIBs & GO Ref Bonds, Series 2026A&B",
+      "manager_fa": "Raymond James (FA)",
+      "par_amt": "26,590,000.00",
+      "doc_type": "NOS",
+      "type": "Comp",
+      "size_mb": ".38",
+      "source_href": "/api/PdfDownload/101236?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101236?action=Get",
+      "file_name": "02_NOS.pdf",
+      "status": "downloaded"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "issue": "Manitowoc Public SD, WI GO Promissory Notes (2026)",
+  "concatenated_doc_types": "Prelim",
+  "documents": [
+    {
+      "date": "03/10/2026",
+      "issue": "Manitowoc Public SD, WI GO Promissory Notes (2026)",
+      "manager_fa": "Robert W. Baird & Co. (FA)",
+      "par_amt": "11,000,000.00",
+      "doc_type": "Prelim",
+      "type": "Comp",
+      "size_mb": "1.56",
+      "source_href": "/api/PdfDownload/101290?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101290?action=Get",
+      "file_name": "01_Prelim.pdf",
+      "status": "downloaded"
+    }
+  ]
+}

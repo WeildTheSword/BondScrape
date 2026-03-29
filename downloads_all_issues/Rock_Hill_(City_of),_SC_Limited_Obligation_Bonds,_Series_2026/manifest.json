@@ -1,0 +1,19 @@
+{
+  "issue": "Rock Hill (City of), SC Limited Obligation Bonds, Series 2026",
+  "concatenated_doc_types": "Prelim",
+  "documents": [
+    {
+      "date": "03/12/2026",
+      "issue": "Rock Hill (City of), SC Limited Obligation Bonds, Series 2026",
+      "manager_fa": "First Tryon Advisors (FA)",
+      "par_amt": "29,450,000.00",
+      "doc_type": "Prelim",
+      "type": "Comp",
+      "size_mb": "6.50",
+      "source_href": "/api/PdfDownload/101305?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101305?action=Get",
+      "file_name": "01_Prelim.pdf",
+      "status": "downloaded"
+    }
+  ]
+}

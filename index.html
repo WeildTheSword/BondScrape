@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prospectus Issue Browser</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 20px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 28px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    input, select {
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 14px;
+      background: white;
+    }
+
+    input {
+      min-width: 320px;
+      flex: 1;
+    }
+
+    main {
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stats {
+      margin-bottom: 16px;
+      color: #4b5563;
+      font-size: 14px;
+    }
+
+    .issue-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .issue-card.past {
+      background: #ffe5e5;
+      border-color: #ffb3b3;
+    }
+
+    .issue-card.upcoming {
+      background: #e8f2ff;
+      border-color: #b6d4ff;
+    }
+
+    .issue-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      cursor: pointer;
+    }
+
+    .issue-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .issue-meta {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .issue-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .doc-count {
+      font-size: 13px;
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    .toggle-indicator {
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: 600;
+    }
+
+    .doc-list {
+      margin-top: 14px;
+      border-top: 1px solid #f0f2f5;
+      padding-top: 14px;
+      display: none;
+    }
+
+    .doc-list.open {
+      display: block;
+    }
+
+    .doc-row {
+      display: grid;
+      grid-template-columns: 110px 100px 80px 1fr;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f3f4f6;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .doc-row:last-child {
+      border-bottom: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    a.doc-link {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a.doc-link:hover {
+      text-decoration: underline;
+    }
+
+    .muted {
+      color: #6b7280;
+    }
+
+    .empty {
+      padding: 40px 0;
+      text-align: center;
+      color: #6b7280;
+    }
+
+    @media (max-width: 800px) {
+      .doc-row {
+        grid-template-columns: 1fr;
+      }
+
+      input {
+        min-width: 100%;
+      }
+
+      .issue-top {
+        flex-direction: column;
+      }
+
+      .issue-right {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Prospectus Issue Browser</h1>
+    <div class="controls">
+      <input id="searchInput" type="text" placeholder="Search by issue, manager, or document type..." />
+      <select id="typeFilter">
+        <option value="">All Sale Types</option>
+        <option value="Comp">Comp</option>
+        <option value="Neg">Neg</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <div class="stats" id="stats">Loading data...</div>
+    <div id="issuesContainer"></div>
+  </main>
+
+  <script>
+    let allIssues = [];
+
+    async function loadData() {
+      const response = await fetch("./prospectus_json/processed/issues_grouped.json");
+      const data = await response.json();
+      allIssues = data.issues || [];
+      renderIssues();
+    }
+
+    function matchesIssue(issue, searchTerm, typeFilter) {
+      const haystack = [
+        issue.issue,
+        issue.manager_fa,
+        issue.doc_types_concatenated
+      ].join(" ").toLowerCase();
+
+      const matchesSearch = !searchTerm || haystack.includes(searchTerm);
+      const matchesType = !typeFilter || issue.type === typeFilter;
+
+      return matchesSearch && matchesType;
+    }
+
+    function parseDate(dateStr) {
+      if (!dateStr) return null;
+
+      const parts = dateStr.split("/");
+      if (parts.length !== 3) return null;
+
+      const month = parseInt(parts[0], 10) - 1;
+      const day = parseInt(parts[1], 10);
+      const year = parseInt(parts[2], 10);
+
+      if (Number.isNaN(month) || Number.isNaN(day) || Number.isNaN(year)) {
+        return null;
+      }
+
+      return new Date(year, month, day);
+    }
+
+    function getIssueDate(issue) {
+      if (!issue.documents || !issue.documents.length) return null;
+
+      const dates = issue.documents
+        .map(doc => parseDate(doc.date))
+        .filter(Boolean);
+
+      if (!dates.length) return null;
+
+      return new Date(Math.min(...dates.map(d => d.getTime())));
+    }
+
+    function formatIssueDate(dateObj) {
+      if (!dateObj) return "N/A";
+      return dateObj.toLocaleDateString();
+    }
+
+    function getIssueStatus(issue, today) {
+      const issueDate = getIssueDate(issue);
+
+      if (!issueDate) {
+        return {
+          issueDate: null,
+          isUpcoming: false,
+          sortPriority: 2,
+          sortTime: Number.MAX_SAFE_INTEGER
+        };
+      }
+
+      const normalizedIssueDate = new Date(issueDate);
+      normalizedIssueDate.setHours(0, 0, 0, 0);
+
+      if (normalizedIssueDate >= today) {
+        return {
+          issueDate: normalizedIssueDate,
+          isUpcoming: true,
+          sortPriority: 0,
+          sortTime: normalizedIssueDate.getTime()
+        };
+      }
+
+      return {
+        issueDate: normalizedIssueDate,
+        isUpcoming: false,
+        sortPriority: 1,
+        sortTime: -normalizedIssueDate.getTime()
+      };
+    }
+
+    function sortIssues(issues) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      return [...issues].sort((a, b) => {
+        const aStatus = getIssueStatus(a, today);
+        const bStatus = getIssueStatus(b, today);
+
+        if (aStatus.sortPriority !== bStatus.sortPriority) {
+          return aStatus.sortPriority - bStatus.sortPriority;
+        }
+
+        if (aStatus.sortTime !== bStatus.sortTime) {
+          return aStatus.sortTime - bStatus.sortTime;
+        }
+
+        return (a.issue || "").localeCompare(b.issue || "");
+      });
+    }
+
+    function renderIssues() {
+      const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase();
+      const typeFilter = document.getElementById("typeFilter").value;
+
+      const filtered = allIssues.filter(issue => matchesIssue(issue, searchTerm, typeFilter));
+      const sorted = sortIssues(filtered);
+
+      document.getElementById("stats").textContent = `${sorted.length} issues shown`;
+
+      const container = document.getElementById("issuesContainer");
+      container.innerHTML = "";
+
+      if (!sorted.length) {
+        container.innerHTML = `<div class="empty">No matching issues found.</div>`;
+        return;
+      }
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      sorted.forEach(issue => {
+        const card = document.createElement("div");
+        card.className = "issue-card";
+
+        const issueStatus = getIssueStatus(issue, today);
+        const issueDate = issueStatus.issueDate;
+
+        if (issueDate) {
+          if (issueStatus.isUpcoming) {
+            card.classList.add("upcoming");
+          } else {
+            card.classList.add("past");
+          }
+        }
+
+        const docsHtml = (issue.documents || []).map(doc => {
+          const hasPdf = !!doc.pdf_url;
+
+          return `
+            <div class="doc-row">
+              <div>${doc.date || '<span class="muted">No date</span>'}</div>
+              <div><span class="badge">${doc.doc_type || 'Unknown'}</span></div>
+              <div>${doc.type || '<span class="muted">N/A</span>'}</div>
+              <div>
+                ${
+                  hasPdf
+                    ? `<a class="doc-link" href="${doc.pdf_url}" target="_blank" rel="noopener noreferrer">Open document</a>`
+                    : `<span class="muted">Unavailable</span>`
+                }
+                <span class="muted"> · ${doc.size_mb || 'N/A'} MB</span>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        card.innerHTML = `
+          <div class="issue-top">
+            <div>
+              <div class="issue-title">${issue.issue}</div>
+              <div class="issue-meta">
+                <div><strong>Issue Date:</strong> ${formatIssueDate(issueDate)}</div>
+                <div><strong>Manager/FA:</strong> ${issue.manager_fa || 'N/A'}</div>
+                <div><strong>Par Amount:</strong> ${issue.par_amt || 'N/A'}</div>
+                <div><strong>Sale Type:</strong> ${issue.type || 'N/A'}</div>
+                <div><strong>Doc Types:</strong> ${issue.doc_types_concatenated || 'N/A'}</div>
+              </div>
+            </div>
+            <div class="issue-right">
+              <div class="doc-count">${issue.document_count || 0} docs</div>
+              <div class="toggle-indicator">Click to expand</div>
+            </div>
+          </div>
+          <div class="doc-list">${docsHtml}</div>
+        `;
+
+        const top = card.querySelector(".issue-top");
+        const list = card.querySelector(".doc-list");
+        const indicator = card.querySelector(".toggle-indicator");
+
+        top.addEventListener("click", () => {
+          list.classList.toggle("open");
+          indicator.textContent = list.classList.contains("open")
+            ? "Click to collapse"
+            : "Click to expand";
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById("searchInput").addEventListener("input", renderIssues);
+    document.getElementById("typeFilter").addEventListener("change", renderIssues);
+
+    loadData().catch(err => {
+      document.getElementById("stats").textContent = "Failed to load JSON data.";
+      document.getElementById("issuesContainer").innerHTML =
+        `<div class="empty">${err}</div>`;
+    });
+  </script>
+</body>
+</html>

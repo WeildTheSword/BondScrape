@@ -1,0 +1,45 @@
+{
+  "issue": "Virginia HDA, VA Rental Housing Bonds, 2026 Series A-Non-AMT",
+  "concatenated_doc_types": "Prelim | NOS | BSM",
+  "documents": [
+    {
+      "date": "03/05/2026",
+      "issue": "Virginia HDA, VA Rental Housing Bonds, 2026 Series A-Non-AMT",
+      "manager_fa": "---------- (FA)",
+      "par_amt": "17,860,000.00",
+      "doc_type": "Prelim",
+      "type": "Comp",
+      "size_mb": "2.22",
+      "source_href": "/api/PdfDownload/101240?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101240?action=Get",
+      "file_name": "01_Prelim.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/05/2026",
+      "issue": "Virginia HDA, VA Rental Housing Bonds, 2026 Series A-Non-AMT",
+      "manager_fa": "---------- (FA)",
+      "par_amt": "17,860,000.00",
+      "doc_type": "NOS",
+      "type": "Comp",
+      "size_mb": ".26",
+      "source_href": "/api/PdfDownload/101241?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101241?action=Get",
+      "file_name": "02_NOS.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/05/2026",
+      "issue": "Virginia HDA, VA Rental Housing Bonds, 2026 Series A-Non-AMT",
+      "manager_fa": "---------- (FA)",
+      "par_amt": "17,860,000.00",
+      "doc_type": "BSM",
+      "type": "Comp",
+      "size_mb": ".48",
+      "source_href": "/api/PdfDownload/101242?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101242?action=Get",
+      "file_name": "03_BSM.pdf",
+      "status": "downloaded"
+    }
+  ]
+}

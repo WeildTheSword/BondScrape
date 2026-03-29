@@ -1,0 +1,45 @@
+{
+  "issue": "Township HSD No. 202, IL GO & GO Ltd Tax School Bonds, Series 2026A&B",
+  "concatenated_doc_types": "Prelim | NOS | NOS 2",
+  "documents": [
+    {
+      "date": "03/10/2026",
+      "issue": "Township HSD No. 202, IL GO & GO Ltd Tax School Bonds, Series 2026A&B",
+      "manager_fa": "Raymond James (FA)",
+      "par_amt": "29,615,000.00",
+      "doc_type": "Prelim",
+      "type": "Comp",
+      "size_mb": "3.12",
+      "source_href": "/api/PdfDownload/101293?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101293?action=Get",
+      "file_name": "01_Prelim.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/10/2026",
+      "issue": "Township HSD No. 202, IL GO & GO Ltd Tax School Bonds, Series 2026A&B",
+      "manager_fa": "Raymond James (FA)",
+      "par_amt": "29,615,000.00",
+      "doc_type": "NOS",
+      "type": "Comp",
+      "size_mb": ".26",
+      "source_href": "/api/PdfDownload/101294?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101294?action=Get",
+      "file_name": "02_NOS.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/10/2026",
+      "issue": "Township HSD No. 202, IL GO & GO Ltd Tax School Bonds, Series 2026A&B",
+      "manager_fa": "Raymond James (FA)",
+      "par_amt": "29,615,000.00",
+      "doc_type": "NOS 2",
+      "type": "Comp",
+      "size_mb": ".26",
+      "source_href": "/api/PdfDownload/101295?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101295?action=Get",
+      "file_name": "03_NOS_2.pdf",
+      "status": "downloaded"
+    }
+  ]
+}

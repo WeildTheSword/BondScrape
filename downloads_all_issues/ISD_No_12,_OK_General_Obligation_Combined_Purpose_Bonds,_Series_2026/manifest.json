@@ -1,0 +1,32 @@
+{
+  "issue": "ISD No. 12, OK General Obligation Combined Purpose Bonds, Series 2026",
+  "concatenated_doc_types": "Prelim | NOS",
+  "documents": [
+    {
+      "date": "03/10/2026",
+      "issue": "ISD No. 12, OK General Obligation Combined Purpose Bonds, Series 2026",
+      "manager_fa": "BOK Financial Securities, Inc. (FA)",
+      "par_amt": "45,200,000.00",
+      "doc_type": "Prelim",
+      "type": "Comp",
+      "size_mb": "21.09",
+      "source_href": "/api/PdfDownload/101277?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101277?action=Get",
+      "file_name": "01_Prelim.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/10/2026",
+      "issue": "ISD No. 12, OK General Obligation Combined Purpose Bonds, Series 2026",
+      "manager_fa": "BOK Financial Securities, Inc. (FA)",
+      "par_amt": "45,200,000.00",
+      "doc_type": "NOS",
+      "type": "Comp",
+      "size_mb": ".28",
+      "source_href": "/api/PdfDownload/101278?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101278?action=Get",
+      "file_name": "02_NOS.pdf",
+      "status": "downloaded"
+    }
+  ]
+}

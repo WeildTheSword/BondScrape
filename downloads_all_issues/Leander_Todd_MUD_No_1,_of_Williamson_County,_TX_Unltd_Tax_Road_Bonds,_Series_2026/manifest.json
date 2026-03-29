@@ -1,0 +1,32 @@
+{
+  "issue": "Leander Todd MUD No. 1, of Williamson County, TX Unltd Tax Road Bonds, Series 2026",
+  "concatenated_doc_types": "Prelim | Moodys",
+  "documents": [
+    {
+      "date": "03/04/2026",
+      "issue": "Leander Todd MUD No. 1, of Williamson County, TX Unltd Tax Road Bonds, Series 2026",
+      "manager_fa": "Specialized Public Finance Inc. (FA)",
+      "par_amt": "3,000,000.00",
+      "doc_type": "Prelim",
+      "type": "Comp",
+      "size_mb": "3.31",
+      "source_href": "/api/PdfDownload/101233?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101233?action=Get",
+      "file_name": "01_Prelim.pdf",
+      "status": "downloaded"
+    },
+    {
+      "date": "03/04/2026",
+      "issue": "Leander Todd MUD No. 1, of Williamson County, TX Unltd Tax Road Bonds, Series 2026",
+      "manager_fa": "Specialized Public Finance Inc. (FA)",
+      "par_amt": "3,000,000.00",
+      "doc_type": "Moodys",
+      "type": "Comp",
+      "size_mb": ".05",
+      "source_href": "/api/PdfDownload/101234?action=Get",
+      "resolved_pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101234?action=Get",
+      "file_name": "02_Moodys.pdf",
+      "status": "downloaded"
+    }
+  ]
+}
