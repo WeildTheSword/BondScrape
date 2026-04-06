@@ -1,0 +1,70 @@
+{
+  "firm_name": "National Municipal Securities",
+  "firm_description": "Large national underwriter with offices in 15 states. Broad coverage across all issuer types and bond structures. Deep institutional and retail distribution. Frequently leads syndicates on $100M+ deals.",
+
+  "sector_coverage": {
+    "states": ["TX", "CA", "NY", "FL", "IL", "PA", "OH", "GA", "NC", "NJ", "VA", "TN", "MA", "WA", "CO", "AZ", "MN", "MO", "MD", "CT", "OR", "OK", "UT", "ME"],
+    "issuer_types": [
+      "state", "county", "city", "town", "school_district",
+      "independent_school_district", "special_district",
+      "authority", "municipal_utility_district", "regional_school_unit"
+    ],
+    "bond_types": [
+      "go_unlimited_tax", "go_limited_tax", "revenue",
+      "certificate_of_obligation", "tax_increment",
+      "bond_anticipation_note", "assessment"
+    ],
+    "strategic_priorities": [
+      "Maintain top-5 market share nationally",
+      "Grow state authority and housing revenue bond business",
+      "Expand taxable municipal bond capabilities"
+    ],
+    "sectors_exiting": []
+  },
+
+  "capital_limits": {
+    "max_single_commitment_dollars": 500000000,
+    "max_total_inventory_dollars": 2000000000,
+    "current_inventory_dollars": 450000000,
+    "max_concurrent_bids": 15,
+    "good_faith_deposit_capacity_dollars": 50000000
+  },
+
+  "distribution_profile": {
+    "strength": "both",
+    "retail_reach": "Strong — 200+ broker-dealer accounts nationwide",
+    "institutional_reach": "Very strong — 300+ insurance companies, pension funds, mutual funds, hedge funds",
+    "bank_qualified_demand": "Strong — large network of community and regional banks",
+    "taxable_demand": "Strong — dedicated taxable muni desk with institutional accounts",
+    "sweet_spot_maturity_range": "1-30+ years",
+    "difficulty_maturity_range": "None — full curve distribution",
+    "sweet_spot_par_range": "$25M-$500M"
+  },
+
+  "current_pipeline": {
+    "deals_in_review": 8,
+    "upcoming_bids": [
+      {
+        "issue": "State of Illinois GO Bonds",
+        "sale_date": "2026-04-20",
+        "par_amount": 300000000
+      },
+      {
+        "issue": "NYC Transitional Finance Authority",
+        "sale_date": "2026-04-22",
+        "par_amount": 750000000
+      }
+    ],
+    "analyst_availability": {
+      "total_analysts": 12,
+      "available_analysts": 7,
+      "pos_review_days_needed": 2
+    }
+  },
+
+  "bidding_capabilities": {
+    "platforms": ["parity", "grant_street"],
+    "basis_of_award_experience": ["nic", "tic", "net_effective_rate"],
+    "notes": "Full capabilities across all structures and jurisdictions"
+  }
+}

@@ -40,6 +40,14 @@ DEMO_PROFILES = [
     FIRM_PROFILES_DIR / "northeast_institutional.json",
 ]
 
+# Extended profiles for --multi mode
+ALL_PROFILES = [
+    FIRM_PROFILES_DIR / "texas_regional.json",
+    FIRM_PROFILES_DIR / "northeast_institutional.json",
+    FIRM_PROFILES_DIR / "national_large.json",
+    FIRM_PROFILES_DIR / "small_boutique.json",
+]
+
 
 def load_json(path: str) -> dict:
     with open(path, "r", encoding="utf-8") as f:
@@ -278,11 +286,35 @@ def _generate_demo_votes(nos_json: dict, firm_profile: dict) -> list[dict]:
         })
 
     # Agent 5: Calendar
-    votes.append({
-        "agent": "calendar", "vote": "interested", "confidence": 0.82,
-        "rationale": "Sufficient time and analyst availability.",
-        "conditions": []
-    })
+    available_analysts = firm_profile.get("current_pipeline", {}).get(
+        "analyst_availability", {}).get("available_analysts", 1)
+    max_concurrent = firm_profile.get("capital_limits", {}).get("max_concurrent_bids", 5)
+    upcoming_count = len(firm_profile.get("current_pipeline", {}).get("upcoming_bids", []))
+
+    if available_analysts == 0:
+        votes.append({
+            "agent": "calendar", "vote": "pass", "confidence": 0.9,
+            "rationale": "No analysts available for POS review.",
+            "conditions": []
+        })
+    elif upcoming_count >= max_concurrent:
+        votes.append({
+            "agent": "calendar", "vote": "pass", "confidence": 0.85,
+            "rationale": f"Pipeline full: {upcoming_count} bids already at {max_concurrent} max concurrent.",
+            "conditions": []
+        })
+    elif upcoming_count >= max_concurrent - 1:
+        votes.append({
+            "agent": "calendar", "vote": "conditional", "confidence": 0.6,
+            "rationale": f"{upcoming_count} bids in pipeline, approaching {max_concurrent} max.",
+            "conditions": ["Confirm analyst availability before committing"]
+        })
+    else:
+        votes.append({
+            "agent": "calendar", "vote": "interested", "confidence": 0.82,
+            "rationale": "Sufficient time and analyst availability.",
+            "conditions": []
+        })
 
     return votes
 
@@ -295,7 +327,8 @@ def run_multi_scenario_demo():
     from consensus import compute_consensus
 
     scenarios = _get_demo_scenarios()
-    profiles = [load_json(str(p)) for p in DEMO_PROFILES]
+    available = [p for p in ALL_PROFILES if p.exists()]
+    profiles = [load_json(str(p)) for p in available]
 
     print(f"\n{'#' * 70}")
     print("MULTI-SCENARIO NOS SCREENING DEMO")

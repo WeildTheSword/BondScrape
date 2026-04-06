@@ -1,0 +1,63 @@
+{
+  "firm_name": "Magnolia Capital Advisors",
+  "firm_description": "Small boutique underwriter focused exclusively on Tennessee and neighboring states. Strong local relationships with school districts and small cities. Retail-only distribution through local bank network. Cannot handle large or complex deals.",
+
+  "sector_coverage": {
+    "states": ["TN", "KY", "AL", "MS"],
+    "issuer_types": [
+      "city", "town", "county", "school_district"
+    ],
+    "bond_types": [
+      "go_unlimited_tax", "go_limited_tax"
+    ],
+    "strategic_priorities": [
+      "Deepen Tennessee school district relationships",
+      "Expand into small city GO market in KY and AL"
+    ],
+    "sectors_exiting": [
+      "Revenue bonds — too complex for current team",
+      "Anything requiring institutional distribution"
+    ]
+  },
+
+  "capital_limits": {
+    "max_single_commitment_dollars": 10000000,
+    "max_total_inventory_dollars": 20000000,
+    "current_inventory_dollars": 8500000,
+    "max_concurrent_bids": 2,
+    "good_faith_deposit_capacity_dollars": 500000
+  },
+
+  "distribution_profile": {
+    "strength": "retail",
+    "retail_reach": "Moderate — 15 Tennessee community banks and credit unions",
+    "institutional_reach": "None — no institutional accounts",
+    "bank_qualified_demand": "Very strong — local banks actively seek BQ paper",
+    "taxable_demand": "None — no taxable investor base",
+    "sweet_spot_maturity_range": "1-10 years",
+    "difficulty_maturity_range": "15+ years",
+    "sweet_spot_par_range": "$500K-$8M"
+  },
+
+  "current_pipeline": {
+    "deals_in_review": 1,
+    "upcoming_bids": [
+      {
+        "issue": "Coffee County Schools, TN GO",
+        "sale_date": "2026-04-18",
+        "par_amount": 3200000
+      }
+    ],
+    "analyst_availability": {
+      "total_analysts": 1,
+      "available_analysts": 0,
+      "pos_review_days_needed": 5
+    }
+  },
+
+  "bidding_capabilities": {
+    "platforms": ["parity"],
+    "basis_of_award_experience": ["tic"],
+    "notes": "Limited to simple GO structures. No NIC or net effective rate experience."
+  }
+}
