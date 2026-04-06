@@ -22,6 +22,25 @@ import os
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# ── Confidence Calibration (appended to all agent system prompts) ──
+
+CONFIDENCE_CALIBRATION = """
+CONFIDENCE CALIBRATION:
+- 0.9-1.0: Clear-cut, unambiguous. The data directly supports your vote with no caveats.
+  Example: State is not in coverage map → Pass at 0.95.
+- 0.7-0.89: Strong signal but some uncertainty. Most indicators point one way.
+  Example: Par amount is within limits but uses 80% of remaining capacity → Interested at 0.75.
+- 0.5-0.69: Genuinely uncertain. Arguments exist for multiple outcomes.
+  Example: Deal is in an adjacent sector the firm might be expanding into → Conditional at 0.6.
+- 0.3-0.49: Weak signal. Leaning one way but could easily be wrong.
+  Example: Complex constraint combo that might work with creative structuring → Conditional at 0.4.
+- 0.0-0.29: Very uncertain. Flagging for human review.
+
+A Pass vote at 0.8+ triggers a HARD VETO — the deal is killed regardless of other agents.
+Only use 0.8+ confidence on Pass when you are certain the deal should not proceed.
+A Pass at 0.6 means "I'm concerned but a human should decide."
+"""
+
 # ── Agent Definitions ──────────────────────────────────────────────
 
 AGENT_DEFINITIONS = {
@@ -283,12 +302,12 @@ def run_agent_anthropic(
     nos_fields = extract_agent_nos_fields(nos_json, agent_def["nos_fields"])
     firm_fields = extract_agent_firm_fields(firm_profile, agent_def["firm_fields"])
 
-    # Build system prompt
+    # Build system prompt with confidence calibration
     system = agent_def["system_prompt"].format(
         firm_name=firm_profile.get("firm_name", "the firm"),
         firm_description=firm_profile.get("firm_description", ""),
         today=date.today().isoformat()
-    )
+    ) + CONFIDENCE_CALIBRATION
 
     # Build user message
     user_msg = f"""Here are the relevant NOS fields for your evaluation:
