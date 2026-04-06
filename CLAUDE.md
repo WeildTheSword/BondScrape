@@ -151,10 +151,35 @@ The pipeline runs as a sequence of scripts, each producing JSON consumed by the 
 
 Separate from the general PDF parsing pipeline above. All NOS-specific code and data lives under `NOS/`:
 
-- `NOS/nos_parsing/generate_reading_script.py` — Structural analysis of PDFs. Detects headers (bold), tables (column gaps), paragraphs, footnotes, form fields. Generates a "reading script" used for page routing (deciding which pages to send to a model for each field).
-- `NOS/nos_parsing/vision_extract.py` — Vision-based field extraction prototype. Uses reading scripts to route fields to relevant pages, renders pages as images, sends to a vision-capable LLM. Supports Anthropic and OpenAI-compatible APIs.
+#### Parsing Utilities (`NOS/nos_parsing/`)
+- `generate_reading_script.py` — Structural analysis of PDFs. Detects headers (bold), tables (column gaps), paragraphs, footnotes, form fields. Generates a "reading script" used for page routing.
+- `vision_extract.py` — Vision-based field extraction prototype. Uses reading scripts to route fields to relevant pages, renders pages as images, sends to a vision-capable LLM.
 
-Test data and ground truth files are in `NOS/nos_test_set/` (10 diverse NOS PDFs, manifest, reading scripts, ground truth files). See `NOS/nos_test_set/INSTRUCTIONS.md` for the full validation plan and ground truth file format.
+#### Extraction Pipeline (`NOS/nos_extraction/`)
+- `schema.py` — Full 55-feature JSON schema across 10 categories (issuer, bond ID, sale logistics, maturity, coupons, bid evaluation, redemption, delivery, credit, legal, bidder obligations). Includes `FIELD_AGENT_MAP` mapping fields to consuming agents and `get_schema_for_prompt()` helper.
+- `extract_text.py` — Text extraction using `pdftotext -layout` (primary) with `pypdf` fallback. CLI: `python3 extract_text.py nos.pdf`
+- `llm_extract.py` — LLM structured extraction. Sends full NOS text + JSON schema to Claude/OpenAI API, parses response, runs validation, retries on failure. CLI: `python3 llm_extract.py nos.pdf [--provider anthropic|openai]`
+- `validate.py` — Deterministic validation checks: par amount == maturity sum, GFD math, call date after dated date, maturity count, date reasonableness. CLI: `python3 validate.py extraction.json`
+- `evaluate.py` — Evaluation harness comparing extraction output against ground truth. Field-level weighted accuracy, batch mode, ground truth validator. CLI: `python3 evaluate.py --validate-gt ground_truth/`
+
+#### Agent Screening Pipeline (`NOS/nos_agents/`)
+- `agents.py` — 5 screening agents (Sector Fit, Size & Capital, Structure, Distribution, Calendar). Each has a system prompt, reads specific NOS fields + firm context, runs in parallel via ThreadPoolExecutor.
+- `consensus.py` — Deterministic consensus: (1) Pass >= 0.8 confidence = hard veto, (2) all Interested = INTERESTED, (3) mixed = CONDITIONAL with conditions, (4) multiple low-confidence Pass = CONDITIONAL with escalation flag.
+
+#### Firm Profiles (`NOS/firm_profiles/`)
+- `texas_regional.json` — Lone Star Municipal Partners: TX-focused, $25M max, retail-strong
+- `northeast_institutional.json` — Atlantic Capital Markets: NE/Mid-Atlantic, $100M max, institutional-strong
+
+#### Pipeline Runners
+- `NOS/run_screening.py` — End-to-end: text extraction → LLM extraction → validation → 5 agents → consensus. Supports PDF, pre-extracted JSON, or dry-run. CLI: `python3 run_screening.py nos.pdf --firm firm_profiles/texas_regional.json`
+- `NOS/demo_compare.py` — Side-by-side comparison of same NOS with two firm profiles, showing consensus flip. CLI: `python3 demo_compare.py --dry-run`
+
+#### Test Data (`NOS/nos_test_set/`)
+- 10 diverse NOS PDFs from 8 states, $600K-$605M par range
+- `manifest.json` — Index of all test PDFs with metadata
+- `reading_scripts/` — Structural reading scripts for each PDF
+- `ground_truth/` — 10 validated ground truth JSON files matching the extraction schema (all pass validation checks)
+- `INSTRUCTIONS.md` — Full validation plan and ground truth file format
 
 Pipeline:
 
@@ -165,7 +190,7 @@ Pipeline:
 5. **Retry on validation failure**: Re-send with specific error message if checks fail
 6. **Output**: Validated JSON matching the NOS extraction schema
 
-### NOS Agent Screening Pipeline (new)
+### NOS Agent Screening Pipeline
 
 1. **Input**: Validated NOS JSON + Firm Profile JSON
 2. **Parallel agent calls**: 5 independent Claude API calls, each with agent-specific system prompt + relevant NOS fields + relevant firm context
@@ -178,8 +203,9 @@ Pipeline:
 ```bash
 # Setup
 python3 -m venv .venv && source .venv/bin/activate
-pip install playwright requests pypdf fastapi jinja2 uvicorn
+pip install playwright requests pypdf fastapi jinja2 uvicorn anthropic
 python3 -m playwright install
+sudo apt-get install poppler-utils    # For pdftotext -layout
 
 # Scraping pipeline
 python3 iprospectus_scraper/scraper_linkpull.py    # Scrape metadata (needs browser/auth)
@@ -187,6 +213,20 @@ python3 iprospectus_scraper/build_issue_index.py   # Group by issue
 # POS extraction
 python3 POS/parse_remote_pdfs.py         # Parse POS PDFs (set LLM_API_KEY, LLM_MODEL env vars for LLM mode)
 python3 POS/aggregate_issue_features.py  # Aggregate fields across docs
+
+# NOS extraction pipeline
+export ANTHROPIC_API_KEY=sk-...
+python3 NOS/nos_extraction/llm_extract.py NOS/nos_test_set/NOS_Test_PDFs/01_Harris_County_MUD_No_182,_TX_Unlimited_Tax_Bonds,_Srs_2026.pdf
+python3 NOS/nos_extraction/validate.py output.json           # Validate extraction
+python3 NOS/nos_extraction/evaluate.py --validate-gt NOS/nos_test_set/ground_truth/  # Validate ground truth
+
+# NOS agent screening
+python3 NOS/run_screening.py nos.pdf --firm NOS/firm_profiles/texas_regional.json       # Full pipeline
+python3 NOS/run_screening.py --nos-json extracted.json --firm NOS/firm_profiles/texas_regional.json  # From JSON
+python3 NOS/run_screening.py --dry-run --firm NOS/firm_profiles/texas_regional.json     # Dry run
+
+# NOS demo (consensus flip)
+python3 NOS/demo_compare.py --dry-run   # Side-by-side comparison with sample data
 
 # Serve
 python3 -m http.server 8000         # Static UI at localhost:8000
