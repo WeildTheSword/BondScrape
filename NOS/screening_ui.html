@@ -802,7 +802,7 @@ body::before {
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#555555" stroke-width="1.5"><path d="M6 2h14l6 6v22H6V2z"/><path d="M20 2v6h6"/><path d="M12 18v-6M9 15l3-3 3 3"/></svg>
       </div>
       <div class="dz-text">
-        <strong>Drop a NOS PDF</strong> or select a document from the sidebar<br>
+        <strong>Drop a NOS PDF here</strong> (.pdf only) or select from the sidebar<br>
         Drag and drop triggers the full extraction pipeline
       </div>
       <input type="file" id="file-input" accept=".pdf">
@@ -1988,6 +1988,7 @@ async function typeText(el, text, ctrl, speed = 15) {
 const dropZone = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
 
+fileInput.setAttribute('accept', '.pdf,application/pdf');
 dropZone.addEventListener('click', () => fileInput.click());
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
@@ -2002,35 +2003,75 @@ function handleDrop(e) {
 }
 
 function handleFile(file) {
+  // Reject non-PDF files
+  if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
+    dropZone.querySelector('.dz-text').innerHTML = `<strong style="color:var(--red)">Not a PDF file</strong><br>Please drop a NOS PDF document (.pdf)`;
+    setTimeout(() => {
+      dropZone.querySelector('.dz-text').innerHTML = `<strong>Drop a NOS PDF here</strong> (.pdf only) or select from the sidebar<br>Drag and drop triggers the full extraction pipeline`;
+    }, 3000);
+    return;
+  }
+
   dropZone.classList.add('has-file');
   dropZone.querySelector('.dz-icon').innerHTML = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#f0f0f0" stroke-width="1.5"><path d="M6 2h14l6 6v22H6V2z"/><path d="M20 2v6h6"/><path d="M10 18h12M10 22h8"/></svg>';
-  dropZone.querySelector('.dz-text').innerHTML = `<strong>${file.name}</strong><br>Processing...`;
+  dropZone.querySelector('.dz-text').innerHTML = `<strong>${file.name}</strong><br>Matching to test set...`;
 
   // Try to match to a ground truth doc by filename
-  const fname = file.name.toLowerCase();
+  const fname = file.name.toLowerCase().replace(/[^a-z0-9]/g, '');
   let matchIdx = -1;
+  let matchName = '';
+
+  // Match by source_pdf field
   DEALS.forEach((d, i) => {
-    const src = (safeGet(d, 'source_pdf', '') || '').toLowerCase();
-    if (src && fname.includes(src.split('.')[0].substring(0, 15).toLowerCase())) matchIdx = i;
+    const src = (safeGet(d, 'source_pdf', '') || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (src && (fname.includes(src.substring(0, 20)) || src.includes(fname.substring(0, 20)))) {
+      matchIdx = i;
+      matchName = safeGet(d, 'issuer.name', '');
+    }
   });
-  // Also try by extracted text filename prefix
+
+  // Match by issuer name keywords
   if (matchIdx < 0) {
-    EXTRACTED_TEXT_FILES.forEach((f, i) => {
-      if (fname.includes(f.substring(0, 10).toLowerCase())) matchIdx = i;
+    DEALS.forEach((d, i) => {
+      const issuer = (safeGet(d, 'issuer.name', '') || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const keywords = issuer.split('').filter(c => c.match(/[a-z]/)).join('');
+      // Check if significant portion of issuer name appears in filename
+      const issuerWords = safeGet(d, 'issuer.name', '').toLowerCase().split(/\s+/);
+      const matches = issuerWords.filter(w => w.length > 3 && fname.includes(w.replace(/[^a-z0-9]/g, '')));
+      if (matches.length >= 2) {
+        matchIdx = i;
+        matchName = safeGet(d, 'issuer.name', '');
+      }
     });
   }
-  // Default to first doc if no match
-  if (matchIdx < 0 && DEALS.length > 0) matchIdx = 0;
 
-  if (matchIdx >= 0) {
-    selectedDeal = matchIdx;
-    renderDealList();
-    if (selectedFirm === null && FIRMS.length > 0) { selectedFirm = 0; renderFirms(); }
-    if (animationAbort) animationAbort.abort = true;
-    const ctrl = {abort: false};
-    animationAbort = ctrl;
-    runFullPipeline(ctrl, true);
+  // Match by extracted text filenames
+  if (matchIdx < 0) {
+    EXTRACTED_TEXT_FILES.forEach((f, i) => {
+      const clean = f.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (fname.includes(clean.substring(0, 15)) || clean.includes(fname.substring(0, 15))) {
+        matchIdx = i;
+        if (DEALS[i]) matchName = safeGet(DEALS[i], 'issuer.name', '');
+      }
+    });
   }
+
+  if (matchIdx < 0) {
+    // No match found
+    dropZone.querySelector('.dz-text').innerHTML = `<strong>${file.name}</strong><br><span style="color:var(--red)">No matching document in test set</span><br><span style="color:var(--white-muted);font-size:11px">Select a document from the sidebar instead</span>`;
+    dropZone.classList.remove('has-file');
+    return;
+  }
+
+  dropZone.querySelector('.dz-text').innerHTML = `<strong>${file.name}</strong><br>Matched: ${matchName}`;
+
+  selectedDeal = matchIdx;
+  renderDealList();
+  if (selectedFirm === null && FIRMS.length > 0) { selectedFirm = 0; renderFirms(); }
+  if (animationAbort) animationAbort.abort = true;
+  const ctrl = {abort: false};
+  animationAbort = ctrl;
+  runFullPipeline(ctrl, true);
 }
 
 // ── MATRIX VIEW ────────────────────────────
