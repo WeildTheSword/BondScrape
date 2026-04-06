@@ -143,3 +143,61 @@ All pass validation (par sum, field presence, date logic).
 
 ### NOS Test Set Coverage
 - Could add more diverse NOS documents (housing authority with complex call provisions, very large state GO, tax increment financing, etc.)
+
+---
+
+## Session 3 — April 6, 2026
+
+### Summary
+Full integration session: connected the scraper pipeline to the screening UI, added live Claude API streaming for agents, and built the scraper dashboard as a new page in the BondScrape website.
+
+### Completed
+
+#### 16. Live Agent API Streaming (`NOS/screening_ui.html`)
+- Agents now call the Anthropic API directly from the browser when live mode is enabled
+- Full streaming support: raw JSON tokens appear in real time in each agent's reasoning chain area as Claude generates the response
+- Uses `stream: true` with SSE parsing (`content_block_delta` events)
+- System prompts mirror the Python agent definitions exactly (sector fit, size/capital, structure, distribution, calendar) including confidence calibration
+- Each agent lights up its input fields, streams the response, then reveals parsed vote/rationale/confidence with stamp animation
+- Agents run sequentially so the user sees each one reason through the deal in order
+- Fallback to local heuristic votes when API key is not configured
+
+#### 17. Scraper Dashboard (`NOS/scraper.html`)
+- New page with two-step gate screen on entry:
+  - Step 1: "Scrape new issues or browse existing?" — Launch Scraper or Proceed without scraping
+  - Step 2: Source selection cards — S&P Global i-dealprospectus (active, selectable) and Grant Street Group (coming soon, disabled)
+- Two portal cards showing S&P i-deal (blue logo, "Active" badge) and Grant Street (green logo, "Coming Soon" badge)
+- Full launch panel: Launch Scraper button fires Playwright scraper via SSE with live console output, Stop button, Build Index button to run `build_issue_index.py`
+- "Last fired" timestamp persisted in localStorage, shown on gate screen and launch panel
+- Issue browser table: 339 scraped issues with search, filter (Competitive/Has NOS/Negotiated), sortable columns
+- Source tags on every issuer name ("S&P i-deal" blue tag, "Grant Street" green tag for future)
+- Expandable issue rows showing document cards with type badges, parse status, View PDF and Screen This NOS buttons
+- Screening status badges on NOS documents (unscreened/interested/conditional/pass) reading from localStorage consensus results
+- Bulk selection with Push to Screening functionality
+
+#### 18. FastAPI Backend Scraper API (`app.py`)
+- `GET /api/scraper/status` — returns running state, raw row count, issue count
+- `GET /api/scraper/launch` — launches `scraper_linkpull.py` as async subprocess, streams stdout/stderr as SSE events
+- `GET /api/scraper/build-index` — launches `build_issue_index.py` with SSE streaming
+- `POST /api/scraper/stop` — terminates running scraper process
+- Static file mounts: `/NOS/` serves the website, `/prospectus_json/` serves scraper data
+- Site now runs entirely through FastAPI (`uvicorn app:app`) instead of separate static server
+
+#### 19. Scraped Deal Integration in Screening UI
+- Screening sidebar now has two sections: "Test Set" (10 ground truth deals) and "Scraped NOS" (competitive sales with NOS documents from issues_master.json)
+- Filter buttons: All / Unscreened / Screened
+- Each scraped deal shows consensus badge from localStorage
+- Clicking a scraped deal creates a placeholder NOS JSON from metadata and loads it into the screening pipeline
+- Consensus results saved to localStorage after screening completes, updating badges on both scraper and screening pages
+- `guessIssuerType()` heuristic derives issuer type from issue name for scraped deals
+
+#### 20. Navigation Updates
+- "Scraper" tab added to all 5 pages (index.html, screening_ui.html, pipeline.html, firms.html, scraper.html)
+- Consistent SVG icon for the Scraper nav link across all pages
+
+### Architecture Notes
+- The scraper page fetches `issues_master.json` from `/prospectus_json/scraper_output/` (served by FastAPI static mount)
+- Consensus results are keyed by `issue_slug` → `firm_name` in localStorage (`nos_consensus_results`)
+- Scrape timestamps are stored in localStorage (`nos_scrape_timestamps`) keyed by source (`idp`, `gs`)
+- The gate screen checks localStorage for previous scrape timestamps to show "Last scraped: ..." or "No previous scrape recorded"
+- Grant Street integration is scaffolded (source card, CSS, toggle logic) but disabled — ready for scraper implementation
