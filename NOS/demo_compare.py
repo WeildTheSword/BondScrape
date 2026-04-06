@@ -319,14 +319,14 @@ def _generate_demo_votes(nos_json: dict, firm_profile: dict) -> list[dict]:
     return votes
 
 
-def run_multi_scenario_demo():
+def run_multi_scenario_demo(all_gt: bool = False):
     """
-    Run multiple NOS scenarios through both firm profiles.
+    Run multiple NOS scenarios through all firm profiles.
     Shows how different deal characteristics produce different outcomes.
     """
     from consensus import compute_consensus
 
-    scenarios = _get_demo_scenarios()
+    scenarios = _get_demo_scenarios(all_gt=all_gt)
     available = [p for p in ALL_PROFILES if p.exists()]
     profiles = [load_json(str(p)) for p in available]
 
@@ -376,12 +376,12 @@ def run_multi_scenario_demo():
     print(f"{'#' * 70}\n")
 
 
-def _get_demo_scenarios() -> dict:
+def _get_demo_scenarios(all_gt: bool = False) -> dict:
     """Load demo scenarios from ground truth files if available, else use embedded samples."""
     gt_dir = Path(__file__).parent / "nos_test_set" / "ground_truth"
     scenarios = {}
 
-    # Try to load a diverse subset from ground truth
+    # Diverse subset from ground truth (6 of 10)
     picks = [
         ("01", "TX MUD $2.9M GO"),
         ("03", "NJ Borough $15.2M BAN"),
@@ -390,6 +390,20 @@ def _get_demo_scenarios() -> dict:
         ("09", "VA Authority $17.9M Revenue"),
         ("10", "TN Metro $204.6M GO"),
     ]
+    if all_gt:
+        # Use all 10 ground truth files
+        picks = [
+            ("01", "TX MUD $2.9M GO"),
+            ("02", "OK ISD $600K GO"),
+            ("03", "NJ Borough $15.2M BAN"),
+            ("04", "TN City $22.5M GO"),
+            ("05", "UT City $5.6M Revenue"),
+            ("06", "ME School $50.8M GO"),
+            ("07", "IL School $51.7M GO"),
+            ("08", "CA City $87.7M Taxable GO"),
+            ("09", "VA Authority $17.9M Revenue"),
+            ("10", "TN Metro $204.6M GO"),
+        ]
 
     for prefix, label in picks:
         gt_file = gt_dir / f"{prefix}_ground_truth.json"
@@ -415,11 +429,12 @@ def main():
     parser.add_argument("--firm", action="append", help="Firm profile JSON (can repeat)")
     parser.add_argument("--provider", choices=["anthropic", "openai"], default="anthropic")
     parser.add_argument("--dry-run", action="store_true", help="Use sample data")
-    parser.add_argument("--multi", action="store_true", help="Run all demo scenarios")
+    parser.add_argument("--multi", action="store_true", help="Run 6 demo scenarios")
+    parser.add_argument("--all", action="store_true", help="Run all 10 ground truth scenarios")
     args = parser.parse_args()
 
-    if args.multi:
-        run_multi_scenario_demo()
+    if args.multi or args.all:
+        run_multi_scenario_demo(all_gt=args.all)
         return
 
     if not args.pdf and not args.nos_json and not args.dry_run:
