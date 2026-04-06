@@ -287,8 +287,14 @@ body::before {
 .feature-card:hover { background:var(--surface); }
 .feature-num {
   font-family:var(--mono); font-size:11px; color:var(--white-muted);
-  margin-bottom:16px;
+  margin-bottom:12px;
 }
+.feature-icon {
+  width:32px; height:32px; color:var(--white-dim); margin-bottom:14px;
+  display:block;
+}
+.feature-card:hover .feature-icon { color:var(--white); }
+.feature-card:last-child .feature-icon { color:var(--red); }
 .feature-name { font-size:16px; font-weight:700; margin-bottom:8px; letter-spacing:-0.01em; }
 .feature-desc { font-size:13px; color:var(--white-dim); line-height:1.6; }
 
@@ -418,12 +424,42 @@ body::before {
     <div class="section-label">The Five Agents</div>
     <div class="section-title">Each agent answers one question. No agent sees another's vote.</div>
     <div class="feature-grid">
-      <div class="feature-card"><div class="feature-num">01</div><div class="feature-name">Sector Fit</div><div class="feature-desc">Is this our kind of deal? Evaluates issuer type, state, and bond type against the firm's coverage map and strategic priorities.</div></div>
-      <div class="feature-card"><div class="feature-num">02</div><div class="feature-name">Size &amp; Capital</div><div class="feature-desc">Can we afford this commitment? Compares par amount against capital limits, inventory position, and good faith deposit capacity.</div></div>
-      <div class="feature-card"><div class="feature-num">03</div><div class="feature-name">Structure</div><div class="feature-desc">Are the bidding rules workable? Purely technical&mdash;evaluates coupon constraints, basis of award, and maturity structure. No firm context needed.</div></div>
-      <div class="feature-card"><div class="feature-num">04</div><div class="feature-name">Distribution</div><div class="feature-desc">Can we sell these bonds? Assesses investor appetite by maturity, tax status, credit rating, and the firm's retail vs institutional strength.</div></div>
-      <div class="feature-card"><div class="feature-num">05</div><div class="feature-name">Calendar</div><div class="feature-desc">Do we have bandwidth? Checks analyst availability, pipeline capacity, and time to sale. The simplest agent&mdash;but its Pass is a hard veto.</div></div>
-      <div class="feature-card"><div class="feature-num" style="color:var(--red)">&mdash;</div><div class="feature-name">Consensus</div><div class="feature-desc">Deterministic Python. Not an LLM call. Any Pass at &ge;80% confidence kills the deal. Unanimous interested proceeds. Everything else surfaces conditions for human review.</div></div>
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+        <div class="feature-name">Sector Fit</div>
+        <div class="feature-desc">Is this our kind of deal? Evaluates issuer type, state, and bond type against the firm's coverage map and strategic priorities.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M7 7V5a5 5 0 0110 0v2"/><circle cx="12" cy="15" r="2"/><path d="M12 17v1"/></svg>
+        <div class="feature-name">Size &amp; Capital</div>
+        <div class="feature-desc">Can we afford this commitment? Compares par amount against capital limits, inventory position, and good faith deposit capacity.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        <div class="feature-name">Structure</div>
+        <div class="feature-desc">Are the bidding rules workable? Purely technical&mdash;evaluates coupon constraints, basis of award, and maturity structure. No firm context needed.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <div class="feature-name">Distribution</div>
+        <div class="feature-desc">Can we sell these bonds? Assesses investor appetite by maturity, tax status, credit rating, and the firm's retail vs institutional strength.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">05</div>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <div class="feature-name">Calendar</div>
+        <div class="feature-desc">Do we have bandwidth? Checks analyst availability, pipeline capacity, and time to sale. The simplest agent&mdash;but its Pass is a hard veto.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num" style="color:var(--red)">&mdash;</div>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        <div class="feature-name">Consensus</div>
+        <div class="feature-desc">Deterministic Python. Not an LLM call. Any Pass at &ge;80% confidence kills the deal. Unanimous interested proceeds. Everything else surfaces conditions for human review.</div>
+      </div>
     </div>
   </div>
 </div>
