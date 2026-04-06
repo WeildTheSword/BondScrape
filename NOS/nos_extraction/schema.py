@@ -107,7 +107,7 @@ NOS_EXTRACTION_SCHEMA = {
                 },
                 "bidding_platform": {
                     "type": ["string", "null"],
-                    "enum": ["parity", "grant_street", "other", null],
+                    "enum": ["parity", "grant_street", "other", None],
                     "description": "Electronic platform used to submit bids"
                 },
                 "bidding_platform_name": {
@@ -116,7 +116,7 @@ NOS_EXTRACTION_SCHEMA = {
                 },
                 "bid_format": {
                     "type": ["string", "null"],
-                    "enum": ["electronic_only", "written_fax_allowed", null],
+                    "enum": ["electronic_only", "written_fax_allowed", None],
                     "description": "How bids must be submitted"
                 },
                 "right_to_reject": {
@@ -212,12 +212,12 @@ NOS_EXTRACTION_SCHEMA = {
             "properties": {
                 "interest_payment_frequency": {
                     "type": ["string", "null"],
-                    "enum": ["semiannual", "annual", "other", null],
+                    "enum": ["semiannual", "annual", "other", None],
                     "description": "How often bondholders receive interest"
                 },
                 "interest_calculation_basis": {
                     "type": ["string", "null"],
-                    "enum": ["30_360", "actual_actual", "actual_360", null],
+                    "enum": ["30_360", "actual_actual", "actual_360", None],
                     "description": "Day-count convention for computing interest"
                 },
                 "coupon_rate_constraints": {
@@ -279,14 +279,14 @@ NOS_EXTRACTION_SCHEMA = {
                         },
                         "form": {
                             "type": ["string", "null"],
-                            "enum": ["wire_transfer", "certified_check", "cashiers_check", "surety_bond", "other", null],
+                            "enum": ["wire_transfer", "certified_check", "cashiers_check", "surety_bond", "other", None],
                             "description": "How the deposit must be submitted"
                         }
                     }
                 },
                 "premium_discount_permitted": {
                     "type": ["string", "null"],
-                    "enum": ["premium_allowed", "discount_allowed", "par_only", "both_allowed", null],
+                    "enum": ["premium_allowed", "discount_allowed", "par_only", "both_allowed", None],
                     "description": "Whether bidders may offer above or below par"
                 },
                 "minimum_bid_price": {
@@ -303,7 +303,7 @@ NOS_EXTRACTION_SCHEMA = {
                 },
                 "issue_price_requirements": {
                     "type": ["string", "null"],
-                    "enum": ["hold_the_offering_price", "10_percent_test", "competitive_sale_exception", null],
+                    "enum": ["hold_the_offering_price", "10_percent_test", "competitive_sale_exception", None],
                     "description": "IRS issue price regulation that applies"
                 }
             }
@@ -315,7 +315,7 @@ NOS_EXTRACTION_SCHEMA = {
             "properties": {
                 "optional_redemption": {
                     "type": ["string", "null"],
-                    "enum": ["callable", "non_callable", "make_whole_call", null],
+                    "enum": ["callable", "non_callable", "make_whole_call", None],
                     "description": "Whether the issuer may call bonds before maturity"
                 },
                 "first_call_date": {
@@ -343,7 +343,7 @@ NOS_EXTRACTION_SCHEMA = {
             "properties": {
                 "book_entry": {
                     "type": ["string", "null"],
-                    "enum": ["book_entry_only", "certificated", "both_available", null],
+                    "enum": ["book_entry_only", "certificated", "both_available", None],
                     "description": "Form in which bonds are issued"
                 },
                 "denomination": {
@@ -364,12 +364,12 @@ NOS_EXTRACTION_SCHEMA = {
                 },
                 "delivery_method": {
                     "type": ["string", "null"],
-                    "enum": ["dtc_fast", "physical_delivery", null],
+                    "enum": ["dtc_fast", "physical_delivery", None],
                     "description": "How bonds will be delivered"
                 },
                 "cusip": {
                     "type": ["string", "null"],
-                    "enum": ["assigned", "pending", "not_stated", null],
+                    "enum": ["assigned", "pending", "not_stated", None],
                     "description": "Whether CUSIP numbers have been assigned"
                 }
             }
@@ -385,7 +385,7 @@ NOS_EXTRACTION_SCHEMA = {
                 },
                 "bond_insurance": {
                     "type": ["string", "null"],
-                    "enum": ["insured", "bidder_option_to_insure", "uninsured", null],
+                    "enum": ["insured", "bidder_option_to_insure", "uninsured", None],
                     "description": "Whether credit enhancement through insurance is contemplated"
                 },
                 "insurance_provider_restrictions": {
@@ -413,12 +413,12 @@ NOS_EXTRACTION_SCHEMA = {
                 },
                 "legal_opinion_type": {
                     "type": ["string", "null"],
-                    "enum": ["unqualified", "qualified", null],
+                    "enum": ["unqualified", "qualified", None],
                     "description": "Form of the bond counsel opinion"
                 },
                 "continuing_disclosure": {
                     "type": ["string", "null"],
-                    "enum": ["full_compliance", "exempt", "not_stated", null],
+                    "enum": ["full_compliance", "exempt", "not_stated", None],
                     "description": "Whether issuer commits to ongoing disclosure per SEC Rule 15c2-12"
                 }
             }
@@ -430,7 +430,7 @@ NOS_EXTRACTION_SCHEMA = {
             "properties": {
                 "commitment_type": {
                     "type": ["string", "null"],
-                    "enum": ["firm_commitment", "best_efforts", null],
+                    "enum": ["firm_commitment", "best_efforts", None],
                     "description": "Nature of the underwriting commitment"
                 },
                 "reoffering_price_certification": {
@@ -439,12 +439,12 @@ NOS_EXTRACTION_SCHEMA = {
                 },
                 "official_statement_responsibility": {
                     "type": ["string", "null"],
-                    "enum": ["issuer_prepares", "winning_bidder_completes", null],
+                    "enum": ["issuer_prepares", "winning_bidder_completes", None],
                     "description": "Who bears responsibility for finalizing the OS"
                 },
                 "technology_risk_allocation": {
                     "type": ["string", "null"],
-                    "enum": ["bidder_assumes_all_risk", "shared", "not_stated", null],
+                    "enum": ["bidder_assumes_all_risk", "shared", "not_stated", None],
                     "description": "Who bears risk of electronic bid transmission failures"
                 },
                 "withdrawal_restrictions": {
