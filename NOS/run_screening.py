@@ -110,8 +110,14 @@ def run_pipeline(
 
     # ── Step 4: Run screening agents ────────────────────────────
     if dry_run:
-        print("\nDRY RUN: Using sample agent votes", file=sys.stderr)
-        votes = _sample_votes()
+        print("\nDRY RUN: Generating votes from NOS + firm profile", file=sys.stderr)
+        try:
+            sys.path.insert(0, str(Path(__file__).parent))
+            from demo_compare import _generate_demo_votes
+            votes = _generate_demo_votes(nos_json, firm_profile)
+        except ImportError:
+            print("  (demo_compare not available, using static sample)", file=sys.stderr)
+            votes = _sample_votes()
     else:
         print(f"\n{'─' * 60}", file=sys.stderr)
         print("RUNNING SCREENING AGENTS", file=sys.stderr)
