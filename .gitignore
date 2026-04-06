@@ -205,3 +205,13 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# BondScrape project-specific
+NOS/nos_test_set/extractions/
+*_screening_*.json
+*_nos_extract.json
+*_vision_extract.json
+demo_comparison.json
+screening_*.json
+prospectus_json/scraper_output/playwright_storage_state.json
+instructions.txt
