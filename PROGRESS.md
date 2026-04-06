@@ -1,8 +1,8 @@
 # Progress Report — NOS Extraction & Multi-Agent Screening Pipeline
 
 Branch: `claude-work`  
-Commits: 15 local commits (not pushed)  
-Lines added: ~12,000+ across 45+ files
+Commits: 21 local commits (not pushed)  
+Lines added: ~12,600+ across 49 files
 
 ## Completed
 
@@ -96,8 +96,8 @@ All pass validation (par sum, field presence, date logic).
   - Grid output showing deal characteristics vs. firm decisions
 
 ### 13. Self-Test Suite (`NOS/run_tests.py`)
-- 22 offline tests (no API key needed)
-- Covers: schema, validation (3 cases), consensus (4 rules), ground truth (10 files), evaluation harness, agent definitions, demo comparison
+- 33 offline tests (no API key needed)
+- Covers: schema, validation (3 cases), consensus (4 rules), ground truth (10 files), evaluation harness, agent definitions, demo comparison, multi-firm screening, cross-deal tests, text extraction, report generation
 - All pass
 
 ### 14. Batch Extraction (`NOS/batch_extract.py`)
@@ -113,6 +113,8 @@ All pass validation (par sum, field presence, date logic).
 - `NOS/NOS_README.md` — Comprehensive guide with quick start, folder structure, pipeline overview
 - `NOS/sample_output.json` — Example screening output (5 votes → INTERESTED)
 - `CLAUDE.md` — Updated with all new file paths, usage commands
+- `NOS/generate_report.py` — Formatted text report generator (deal summary + votes + decision)
+- `NOS/interactive_demo.py` — Menu-driven interactive screening demo
 - `requirements.txt` — All pip dependencies
 - `.gitignore` — Updated to exclude extraction outputs and temp files
 
