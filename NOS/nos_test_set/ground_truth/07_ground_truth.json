@@ -1,0 +1,118 @@
+{
+  "source_pdf": "07_SD_No_46,_IL_(Elgin)_GO_School_&_Ltd_Tax_School_Bonds,_Series_2026A&B.pdf",
+  "issuer": {
+    "name": "School District Number 46, Kane, Cook and DuPage Counties, Illinois",
+    "type": "school_district",
+    "state": "IL",
+    "county": "Kane, Cook and DuPage"
+  },
+  "bond_identification": {
+    "series": "Series 2026A",
+    "bond_type": "go_unlimited_tax",
+    "bond_type_description": "General Obligation School Bonds",
+    "par_amount": 51665000,
+    "tax_status": "tax_exempt",
+    "bank_qualified": null,
+    "purpose": null
+  },
+  "sale_logistics": {
+    "sale_date": "January 13, 2026",
+    "sale_time": "9:00 AM Central Time",
+    "bidding_platform": "parity",
+    "bidding_platform_name": null,
+    "bid_format": "electronic_only",
+    "right_to_reject": true,
+    "pre_sale_adjustment": null,
+    "financial_advisor": "Raymond James & Associates, Inc."
+  },
+  "maturity_structure": {
+    "maturity_type": "serial_only",
+    "dated_date": "date of issuance (expected February 3, 2026)",
+    "interest_payment_dates": "January 1 and July 1",
+    "first_interest_payment": "July 1, 2026",
+    "maturity_schedule": [
+      {"date": "January 1, 2027", "amount": 290000, "type": "serial"},
+      {"date": "January 1, 2028", "amount": 125000, "type": "serial"},
+      {"date": "January 1, 2029", "amount": 125000, "type": "serial"},
+      {"date": "January 1, 2030", "amount": 130000, "type": "serial"},
+      {"date": "January 1, 2031", "amount": 135000, "type": "serial"},
+      {"date": "January 1, 2032", "amount": 140000, "type": "serial"},
+      {"date": "January 1, 2033", "amount": 145000, "type": "serial"},
+      {"date": "January 1, 2034", "amount": 155000, "type": "serial"},
+      {"date": "January 1, 2035", "amount": 4640000, "type": "serial"},
+      {"date": "January 1, 2036", "amount": 7360000, "type": "serial"},
+      {"date": "January 1, 2037", "amount": 7630000, "type": "serial"},
+      {"date": "January 1, 2038", "amount": 7910000, "type": "serial"},
+      {"date": "January 1, 2039", "amount": 8210000, "type": "serial"},
+      {"date": "January 1, 2040", "amount": 8520000, "type": "serial"},
+      {"date": "January 1, 2041", "amount": 6150000, "type": "serial"}
+    ],
+    "final_maturity_date": "January 1, 2041",
+    "bidder_term_bond_option": true,
+    "mandatory_sinking_fund": null,
+    "number_of_maturities": 15,
+    "total_bond_years": null,
+    "average_maturity": null
+  },
+  "coupon_provisions": {
+    "interest_payment_frequency": "semiannual",
+    "interest_calculation_basis": null,
+    "coupon_rate_constraints": {
+      "ascending_only": null,
+      "no_zero_coupon": true,
+      "max_rate_cap": 5.0,
+      "max_number_of_rates": null,
+      "no_restrictions": false
+    },
+    "rate_increment": "1/8 of 1% or 1/20 of 1%",
+    "uniform_rate_per_maturity": true
+  },
+  "bid_evaluation": {
+    "basis_of_award": "tic",
+    "good_faith_deposit": {
+      "amount": null,
+      "percentage_of_par": 2.0,
+      "form": "wire_transfer"
+    },
+    "premium_discount_permitted": null,
+    "minimum_bid_price": null,
+    "maximum_bid_price": null,
+    "max_interest_rate": null,
+    "issue_price_requirements": "hold_the_offering_price"
+  },
+  "redemption": {
+    "optional_redemption": "callable",
+    "first_call_date": "January 1, 2035",
+    "call_price": 100,
+    "call_protection_years": null,
+    "extraordinary_redemption": null
+  },
+  "registration_delivery": {
+    "book_entry": "book_entry_only",
+    "denomination": 5000,
+    "paying_agent": "Zions Bancorporation, National Association, Chicago, Illinois",
+    "delivery_date": "February 3, 2026",
+    "latest_delivery_date": null,
+    "delivery_method": null,
+    "cusip": null
+  },
+  "credit_enhancement": {
+    "credit_rating": "AA+ (S&P Global Ratings, Stable Outlook)",
+    "bond_insurance": null,
+    "insurance_provider_restrictions": null
+  },
+  "legal_advisory": {
+    "bond_counsel": "Chapman and Cutler LLP",
+    "disclosure_counsel": "Chapman and Cutler LLP",
+    "tax_counsel": null,
+    "legal_opinion_type": null,
+    "continuing_disclosure": null
+  },
+  "bidder_obligations": {
+    "commitment_type": "firm_commitment",
+    "reoffering_price_certification": null,
+    "official_statement_responsibility": null,
+    "technology_risk_allocation": null,
+    "withdrawal_restrictions": null
+  }
+}

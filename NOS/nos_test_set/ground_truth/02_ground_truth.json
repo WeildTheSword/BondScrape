@@ -1,0 +1,106 @@
+{
+  "source_pdf": "02_Craig_County_ISD_No_6,_OK_General_Obligation_Building_Bonds,_Series_2025A.pdf",
+  "issuer": {
+    "name": "Independent School District #6 of Craig County, Oklahoma",
+    "type": "independent_school_district",
+    "state": "OK",
+    "county": "Craig"
+  },
+  "bond_identification": {
+    "series": "Series 2025A",
+    "bond_type": "go_unlimited_tax",
+    "bond_type_description": "General Obligation Building Bonds",
+    "par_amount": 600000,
+    "tax_status": "tax_exempt",
+    "bank_qualified": null,
+    "purpose": "building"
+  },
+  "sale_logistics": {
+    "sale_date": "October 8, 2025",
+    "sale_time": "10:30 A.M., local time",
+    "bidding_platform": "parity",
+    "bidding_platform_name": "PARITY",
+    "bid_format": "written_fax_allowed",
+    "right_to_reject": true,
+    "pre_sale_adjustment": null,
+    "financial_advisor": "BOK Financial Securities, Inc."
+  },
+  "maturity_structure": {
+    "maturity_type": "serial_only",
+    "dated_date": "November 1, 2025",
+    "interest_payment_dates": "May 1 and November 1",
+    "first_interest_payment": "May 1, 2027",
+    "maturity_schedule": [
+      {"date": "November 1, 2027", "amount": 200000, "type": "serial"},
+      {"date": "November 1, 2028", "amount": 200000, "type": "serial"},
+      {"date": "November 1, 2029", "amount": 200000, "type": "serial"}
+    ],
+    "final_maturity_date": "November 1, 2029",
+    "bidder_term_bond_option": false,
+    "mandatory_sinking_fund": false,
+    "number_of_maturities": 3,
+    "total_bond_years": null,
+    "average_maturity": null
+  },
+  "coupon_provisions": {
+    "interest_payment_frequency": "semiannual",
+    "interest_calculation_basis": null,
+    "coupon_rate_constraints": {
+      "ascending_only": null,
+      "no_zero_coupon": null,
+      "max_rate_cap": 10.0,
+      "max_number_of_rates": null,
+      "no_restrictions": false
+    },
+    "rate_increment": "1/8 of 1% or 1/20 of 1%",
+    "uniform_rate_per_maturity": true
+  },
+  "bid_evaluation": {
+    "basis_of_award": "nic",
+    "good_faith_deposit": {
+      "amount": 12000.00,
+      "percentage_of_par": 2.0,
+      "form": "cashiers_check"
+    },
+    "premium_discount_permitted": "premium_allowed",
+    "minimum_bid_price": 100.0,
+    "maximum_bid_price": 104.0,
+    "max_interest_rate": 10.0,
+    "issue_price_requirements": "competitive_sale_exception"
+  },
+  "redemption": {
+    "optional_redemption": "non_callable",
+    "first_call_date": null,
+    "call_price": null,
+    "call_protection_years": null,
+    "extraordinary_redemption": null
+  },
+  "registration_delivery": {
+    "book_entry": "book_entry_only",
+    "denomination": 5000,
+    "paying_agent": null,
+    "delivery_date": "November 19, 2025",
+    "latest_delivery_date": null,
+    "delivery_method": "dtc_fast",
+    "cusip": "pending"
+  },
+  "credit_enhancement": {
+    "credit_rating": null,
+    "bond_insurance": "bidder_option_to_insure",
+    "insurance_provider_restrictions": null
+  },
+  "legal_advisory": {
+    "bond_counsel": "The Public Finance Law Group PLLC",
+    "disclosure_counsel": null,
+    "tax_counsel": null,
+    "legal_opinion_type": null,
+    "continuing_disclosure": "full_compliance"
+  },
+  "bidder_obligations": {
+    "commitment_type": "firm_commitment",
+    "reoffering_price_certification": true,
+    "official_statement_responsibility": null,
+    "technology_risk_allocation": "bidder_assumes_all_risk",
+    "withdrawal_restrictions": null
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "source_pdf": "06_Regional_School_Unit_No_14,_ME_2026_GO_Bonds.pdf",
+  "issuer": {
+    "name": "Regional School Unit No. 14 (Raymond & Windham, Maine)",
+    "type": "regional_school_unit",
+    "state": "ME",
+    "county": null
+  },
+  "bond_identification": {
+    "series": "2026 General Obligation Bonds",
+    "bond_type": "go_unlimited_tax",
+    "bond_type_description": "General Obligation Bonds",
+    "par_amount": 50790000,
+    "tax_status": "tax_exempt",
+    "bank_qualified": false,
+    "purpose": null
+  },
+  "sale_logistics": {
+    "sale_date": "April 15, 2026",
+    "sale_time": "11:00 AM EDST",
+    "bidding_platform": "parity",
+    "bidding_platform_name": null,
+    "bid_format": "written_fax_allowed",
+    "right_to_reject": true,
+    "pre_sale_adjustment": null,
+    "financial_advisor": "Moors & Cabot, Inc."
+  },
+  "maturity_structure": {
+    "maturity_type": "serial_only",
+    "dated_date": "April 30, 2026",
+    "interest_payment_dates": "May 1 and November 1",
+    "first_interest_payment": "November 1, 2026",
+    "maturity_schedule": [
+      {"date": "November 1, 2027", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2028", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2029", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2030", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2031", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2032", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2033", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2034", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2035", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2036", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2037", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2038", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2039", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2040", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2041", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2042", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2043", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2044", "amount": 2540000, "type": "serial"},
+      {"date": "November 1, 2045", "amount": 2535000, "type": "serial"},
+      {"date": "November 1, 2046", "amount": 2535000, "type": "serial"}
+    ],
+    "final_maturity_date": "November 1, 2046",
+    "bidder_term_bond_option": false,
+    "mandatory_sinking_fund": null,
+    "number_of_maturities": 20,
+    "total_bond_years": null,
+    "average_maturity": null
+  },
+  "coupon_provisions": {
+    "interest_payment_frequency": "semiannual",
+    "interest_calculation_basis": "30_360",
+    "coupon_rate_constraints": {
+      "ascending_only": null,
+      "no_zero_coupon": null,
+      "max_rate_cap": null,
+      "max_number_of_rates": null,
+      "no_restrictions": false
+    },
+    "rate_increment": "1/8 of 1% or 1/20 of 1%",
+    "uniform_rate_per_maturity": true
+  },
+  "bid_evaluation": {
+    "basis_of_award": "tic",
+    "good_faith_deposit": null,
+    "premium_discount_permitted": "premium_allowed",
+    "minimum_bid_price": 100.163381,
+    "maximum_bid_price": null,
+    "max_interest_rate": null,
+    "issue_price_requirements": null
+  },
+  "redemption": {
+    "optional_redemption": "callable",
+    "first_call_date": "November 1, 2035",
+    "call_price": 100,
+    "call_protection_years": null,
+    "extraordinary_redemption": null
+  },
+  "registration_delivery": {
+    "book_entry": "book_entry_only",
+    "denomination": 5000,
+    "paying_agent": "U.S. Bank Trust Company, National Association, Boston, Massachusetts",
+    "delivery_date": "April 30, 2026",
+    "latest_delivery_date": null,
+    "delivery_method": null,
+    "cusip": null
+  },
+  "credit_enhancement": {
+    "credit_rating": null,
+    "bond_insurance": null,
+    "insurance_provider_restrictions": null
+  },
+  "legal_advisory": {
+    "bond_counsel": "Drummond Woodsum & MacMahon, Portland, Maine",
+    "disclosure_counsel": null,
+    "tax_counsel": null,
+    "legal_opinion_type": null,
+    "continuing_disclosure": null
+  },
+  "bidder_obligations": {
+    "commitment_type": "firm_commitment",
+    "reoffering_price_certification": null,
+    "official_statement_responsibility": null,
+    "technology_risk_allocation": null,
+    "withdrawal_restrictions": null
+  }
+}

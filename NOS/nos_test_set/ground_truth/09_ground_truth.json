@@ -1,0 +1,143 @@
+{
+  "source_pdf": "09_Virginia_HDA,_VA_Rental_Housing_Bonds,_2026_Series_A-Non-AMT.pdf",
+  "issuer": {
+    "name": "Virginia Housing Development Authority",
+    "type": "authority",
+    "state": "VA",
+    "county": null
+  },
+  "bond_identification": {
+    "series": "2026 Series A-Non-AMT",
+    "bond_type": "revenue",
+    "bond_type_description": "Rental Housing Bonds",
+    "par_amount": 17860000,
+    "tax_status": "tax_exempt",
+    "bank_qualified": null,
+    "purpose": null
+  },
+  "sale_logistics": {
+    "sale_date": "March 5, 2026",
+    "sale_time": "11:00 AM New York time",
+    "bidding_platform": "parity",
+    "bidding_platform_name": null,
+    "bid_format": "electronic_only",
+    "right_to_reject": true,
+    "pre_sale_adjustment": null,
+    "financial_advisor": null
+  },
+  "maturity_structure": {
+    "maturity_type": "serial_only",
+    "dated_date": "Settlement Date (expected March 19, 2026)",
+    "interest_payment_dates": null,
+    "first_interest_payment": null,
+    "maturity_schedule": [
+      {"date": "March 1, 2029", "amount": 170000, "type": "serial"},
+      {"date": "March 1, 2030", "amount": 175000, "type": "serial"},
+      {"date": "March 1, 2031", "amount": 2180000, "type": "serial"},
+      {"date": "March 1, 2032", "amount": 180000, "type": "serial"},
+      {"date": "March 1, 2033", "amount": 185000, "type": "serial"},
+      {"date": "March 1, 2034", "amount": 195000, "type": "serial"},
+      {"date": "March 1, 2035", "amount": 200000, "type": "serial"},
+      {"date": "March 1, 2036", "amount": 205000, "type": "serial"},
+      {"date": "March 1, 2037", "amount": 215000, "type": "serial"},
+      {"date": "March 1, 2038", "amount": 220000, "type": "serial"},
+      {"date": "March 1, 2039", "amount": 230000, "type": "serial"},
+      {"date": "March 1, 2040", "amount": 235000, "type": "serial"},
+      {"date": "March 1, 2041", "amount": 245000, "type": "serial"},
+      {"date": "March 1, 2042", "amount": 255000, "type": "serial"},
+      {"date": "March 1, 2043", "amount": 265000, "type": "serial"},
+      {"date": "March 1, 2044", "amount": 275000, "type": "serial"},
+      {"date": "March 1, 2045", "amount": 290000, "type": "serial"},
+      {"date": "March 1, 2046", "amount": 300000, "type": "serial"},
+      {"date": "March 1, 2047", "amount": 315000, "type": "serial"},
+      {"date": "March 1, 2048", "amount": 330000, "type": "serial"},
+      {"date": "March 1, 2049", "amount": 345000, "type": "serial"},
+      {"date": "March 1, 2050", "amount": 360000, "type": "serial"},
+      {"date": "March 1, 2051", "amount": 380000, "type": "serial"},
+      {"date": "March 1, 2052", "amount": 400000, "type": "serial"},
+      {"date": "March 1, 2053", "amount": 415000, "type": "serial"},
+      {"date": "March 1, 2054", "amount": 435000, "type": "serial"},
+      {"date": "March 1, 2055", "amount": 455000, "type": "serial"},
+      {"date": "March 1, 2056", "amount": 480000, "type": "serial"},
+      {"date": "March 1, 2057", "amount": 500000, "type": "serial"},
+      {"date": "March 1, 2058", "amount": 525000, "type": "serial"},
+      {"date": "March 1, 2059", "amount": 550000, "type": "serial"},
+      {"date": "March 1, 2060", "amount": 580000, "type": "serial"},
+      {"date": "March 1, 2061", "amount": 605000, "type": "serial"},
+      {"date": "March 1, 2062", "amount": 635000, "type": "serial"},
+      {"date": "March 1, 2063", "amount": 665000, "type": "serial"},
+      {"date": "March 1, 2064", "amount": 700000, "type": "serial"},
+      {"date": "March 1, 2065", "amount": 735000, "type": "serial"},
+      {"date": "March 1, 2066", "amount": 770000, "type": "serial"},
+      {"date": "March 1, 2067", "amount": 810000, "type": "serial"},
+      {"date": "March 1, 2068", "amount": 850000, "type": "serial"}
+    ],
+    "final_maturity_date": "March 1, 2068",
+    "bidder_term_bond_option": true,
+    "mandatory_sinking_fund": null,
+    "number_of_maturities": 40,
+    "total_bond_years": null,
+    "average_maturity": null
+  },
+  "coupon_provisions": {
+    "interest_payment_frequency": null,
+    "interest_calculation_basis": null,
+    "coupon_rate_constraints": {
+      "ascending_only": null,
+      "no_zero_coupon": true,
+      "max_rate_cap": null,
+      "max_number_of_rates": null,
+      "no_restrictions": false
+    },
+    "rate_increment": null,
+    "uniform_rate_per_maturity": null
+  },
+  "bid_evaluation": {
+    "basis_of_award": "tic",
+    "good_faith_deposit": {
+      "amount": 357200,
+      "percentage_of_par": null,
+      "form": "wire_transfer"
+    },
+    "premium_discount_permitted": null,
+    "minimum_bid_price": 100.0,
+    "maximum_bid_price": null,
+    "max_interest_rate": null,
+    "issue_price_requirements": null
+  },
+  "redemption": {
+    "optional_redemption": null,
+    "first_call_date": null,
+    "call_price": null,
+    "call_protection_years": null,
+    "extraordinary_redemption": null
+  },
+  "registration_delivery": {
+    "book_entry": "book_entry_only",
+    "denomination": null,
+    "paying_agent": null,
+    "delivery_date": "March 19, 2026",
+    "latest_delivery_date": null,
+    "delivery_method": null,
+    "cusip": null
+  },
+  "credit_enhancement": {
+    "credit_rating": "AA+ (S&P Global Ratings), Aa1 (Moody's Ratings)",
+    "bond_insurance": null,
+    "insurance_provider_restrictions": null
+  },
+  "legal_advisory": {
+    "bond_counsel": "Hawkins Delafield & Wood LLP",
+    "disclosure_counsel": null,
+    "tax_counsel": null,
+    "legal_opinion_type": null,
+    "continuing_disclosure": null
+  },
+  "bidder_obligations": {
+    "commitment_type": "firm_commitment",
+    "reoffering_price_certification": null,
+    "official_statement_responsibility": null,
+    "technology_risk_allocation": null,
+    "withdrawal_restrictions": null
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "source_pdf": "04_Gallatin_(City_of),_TN_GO_Bonds,_Series_2026.pdf",
+  "issuer": {
+    "name": "City of Gallatin, Tennessee",
+    "type": "city",
+    "state": "TN",
+    "county": null
+  },
+  "bond_identification": {
+    "series": "Series 2026",
+    "bond_type": "go_unlimited_tax",
+    "bond_type_description": "General Obligation Bonds",
+    "par_amount": 22520000,
+    "tax_status": "tax_exempt",
+    "bank_qualified": null,
+    "purpose": "capital costs - fire stations, safety equipment, parks, technology"
+  },
+  "sale_logistics": {
+    "sale_date": "January 13, 2026",
+    "sale_time": "10:00 A.M. C.S.T.",
+    "bidding_platform": "parity",
+    "bidding_platform_name": null,
+    "bid_format": "electronic_only",
+    "right_to_reject": true,
+    "pre_sale_adjustment": true,
+    "financial_advisor": "Oakdale Municipal Advisors, LLC"
+  },
+  "maturity_structure": {
+    "maturity_type": "serial_only",
+    "dated_date": "date of delivery",
+    "interest_payment_dates": "January 1 and July 1",
+    "first_interest_payment": "July 1, 2026",
+    "maturity_schedule": [
+      {"date": "July 1, 2026", "amount": 790000, "type": "serial"},
+      {"date": "July 1, 2027", "amount": 805000, "type": "serial"},
+      {"date": "July 1, 2028", "amount": 835000, "type": "serial"},
+      {"date": "July 1, 2029", "amount": 865000, "type": "serial"},
+      {"date": "July 1, 2030", "amount": 895000, "type": "serial"},
+      {"date": "July 1, 2031", "amount": 930000, "type": "serial"},
+      {"date": "July 1, 2032", "amount": 965000, "type": "serial"},
+      {"date": "July 1, 2033", "amount": 1005000, "type": "serial"},
+      {"date": "July 1, 2034", "amount": 1040000, "type": "serial"},
+      {"date": "July 1, 2035", "amount": 1080000, "type": "serial"},
+      {"date": "July 1, 2036", "amount": 1120000, "type": "serial"},
+      {"date": "July 1, 2037", "amount": 1165000, "type": "serial"},
+      {"date": "July 1, 2038", "amount": 1205000, "type": "serial"},
+      {"date": "July 1, 2039", "amount": 1250000, "type": "serial"},
+      {"date": "July 1, 2040", "amount": 1300000, "type": "serial"},
+      {"date": "July 1, 2041", "amount": 1350000, "type": "serial"},
+      {"date": "July 1, 2042", "amount": 1400000, "type": "serial"},
+      {"date": "July 1, 2043", "amount": 1450000, "type": "serial"},
+      {"date": "July 1, 2044", "amount": 1505000, "type": "serial"},
+      {"date": "July 1, 2045", "amount": 1565000, "type": "serial"}
+    ],
+    "final_maturity_date": "July 1, 2045",
+    "bidder_term_bond_option": true,
+    "mandatory_sinking_fund": null,
+    "number_of_maturities": 20,
+    "total_bond_years": null,
+    "average_maturity": null
+  },
+  "coupon_provisions": {
+    "interest_payment_frequency": "semiannual",
+    "interest_calculation_basis": null,
+    "coupon_rate_constraints": {
+      "ascending_only": null,
+      "no_zero_coupon": null,
+      "max_rate_cap": 5.0,
+      "max_number_of_rates": null,
+      "no_restrictions": false
+    },
+    "rate_increment": "1/8 of 1% or 1/100 of 1%",
+    "uniform_rate_per_maturity": true
+  },
+  "bid_evaluation": {
+    "basis_of_award": "tic",
+    "good_faith_deposit": {
+      "amount": 450400,
+      "percentage_of_par": null,
+      "form": "wire_transfer"
+    },
+    "premium_discount_permitted": null,
+    "minimum_bid_price": 100.0,
+    "maximum_bid_price": 120.0,
+    "max_interest_rate": null,
+    "issue_price_requirements": "hold_the_offering_price"
+  },
+  "redemption": {
+    "optional_redemption": "callable",
+    "first_call_date": "July 1, 2034",
+    "call_price": 100,
+    "call_protection_years": null,
+    "extraordinary_redemption": null
+  },
+  "registration_delivery": {
+    "book_entry": "book_entry_only",
+    "denomination": 5000,
+    "paying_agent": "U.S. Bank Trust Company, National Association, Nashville, Tennessee",
+    "delivery_date": null,
+    "latest_delivery_date": null,
+    "delivery_method": null,
+    "cusip": "pending"
+  },
+  "credit_enhancement": {
+    "credit_rating": null,
+    "bond_insurance": null,
+    "insurance_provider_restrictions": null
+  },
+  "legal_advisory": {
+    "bond_counsel": "Bass, Berry & Sims PLC",
+    "disclosure_counsel": null,
+    "tax_counsel": null,
+    "legal_opinion_type": null,
+    "continuing_disclosure": null
+  },
+  "bidder_obligations": {
+    "commitment_type": "firm_commitment",
+    "reoffering_price_certification": null,
+    "official_statement_responsibility": null,
+    "technology_risk_allocation": null,
+    "withdrawal_restrictions": null
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "source_pdf": "01_Harris_County_MUD_No_182,_TX_Unlimited_Tax_Bonds,_Srs_2026.pdf",
+  "issuer": {
+    "name": "Harris County Municipal Utility District No. 182",
+    "type": "municipal_utility_district",
+    "state": "TX",
+    "county": "Harris"
+  },
+  "bond_identification": {
+    "series": "Series 2026",
+    "bond_type": "go_unlimited_tax",
+    "bond_type_description": "Unlimited Tax Bonds",
+    "par_amount": 2930000,
+    "tax_status": "tax_exempt",
+    "bank_qualified": null,
+    "purpose": null
+  },
+  "sale_logistics": {
+    "sale_date": "April 15, 2026",
+    "sale_time": "9:00 a.m., Houston time",
+    "bidding_platform": "parity",
+    "bidding_platform_name": "PARITY Electronic Bid Submission System",
+    "bid_format": "written_fax_allowed",
+    "right_to_reject": true,
+    "pre_sale_adjustment": null,
+    "financial_advisor": "The GMS Group, L.L.C."
+  },
+  "maturity_structure": {
+    "maturity_type": "serial_only",
+    "dated_date": "May 1, 2026",
+    "interest_payment_dates": "April 1 and October 1",
+    "first_interest_payment": "October 1, 2026",
+    "maturity_schedule": [
+      {"date": "April 1, 2029", "amount": 60000, "type": "serial"},
+      {"date": "April 1, 2030", "amount": 65000, "type": "serial"},
+      {"date": "April 1, 2031", "amount": 65000, "type": "serial"},
+      {"date": "April 1, 2032", "amount": 70000, "type": "serial"},
+      {"date": "April 1, 2033", "amount": 75000, "type": "serial"},
+      {"date": "April 1, 2034", "amount": 80000, "type": "serial"},
+      {"date": "April 1, 2035", "amount": 80000, "type": "serial"},
+      {"date": "April 1, 2036", "amount": 85000, "type": "serial"},
+      {"date": "April 1, 2037", "amount": 90000, "type": "serial"},
+      {"date": "April 1, 2038", "amount": 95000, "type": "serial"},
+      {"date": "April 1, 2039", "amount": 100000, "type": "serial"},
+      {"date": "April 1, 2040", "amount": 105000, "type": "serial"},
+      {"date": "April 1, 2041", "amount": 110000, "type": "serial"},
+      {"date": "April 1, 2042", "amount": 115000, "type": "serial"},
+      {"date": "April 1, 2043", "amount": 120000, "type": "serial"},
+      {"date": "April 1, 2044", "amount": 130000, "type": "serial"},
+      {"date": "April 1, 2045", "amount": 135000, "type": "serial"},
+      {"date": "April 1, 2046", "amount": 140000, "type": "serial"},
+      {"date": "April 1, 2047", "amount": 150000, "type": "serial"},
+      {"date": "April 1, 2048", "amount": 155000, "type": "serial"},
+      {"date": "April 1, 2049", "amount": 165000, "type": "serial"},
+      {"date": "April 1, 2050", "amount": 170000, "type": "serial"},
+      {"date": "April 1, 2051", "amount": 180000, "type": "serial"},
+      {"date": "April 1, 2052", "amount": 190000, "type": "serial"},
+      {"date": "April 1, 2053", "amount": 200000, "type": "serial"}
+    ],
+    "final_maturity_date": "April 1, 2053",
+    "bidder_term_bond_option": true,
+    "mandatory_sinking_fund": null,
+    "number_of_maturities": 25,
+    "total_bond_years": null,
+    "average_maturity": null
+  },
+  "coupon_provisions": {
+    "interest_payment_frequency": "semiannual",
+    "interest_calculation_basis": null,
+    "coupon_rate_constraints": {
+      "ascending_only": null,
+      "no_zero_coupon": null,
+      "max_rate_cap": null,
+      "max_number_of_rates": null,
+      "no_restrictions": false
+    },
+    "rate_increment": "1/8 of 1% or 1/20 of 1%",
+    "uniform_rate_per_maturity": true
+  },
+  "bid_evaluation": {
+    "basis_of_award": "net_effective_rate",
+    "good_faith_deposit": {
+      "amount": 58600.00,
+      "percentage_of_par": 2.0,
+      "form": "cashiers_check"
+    },
+    "premium_discount_permitted": null,
+    "minimum_bid_price": 97.0,
+    "maximum_bid_price": null,
+    "max_interest_rate": 6.81,
+    "issue_price_requirements": "hold_the_offering_price"
+  },
+  "redemption": {
+    "optional_redemption": "callable",
+    "first_call_date": "April 1, 2031",
+    "call_price": 100,
+    "call_protection_years": 5,
+    "extraordinary_redemption": null
+  },
+  "registration_delivery": {
+    "book_entry": "book_entry_only",
+    "denomination": 5000,
+    "paying_agent": "BOKF, N.A., Dallas, Texas",
+    "delivery_date": "May 14, 2026",
+    "latest_delivery_date": "June 15, 2026",
+    "delivery_method": "dtc_fast",
+    "cusip": "pending"
+  },
+  "credit_enhancement": {
+    "credit_rating": "unrated — no application made to a rating company",
+    "bond_insurance": null,
+    "insurance_provider_restrictions": null
+  },
+  "legal_advisory": {
+    "bond_counsel": "Smith, Murdaugh, Little & Bonham, L.L.P.",
+    "disclosure_counsel": null,
+    "tax_counsel": null,
+    "legal_opinion_type": null,
+    "continuing_disclosure": null
+  },
+  "bidder_obligations": {
+    "commitment_type": "firm_commitment",
+    "reoffering_price_certification": true,
+    "official_statement_responsibility": null,
+    "technology_risk_allocation": "bidder_assumes_all_risk",
+    "withdrawal_restrictions": null
+  }
+}

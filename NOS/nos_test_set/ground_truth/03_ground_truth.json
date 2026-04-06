@@ -1,0 +1,100 @@
+{
+  "source_pdf": "03_Dunellen_(Borough_of),_NJ_Bond_Anticipation_Notes_(2026).pdf",
+  "issuer": {
+    "name": "Borough of Dunellen, in the County of Middlesex, New Jersey",
+    "type": "city",
+    "state": "NJ",
+    "county": "Middlesex"
+  },
+  "bond_identification": {
+    "series": "2026",
+    "bond_type": "bond_anticipation_note",
+    "bond_type_description": "Bond Anticipation Notes",
+    "par_amount": 15248700,
+    "tax_status": "tax_exempt",
+    "bank_qualified": false,
+    "purpose": "general improvement, sewer utility, redevelopment"
+  },
+  "sale_logistics": {
+    "sale_date": "March 24, 2026",
+    "sale_time": "11:00 a.m.",
+    "bidding_platform": "parity",
+    "bidding_platform_name": null,
+    "bid_format": "written_fax_allowed",
+    "right_to_reject": true,
+    "pre_sale_adjustment": null,
+    "financial_advisor": "NW Financial Group, LLC"
+  },
+  "maturity_structure": {
+    "maturity_type": "single_maturity",
+    "dated_date": "April 6, 2026",
+    "interest_payment_dates": null,
+    "first_interest_payment": null,
+    "maturity_schedule": [
+      {"date": "April 5, 2027", "amount": 15248700, "type": "serial"}
+    ],
+    "final_maturity_date": "April 5, 2027",
+    "bidder_term_bond_option": false,
+    "mandatory_sinking_fund": null,
+    "number_of_maturities": 1,
+    "total_bond_years": null,
+    "average_maturity": null
+  },
+  "coupon_provisions": {
+    "interest_payment_frequency": null,
+    "interest_calculation_basis": "30_360",
+    "coupon_rate_constraints": {
+      "ascending_only": null,
+      "no_zero_coupon": null,
+      "max_rate_cap": null,
+      "max_number_of_rates": null,
+      "no_restrictions": false
+    },
+    "rate_increment": null,
+    "uniform_rate_per_maturity": null
+  },
+  "bid_evaluation": {
+    "basis_of_award": "nic",
+    "good_faith_deposit": null,
+    "premium_discount_permitted": null,
+    "minimum_bid_price": 100.0,
+    "maximum_bid_price": null,
+    "max_interest_rate": null,
+    "issue_price_requirements": null
+  },
+  "redemption": {
+    "optional_redemption": "non_callable",
+    "first_call_date": null,
+    "call_price": null,
+    "call_protection_years": null,
+    "extraordinary_redemption": null
+  },
+  "registration_delivery": {
+    "book_entry": null,
+    "denomination": 5000,
+    "paying_agent": "The Borough will act as paying agent",
+    "delivery_date": "April 6, 2026",
+    "latest_delivery_date": null,
+    "delivery_method": null,
+    "cusip": null
+  },
+  "credit_enhancement": {
+    "credit_rating": null,
+    "bond_insurance": null,
+    "insurance_provider_restrictions": null
+  },
+  "legal_advisory": {
+    "bond_counsel": "McManimon, Scotland & Baumann, LLC",
+    "disclosure_counsel": null,
+    "tax_counsel": null,
+    "legal_opinion_type": null,
+    "continuing_disclosure": null
+  },
+  "bidder_obligations": {
+    "commitment_type": "firm_commitment",
+    "reoffering_price_certification": null,
+    "official_statement_responsibility": null,
+    "technology_risk_allocation": null,
+    "withdrawal_restrictions": null
+  }
+}

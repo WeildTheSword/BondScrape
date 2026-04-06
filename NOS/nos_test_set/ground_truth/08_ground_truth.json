@@ -1,0 +1,105 @@
+{
+  "source_pdf": "08_San_Francisco_(City_&_County_of),_CA_Taxable_GO_Bonds,_Series_2025G.pdf",
+  "issuer": {
+    "name": "City and County of San Francisco",
+    "type": "city",
+    "state": "CA",
+    "county": "San Francisco"
+  },
+  "bond_identification": {
+    "series": "Series 2025G",
+    "bond_type": "go_unlimited_tax",
+    "bond_type_description": "Taxable General Obligation Bonds (Health and Recovery, 2020)",
+    "par_amount": 87665000,
+    "tax_status": "taxable",
+    "bank_qualified": null,
+    "purpose": null
+  },
+  "sale_logistics": {
+    "sale_date": "November 5, 2025",
+    "sale_time": "8:15 AM California time",
+    "bidding_platform": "parity",
+    "bidding_platform_name": null,
+    "bid_format": "electronic_only",
+    "right_to_reject": true,
+    "pre_sale_adjustment": null,
+    "financial_advisor": "Fieldman, Rolapp & Associates, Inc."
+  },
+  "maturity_structure": {
+    "maturity_type": "serial_only",
+    "dated_date": "date of delivery (expected November 19, 2025)",
+    "interest_payment_dates": "December 15 and June 15",
+    "first_interest_payment": "June 15, 2026",
+    "maturity_schedule": [
+      {"date": "June 15, 2026", "amount": 86040000, "type": "serial"},
+      {"date": "June 15, 2027", "amount": 1625000, "type": "serial"}
+    ],
+    "final_maturity_date": "June 15, 2027",
+    "bidder_term_bond_option": false,
+    "mandatory_sinking_fund": null,
+    "number_of_maturities": 2,
+    "total_bond_years": null,
+    "average_maturity": null
+  },
+  "coupon_provisions": {
+    "interest_payment_frequency": null,
+    "interest_calculation_basis": "30_360",
+    "coupon_rate_constraints": {
+      "ascending_only": null,
+      "no_zero_coupon": true,
+      "max_rate_cap": null,
+      "max_number_of_rates": null,
+      "no_restrictions": false
+    },
+    "rate_increment": "1/1000 of 1%",
+    "uniform_rate_per_maturity": true
+  },
+  "bid_evaluation": {
+    "basis_of_award": "tic",
+    "good_faith_deposit": {
+      "amount": 875000,
+      "percentage_of_par": null,
+      "form": "wire_transfer"
+    },
+    "premium_discount_permitted": null,
+    "minimum_bid_price": 99.5,
+    "maximum_bid_price": null,
+    "max_interest_rate": null,
+    "issue_price_requirements": null
+  },
+  "redemption": {
+    "optional_redemption": "non_callable",
+    "first_call_date": null,
+    "call_price": null,
+    "call_protection_years": null,
+    "extraordinary_redemption": null
+  },
+  "registration_delivery": {
+    "book_entry": "book_entry_only",
+    "denomination": 5000,
+    "paying_agent": null,
+    "delivery_date": "November 19, 2025",
+    "latest_delivery_date": null,
+    "delivery_method": null,
+    "cusip": null
+  },
+  "credit_enhancement": {
+    "credit_rating": null,
+    "bond_insurance": null,
+    "insurance_provider_restrictions": "no municipal bond insurance bids accepted"
+  },
+  "legal_advisory": {
+    "bond_counsel": "Norton Rose Fulbright US LLP",
+    "disclosure_counsel": null,
+    "tax_counsel": null,
+    "legal_opinion_type": null,
+    "continuing_disclosure": null
+  },
+  "bidder_obligations": {
+    "commitment_type": "firm_commitment",
+    "reoffering_price_certification": null,
+    "official_statement_responsibility": null,
+    "technology_risk_allocation": null,
+    "withdrawal_restrictions": null
+  }
+}
