@@ -287,6 +287,91 @@ def _generate_demo_votes(nos_json: dict, firm_profile: dict) -> list[dict]:
     return votes
 
 
+def run_multi_scenario_demo():
+    """
+    Run multiple NOS scenarios through both firm profiles.
+    Shows how different deal characteristics produce different outcomes.
+    """
+    from consensus import compute_consensus
+
+    scenarios = _get_demo_scenarios()
+    profiles = [load_json(str(p)) for p in DEMO_PROFILES]
+
+    print(f"\n{'#' * 70}")
+    print("MULTI-SCENARIO NOS SCREENING DEMO")
+    print(f"{'#' * 70}\n")
+
+    results_grid = []
+
+    for scenario_name, nos_json in scenarios.items():
+        issuer = _safe_get(nos_json, "issuer.name", "?")
+        state = _safe_get(nos_json, "issuer.state", "?")
+        par = _safe_get(nos_json, "bond_identification.par_amount", 0)
+        bond_type = _safe_get(nos_json, "bond_identification.bond_type_description", "?")
+
+        row = {"scenario": scenario_name, "issuer": issuer, "state": state, "par": par}
+
+        for profile in profiles:
+            firm_name = profile.get("firm_name", "?")
+            votes = _generate_demo_votes(nos_json, profile)
+            consensus = compute_consensus(votes)
+            row[firm_name] = consensus["decision"]
+
+        results_grid.append(row)
+
+    # Print grid
+    firm_names = [p.get("firm_name", "?") for p in profiles]
+    col1 = max(len(r["scenario"]) for r in results_grid) + 2
+    col2 = max(len(n) for n in firm_names) + 2
+
+    header = f"{'Scenario':<{col1}} {'State':>5} {'Par':>15}"
+    for fn in firm_names:
+        header += f" {fn:>{col2}}"
+    print(header)
+    print("-" * len(header))
+
+    for r in results_grid:
+        line = f"{r['scenario']:<{col1}} {r['state']:>5} ${r['par']:>13,.0f}"
+        for fn in firm_names:
+            decision = r.get(fn, "?")
+            line += f" {decision:>{col2}}"
+        print(line)
+
+    # Count flips
+    flips = sum(1 for r in results_grid if r.get(firm_names[0]) != r.get(firm_names[1]))
+    print(f"\n{flips}/{len(results_grid)} scenarios show different decisions across firms.")
+    print(f"{'#' * 70}\n")
+
+
+def _get_demo_scenarios() -> dict:
+    """Load demo scenarios from ground truth files if available, else use embedded samples."""
+    gt_dir = Path(__file__).parent / "nos_test_set" / "ground_truth"
+    scenarios = {}
+
+    # Try to load a diverse subset from ground truth
+    picks = [
+        ("01", "TX MUD $2.9M GO"),
+        ("03", "NJ Borough $15.2M BAN"),
+        ("05", "UT City $5.6M Revenue"),
+        ("08", "CA City $87.7M Taxable GO"),
+        ("09", "VA Authority $17.9M Revenue"),
+        ("10", "TN Metro $204.6M GO"),
+    ]
+
+    for prefix, label in picks:
+        gt_file = gt_dir / f"{prefix}_ground_truth.json"
+        if gt_file.exists():
+            with open(gt_file) as f:
+                scenarios[label] = json.load(f)
+
+    if not scenarios:
+        # Fallback to embedded sample
+        from run_screening import _sample_nos_json
+        scenarios["TX MUD $2.9M GO"] = _sample_nos_json()
+
+    return scenarios
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="NOS Screening Demo — Firm Profile Comparison",
@@ -297,10 +382,15 @@ def main():
     parser.add_argument("--firm", action="append", help="Firm profile JSON (can repeat)")
     parser.add_argument("--provider", choices=["anthropic", "openai"], default="anthropic")
     parser.add_argument("--dry-run", action="store_true", help="Use sample data")
+    parser.add_argument("--multi", action="store_true", help="Run all demo scenarios")
     args = parser.parse_args()
 
+    if args.multi:
+        run_multi_scenario_demo()
+        return
+
     if not args.pdf and not args.nos_json and not args.dry_run:
-        parser.error("Provide a PDF, --nos-json, or --dry-run")
+        parser.error("Provide a PDF, --nos-json, --dry-run, or --multi")
 
     run_demo(
         pdf_path=args.pdf,
