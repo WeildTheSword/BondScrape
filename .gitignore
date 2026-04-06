@@ -207,6 +207,8 @@ marimo/_lsp/
 __marimo__/
 
 # BondScrape project-specific
+prospectus_json/scraper_output/nos_pdfs/
+prospectus_json/scraper_output/nos_extracted_text/
 NOS/nos_test_set/extractions/
 *_screening_*.json
 *_nos_extract.json

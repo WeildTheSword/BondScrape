@@ -1,0 +1,144 @@
+SESSION: 2026-04-06 (Session 4 — UI Polish, Extraction Pipeline, Usage Tracking)
+============================================================
+
+WHAT WAS DONE
+-------------
+
+1. SCREENING UI POLISH — AGENT CARDS & CONSENSUS
+   - Agent cards: larger avatars (48px, rounded), vote-colored backgrounds on
+     reveal (green/amber/red), wider confidence bars (80px), rounded vote badges,
+     subtle background highlight on reveal, amber-styled condition tags
+   - Consensus block: larger decision badge (14px, 2px border, rounded),
+     proper green/amber/red coloring, white bold reason text, surface background,
+     fade-in conditions row
+   - All pipeline phases now use enterUp slide animation instead of flat fadeIn
+
+2. SIDEBAR IMPROVEMENTS
+   - Widened to 320px with custom scrollbar
+   - Section headers with colored left accent bars: grey for Test Set, blue for
+     Scraped NOS — distinct visual identity per section
+   - Scraped items get blue hover/active borders (vs red for test set)
+   - Firm cards: rounded corners (4px), larger avatars (40px), description wraps
+   - Fixed flex issue causing invisible expanding space below deal list
+   - Renamed "Ground Truth" to "Test Set"
+
+3. DROP ZONE, EXTRACTION TERMINAL, VALIDATION, TAGS, SUMMARY, PROFILE
+   - Drop zone: rounded (6px), surface background, 2px dashed border, hover scale
+   - Extraction terminal: macOS traffic light dots, black background, rounded,
+     box shadow, always shows for all deals (not just PDF drops)
+   - Validation checklist: rounded card, green/red colored backgrounds on
+     pass/fail, larger check icons (22px) with pop/shake animations
+   - Feature tags: wrapped in rounded card with padding
+   - NOS summary: red left accent bar, stronger text emphasis
+   - Deal profile grid: larger cells, hover state, bolder values
+
+4. MODE SELECT MODAL & SETTINGS PANEL
+   - Both: rounded corners (8px), deeper backdrop blur, box shadow, surface tint
+     on header/footer, rounded inputs, pill-shaped toggles, solid red save button
+   - Settings gear icon rotates on hover
+   - Firm generator: same rounded/polished treatment
+
+5. EMPTY STATE
+   - Document icon in circular frame, "No deal selected" heading, descriptive
+     text, "Or drop a NOS PDF above" hint with icon
+
+6. TOPBAR & CROSS-PAGE CONSISTENCY
+   - Buttons: rounded corners, hover effects
+   - Topbar tag: red-branded style (was grey) across all pages
+   - Live badge: pulsing red dot indicator
+   - Matrix pills: green/amber/red coloring, rounded
+   - Pipeline, firms, scraper pages: topbar tags updated to match
+
+7. LANDING PAGE POLISH
+   - CTAs: red primary button (was white), rounded, scan-line hover animation,
+     red glow shadow
+   - Hero stats: larger numbers (40px), divider lines between stats
+   - Feature cards: red top-border reveals on hover, icon scale-up
+   - Pipeline steps: rounded, first step highlighted red
+
+8. FIRMS PAGE POLISH
+   - Card grid: 16px gaps with individual rounded cards (was 1px grid)
+   - Metrics grid: rounded, hover tint, larger values (13px bold)
+   - Form inputs: all rounded, red submit button with glow, rounded tag options
+
+9. PIPELINE PAGE POLISH
+   - Progress steps: rounded (4px), surface background, 2px gaps
+   - All panels: rounded (6px), black background, box shadow
+   - Split panels: scrollbar styling, darker header tint
+   - Agent cards: individual rounded cards with gaps, surface background
+   - Validation rows: green/red color coding, hover state
+   - Outcome badges: green/amber/red coloring, rounded
+   - Nav buttons: rounded, red primary
+
+10. SCRAPER PAGE POLISH
+    - Stats cards: larger (6px rounded), bigger numbers (32px bold), hover state
+    - Portal cards: more rounded (8px), hover shadow
+    - Source cards (gate): larger logos (72px), hover shadow, selected glow
+    - Table: deeper rounded (6px), box shadow, 2px header border
+    - Toast notifications: more rounded, backdrop blur
+
+11. API USAGE TRACKING
+    - Usage badge in topbar showing cumulative spend (e.g. $0.0342)
+    - Badge appears when API key is configured, turns amber when spend > $0
+    - Settings panel: detailed usage breakdown (calls, input tokens, output
+      tokens, estimated cost) with Reset button
+    - Model pricing: Sonnet ($3/$15), Opus ($15/$75), Haiku ($0.25/$1.25)
+    - Token capture from streaming SSE events (message_start, message_delta)
+      and non-streaming responses
+    - Per-run cost shown after consensus: "Screening cost: $0.0342 — 6 API
+      calls · 12,450 in · 1,230 out" (or "$0.00 local heuristic mode")
+
+12. VALIDATION FAILURE HANDLING
+    - Pipeline halts on critical validation failures (par sum, maturity count,
+      missing essential fields)
+    - Detailed failure banner with: specific issues listed with explanations,
+      extraction methods panel (what was used, what's available, what needs
+      an API key), source PDF download card, re-extraction action buttons
+    - Failed deals turn amber/yellow in sidebar with pulsing caution triangle
+      "Critical failure — Investigate"
+    - Scraped deals show "SCREENED · INTERESTED/CONDITIONAL/PASS" badge (was
+      just showing the decision word)
+
+13. SERVER-SIDE PDF EXTRACTION
+    - /api/pdf-proxy endpoint: fetches PDFs from i-dealprospectus.com using
+      saved Playwright cookies, caches locally in nos_pdfs/
+    - /api/extract-text endpoint: runs pdftotext -layout on cached PDFs
+      server-side, caches extracted text in nos_extracted_text/
+    - /api/download-nos-pdfs endpoint: batch downloads all NOS PDFs from
+      competitive sales with SSE progress streaming
+    - "Download NOS PDFs" button added to scraper page
+    - Screening page now uses server-side pdftotext -layout instead of
+      browser PDF.js for scraped deals (fixes maturity table extraction)
+    - Scraped deals re-extract on every run if validation previously failed
+    - httpx installed for async HTTP client
+
+14. SCRAPED DEAL FIXES
+    - Scraped deals no longer appear in Test Set list (filtered by _scraped flag)
+    - Scraped deals stay in their own Scraped NOS section
+    - Active state tracked correctly per section
+
+
+FILES CHANGED
+-------------
+Modified: NOS/screening_ui.html (~817 lines added — UI polish, usage tracking,
+          validation failure, server-side extraction, scraped deal fixes)
+Modified: NOS/scraper.html (+124 lines — portal polish, download PDFs button)
+Modified: NOS/index.html (+80 lines — CTA, stats, feature, pipeline polish)
+Modified: NOS/pipeline.html (+136 lines — full component polish)
+Modified: NOS/firms.html (+59 lines — cards, metrics, form polish)
+Modified: app.py (+178 lines — PDF proxy, text extraction, batch download APIs)
+Modified: .gitignore (added nos_pdfs/ and nos_extracted_text/)
+New:      HISTORY/2026-04-06_session4.txt
+
+
+ARCHITECTURE NOTES
+------------------
+- PDFs cached at: prospectus_json/scraper_output/nos_pdfs/nos_{pdf_id}.pdf
+- Extracted text cached at: prospectus_json/scraper_output/nos_extracted_text/nos_{pdf_id}.txt
+- Both directories gitignored (22MB+ PDFs, regenerated from scraper)
+- Extraction flow: scraped deal click → /api/extract-text (pdftotext -layout)
+  → if live mode: send to Claude → structured JSON → validation → agents
+- Usage stored in localStorage: nos_api_usage {calls, input_tokens, output_tokens, cost}
+- Per-run cost computed by snapshotting usage before pipeline and diffing after
+- Validation checks: par sum (critical), GFD math, date logic, maturity count
+  (critical), essential fields (issuer name, par > 0, state)

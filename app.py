@@ -339,6 +339,184 @@ async def stop_scraper():
 
 
 # =========================
+# PDF DOWNLOAD & PROXY
+# =========================
+NOS_PDF_DIR = PROCESSED_DIR / "nos_pdfs"
+NOS_PDF_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _load_cookies() -> dict:
+    """Load saved Playwright cookies for i-dealprospectus auth."""
+    cookies = {}
+    cookie_path = PROCESSED_DIR / "playwright_storage_state.json"
+    if cookie_path.exists():
+        try:
+            state = json.loads(cookie_path.read_text())
+            for c in state.get("cookies", []):
+                cookies[c["name"]] = c["value"]
+        except Exception:
+            pass
+    return cookies
+
+
+@app.get("/api/pdf-proxy")
+async def pdf_proxy(url: str):
+    """Fetch a PDF from i-dealprospectus.com server-side using saved cookies.
+    Also caches the file locally in nos_pdfs/ for future use."""
+    import httpx
+
+    if "i-dealprospectus.com" not in url:
+        return JSONResponse({"error": "Only i-dealprospectus.com URLs allowed"}, status_code=400)
+
+    # Check if already cached locally
+    import re
+    pdf_id = re.search(r'/(\d+)\?', url)
+    local_name = f"nos_{pdf_id.group(1)}.pdf" if pdf_id else f"nos_{hash(url) & 0xFFFFFFFF}.pdf"
+    local_path = NOS_PDF_DIR / local_name
+
+    if local_path.exists():
+        return StreamingResponse(
+            iter([local_path.read_bytes()]),
+            media_type="application/pdf",
+            headers={"Content-Disposition": "inline"},
+        )
+
+    cookies = _load_cookies()
+    try:
+        async with httpx.AsyncClient(follow_redirects=True, timeout=30.0) as client:
+            resp = await client.get(url, cookies=cookies)
+            if resp.status_code != 200:
+                return JSONResponse(
+                    {"error": f"Upstream returned {resp.status_code}"},
+                    status_code=resp.status_code,
+                )
+            # Cache locally
+            local_path.write_bytes(resp.content)
+            return StreamingResponse(
+                iter([resp.content]),
+                media_type=resp.headers.get("content-type", "application/pdf"),
+                headers={"Content-Disposition": "inline"},
+            )
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, status_code=502)
+
+
+@app.get("/api/download-nos-pdfs")
+async def download_nos_pdfs():
+    """Download all NOS PDFs from issues_master.json, streaming progress via SSE."""
+    import httpx
+
+    async def stream():
+        issues_path = get_prod_issues_path()
+        data = load_json(issues_path) or {"issues": []}
+        cookies = _load_cookies()
+        import re
+
+        nos_docs = []
+        for iss in data.get("issues", []):
+            if iss.get("type") != "Comp":
+                continue
+            for doc in iss.get("documents", []):
+                if (doc.get("doc_type") or "").upper().startswith("NOS") and doc.get("pdf_url"):
+                    nos_docs.append({
+                        "issue": iss.get("issue", ""),
+                        "url": doc["pdf_url"],
+                        "doc_id": doc.get("document_id", ""),
+                    })
+
+        yield f"data: {json.dumps({'type': 'status', 'msg': f'Found {len(nos_docs)} NOS PDFs to download'})}\n\n"
+
+        downloaded = 0
+        skipped = 0
+        failed = 0
+
+        async with httpx.AsyncClient(follow_redirects=True, timeout=30.0) as client:
+            for i, doc in enumerate(nos_docs):
+                pdf_id = re.search(r'/(\d+)\?', doc["url"])
+                local_name = f"nos_{pdf_id.group(1)}.pdf" if pdf_id else f"nos_{hash(doc['url']) & 0xFFFFFFFF}.pdf"
+                local_path = NOS_PDF_DIR / local_name
+
+                if local_path.exists():
+                    skipped += 1
+                    yield f"data: {json.dumps({'type': 'log', 'msg': f'[{i+1}/{len(nos_docs)}] Cached: {local_name}'})}\n\n"
+                    continue
+
+                try:
+                    resp = await client.get(doc["url"], cookies=cookies)
+                    if resp.status_code == 200:
+                        local_path.write_bytes(resp.content)
+                        size_kb = len(resp.content) / 1024
+                        downloaded += 1
+                        yield f"data: {json.dumps({'type': 'log', 'msg': f'[{i+1}/{len(nos_docs)}] Downloaded: {local_name} ({size_kb:.0f} KB)'})}\n\n"
+                    else:
+                        failed += 1
+                        issue_name = doc["issue"][:50]
+                        yield f"data: {json.dumps({'type': 'log', 'msg': f'[{i+1}/{len(nos_docs)}] Failed ({resp.status_code}): {issue_name}'})}\n\n"
+                except Exception as e:
+                    failed += 1
+                    yield f"data: {json.dumps({'type': 'error', 'msg': f'[{i+1}/{len(nos_docs)}] Error: {str(e)[:100]}'})}\n\n"
+
+        yield f"data: {json.dumps({'type': 'status', 'msg': f'Done. Downloaded: {downloaded}, Cached: {skipped}, Failed: {failed}'})}\n\n"
+        yield f"data: {json.dumps({'type': 'done', 'success': True, 'downloaded': downloaded, 'skipped': skipped, 'failed': failed})}\n\n"
+
+    return StreamingResponse(stream(), media_type="text/event-stream")
+
+
+# =========================
+# TEXT EXTRACTION (pdftotext -layout)
+# =========================
+NOS_TEXT_DIR = PROCESSED_DIR / "nos_extracted_text"
+NOS_TEXT_DIR.mkdir(parents=True, exist_ok=True)
+
+
+@app.get("/api/extract-text")
+async def extract_text(pdf_url: str):
+    """Extract text from a cached NOS PDF using pdftotext -layout.
+    Returns the extracted text as plain text, or an error."""
+    import re
+
+    pdf_id = re.search(r'/(\d+)\?', pdf_url)
+    local_name = f"nos_{pdf_id.group(1)}" if pdf_id else f"nos_{hash(pdf_url) & 0xFFFFFFFF}"
+    pdf_path = NOS_PDF_DIR / f"{local_name}.pdf"
+    text_path = NOS_TEXT_DIR / f"{local_name}.txt"
+
+    # Return cached text if available
+    if text_path.exists():
+        return JSONResponse({
+            "text": text_path.read_text(encoding="utf-8"),
+            "source": "cached",
+            "method": "pdftotext -layout",
+        })
+
+    # Check PDF exists
+    if not pdf_path.exists():
+        return JSONResponse({"error": "PDF not downloaded. Run 'Download NOS PDFs' first."}, status_code=404)
+
+    # Extract with pdftotext -layout
+    try:
+        result = subprocess.run(
+            ["pdftotext", "-layout", str(pdf_path), "-"],
+            capture_output=True, text=True, timeout=30,
+        )
+        if result.returncode != 0:
+            return JSONResponse({"error": f"pdftotext failed: {result.stderr[:200]}"}, status_code=500)
+
+        extracted = result.stdout
+        # Cache the extracted text
+        text_path.write_text(extracted, encoding="utf-8")
+
+        return JSONResponse({
+            "text": extracted,
+            "source": "extracted",
+            "method": "pdftotext -layout",
+        })
+    except FileNotFoundError:
+        return JSONResponse({"error": "pdftotext not installed. Run: sudo apt-get install poppler-utils"}, status_code=500)
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, status_code=500)
+
+
+# =========================
 # STATIC FILE SERVING
 # =========================
 # Mount NOS site and data directories so everything works from one server
