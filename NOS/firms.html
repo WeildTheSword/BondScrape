@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Firm Profiles — BondScrape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+@keyframes drawLine { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+
+:root {
+  --black:#0a0a0a; --surface:#111; --surface2:#181818; --surface3:#1f1f1f;
+  --rule:#222; --rule-light:#2a2a2a;
+  --white:#f0f0f0; --white-dim:#999; --white-muted:#555;
+  --red:#e03e3e; --red-dim:#c53030; --red-wash:rgba(224,62,62,0.07); --red-border:rgba(224,62,62,0.20);
+  --sans:'DM Sans',sans-serif; --mono:'DM Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.55}
+
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size:256px 256px;
+}
+
+/* ── TOPBAR ─────────────── */
+.topbar {
+  position:sticky; top:0; z-index:100;
+  background:var(--black); border-bottom:1px solid var(--rule);
+  height:48px; display:flex; align-items:center;
+  padding:0 28px; gap:20px; font-size:13px;
+}
+.topbar::after {
+  content:''; position:absolute; bottom:-1px; left:0; right:0;
+  height:1px; background:linear-gradient(90deg, var(--red) 0%, var(--red) 20%, transparent 20%);
+}
+.brand { font-weight:700; letter-spacing:-0.02em; font-size:14px; text-decoration:none; color:var(--white); }
+.brand span { color:var(--red); }
+.topbar-sep { width:1px; height:20px; background:var(--rule); }
+.topbar-nav { display:flex; gap:0; }
+.topbar-nav a {
+  padding:14px 16px; font-size:11px; font-weight:500;
+  color:var(--white-muted); letter-spacing:0.04em; text-transform:uppercase;
+  border-bottom:2px solid transparent; margin-bottom:-1px;
+  transition:all 0.15s; text-decoration:none;
+}
+.topbar-nav a:hover { color:var(--white-dim); }
+.topbar-nav a.active { color:var(--white); border-bottom-color:var(--red); }
+.topbar-spacer { flex:1; }
+.topbar-tag { font-family:var(--mono); font-size:10px; padding:3px 10px; border:1px solid var(--rule-light); color:var(--white-muted); letter-spacing:0.06em; }
+
+/* ── PAGE ─────────────── */
+.page { max-width:1100px; margin:0 auto; padding:48px 40px 80px; position:relative; z-index:1; }
+.page-title { font-size:32px; font-weight:700; letter-spacing:-0.04em; margin-bottom:8px; line-height:1.2; }
+.page-sub { font-size:14px; color:var(--white-dim); line-height:1.7; margin-bottom:12px; max-width:680px; }
+.page-line { width:80px; height:1px; background:var(--red); margin-bottom:40px; transform-origin:left; animation:drawLine 0.5s ease both 0.3s; }
+
+.page-actions { margin-bottom:40px; }
+.btn-create {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 24px; font-size:13px; font-weight:600;
+  background:transparent; color:var(--white); border:1px solid var(--rule-light);
+  cursor:pointer; letter-spacing:0.02em; font-family:var(--sans);
+  transition:all 0.15s;
+}
+.btn-create:hover { border-color:var(--red); color:var(--red); }
+.btn-create .plus { font-size:16px; font-weight:400; }
+
+/* ── FIRM CARDS GRID ─────────────── */
+.firms-grid {
+  display:grid; grid-template-columns:repeat(2, 1fr);
+  gap:1px; background:var(--rule); margin-bottom:60px;
+}
+
+.firm-profile-card {
+  background:var(--black); padding:32px;
+  transition:background 0.2s;
+  animation:fadeUp 0.5s ease both;
+}
+.firm-profile-card:hover { background:var(--surface); }
+
+.firm-header { display:flex; align-items:flex-start; gap:20px; margin-bottom:20px; }
+.firm-avatar-wrap {
+  width:64px; height:64px; flex-shrink:0;
+  border:1px solid var(--rule-light);
+  display:flex; align-items:center; justify-content:center;
+  background:var(--surface);
+}
+.firm-title { flex:1; }
+.firm-title h2 { font-size:18px; font-weight:700; letter-spacing:-0.02em; margin-bottom:4px; }
+.firm-title p { font-size:12px; color:var(--white-dim); line-height:1.5; }
+
+/* Metrics grid */
+.metrics-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0; border:1px solid var(--rule); margin-bottom:16px;
+}
+.metric {
+  padding:10px 14px; border-bottom:1px solid var(--rule);
+}
+.metric:nth-child(odd) { border-right:1px solid var(--rule); }
+.metric:nth-last-child(-n+2) { border-bottom:none; }
+.metric-label {
+  font-family:var(--mono); font-size:9px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:3px;
+}
+.metric-value { font-size:12px; font-weight:500; line-height:1.4; }
+.metric-value.mono { font-family:var(--mono); font-size:11px; }
+
+/* Priorities */
+.priorities { margin-bottom:16px; }
+.priorities-label {
+  font-family:var(--mono); font-size:9px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;
+}
+.priority-item {
+  font-size:11px; color:var(--white-dim); line-height:1.5;
+  padding-left:12px; position:relative; margin-bottom:2px;
+}
+.priority-item::before { content:''; position:absolute; left:0; top:7px; width:4px; height:4px; background:var(--red); }
+
+/* Screen link */
+.firm-screen-link {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:600; color:var(--red);
+  text-decoration:none; letter-spacing:0.02em;
+  transition:opacity 0.15s;
+}
+.firm-screen-link:hover { opacity:0.7; }
+.firm-screen-link .arrow { transition:transform 0.15s; }
+.firm-screen-link:hover .arrow { transform:translateX(3px); }
+
+/* ── CREATE FORM ─────────────── */
+.create-section {
+  border:1px solid var(--rule); padding:32px; margin-top:60px;
+  background:var(--surface);
+}
+.create-section h3 {
+  font-size:18px; font-weight:700; letter-spacing:-0.02em; margin-bottom:4px;
+}
+.create-section .form-sub {
+  font-size:12px; color:var(--white-dim); margin-bottom:24px;
+}
+
+.form-row { margin-bottom:20px; }
+.form-label {
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;
+  display:block;
+}
+.form-input {
+  width:100%; padding:8px 12px; font-size:13px;
+  background:var(--black); border:1px solid var(--rule-light);
+  color:var(--white); font-family:var(--sans);
+  outline:none; transition:border-color 0.15s;
+}
+.form-input:focus { border-color:var(--red); }
+.form-input::placeholder { color:var(--white-muted); }
+textarea.form-input { min-height:60px; resize:vertical; }
+.form-row-half { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+/* Tags */
+.tag-pool { display:flex; flex-wrap:wrap; gap:4px; }
+.tag-option {
+  padding:4px 10px; font-size:10px; font-family:var(--mono);
+  border:1px solid var(--rule-light); color:var(--white-muted);
+  cursor:pointer; letter-spacing:0.04em;
+  transition:all 0.12s; user-select:none;
+}
+.tag-option:hover { border-color:var(--white-muted); color:var(--white-dim); }
+.tag-option.selected { border-color:var(--red); color:var(--red); background:var(--red-wash); }
+
+/* Dropdown */
+.form-select {
+  width:100%; padding:8px 12px; font-size:13px;
+  background:var(--black); border:1px solid var(--rule-light);
+  color:var(--white); font-family:var(--sans);
+  outline:none; cursor:pointer; appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 12px center;
+}
+.form-select:focus { border-color:var(--red); }
+
+.btn-submit {
+  padding:12px 32px; font-size:13px; font-weight:600;
+  background:var(--white); color:var(--black); border:1px solid var(--white);
+  cursor:pointer; font-family:var(--sans); letter-spacing:0.02em;
+  transition:all 0.15s;
+}
+.btn-submit:hover { background:var(--red); color:var(--white); border-color:var(--red); }
+
+/* ── FOOTER ─────────────── */
+.footer {
+  position:relative; z-index:1;
+  border-top:1px solid var(--rule);
+  padding:32px 40px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-left { font-size:12px; color:var(--white-muted); }
+.footer-right { font-family:var(--mono); font-size:11px; color:var(--white-muted); }
+
+@media(max-width:768px){
+  .firms-grid { grid-template-columns:1fr; }
+  .form-row-half { grid-template-columns:1fr; }
+  .page { padding:32px 20px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="brand" href="index.html">Bond<span>Scrape</span></a>
+  <div class="topbar-sep"></div>
+  <div class="topbar-nav">
+    <a href="screening_ui.html">Screening</a>
+    <a href="pipeline.html">Pipeline</a>
+    <a href="firms.html" class="active">Firms</a>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-tag">FIRM PROFILES</div>
+</div>
+
+<div class="page">
+  <div class="page-title">Firm Profiles</div>
+  <div class="page-sub">
+    Different firms evaluate the same deal differently. A $4.2M Texas MUD is core business for a regional underwriter and irrelevant to a Northeast institutional shop. The firm profile is the variable&mdash;not the agents.
+  </div>
+  <div class="page-line"></div>
+
+  <div class="page-actions">
+    <button class="btn-create" onclick="scrollToCreate()">
+      <span class="plus">+</span> Create New Profile
+    </button>
+  </div>
+
+  <div class="firms-grid" id="firms-grid"></div>
+
+  <!-- CREATE FORM -->
+  <div class="create-section" id="create-section">
+    <h3>Create Firm Profile</h3>
+    <div class="form-sub">Custom profiles are stored locally in your browser and appear alongside the built-in profiles.</div>
+
+    <div class="form-row">
+      <label class="form-label">Firm Name</label>
+      <input class="form-input" id="f-name" placeholder="e.g. Pacific Coast Municipal Group">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Description</label>
+      <textarea class="form-input" id="f-desc" placeholder="Brief description of the firm's focus and capabilities"></textarea>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">States Covered</label>
+      <div class="tag-pool" id="state-tags"></div>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">Issuer Types Covered</label>
+      <div class="tag-pool" id="issuer-tags"></div>
+    </div>
+
+    <div class="form-row-half">
+      <div class="form-row">
+        <label class="form-label">Max Single Commitment ($)</label>
+        <input class="form-input" id="f-max-commit" type="number" placeholder="25000000">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Max Total Inventory ($)</label>
+        <input class="form-input" id="f-max-inv" type="number" placeholder="75000000">
+      </div>
+    </div>
+    <div class="form-row-half">
+      <div class="form-row">
+        <label class="form-label">Current Inventory ($)</label>
+        <input class="form-input" id="f-cur-inv" type="number" placeholder="18500000">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Available Analysts</label>
+        <input class="form-input" id="f-analysts" type="number" placeholder="2">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">Distribution Strength</label>
+      <select class="form-select" id="f-dist">
+        <option value="retail">Retail</option>
+        <option value="institutional">Institutional</option>
+        <option value="both">Both (Retail + Institutional)</option>
+      </select>
+    </div>
+
+    <div class="form-row" style="margin-top:24px;">
+      <button class="btn-submit" onclick="createFirm()">Create Profile</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-left">Capstone Research Project &mdash; LLM Multi-Agent Systems in Public Finance</div>
+  <div class="footer-right">2026</div>
+</div>
+
+<script>
+// ── PIXEL ART PEOPLE ──────────────────────────
+// Each grid is 16 wide x 14 tall. W=white, R=red, .=empty
+// Characters are ~8-12px tall in the grid
+
+// Texas Regional: 2-3 people, casual, one with cowboy hat
+const PEOPLE_TEXAS = [
+  '................',
+  '....RRR.........',
+  '...RRRRR...WWW..',
+  '....WWW....WWW..',
+  '....WWW....WWW..',
+  '...RWWWR..RWWWR.',
+  '...RWWWR..RWWWR.',
+  '...RWWWR..RWWWR.',
+  '....WWW....WWW..',
+  '....WWW....WWW..',
+  '...WW.WW..WW.WW.',
+  '...WW.WW..WW.WW.',
+  '...W...W..W...W.',
+  '................',
+].map(r=>r.split(''));
+
+// NE Institutional: 4-5 people in suits, tall buildings behind
+const PEOPLE_NE = [
+  '.W...W...W...W..',
+  '.W...W...W...W..',
+  '.W..WWW.WWW.WWW.',
+  '.W..WWW.WWW.WWW.',
+  '.W..WWW.WWW.WWW.',
+  '...RWWWRWWWRWWWR',
+  '...RWWWRWWWRWWWR',
+  '...RWWWRWWWRWWWR',
+  '....WWW.WWW.WWW.',
+  '....WWW.WWW.WWW.',
+  '...WW.WWW.WWW.WW',
+  '...WW.WWW.WWW.WW',
+  '...W...W...W...W',
+  '................',
+].map(r=>r.split(''));
+
+// National: large group 6+, eagle/flag element
+const PEOPLE_NATIONAL = [
+  '....WWWWWWWW....',
+  '....WRRRRRRW....',
+  '....WWWWWWWW....',
+  '.WWW.WWW.WWW.WW.',
+  '.WWW.WWW.WWW.WW.',
+  '.WWW.WWW.WWW.WW.',
+  'RWWWRWWWRWWWRWWR',
+  'RWWWRWWWRWWWRWWR',
+  'RWWWRWWWRWWWRWWR',
+  '.WWW.WWW.WWW.WW.',
+  '.WWW.WWW.WWW.WW.',
+  'WW.WWW.WWW.WWW.W',
+  'W...W...W...W..W',
+  '................',
+].map(r=>r.split(''));
+
+// Small Boutique: 1-2 people, smaller, humble
+const PEOPLE_BOUTIQUE = [
+  '................',
+  '................',
+  '......WWW.......',
+  '......WWW.......',
+  '......WWW.......',
+  '.....RWWWR......',
+  '.....RWWWR......',
+  '.....RWWWR......',
+  '......WWW.......',
+  '......WWW.......',
+  '.....WW.WW......',
+  '.....WW.WW......',
+  '.....W...W......',
+  '................',
+].map(r=>r.split(''));
+
+// Custom/Generic: 3 suited people
+const PEOPLE_GENERIC = [
+  '................',
+  '..WWW..WWW..WWW.',
+  '..WWW..WWW..WWW.',
+  '..WWW..WWW..WWW.',
+  '.RWWWR.WWWR.WWR.',
+  '.RWWWRR.WWR.WWR.',
+  '.RWWWR.RWWR.WWR.',
+  '..WWW..RWWWR.WR.',
+  '..WWW..WWW..WWW.',
+  '..WWW..WWW..WWW.',
+  '.WW.WW.W.WW.W.W.',
+  '.WW.WW.W.WWWW.W.',
+  '.W...W.W...W.W..',
+  '................',
+].map(r=>r.split(''));
+
+function makePixelAvatar(grid, size) {
+  size = size || 64;
+  const rows = grid.length;
+  const cols = grid[0].length;
+  let svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${cols} ${rows}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">`;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const ch = grid[r][c];
+      if (ch === 'W') svg += `<rect x="${c}" y="${r}" width="1" height="1" fill="#f0f0f0"/>`;
+      else if (ch === 'R') svg += `<rect x="${c}" y="${r}" width="1" height="1" fill="#e03e3e"/>`;
+    }
+  }
+  svg += '</svg>';
+  return svg;
+}
+
+function getFirmAvatar(firmName) {
+  const n = (firmName || '').toLowerCase();
+  if (n.includes('texas') || n.includes('lone star') || n.includes('southwest')) return PEOPLE_TEXAS;
+  if (n.includes('northeast') || n.includes('institutional') || n.includes('atlantic')) return PEOPLE_NE;
+  if (n.includes('national') || n.includes('american') || n.includes('national municipal')) return PEOPLE_NATIONAL;
+  if (n.includes('boutique') || n.includes('small') || n.includes('magnolia')) return PEOPLE_BOUTIQUE;
+  return PEOPLE_GENERIC;
+}
+
+// ── DATA ──────────────────────────
+const FIRM_FILES = [
+  'firm_profiles/texas_regional.json',
+  'firm_profiles/northeast_institutional.json',
+  'firm_profiles/national_large.json',
+  'firm_profiles/small_boutique.json'
+];
+
+const ALL_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+const ALL_ISSUERS = ['city','county','town','state','school_district','independent_school_district','municipal_utility_district','special_district','authority','regional_school_unit'];
+
+let FIRMS = [];
+let selectedStates = new Set();
+let selectedIssuers = new Set();
+
+function fmt$(n) {
+  if (!n) return '$0';
+  if (n >= 1e9) return '$' + (n/1e9).toFixed(1) + 'B';
+  if (n >= 1e6) return '$' + (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return '$' + (n/1e3).toFixed(0) + 'K';
+  return '$' + n.toLocaleString();
+}
+
+function fmtIssuer(t) {
+  return (t||'').replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function safeGet(obj, path, def) {
+  return path.split('.').reduce((o,k) => (o && o[k] !== undefined) ? o[k] : def, obj);
+}
+
+async function loadFirms() {
+  FIRMS = [];
+  for (const f of FIRM_FILES) {
+    try {
+      const res = await fetch(f);
+      if (res.ok) FIRMS.push(await res.json());
+    } catch(e) {}
+  }
+  // Load custom firms from localStorage
+  try {
+    const custom = JSON.parse(localStorage.getItem('nos_custom_firms') || '[]');
+    custom.forEach(c => FIRMS.push(c));
+  } catch(e) {}
+
+  renderFirms();
+}
+
+function renderFirms() {
+  const grid = document.getElementById('firms-grid');
+  grid.innerHTML = '';
+  FIRMS.forEach((f, idx) => {
+    const card = document.createElement('div');
+    card.className = 'firm-profile-card';
+    card.style.animationDelay = (idx * 0.08) + 's';
+
+    const avatar = getFirmAvatar(f.firm_name);
+    const states = safeGet(f, 'sector_coverage.states', []);
+    const issuers = safeGet(f, 'sector_coverage.issuer_types', []);
+    const mc = safeGet(f, 'capital_limits.max_single_commitment_dollars', 0);
+    const mi = safeGet(f, 'capital_limits.max_total_inventory_dollars', 0);
+    const ci = safeGet(f, 'capital_limits.current_inventory_dollars', 0);
+    const ds = safeGet(f, 'distribution_profile.strength', '?');
+    const an = safeGet(f, 'current_pipeline.analyst_availability.available_analysts', 0);
+    const platforms = safeGet(f, 'bidding_capabilities.platforms', []);
+    const priorities = safeGet(f, 'sector_coverage.strategic_priorities', []);
+    const desc = f.firm_description || '';
+
+    card.innerHTML = `
+      <div class="firm-header">
+        <div class="firm-avatar-wrap">${makePixelAvatar(avatar, 64)}</div>
+        <div class="firm-title">
+          <h2>${f.firm_name}</h2>
+          <p>${desc}</p>
+        </div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">States</div>
+          <div class="metric-value">${states.join(', ') || 'None'}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Issuer Types</div>
+          <div class="metric-value">${issuers.map(fmtIssuer).join(', ') || 'None'}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Max Commitment</div>
+          <div class="metric-value mono">${fmt$(mc)}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Max Inventory</div>
+          <div class="metric-value mono">${fmt$(mi)}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Current Inventory</div>
+          <div class="metric-value mono">${fmt$(ci)}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Distribution</div>
+          <div class="metric-value">${ds.charAt(0).toUpperCase() + ds.slice(1)}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Available Analysts</div>
+          <div class="metric-value mono">${an}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Platforms</div>
+          <div class="metric-value">${platforms.map(p => p.replace(/_/g,' ')).join(', ') || 'None'}</div>
+        </div>
+      </div>
+      ${priorities.length ? `
+      <div class="priorities">
+        <div class="priorities-label">Strategic Priorities</div>
+        ${priorities.map(p => `<div class="priority-item">${p}</div>`).join('')}
+      </div>` : ''}
+      <a class="firm-screen-link" href="screening_ui.html?firm=${encodeURIComponent(f.firm_name)}">
+        Screen with this firm <span class="arrow">&rarr;</span>
+      </a>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function scrollToCreate() {
+  document.getElementById('create-section').scrollIntoView({ behavior:'smooth' });
+}
+
+// ── TAG POOLS ──────────────────────────
+function renderTagPool(containerId, items, selectedSet, labelFn) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  items.forEach(item => {
+    const tag = document.createElement('span');
+    tag.className = 'tag-option' + (selectedSet.has(item) ? ' selected' : '');
+    tag.textContent = labelFn ? labelFn(item) : item;
+    tag.onclick = () => {
+      if (selectedSet.has(item)) selectedSet.delete(item);
+      else selectedSet.add(item);
+      tag.classList.toggle('selected');
+    };
+    el.appendChild(tag);
+  });
+}
+
+// ── CREATE FIRM ──────────────────────────
+function createFirm() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { alert('Firm name is required.'); return; }
+
+  const firm = {
+    firm_name: name,
+    firm_description: document.getElementById('f-desc').value.trim(),
+    sector_coverage: {
+      states: [...selectedStates],
+      issuer_types: [...selectedIssuers],
+      bond_types: ['go_unlimited_tax','go_limited_tax','revenue'],
+      strategic_priorities: [],
+      sectors_exiting: []
+    },
+    capital_limits: {
+      max_single_commitment_dollars: parseInt(document.getElementById('f-max-commit').value) || 25000000,
+      max_total_inventory_dollars: parseInt(document.getElementById('f-max-inv').value) || 75000000,
+      current_inventory_dollars: parseInt(document.getElementById('f-cur-inv').value) || 0,
+      max_concurrent_bids: 4,
+      good_faith_deposit_capacity_dollars: 2000000
+    },
+    distribution_profile: {
+      strength: document.getElementById('f-dist').value,
+      retail_reach: 'Custom firm',
+      institutional_reach: 'Custom firm',
+      bank_qualified_demand: 'Moderate',
+      taxable_demand: 'Moderate',
+      sweet_spot_maturity_range: '1-20 years',
+      difficulty_maturity_range: 'N/A',
+      sweet_spot_par_range: 'N/A'
+    },
+    current_pipeline: {
+      deals_in_review: 0,
+      upcoming_bids: [],
+      analyst_availability: {
+        total_analysts: parseInt(document.getElementById('f-analysts').value) || 2,
+        available_analysts: parseInt(document.getElementById('f-analysts').value) || 2,
+        pos_review_days_needed: 3
+      }
+    },
+    bidding_capabilities: {
+      platforms: ['parity'],
+      basis_of_award_experience: ['tic'],
+      notes: 'Custom firm profile'
+    }
+  };
+
+  // Save to localStorage
+  let custom = [];
+  try { custom = JSON.parse(localStorage.getItem('nos_custom_firms') || '[]'); } catch(e) {}
+  custom.push(firm);
+  localStorage.setItem('nos_custom_firms', JSON.stringify(custom));
+
+  // Add to current list and re-render
+  FIRMS.push(firm);
+  renderFirms();
+
+  // Reset form
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-max-commit').value = '';
+  document.getElementById('f-max-inv').value = '';
+  document.getElementById('f-cur-inv').value = '';
+  document.getElementById('f-analysts').value = '';
+  selectedStates.clear();
+  selectedIssuers.clear();
+  renderTagPool('state-tags', ALL_STATES, selectedStates);
+  renderTagPool('issuer-tags', ALL_ISSUERS, selectedIssuers, fmtIssuer);
+
+  // Scroll to the new card
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+// ── INIT ──────────────────────────
+renderTagPool('state-tags', ALL_STATES, selectedStates);
+renderTagPool('issuer-tags', ALL_ISSUERS, selectedIssuers, fmtIssuer);
+loadFirms();
+</script>
+</body>
+</html>

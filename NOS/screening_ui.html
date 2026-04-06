@@ -679,6 +679,10 @@ body::before {
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h4l2-5 3 10 2-5h3"/></svg>
       Pipeline
     </a>
+    <a href="firms.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="5" r="3"/><circle cx="11" cy="5" r="3"/><path d="M1 14c0-2.5 1.8-4 4-4 1 0 1.8.3 2.5.8M8.5 10.8c.7-.5 1.5-.8 2.5-.8 2.2 0 4 1.5 4 4"/></svg>
+      Firms
+    </a>
     <a href="index.html">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8l6-6 6 6M4 7v7h3v-4h2v4h3V7"/></svg>
       Home
@@ -1022,85 +1026,85 @@ const AGENT_AVATARS = {
   calendar: PIXEL_CA
 };
 
-// Firm avatars as pixel grids
-// Star (Lone Star) for Texas Regional
+// Firm avatars as pixel grids — people in business suits
+// Texas Regional: 2-3 people, casual, one with cowboy hat
 const FIRM_PIXEL_STAR = [
-  '............',
-  '.....WW.....',
-  '.....WW.....',
-  '....WWWW....',
-  '.WWWWWWWWWW.',
-  '..WWWRRWWW..',
-  '...WWRRWW...',
-  '...WWWWWW...',
-  '..WWW..WWW..',
-  '.WW......WW.',
-  '............',
-  '............',
+  '...RRR......',
+  '..RRRRR.WWW.',
+  '...WWW..WWW.',
+  '...WWW..WWW.',
+  '..RWWWR.WWR.',
+  '..RWWWRRWWR.',
+  '..RWWWR.WWR.',
+  '...WWW..WWW.',
+  '...WWW..WWW.',
+  '..WW.WW.W.WW',
+  '..WW.WW.W.WW',
+  '..W...W.W..W',
 ].map(r => r.split(''));
 
-// Column/Pillar for NE Institutional
+// NE Institutional: 4-5 people in formal suits, buildings behind
 const FIRM_PIXEL_COLUMN = [
-  '............',
-  '.WWWWWWWWWW.',
-  '..WWWWWWWW..',
-  '....WWWW....',
-  '....WWWW....',
-  '....WWWW....',
-  '....WWWW....',
-  '....WWWW....',
-  '....WWWW....',
-  '..WWWWWWWW..',
-  '.WWWWWWWWWW.',
-  '............',
+  'W...W..W...W',
+  'W..WWW.WWWWW',
+  'W..WWW.WWW.W',
+  'W..WWW.WWW..',
+  '..RWWWRWWWR.',
+  '..RWWWRWWWR.',
+  '..RWWWRWWWR.',
+  '...WWW.WWW..',
+  '...WWW.WWW..',
+  '..WW.WWWW.WW',
+  '..WW.W.WW.WW',
+  '..W..W..W..W',
 ].map(r => r.split(''));
 
-// Eagle/Shield for National
+// National: large group 6+, flag element at top
 const FIRM_PIXEL_EAGLE = [
-  '............',
-  '....WWWW....',
-  '...WWWWWW...',
-  '..WWWRRWWW..',
-  '..WWWRRWWW..',
   '..WWWWWWWW..',
-  '...WWWWWW...',
-  '....WWWW....',
+  '..WRRRRRRW..',
+  '..WWWWWWWW..',
+  'WWW.WWW.WWWW',
+  'WWW.WWW.WWW.',
+  'WWWRWWWRWWWR',
+  'WWWRWWWRWWWR',
+  'WWWRWWWRWWWR',
   '.WW..WW..WW.',
-  '.WWW.WW.WWW.',
-  '..WWWWWWWW..',
-  '............',
+  '.WW..WW..WW.',
+  'WW.WWW.WWW.W',
+  'W...W...W..W',
 ].map(r => r.split(''));
 
-// Flower/Magnolia for Boutique
+// Magnolia/Boutique: 1-2 people, smaller, humble
 const FIRM_PIXEL_FLOWER = [
   '............',
-  '....WWWW....',
-  '...WRRRW....',
-  '..WW.RR.WW..',
-  '.WRR.RR.RRW.',
-  '.WRR.RR.RRW.',
-  '..WW.RR.WW..',
-  '...WRRRW....',
-  '....WWWW....',
-  '.....WW.....',
-  '.....WW.....',
   '............',
+  '....WWW.....',
+  '....WWW.....',
+  '....WWW.....',
+  '...RWWWR....',
+  '...RWWWR....',
+  '...RWWWR....',
+  '....WWW.....',
+  '....WWW.....',
+  '...WW.WW....',
+  '...W...W....',
 ].map(r => r.split(''));
 
-// Building for Custom firms
+// Generic suited people for custom firms
 const FIRM_PIXEL_BUILDING = [
   '............',
-  '...WWWWWW...',
-  '...WWWWWW...',
-  '...W.WW.W...',
-  '...W.WW.W...',
-  '...WWWWWW...',
-  '...W.WW.W...',
-  '...W.WW.W...',
-  '...WWWWWW...',
-  '...WWRRWW...',
-  '...WW..WW...',
-  '............',
+  '.WWW.WWW.WW.',
+  '.WWW.WWW.WW.',
+  '.WWW.WWW.WW.',
+  'RWWWRWWWRWWR',
+  'RWWWRWWWRWWR',
+  'RWWWRWWWRWWR',
+  '.WWW.WWW.WW.',
+  '.WWW.WWW.WW.',
+  'WW.WWW.WWW.W',
+  'WW.WW..WW.WW',
+  'W...W...W..W',
 ].map(r => r.split(''));
 
 function getFirmAvatar(firmName) {
@@ -1108,7 +1112,7 @@ function getFirmAvatar(firmName) {
   if (n.includes('texas') || n.includes('lone star') || n.includes('southwest')) return FIRM_PIXEL_STAR;
   if (n.includes('northeast') || n.includes('institutional') || n.includes('atlantic')) return FIRM_PIXEL_COLUMN;
   if (n.includes('national') || n.includes('capital') || n.includes('american')) return FIRM_PIXEL_EAGLE;
-  if (n.includes('boutique') || n.includes('small') || n.includes('community')) return FIRM_PIXEL_FLOWER;
+  if (n.includes('boutique') || n.includes('small') || n.includes('magnolia')) return FIRM_PIXEL_FLOWER;
   return FIRM_PIXEL_BUILDING;
 }
 
