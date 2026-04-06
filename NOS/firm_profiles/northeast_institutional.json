@@ -1,0 +1,76 @@
+{
+  "firm_name": "Atlantic Capital Markets",
+  "firm_description": "Mid-to-large institutional underwriter focused on New England and Mid-Atlantic states. Strong institutional distribution network. Specializes in larger, rated credits.",
+
+  "sector_coverage": {
+    "states": ["ME", "NH", "VT", "MA", "CT", "RI", "NY", "NJ", "PA", "DE", "MD", "VA"],
+    "issuer_types": [
+      "state",
+      "county",
+      "city",
+      "school_district",
+      "regional_school_unit",
+      "authority"
+    ],
+    "bond_types": [
+      "go_unlimited_tax",
+      "go_limited_tax",
+      "revenue"
+    ],
+    "strategic_priorities": [
+      "Expanding state authority revenue bond business",
+      "Building housing finance agency relationships",
+      "Maintaining competitive position in NE school district GOs"
+    ],
+    "sectors_exiting": [
+      "Small unrated special districts",
+      "Texas MUDs"
+    ]
+  },
+
+  "capital_limits": {
+    "max_single_commitment_dollars": 100000000,
+    "max_total_inventory_dollars": 250000000,
+    "current_inventory_dollars": 85000000,
+    "max_concurrent_bids": 6,
+    "good_faith_deposit_capacity_dollars": 10000000
+  },
+
+  "distribution_profile": {
+    "strength": "institutional",
+    "retail_reach": "Moderate — 20 regional broker-dealer accounts",
+    "institutional_reach": "Strong — 50+ insurance companies, pension funds, mutual funds",
+    "bank_qualified_demand": "Moderate — some community bank accounts in New England",
+    "taxable_demand": "Strong — institutional accounts buy taxable munis",
+    "sweet_spot_maturity_range": "5-30 years",
+    "difficulty_maturity_range": "1-3 years (retail-dominated)",
+    "sweet_spot_par_range": "$20M-$200M"
+  },
+
+  "current_pipeline": {
+    "deals_in_review": 3,
+    "upcoming_bids": [
+      {
+        "issue": "Commonwealth of Massachusetts GO Bonds",
+        "sale_date": "2026-04-20",
+        "par_amount": 150000000
+      },
+      {
+        "issue": "City of Hartford, CT GO Refunding",
+        "sale_date": "2026-04-28",
+        "par_amount": 35000000
+      }
+    ],
+    "analyst_availability": {
+      "total_analysts": 5,
+      "available_analysts": 3,
+      "pos_review_days_needed": 2
+    }
+  },
+
+  "bidding_capabilities": {
+    "platforms": ["parity", "grant_street"],
+    "basis_of_award_experience": ["nic", "tic"],
+    "notes": "No experience with Texas net effective interest rate conventions"
+  }
+}

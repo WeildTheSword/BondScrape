@@ -1,0 +1,69 @@
+{
+  "firm_name": "Lone Star Municipal Partners",
+  "firm_description": "Mid-size regional underwriter focused on Texas special districts and school districts. Strong retail distribution network across Texas community banks. Established relationships with Texas financial advisors.",
+
+  "sector_coverage": {
+    "states": ["TX"],
+    "issuer_types": [
+      "municipal_utility_district",
+      "school_district",
+      "independent_school_district",
+      "special_district",
+      "city",
+      "county"
+    ],
+    "bond_types": [
+      "go_unlimited_tax",
+      "go_limited_tax",
+      "certificate_of_obligation",
+      "revenue"
+    ],
+    "strategic_priorities": [
+      "Growing K-12 school district market share in North Texas",
+      "Maintaining MUD franchise in Harris/Fort Bend/Brazoria counties",
+      "Expanding into Texas city GO market"
+    ],
+    "sectors_exiting": []
+  },
+
+  "capital_limits": {
+    "max_single_commitment_dollars": 25000000,
+    "max_total_inventory_dollars": 75000000,
+    "current_inventory_dollars": 18500000,
+    "max_concurrent_bids": 4,
+    "good_faith_deposit_capacity_dollars": 2000000
+  },
+
+  "distribution_profile": {
+    "strength": "retail",
+    "retail_reach": "Strong — 40+ Texas community bank and credit union accounts",
+    "institutional_reach": "Moderate — 10 regional institutional accounts",
+    "bank_qualified_demand": "Very strong — local banks actively seek BQ paper",
+    "taxable_demand": "Weak — limited taxable investor base",
+    "sweet_spot_maturity_range": "1-15 years",
+    "difficulty_maturity_range": "20+ years",
+    "sweet_spot_par_range": "$2M-$20M"
+  },
+
+  "current_pipeline": {
+    "deals_in_review": 2,
+    "upcoming_bids": [
+      {
+        "issue": "Fort Bend County MUD No. 58",
+        "sale_date": "2026-04-22",
+        "par_amount": 4500000
+      }
+    ],
+    "analyst_availability": {
+      "total_analysts": 3,
+      "available_analysts": 2,
+      "pos_review_days_needed": 3
+    }
+  },
+
+  "bidding_capabilities": {
+    "platforms": ["parity"],
+    "basis_of_award_experience": ["nic", "tic", "net_effective_rate"],
+    "notes": "Experienced with Texas net effective interest rate conventions"
+  }
+}
