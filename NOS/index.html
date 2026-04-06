@@ -326,6 +326,26 @@ body::before {
 .footer-left { font-size:12px; color:var(--white-muted); }
 .footer-right { font-family:var(--mono); font-size:11px; color:var(--white-muted); }
 
+/* ── SCROLL BLUR REVEAL ──── */
+.reveal-blur {
+  opacity:0; filter:blur(8px); transform:translateY(20px);
+  transition: opacity 0.8s ease, filter 0.8s ease, transform 0.8s ease;
+}
+.reveal-blur.visible {
+  opacity:1; filter:blur(0); transform:none;
+}
+
+/* Tagline word-by-word */
+.tagline .word {
+  display:inline-block; opacity:0; filter:blur(4px);
+  transform:translateY(8px);
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+}
+.tagline .word.show {
+  opacity:1; filter:blur(0); transform:none;
+}
+.tagline .word strong { color:var(--white); font-weight:500; }
+
 /* Responsive */
 @media(max-width:768px){
   .logo-text{font-size:28px}
@@ -369,20 +389,18 @@ body::before {
     </div>
   </div>
 
-  <div class="tagline">
-    A <strong>multi-agent LLM consensus system</strong> for automating the first screening gate in competitive municipal bond sales. Five specialized agents evaluate each Notice of Sale independently&mdash;then a deterministic consensus function produces the decision.
+  <div class="tagline reveal-blur" id="tagline"></div>
+
+  <div class="hero-line reveal-blur"></div>
+
+  <div class="hero-stats reveal-blur">
+    <div class="hero-stat"><div class="num" data-count="5">0</div><div class="lbl">Screening Agents</div></div>
+    <div class="hero-stat"><div class="num" data-count="55">0</div><div class="lbl">NOS Features</div></div>
+    <div class="hero-stat"><div class="num" data-count="10">0</div><div class="lbl">Test Documents</div></div>
+    <div class="hero-stat"><div class="num"><span class="red" data-count="0">0</span></div><div class="lbl">LLM Consensus Calls</div></div>
   </div>
 
-  <div class="hero-line"></div>
-
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="num">5</div><div class="lbl">Screening Agents</div></div>
-    <div class="hero-stat"><div class="num">55</div><div class="lbl">NOS Features</div></div>
-    <div class="hero-stat"><div class="num">10</div><div class="lbl">Test Documents</div></div>
-    <div class="hero-stat"><div class="num"><span class="red">0</span></div><div class="lbl">LLM Consensus Calls</div></div>
-  </div>
-
-  <div class="cta-row">
+  <div class="cta-row reveal-blur">
     <a class="cta cta-primary" href="screening_ui.html">
       Launch Screening System <span class="cta-arrow">&rarr;</span>
     </a>
@@ -395,7 +413,7 @@ body::before {
   </div>
 </div>
 
-<div class="features">
+<div class="features reveal-blur">
   <div class="features-inner">
     <div class="section-label">The Five Agents</div>
     <div class="section-title">Each agent answers one question. No agent sees another's vote.</div>
@@ -410,7 +428,7 @@ body::before {
   </div>
 </div>
 
-<div class="pipeline-section">
+<div class="pipeline-section reveal-blur">
   <div class="pipeline-inner">
     <div class="section-label">Pipeline</div>
     <div class="section-title">From PDF to screening decision in four steps.</div>
@@ -581,19 +599,86 @@ document.getElementById('intro-overlay').addEventListener('click', () => {
 </script>
 
 <script>
-// Animate stats counting up on scroll
-const observer = new IntersectionObserver(entries => {
+// ── TAGLINE WORD-BY-WORD REVEAL ──────────────────
+const taglineText = 'A <strong>multi-agent LLM consensus system</strong> for automating the first screening gate in competitive municipal bond sales. Five specialized agents evaluate each Notice of Sale independently\u2014then a deterministic consensus function produces the decision.';
+
+(function setupTagline() {
+  const el = document.getElementById('tagline');
+  // Parse HTML: split by tags and spaces
+  const words = [];
+  let buf = '';
+  let inTag = false;
+  for (let i = 0; i < taglineText.length; i++) {
+    const ch = taglineText[i];
+    if (ch === '<') { inTag = true; buf += ch; continue; }
+    if (ch === '>') { inTag = false; buf += ch; continue; }
+    if (inTag) { buf += ch; continue; }
+    if (ch === ' ') {
+      if (buf) words.push(buf);
+      words.push(' ');
+      buf = '';
+    } else {
+      buf += ch;
+    }
+  }
+  if (buf) words.push(buf);
+  el.innerHTML = words.map(w => w === ' ' ? ' ' : `<span class="word">${w}</span>`).join('');
+})();
+
+let taglineRevealed = false;
+function revealTagline() {
+  if (taglineRevealed) return;
+  taglineRevealed = true;
+  const words = document.querySelectorAll('.tagline .word');
+  words.forEach((w, i) => {
+    setTimeout(() => w.classList.add('show'), i * 45);
+  });
+}
+
+// ── COUNTER ANIMATION ────────────────────────────
+let countersStarted = false;
+function animateCounters() {
+  if (countersStarted) return;
+  countersStarted = true;
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    if (target === 0) { el.textContent = '0'; return; }
+    const duration = 1200;
+    const steps = 30;
+    const stepTime = duration / steps;
+    let current = 0;
+    const increment = target / steps;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = Math.round(current);
+    }, stepTime);
+  });
+}
+
+// ── SCROLL BLUR REVEAL OBSERVER ──────────────────
+const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.style.animation = 'fadeUp 0.6s ease both';
-      observer.unobserve(entry.target);
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+      // Trigger tagline if it's the tagline
+      if (entry.target.id === 'tagline') revealTagline();
+      // Trigger counters if it's the stats
+      if (entry.target.classList.contains('hero-stats')) animateCounters();
     }
   });
-}, { threshold: 0.2 });
+}, { threshold: 0.15 });
 
+document.querySelectorAll('.reveal-blur').forEach(el => revealObserver.observe(el));
+
+// Also observe feature cards and pipeline steps individually
 document.querySelectorAll('.feature-card, .pipeline-step').forEach(el => {
-  el.style.opacity = '0';
-  observer.observe(el);
+  el.classList.add('reveal-blur');
+  revealObserver.observe(el);
 });
 
 // Logo hover effect
