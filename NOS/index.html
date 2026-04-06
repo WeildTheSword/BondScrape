@@ -14,6 +14,122 @@
 @keyframes countUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
 @keyframes glowPulse { 0%,100%{box-shadow:0 0 0 0 rgba(224,62,62,0)} 50%{box-shadow:0 0 40px 4px rgba(224,62,62,0.15)} }
 
+/* ── KATANA INTRO ──── */
+@keyframes introTextIn { from{opacity:0;transform:scale(0.92);filter:blur(6px)} to{opacity:1;transform:none;filter:blur(0)} }
+@keyframes slashSwing {
+  0% { transform:translate(-120%,-120%) rotate(-45deg) scaleY(1); opacity:0; }
+  15% { opacity:1; }
+  100% { transform:translate(120%,120%) rotate(-45deg) scaleY(1); opacity:0; }
+}
+@keyframes slashGlow {
+  0% { opacity:0; }
+  30% { opacity:1; }
+  100% { opacity:0; }
+}
+@keyframes splitTop {
+  0% { clip-path:polygon(0 0,100% 0,100% 100%,0 100%); transform:none; }
+  100% { clip-path:polygon(0 0,100% 0,100% 0,0 48%); transform:translateY(-30px); opacity:0; }
+}
+@keyframes splitBottom {
+  0% { clip-path:polygon(0 0,100% 0,100% 100%,0 100%); transform:none; }
+  100% { clip-path:polygon(0 52%,100% 0,100% 100%,0 100%); transform:translateY(30px); opacity:0; }
+}
+@keyframes flashWhite {
+  0%{opacity:0} 10%{opacity:0.15} 100%{opacity:0}
+}
+@keyframes sparkFly {
+  0% { opacity:1; transform:translate(0,0) scale(1); }
+  100% { opacity:0; transform:translate(var(--sx),var(--sy)) scale(0); }
+}
+
+#intro-overlay {
+  position:fixed; inset:0; z-index:9999;
+  background:var(--black);
+  display:flex; align-items:center; justify-content:center;
+  cursor:default;
+}
+#intro-overlay.done { pointer-events:none; }
+#intro-text {
+  font-family:var(--sans); font-size:clamp(48px,10vw,96px);
+  font-weight:700; letter-spacing:-0.04em;
+  color:var(--white);
+  animation: introTextIn 0.8s ease both;
+  position:relative; z-index:2;
+}
+#intro-text .red { color:var(--red); }
+
+/* The slash line */
+#slash-line {
+  position:absolute; inset:0; z-index:3; pointer-events:none;
+  overflow:hidden;
+}
+#slash-line .blade {
+  position:absolute; top:50%; left:50%;
+  width:200vmax; height:3px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(200,200,220,0.1) 30%,
+    rgba(255,255,255,0.9) 48%,
+    #ffffff 50%,
+    rgba(255,255,255,0.9) 52%,
+    rgba(200,200,220,0.1) 70%,
+    transparent 100%
+  );
+  transform-origin:center;
+  opacity:0;
+}
+#slash-line .blade.go {
+  animation: slashSwing 0.35s cubic-bezier(0.22,0.61,0.36,1) both;
+}
+/* Glow trail */
+#slash-line .glow {
+  position:absolute; top:50%; left:50%;
+  width:200vmax; height:40px; margin-top:-20px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(224,62,62,0) 35%,
+    rgba(224,62,62,0.3) 50%,
+    rgba(224,62,62,0) 65%,
+    transparent 100%
+  );
+  transform:rotate(-45deg);
+  opacity:0; filter:blur(8px);
+}
+#slash-line .glow.go { animation: slashGlow 0.5s ease both; }
+
+/* Flash */
+#intro-flash {
+  position:absolute; inset:0; z-index:4;
+  background:white; opacity:0; pointer-events:none;
+}
+#intro-flash.go { animation: flashWhite 0.4s ease both; }
+
+/* Split halves */
+.split-top, .split-bottom {
+  position:absolute; inset:0; z-index:2;
+  background:var(--black);
+  display:flex; align-items:center; justify-content:center;
+}
+.split-top { clip-path:polygon(0 0,100% 0,100% 48%,0 52%); }
+.split-bottom { clip-path:polygon(0 48%,100% 48%,100% 100%,0 100%); }
+.split-top .split-text, .split-bottom .split-text {
+  font-family:var(--sans); font-size:clamp(48px,10vw,96px);
+  font-weight:700; letter-spacing:-0.04em; color:var(--white);
+}
+.split-top .split-text .red, .split-bottom .split-text .red { color:var(--red); }
+.split-top.go { animation: splitTop 0.6s cubic-bezier(0.4,0,0.2,1) 0.1s both; }
+.split-bottom.go { animation: splitBottom 0.6s cubic-bezier(0.4,0,0.2,1) 0.1s both; }
+
+/* Sparks */
+.spark {
+  position:absolute; width:3px; height:3px;
+  background:var(--white); z-index:5; pointer-events:none;
+  border-radius:50%;
+}
+
+#page-content { opacity:0; transition: opacity 0.6s ease; }
+#page-content.visible { opacity:1; }
+
 :root {
   --black:#0a0a0a; --surface:#111; --surface2:#181818;
   --rule:#222; --rule-light:#2a2a2a;
@@ -221,6 +337,14 @@ body::before {
 </head>
 <body>
 
+<!-- KATANA INTRO -->
+<div id="intro-overlay">
+  <div id="intro-text">Bond<span class="red">Scrape</span></div>
+  <div id="slash-line"><div class="blade"></div><div class="glow"></div></div>
+  <div id="intro-flash"></div>
+</div>
+
+<div id="page-content">
 <div class="topbar" style="position:fixed;top:0;left:0;right:0;z-index:100;background:var(--black);border-bottom:1px solid var(--rule);height:48px;display:flex;align-items:center;padding:0 28px;gap:20px;font-size:13px;">
   <a href="index.html" style="font-weight:700;letter-spacing:-0.02em;font-size:14px;text-decoration:none;color:var(--white);">Bond<span style="color:var(--red)">Scrape</span></a>
   <span style="width:1px;height:20px;background:var(--rule);"></span>
@@ -306,6 +430,149 @@ body::before {
   <div class="footer-left">Capstone Research Project &mdash; LLM Multi-Agent Systems in Public Finance</div>
   <div class="footer-right">2026</div>
 </div>
+</div><!-- /page-content -->
+
+<script>
+// ── KATANA INTRO ──────────────────────────────────
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playSwordSlash() {
+  // White noise burst for the "shing" slash
+  const duration = 0.35;
+  const bufferSize = audioCtx.sampleRate * duration;
+  const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    const t = i / bufferSize;
+    // Shape: fast attack, medium decay, highpass character
+    const envelope = Math.pow(1 - t, 3) * (t < 0.05 ? t / 0.05 : 1);
+    data[i] = (Math.random() * 2 - 1) * envelope * 0.4;
+  }
+  const source = audioCtx.createBufferSource();
+  source.buffer = buffer;
+  // Highpass to make it metallic
+  const hp = audioCtx.createBiquadFilter();
+  hp.type = 'highpass'; hp.frequency.value = 3000; hp.Q.value = 2;
+  // Bandpass for metallic ring
+  const bp = audioCtx.createBiquadFilter();
+  bp.type = 'bandpass'; bp.frequency.value = 6000; bp.Q.value = 5;
+  // Also a sine ring
+  const ring = audioCtx.createOscillator();
+  ring.type = 'sine'; ring.frequency.value = 4200;
+  const ringGain = audioCtx.createGain();
+  ringGain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  ringGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+  ring.connect(ringGain).connect(audioCtx.destination);
+  ring.start(); ring.stop(audioCtx.currentTime + 0.6);
+
+  source.connect(hp).connect(audioCtx.destination);
+  // Second path through bandpass
+  const src2 = audioCtx.createBufferSource();
+  src2.buffer = buffer;
+  const bpGain = audioCtx.createGain(); bpGain.gain.value = 0.3;
+  src2.connect(bp).connect(bpGain).connect(audioCtx.destination);
+  source.start(); src2.start();
+}
+
+function playImpact() {
+  // Low thud on split
+  const osc = audioCtx.createOscillator();
+  osc.type = 'sine'; osc.frequency.value = 80;
+  osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.3);
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+}
+
+function createSparks(cx, cy) {
+  const overlay = document.getElementById('intro-overlay');
+  for (let i = 0; i < 12; i++) {
+    const spark = document.createElement('div');
+    spark.className = 'spark';
+    const angle = (Math.random() - 0.5) * Math.PI;
+    const dist = 40 + Math.random() * 120;
+    spark.style.left = cx + 'px';
+    spark.style.top = cy + 'px';
+    spark.style.setProperty('--sx', Math.cos(angle) * dist + 'px');
+    spark.style.setProperty('--sy', Math.sin(angle) * dist - 30 + 'px');
+    spark.style.animation = `sparkFly ${0.3 + Math.random() * 0.3}s ease-out both`;
+    spark.style.background = Math.random() > 0.3 ? 'var(--white)' : 'var(--red)';
+    overlay.appendChild(spark);
+  }
+}
+
+async function runIntro() {
+  const overlay = document.getElementById('intro-overlay');
+  const text = document.getElementById('intro-text');
+  const blade = overlay.querySelector('.blade');
+  const glow = overlay.querySelector('.glow');
+  const flash = document.getElementById('intro-flash');
+  const pageContent = document.getElementById('page-content');
+
+  // Phase 1: Show text for 1.2s
+  await new Promise(r => setTimeout(r, 1200));
+
+  // Phase 2: Katana slash
+  audioCtx.resume();
+  playSwordSlash();
+  blade.classList.add('go');
+  glow.classList.add('go');
+
+  await new Promise(r => setTimeout(r, 180));
+
+  // Flash + sparks at center
+  flash.classList.add('go');
+  createSparks(window.innerWidth / 2, window.innerHeight / 2);
+
+  await new Promise(r => setTimeout(r, 150));
+
+  // Phase 3: Split the text
+  playImpact();
+  text.style.display = 'none';
+  blade.style.display = 'none';
+  glow.style.display = 'none';
+
+  // Create two halves
+  const splitTop = document.createElement('div');
+  splitTop.className = 'split-top';
+  splitTop.innerHTML = '<div class="split-text">Bond<span class="red">Scrape</span></div>';
+  const splitBottom = document.createElement('div');
+  splitBottom.className = 'split-bottom';
+  splitBottom.innerHTML = '<div class="split-text">Bond<span class="red">Scrape</span></div>';
+  overlay.appendChild(splitTop);
+  overlay.appendChild(splitBottom);
+
+  // Trigger split animation
+  requestAnimationFrame(() => {
+    splitTop.classList.add('go');
+    splitBottom.classList.add('go');
+  });
+
+  await new Promise(r => setTimeout(r, 300));
+
+  // Reveal page
+  pageContent.classList.add('visible');
+
+  await new Promise(r => setTimeout(r, 500));
+
+  // Remove overlay
+  overlay.classList.add('done');
+  overlay.style.opacity = '0';
+  overlay.style.transition = 'opacity 0.3s';
+  await new Promise(r => setTimeout(r, 300));
+  overlay.remove();
+}
+
+// Skip intro on click/key
+document.getElementById('intro-overlay').addEventListener('click', () => {
+  document.getElementById('intro-overlay').remove();
+  document.getElementById('page-content').classList.add('visible');
+});
+
+runIntro();
+</script>
 
 <script>
 // Animate stats counting up on scroll
