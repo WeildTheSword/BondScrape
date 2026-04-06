@@ -1,7 +1,8 @@
 # Progress Report — NOS Extraction & Multi-Agent Screening Pipeline
 
 Branch: `claude-work`  
-Commits: 7 local commits (not pushed)
+Commits: 15 local commits (not pushed)  
+Lines added: ~12,000+ across 45+ files
 
 ## Completed
 
@@ -63,6 +64,8 @@ All pass validation (par sum, field presence, date logic).
 ### 8. Firm Profiles (`NOS/firm_profiles/`)
 - **`texas_regional.json`** — Lone Star Municipal Partners: TX-focused, $25M max, retail-strong, 3 analysts
 - **`northeast_institutional.json`** — Atlantic Capital Markets: NE/Mid-Atlantic, $100M max, institutional-strong, 5 analysts
+- **`national_large.json`** ��� National Municipal Securities: 24-state coverage, $500M max, 12 analysts
+- **`small_boutique.json`** — Magnolia Capital Advisors: TN-only, $10M max, 0 available analysts
 
 ### 9. Five Screening Agents (`NOS/nos_agents/agents.py`)
 - **Sector Fit** — "Is this our kind of deal?" Reads issuer type, state, bond type vs. firm coverage
@@ -92,11 +95,26 @@ All pass validation (par sum, field presence, date logic).
   - 3/6 scenarios produce different decisions across firms
   - Grid output showing deal characteristics vs. firm decisions
 
-### 13. Documentation
+### 13. Self-Test Suite (`NOS/run_tests.py`)
+- 22 offline tests (no API key needed)
+- Covers: schema, validation (3 cases), consensus (4 rules), ground truth (10 files), evaluation harness, agent definitions, demo comparison
+- All pass
+
+### 14. Batch Extraction (`NOS/batch_extract.py`)
+- Batch text extraction: `--text-only` runs pdftotext on all 10 PDFs
+- Batch LLM extraction: runs extraction + evaluation against ground truth
+- Evaluate-only mode: `--evaluate-only` scores existing extractions
+
+### 15. Documentation
 - `NOS/NOS_FEATURE_TAXONOMY.md` — 55-feature taxonomy with color-coded value pills, reasoning mapping, agent-feature mapping
 - `NOS/NOS_REASONING_CHAIN.md` — 10-step reasoning chain from NOS fields through screening to bid preparation
-- `CLAUDE.md` — Updated with all new file paths, usage commands, architecture details
+- `NOS/MAS_ARCHITECTURE.md` — Agent topology, consensus rules, anti-patterns, why MAS over single LLM
+- `NOS/PRESENTATION_OUTLINE.md` — 14-slide capstone presentation plan with demo commands
+- `NOS/NOS_README.md` — Comprehensive guide with quick start, folder structure, pipeline overview
+- `NOS/sample_output.json` — Example screening output (5 votes → INTERESTED)
+- `CLAUDE.md` — Updated with all new file paths, usage commands
 - `requirements.txt` — All pip dependencies
+- `.gitignore` — Updated to exclude extraction outputs and temp files
 
 ## Still Needs Work
 
@@ -114,10 +132,8 @@ All pass validation (par sum, field presence, date logic).
   - Fields marked null (confirm truly absent vs. missed)
 
 ### Additional Firm Profiles
-- Only 2 firm profiles exist; could add more for richer demos:
-  - Large national firm (covers everything, large capacity)
-  - Small boutique (narrow sector, very limited capacity)
-  - Firm with calendar conflicts (to demonstrate Calendar agent veto)
+- 4 firm profiles exist (TX regional, NE institutional, national, boutique)
+- Could add more specialized profiles (e.g., housing finance specialist, Texas-only large firm)
 
 ### Extraction Accuracy Benchmarking
 - No automated extraction-vs-ground-truth benchmark across all 10 documents
