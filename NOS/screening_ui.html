@@ -6,6 +6,15 @@
 <title>NOS Screening System</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs" type="module"></script>
+<script>
+// Load pdf.js as global
+window.pdfjsReady = (async()=>{
+  const m = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs');
+  m.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
+  window.pdfjsLib = m;
+})();
+</script>
 <style>
 @keyframes enterUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
@@ -1682,14 +1691,18 @@ async function runExtractionAnimation(ctrl, nos) {
   const body = document.getElementById('extract-body');
   const fname = document.getElementById('extract-filename');
 
-  // Try to load matching extracted text
-  const idx = DEALS.indexOf(nos);
-  let text = null;
-  if (idx >= 0 && idx < EXTRACTED_TEXT_FILES.length) {
-    try {
-      const r = await fetch(`nos_test_set/extracted_text/${EXTRACTED_TEXT_FILES[idx]}`);
-      if (r.ok) text = await r.text();
-    } catch(e) {}
+  // Use dropped text if available, otherwise load from test set
+  let text = window._droppedText || null;
+  window._droppedText = null;
+
+  if (!text) {
+    const idx = DEALS.indexOf(nos);
+    if (idx >= 0 && idx < EXTRACTED_TEXT_FILES.length) {
+      try {
+        const r = await fetch(`nos_test_set/extracted_text/${EXTRACTED_TEXT_FILES[idx]}`);
+        if (r.ok) text = await r.text();
+      } catch(e) {}
+    }
   }
   if (!text) text = generatePlaceholderText(nos);
 
@@ -2002,7 +2015,7 @@ function handleDrop(e) {
   if (file) handleFile(file);
 }
 
-function handleFile(file) {
+async function handleFile(file) {
   // Reject non-PDF files
   if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
     dropZone.querySelector('.dz-text').innerHTML = `<strong style="color:var(--red)">Not a PDF file</strong><br>Please drop a NOS PDF document (.pdf)`;
@@ -2014,64 +2027,243 @@ function handleFile(file) {
 
   dropZone.classList.add('has-file');
   dropZone.querySelector('.dz-icon').innerHTML = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#f0f0f0" stroke-width="1.5"><path d="M6 2h14l6 6v22H6V2z"/><path d="M20 2v6h6"/><path d="M10 18h12M10 22h8"/></svg>';
-  dropZone.querySelector('.dz-text').innerHTML = `<strong>${file.name}</strong><br>Matching to test set...`;
+  dropZone.querySelector('.dz-text').innerHTML = `<strong>${file.name}</strong><br>Extracting text from PDF...`;
 
-  // Try to match to a ground truth doc by filename
-  const fname = file.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-  let matchIdx = -1;
-  let matchName = '';
-
-  // Match by source_pdf field
-  DEALS.forEach((d, i) => {
-    const src = (safeGet(d, 'source_pdf', '') || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-    if (src && (fname.includes(src.substring(0, 20)) || src.includes(fname.substring(0, 20)))) {
-      matchIdx = i;
-      matchName = safeGet(d, 'issuer.name', '');
+  // ── EXTRACT TEXT FROM PDF USING PDF.JS ──────────
+  let extractedText = '';
+  let pageCount = 0;
+  try {
+    await window.pdfjsReady;
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+    pageCount = pdf.numPages;
+    const pages = [];
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      const strings = content.items.map(item => item.str);
+      pages.push(strings.join(' '));
     }
-  });
-
-  // Match by issuer name keywords
-  if (matchIdx < 0) {
-    DEALS.forEach((d, i) => {
-      const issuer = (safeGet(d, 'issuer.name', '') || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-      const keywords = issuer.split('').filter(c => c.match(/[a-z]/)).join('');
-      // Check if significant portion of issuer name appears in filename
-      const issuerWords = safeGet(d, 'issuer.name', '').toLowerCase().split(/\s+/);
-      const matches = issuerWords.filter(w => w.length > 3 && fname.includes(w.replace(/[^a-z0-9]/g, '')));
-      if (matches.length >= 2) {
-        matchIdx = i;
-        matchName = safeGet(d, 'issuer.name', '');
-      }
-    });
-  }
-
-  // Match by extracted text filenames
-  if (matchIdx < 0) {
-    EXTRACTED_TEXT_FILES.forEach((f, i) => {
-      const clean = f.toLowerCase().replace(/[^a-z0-9]/g, '');
-      if (fname.includes(clean.substring(0, 15)) || clean.includes(fname.substring(0, 15))) {
-        matchIdx = i;
-        if (DEALS[i]) matchName = safeGet(DEALS[i], 'issuer.name', '');
-      }
-    });
-  }
-
-  if (matchIdx < 0) {
-    // No match found
-    dropZone.querySelector('.dz-text').innerHTML = `<strong>${file.name}</strong><br><span style="color:var(--red)">No matching document in test set</span><br><span style="color:var(--white-muted);font-size:11px">Select a document from the sidebar instead</span>`;
-    dropZone.classList.remove('has-file');
+    extractedText = pages.join('\n\n');
+  } catch(e) {
+    dropZone.querySelector('.dz-text').innerHTML = `<strong style="color:var(--red)">PDF extraction failed</strong><br>${e.message}`;
     return;
   }
 
-  dropZone.querySelector('.dz-text').innerHTML = `<strong>${file.name}</strong><br>Matched: ${matchName}`;
+  const wordCount = extractedText.split(/\s+/).length;
+  dropZone.querySelector('.dz-text').innerHTML = `<strong>${file.name}</strong><br>${pageCount} pages, ${wordCount.toLocaleString()} words extracted`;
 
-  selectedDeal = matchIdx;
+  // ── EXTRACT STRUCTURED DATA ─────────────────────
+  // Check if API key is configured for live extraction
+  const settings = JSON.parse(localStorage.getItem('nos_settings') || '{}');
+  const apiKey = settings.apiKey || '';
+  const liveMode = settings.liveMode && apiKey;
+
+  let nosJson;
+  if (liveMode) {
+    // Live LLM extraction via Anthropic API
+    dropZone.querySelector('.dz-text').innerHTML += '<br><span style="color:var(--red)">Sending to Claude API...</span>';
+    try {
+      nosJson = await extractWithLLM(extractedText, apiKey, settings.model || 'claude-sonnet-4-20250514');
+    } catch(e) {
+      dropZone.querySelector('.dz-text').innerHTML += `<br><span style="color:var(--red)">API error: ${e.message}</span>`;
+      nosJson = extractWithHeuristics(extractedText, file.name);
+    }
+  } else {
+    // Heuristic extraction (no API needed)
+    nosJson = extractWithHeuristics(extractedText, file.name);
+  }
+
+  // ── INJECT AS A NEW DEAL AND RUN PIPELINE ──────
+  // Add to DEALS array (or replace last dropped)
+  if (window._lastDropIdx !== undefined) {
+    DEALS[window._lastDropIdx] = nosJson;
+    selectedDeal = window._lastDropIdx;
+  } else {
+    DEALS.push(nosJson);
+    selectedDeal = DEALS.length - 1;
+    window._lastDropIdx = selectedDeal;
+  }
+
+  // Store the raw extracted text for the extraction animation
+  window._droppedText = extractedText;
+
   renderDealList();
   if (selectedFirm === null && FIRMS.length > 0) { selectedFirm = 0; renderFirms(); }
   if (animationAbort) animationAbort.abort = true;
   const ctrl = {abort: false};
   animationAbort = ctrl;
   runFullPipeline(ctrl, true);
+}
+
+// ── HEURISTIC NOS EXTRACTION (no API needed) ─────
+function extractWithHeuristics(text, filename) {
+  const t = text.toLowerCase();
+  const nos = {
+    issuer: { name: '', type: 'other', state: '', county: null },
+    bond_identification: { series: '', bond_type: 'go_unlimited_tax', bond_type_description: '', par_amount: 0, tax_status: 'tax_exempt', bank_qualified: null, purpose: null },
+    sale_logistics: { sale_date: '', sale_time: null, bidding_platform: 'parity', financial_advisor: null },
+    maturity_structure: { maturity_type: 'serial_only', dated_date: '', maturity_schedule: [], final_maturity_date: null, bidder_term_bond_option: null, number_of_maturities: 0 },
+    coupon_provisions: { coupon_rate_constraints: {} },
+    bid_evaluation: { basis_of_award: 'tic', minimum_bid_price: null, max_interest_rate: null, good_faith_deposit: null },
+    redemption: { optional_redemption: null, first_call_date: null, call_price: null },
+    registration_delivery: { denomination: 5000, delivery_date: null, paying_agent: null },
+    credit_enhancement: { credit_rating: null },
+    legal_advisory: { bond_counsel: null },
+    bidder_obligations: { commitment_type: 'firm_commitment' },
+    _source: 'browser_heuristic', _filename: filename
+  };
+
+  // Par amount: find dollar amounts in the millions
+  const parMatch = text.match(/\$\s*([\d,]+(?:\.\d{2})?)/);
+  if (parMatch) nos.bond_identification.par_amount = parseFloat(parMatch[1].replace(/,/g, ''));
+
+  // Issuer name: usually the largest/first prominent name
+  const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  // Look for common patterns
+  for (const line of lines.slice(0, 30)) {
+    if (line.match(/county|city|district|school|state|authority|borough|metropolitan/i) && line.length > 10 && line.length < 120) {
+      nos.issuer.name = line.replace(/[*$,\d]/g, '').trim();
+      if (nos.issuer.name.length > 5) break;
+    }
+  }
+  if (!nos.issuer.name && lines.length > 2) nos.issuer.name = lines[1].substring(0, 80);
+
+  // State: 2-letter state code
+  const stateMatch = text.match(/,\s*([A-Z]{2})\b/);
+  if (stateMatch) nos.issuer.state = stateMatch[1];
+
+  // Issuer type
+  if (t.includes('municipal utility district') || t.includes('m.u.d') || t.includes('mud')) nos.issuer.type = 'municipal_utility_district';
+  else if (t.includes('school district') || t.includes('i.s.d') || t.includes('isd')) nos.issuer.type = 'school_district';
+  else if (t.includes('city of') || t.includes('city,')) nos.issuer.type = 'city';
+  else if (t.includes('county of') || t.includes('county,')) nos.issuer.type = 'county';
+  else if (t.includes('authority')) nos.issuer.type = 'authority';
+  else if (t.includes('borough')) nos.issuer.type = 'city';
+
+  // Bond type
+  const bondDesc = text.match(/(unlimited tax bonds|general obligation bonds?|revenue bonds?|bond anticipation notes?|limited tax bonds?|certificate of obligation)/i);
+  if (bondDesc) {
+    nos.bond_identification.bond_type_description = bondDesc[1];
+    const bd = bondDesc[1].toLowerCase();
+    if (bd.includes('unlimited')) nos.bond_identification.bond_type = 'go_unlimited_tax';
+    else if (bd.includes('limited tax')) nos.bond_identification.bond_type = 'go_limited_tax';
+    else if (bd.includes('revenue')) nos.bond_identification.bond_type = 'revenue';
+    else if (bd.includes('anticipation')) nos.bond_identification.bond_type = 'bond_anticipation_note';
+    else if (bd.includes('general obligation')) nos.bond_identification.bond_type = 'go_unlimited_tax';
+  }
+
+  // Series
+  const seriesMatch = text.match(/series\s+([\dA-Za-z&]+)/i);
+  if (seriesMatch) nos.bond_identification.series = 'Series ' + seriesMatch[1];
+
+  // Tax status
+  if (t.includes('taxable')) nos.bond_identification.tax_status = 'taxable';
+
+  // Sale date
+  const dateMatch = text.match(/(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},?\s+\d{4}/i);
+  if (dateMatch) nos.sale_logistics.sale_date = dateMatch[0];
+
+  // Dated date
+  const datedMatch = text.match(/dated\s+(?:date\s+)?(?:of\s+)?(?:the bonds[^.]*from\s+)?((?:january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},?\s+\d{4})/i);
+  if (datedMatch) nos.maturity_structure.dated_date = datedMatch[1];
+  else if (t.includes('date of delivery') || t.includes('date of issuance')) nos.maturity_structure.dated_date = 'date of delivery';
+
+  // Basis of award
+  if (t.includes('true interest cost') || t.includes('tic')) nos.bid_evaluation.basis_of_award = 'tic';
+  else if (t.includes('net interest cost') || t.includes('nic')) nos.bid_evaluation.basis_of_award = 'nic';
+  else if (t.includes('net effective interest rate')) nos.bid_evaluation.basis_of_award = 'net_effective_rate';
+
+  // Redemption
+  if (t.includes('not subject to redemption prior to maturity') || t.includes('not be subject to optional redemption') || t.includes('noncallable') || t.includes('non-callable')) {
+    nos.redemption.optional_redemption = 'non_callable';
+  } else if (t.includes('subject to redemption') || t.includes('callable') || t.includes('optional redemption')) {
+    nos.redemption.optional_redemption = 'callable';
+  }
+
+  // Rating
+  if (t.includes('no application') || t.includes('has not made an application to a rating')) nos.credit_enhancement.credit_rating = 'unrated';
+  else if (t.includes('aaa') || t.includes('aa+') || t.includes('aa-') || t.includes('aa ')) {
+    const ratingMatch = text.match(/(AAA|AA\+|AA-|AA|A\+|A-|Aa1|Aa2|Aa3|Aaa)\b/);
+    if (ratingMatch) nos.credit_enhancement.credit_rating = ratingMatch[1];
+  }
+
+  // Maturity schedule: find year+amount pairs
+  const matLines = text.match(/20[2-9]\d[\s,]+\$?\s*[\d,]+(?:\.\d+)?/g) || [];
+  const schedule = [];
+  const seen = new Set();
+  for (const ml of matLines) {
+    const ym = ml.match(/(20[2-9]\d)[\s,]+\$?\s*([\d,]+)/);
+    if (ym) {
+      const year = ym[1];
+      const amt = parseFloat(ym[2].replace(/,/g, ''));
+      if (amt > 0 && amt < 1e9 && !seen.has(year)) {
+        seen.add(year);
+        schedule.push({date: year, amount: amt, type: 'serial'});
+      }
+    }
+  }
+  nos.maturity_structure.maturity_schedule = schedule;
+  nos.maturity_structure.number_of_maturities = schedule.length;
+  if (schedule.length > 0) nos.maturity_structure.final_maturity_date = schedule[schedule.length-1].date;
+
+  // Financial advisor
+  const faMatch = text.match(/(?:financial advisor|municipal advisor)[:\s]+([A-Z][^,\n]{5,60})/i);
+  if (faMatch) nos.sale_logistics.financial_advisor = faMatch[1].trim();
+
+  // Bond counsel
+  const bcMatch = text.match(/(?:bond counsel)[:\s]+([A-Z][^,\n]{5,60})/i);
+  if (bcMatch) nos.legal_advisory.bond_counsel = bcMatch[1].trim();
+
+  return nos;
+}
+
+// ── LIVE LLM EXTRACTION VIA ANTHROPIC API ────────
+async function extractWithLLM(text, apiKey, model) {
+  const schema = `{
+    "issuer": {"name":"string","type":"string","state":"string","county":"string|null"},
+    "bond_identification": {"series":"string","bond_type":"string","bond_type_description":"string","par_amount":"number","tax_status":"string","bank_qualified":"bool|null","purpose":"string|null"},
+    "sale_logistics": {"sale_date":"string","bidding_platform":"string|null","financial_advisor":"string|null"},
+    "maturity_structure": {"maturity_type":"string","dated_date":"string","maturity_schedule":[{"date":"string","amount":"number","type":"string"}],"final_maturity_date":"string|null","bidder_term_bond_option":"bool|null","number_of_maturities":"int"},
+    "coupon_provisions": {"coupon_rate_constraints":{}},
+    "bid_evaluation": {"basis_of_award":"string","minimum_bid_price":"number|null","max_interest_rate":"number|null","good_faith_deposit":{"amount":"number|null","percentage_of_par":"number|null"}},
+    "redemption": {"optional_redemption":"string|null","first_call_date":"string|null","call_price":"number|null"},
+    "registration_delivery": {"denomination":"number","delivery_date":"string|null","paying_agent":"string|null"},
+    "credit_enhancement": {"credit_rating":"string|null"},
+    "legal_advisory": {"bond_counsel":"string|null"},
+    "bidder_obligations": {"commitment_type":"string|null"}
+  }`;
+
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: model,
+      max_tokens: 8192,
+      system: 'You are a municipal bond NOS extraction engine. Extract all fields into the JSON schema. Return ONLY valid JSON.',
+      messages: [{
+        role: 'user',
+        content: `Extract structured data from this Notice of Sale:\n\n${text.substring(0, 30000)}\n\nSchema:\n${schema}\n\nReturn ONLY valid JSON.`
+      }]
+    })
+  });
+
+  if (!resp.ok) {
+    const err = await resp.text();
+    throw new Error(`API ${resp.status}: ${err.substring(0, 200)}`);
+  }
+
+  const data = await resp.json();
+  const content = data.content[0].text;
+  // Parse JSON from response
+  const jsonMatch = content.match(/\{[\s\S]*\}/);
+  if (jsonMatch) return JSON.parse(jsonMatch[0]);
+  throw new Error('No JSON in API response');
 }
 
 // ── MATRIX VIEW ────────────────────────────
