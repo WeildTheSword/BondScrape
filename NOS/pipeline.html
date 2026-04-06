@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipeline Breakdown — BondScrape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+@keyframes drawLine { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+@keyframes drawLineV { from{transform:scaleY(0)} to{transform:scaleY(1)} }
+@keyframes typeIn { from{width:0} to{width:100%} }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes slideRight { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:none} }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+@keyframes fillBar { from{width:0%} to{width:var(--fill)} }
+@keyframes spin { to{transform:rotate(360deg)} }
+@keyframes stampIn { 0%{opacity:0;transform:scale(1.6)} 60%{opacity:1;transform:scale(0.95)} 100%{transform:scale(1)} }
+@keyframes checkPop { 0%{transform:scale(0)} 60%{transform:scale(1.3)} 100%{transform:scale(1)} }
+
+:root {
+  --black:#0a0a0a; --surface:#111; --surface2:#181818; --surface3:#1f1f1f;
+  --rule:#222; --rule-light:#2a2a2a;
+  --white:#f0f0f0; --white-dim:#999; --white-muted:#555;
+  --red:#e03e3e; --red-dim:#c53030; --red-wash:rgba(224,62,62,0.07); --red-border:rgba(224,62,62,0.20);
+  --positive-border:rgba(240,240,240,0.12); --caution-border:rgba(240,240,240,0.08);
+  --sans:'DM Sans',sans-serif; --mono:'DM Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size:256px 256px;
+}
+
+/* ── TOPBAR ─────────────────── */
+.topbar {
+  position:sticky; top:0; z-index:100;
+  background:var(--black); border-bottom:1px solid var(--rule);
+  height:48px; display:flex; align-items:center;
+  padding:0 28px; gap:20px; font-size:13px;
+}
+.topbar::after {
+  content:''; position:absolute; bottom:-1px; left:0; right:0;
+  height:1px; background:linear-gradient(90deg, var(--red) 0%, var(--red) 20%, transparent 20%);
+}
+.brand { font-weight:700; letter-spacing:-0.02em; font-size:14px; text-decoration:none; color:var(--white); }
+.brand span { color:var(--red); }
+.topbar-sep { width:1px; height:20px; background:var(--rule); }
+.topbar-nav { display:flex; gap:0; }
+.topbar-nav a {
+  padding:14px 16px; font-size:11px; font-weight:500;
+  color:var(--white-muted); letter-spacing:0.04em; text-transform:uppercase;
+  border-bottom:2px solid transparent; margin-bottom:-1px;
+  transition:all 0.15s; text-decoration:none;
+}
+.topbar-nav a:hover { color:var(--white-dim); }
+.topbar-nav a.active { color:var(--white); border-bottom-color:var(--red); }
+.topbar-spacer { flex:1; }
+.topbar-tag { font-family:var(--mono); font-size:10px; padding:3px 10px; border:1px solid var(--rule-light); color:var(--white-muted); letter-spacing:0.06em; }
+
+/* ── PAGE LAYOUT ─────────────── */
+.page { max-width:960px; margin:0 auto; padding:48px 40px 80px; position:relative; z-index:1; }
+
+.page-title {
+  font-size:32px; font-weight:700; letter-spacing:-0.04em; margin-bottom:8px; line-height:1.2;
+}
+.page-sub {
+  font-size:14px; color:var(--white-dim); line-height:1.7; margin-bottom:12px; max-width:600px;
+}
+.page-line { width:80px; height:1px; background:var(--red); margin-bottom:48px; transform-origin:left; animation:drawLine 0.5s ease both 0.3s; }
+
+/* Progress indicator */
+.progress-bar {
+  display:flex; gap:0; margin-bottom:48px;
+}
+.progress-step {
+  flex:1; padding:12px 16px; border:1px solid var(--rule);
+  text-align:center; cursor:pointer; transition:all 0.2s;
+  border-right:none; position:relative;
+}
+.progress-step:last-child { border-right:1px solid var(--rule); }
+.progress-step:hover { background:var(--surface); }
+.progress-step.active { background:var(--surface2); border-color:var(--red-border); }
+.progress-step.active + .progress-step { border-left-color:var(--red-border); }
+.progress-step.completed { border-bottom-color:var(--red); }
+.progress-step.completed::after {
+  content:''; position:absolute; bottom:-1px; left:0; right:0;
+  height:2px; background:var(--red);
+}
+.ps-num { font-family:var(--mono); font-size:10px; color:var(--white-muted); margin-bottom:2px; }
+.progress-step.active .ps-num { color:var(--red); }
+.ps-label { font-size:11px; font-weight:600; letter-spacing:0.02em; }
+
+/* Steps */
+.step { display:none; animation:fadeUp 0.4s ease both; }
+.step.active { display:block; }
+.step-header { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
+.step-num {
+  width:48px; height:48px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:18px; font-weight:700;
+  border:1px solid var(--rule-light); flex-shrink:0;
+}
+.step-num.active { border-color:var(--red); color:var(--red); }
+.step-title { font-size:22px; font-weight:700; letter-spacing:-0.02em; }
+.step-desc { font-size:13px; color:var(--white-dim); line-height:1.6; margin-bottom:28px; }
+
+/* Interactive panels */
+.panel {
+  border:1px solid var(--rule); background:var(--surface);
+  margin-bottom:20px; overflow:hidden;
+}
+.panel-header {
+  padding:10px 16px; border-bottom:1px solid var(--rule);
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+  letter-spacing:0.04em; text-transform:uppercase;
+  display:flex; align-items:center; gap:8px;
+}
+.panel-header .cmd { color:var(--red); }
+.panel-body { padding:16px; }
+.panel-body.mono { font-family:var(--mono); font-size:11px; line-height:1.7; color:var(--white-dim); white-space:pre-wrap; }
+
+/* PDF mock */
+.pdf-mock {
+  border:1px solid var(--rule); padding:32px; text-align:center;
+  background:var(--surface); min-height:200px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.pdf-icon {
+  font-family:var(--mono); font-size:48px; color:var(--white-muted);
+  margin-bottom:16px; line-height:1;
+}
+.pdf-name { font-size:13px; font-weight:500; margin-bottom:4px; }
+.pdf-size { font-size:11px; color:var(--white-muted); }
+
+/* Schema + JSON side by side */
+.split-panel {
+  display:grid; grid-template-columns:1fr 1fr; gap:0;
+  border:1px solid var(--rule); overflow:hidden;
+}
+.split-panel .split-col { overflow:auto; max-height:400px; }
+.split-panel .split-col:first-child { border-right:1px solid var(--rule); }
+.split-panel .split-header {
+  padding:8px 14px; border-bottom:1px solid var(--rule);
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+  letter-spacing:0.04em; text-transform:uppercase;
+  position:sticky; top:0; background:var(--surface); z-index:2;
+}
+.split-panel .split-body {
+  padding:12px 14px; font-family:var(--mono); font-size:10px;
+  line-height:1.7; color:var(--white-dim); white-space:pre-wrap;
+}
+.split-body .hl { color:var(--red); font-weight:500; }
+.split-body .key { color:var(--white); }
+.split-body .str { color:var(--white-dim); }
+.split-body .num { color:var(--red); }
+
+/* Validation panel */
+.val-row {
+  display:flex; align-items:center; gap:12px;
+  padding:10px 16px; border-bottom:1px solid var(--rule);
+  font-size:12px; transition:opacity 0.3s;
+}
+.val-row:last-child { border-bottom:none; }
+.val-icon {
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:12px; font-weight:700;
+  border:1px solid var(--rule-light); flex-shrink:0;
+}
+.val-row.pass .val-icon { border-color:var(--positive-border); color:var(--white); }
+.val-row.fail .val-icon { border-color:var(--red-border); color:var(--red); }
+.val-label { flex:1; color:var(--white-dim); }
+.val-result { font-family:var(--mono); font-size:10px; color:var(--white-muted); }
+.val-row.pass .val-result { color:var(--white-dim); }
+
+/* Agents row */
+.agents-row {
+  display:grid; grid-template-columns:repeat(5,1fr); gap:0;
+  border:1px solid var(--rule); overflow:hidden;
+}
+.agent-card {
+  padding:16px; border-right:1px solid var(--rule);
+  text-align:center; transition:all 0.3s;
+  cursor:default;
+}
+.agent-card:last-child { border-right:none; }
+.agent-card:hover { background:var(--surface); }
+.agent-card.lit { background:var(--surface2); border-bottom:2px solid var(--red); }
+.ac-code {
+  font-family:var(--mono); font-size:18px; font-weight:700;
+  margin-bottom:8px; color:var(--white-dim);
+}
+.agent-card.lit .ac-code { color:var(--red); }
+.ac-name { font-size:12px; font-weight:600; margin-bottom:4px; }
+.ac-q { font-size:10px; color:var(--white-muted); font-style:italic; line-height:1.4; }
+.ac-fields { margin-top:8px; display:flex; flex-wrap:wrap; gap:3px; justify-content:center; }
+.ac-field {
+  font-family:var(--mono); font-size:8px; padding:1px 5px;
+  border:1px solid var(--rule-light); color:var(--white-muted);
+  opacity:0; transition:all 0.3s;
+}
+.agent-card.lit .ac-field { opacity:1; border-color:var(--red-border); color:var(--red); }
+
+/* Consensus rule */
+.consensus-box {
+  border:1px solid var(--red-border); padding:20px 28px;
+  text-align:center; margin:20px 0;
+}
+.consensus-box .c-label {
+  font-family:var(--mono); font-size:10px; color:var(--red);
+  text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;
+}
+.consensus-rules { text-align:left; margin-top:12px; }
+.consensus-rule-item {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:8px 0; border-bottom:1px solid var(--rule);
+  font-size:12px; color:var(--white-dim);
+}
+.consensus-rule-item:last-child { border-bottom:none; }
+.cr-num { font-family:var(--mono); font-size:10px; color:var(--white-muted); width:20px; flex-shrink:0; }
+.cr-condition { flex:1; }
+.cr-result { font-family:var(--mono); font-size:10px; font-weight:700; }
+.cr-result.pass { color:var(--red); }
+.cr-result.interested { color:var(--white); }
+.cr-result.conditional { color:var(--white-dim); }
+
+/* Outcomes */
+.outcomes-row { display:flex; gap:12px; margin-top:20px; justify-content:center; }
+.outcome-badge {
+  font-family:var(--mono); font-size:12px; font-weight:700;
+  padding:10px 28px; letter-spacing:0.1em; text-transform:uppercase;
+}
+.outcome-badge.interested { border:1px solid var(--positive-border); color:var(--white); }
+.outcome-badge.conditional { border:1px solid var(--caution-border); color:var(--white-dim); }
+.outcome-badge.pass { border:1px solid var(--red-border); color:var(--red); background:var(--red-wash); }
+
+/* Navigation */
+.nav-row {
+  display:flex; justify-content:space-between; margin-top:40px;
+  padding-top:20px; border-top:1px solid var(--rule);
+}
+.nav-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 24px; font-size:12px; font-weight:600;
+  text-decoration:none; cursor:pointer;
+  letter-spacing:0.02em; transition:all 0.2s;
+  background:transparent; color:var(--white);
+  border:1px solid var(--rule-light);
+  font-family:var(--sans);
+}
+.nav-btn:hover { border-color:var(--white-muted); }
+.nav-btn.primary { background:var(--white); color:var(--black); border-color:var(--white); }
+.nav-btn.primary:hover { background:var(--red); color:var(--white); border-color:var(--red); }
+.nav-btn:disabled { opacity:0.3; cursor:not-allowed; }
+.nav-arrow { font-size:14px; }
+
+/* Footer note */
+.footer-note {
+  margin-top:48px; padding:20px; border:1px solid var(--rule);
+  font-size:12px; color:var(--white-dim); line-height:1.7; text-align:center;
+}
+.footer-note strong { color:var(--white); }
+.footer-note .red { color:var(--red); font-weight:700; }
+
+@media(max-width:768px){
+  .page { padding:24px 20px; }
+  .progress-bar { flex-wrap:wrap; }
+  .progress-step { min-width:80px; }
+  .split-panel { grid-template-columns:1fr; }
+  .agents-row { grid-template-columns:repeat(3,1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="index.html">Bond<span>Scrape</span></a>
+  <div class="topbar-sep"></div>
+  <div class="topbar-nav">
+    <a href="screening_ui.html">Screening</a>
+    <a href="#" class="active">Pipeline</a>
+    <a href="index.html">Home</a>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-tag">PIPELINE ARCHITECTURE</div>
+</div>
+
+<div class="page">
+  <div class="page-title">Pipeline Breakdown</div>
+  <div class="page-sub">From a raw NOS PDF to a multi-agent screening decision. Six stages, each deterministic except the LLM extraction and agent reasoning calls.</div>
+  <div class="page-line"></div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progress-bar">
+    <div class="progress-step active" onclick="goToStep(0)"><div class="ps-num">01</div><div class="ps-label">PDF Input</div></div>
+    <div class="progress-step" onclick="goToStep(1)"><div class="ps-num">02</div><div class="ps-label">Extraction</div></div>
+    <div class="progress-step" onclick="goToStep(2)"><div class="ps-num">03</div><div class="ps-label">LLM Structure</div></div>
+    <div class="progress-step" onclick="goToStep(3)"><div class="ps-num">04</div><div class="ps-label">Validation</div></div>
+    <div class="progress-step" onclick="goToStep(4)"><div class="ps-num">05</div><div class="ps-label">Agents</div></div>
+    <div class="progress-step" onclick="goToStep(5)"><div class="ps-num">06</div><div class="ps-label">Consensus</div></div>
+  </div>
+
+  <!-- STEP 0: PDF Input -->
+  <div class="step active" id="step-0">
+    <div class="step-header">
+      <div class="step-num active">01</div>
+      <div class="step-title">PDF Input</div>
+    </div>
+    <div class="step-desc">
+      The pipeline begins with a Notice of Sale PDF. NOS documents have no standard format — they vary by financial advisor template, by state, and by issuer type. Documents range from 3 pages (a simple Texas MUD) to 15+ pages (a complex state authority). All contain the same core information: who is selling, what is being sold, and under what rules.
+    </div>
+    <div class="pdf-mock">
+      <div class="pdf-icon">[PDF]</div>
+      <div class="pdf-name" id="pdf-name">Harris County MUD No. 182 — Series 2026</div>
+      <div class="pdf-size">$2,930,000 Unlimited Tax Bonds &middot; 7 pages</div>
+    </div>
+    <div style="margin-top:20px; padding:16px; border:1px solid var(--rule);">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--white-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;">Test Set Coverage (10 Documents)</div>
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:6px; font-size:10px;" id="doc-grid"></div>
+    </div>
+  </div>
+
+  <!-- STEP 1: Text Extraction -->
+  <div class="step" id="step-1">
+    <div class="step-header">
+      <div class="step-num active">02</div>
+      <div class="step-title">Text Extraction</div>
+    </div>
+    <div class="step-desc">
+      <code style="font-family:var(--mono);color:var(--white)">pdftotext -layout</code> is the only extraction method that works reliably across all NOS document types. Raw pdftotext drops maturity table amounts on PScript5 PDFs. pdfplumber produces run-together words. The -layout flag preserves the spatial alignment that makes maturity schedules parseable.
+    </div>
+    <div class="panel">
+      <div class="panel-header"><span class="cmd">$</span> pdftotext -layout input.pdf -</div>
+      <div class="panel-body mono" id="extraction-output" style="max-height:300px; overflow-y:auto;"></div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); margin-top:16px;">
+      <div style="background:var(--black); padding:14px; text-align:center;">
+        <div style="font-family:var(--mono); font-size:10px; color:var(--white-muted); text-transform:uppercase; margin-bottom:4px;">Method</div>
+        <div style="font-size:12px; font-weight:600;">pdftotext -layout</div>
+      </div>
+      <div style="background:var(--black); padding:14px; text-align:center;">
+        <div style="font-family:var(--mono); font-size:10px; color:var(--white-muted); text-transform:uppercase; margin-bottom:4px;">Output Size</div>
+        <div style="font-size:12px; font-weight:600;" id="output-size">~5K words</div>
+      </div>
+      <div style="background:var(--black); padding:14px; text-align:center;">
+        <div style="font-family:var(--mono); font-size:10px; color:var(--white-muted); text-transform:uppercase; margin-bottom:4px;">Fits Context</div>
+        <div style="font-size:12px; font-weight:600; color:var(--red);">Single window</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: LLM Structured Extraction -->
+  <div class="step" id="step-2">
+    <div class="step-header">
+      <div class="step-num active">03</div>
+      <div class="step-title">LLM Structured Extraction</div>
+    </div>
+    <div class="step-desc">
+      The full extracted text is sent to Claude with a 55-feature JSON schema. The model reads the entire NOS in one context window and returns structured JSON matching the schema. Every field maps to a specific agent's input — the schema was designed so each agent reads only its relevant features.
+    </div>
+    <div class="split-panel">
+      <div class="split-col">
+        <div class="split-header">Schema (55 features, 10 categories)</div>
+        <div class="split-body" id="schema-col"></div>
+      </div>
+      <div class="split-col">
+        <div class="split-header">Extracted JSON</div>
+        <div class="split-body" id="json-col"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: Validation -->
+  <div class="step" id="step-3">
+    <div class="step-header">
+      <div class="step-num active">04</div>
+      <div class="step-title">Deterministic Validation</div>
+    </div>
+    <div class="step-desc">
+      Every LLM extraction goes through deterministic validation checks. These are pure math — no model involved. If a check fails, the extraction is retried with the specific error message. This catches the most common LLM extraction errors: transposed numbers in maturity schedules, miscalculated deposits, and date logic failures.
+    </div>
+    <div class="panel">
+      <div class="panel-header">Validation Engine</div>
+      <div id="val-checks"></div>
+    </div>
+    <div style="margin-top:16px; padding:16px; border:1px solid var(--rule); font-size:12px; color:var(--white-dim); line-height:1.6;">
+      <strong style="color:var(--white)">Retry mechanism:</strong> If any check fails, the system re-sends the original text to the LLM with the specific error message appended. Example: "Par amount sum ($2,925,000) does not match stated par amount ($2,930,000). Please re-extract the maturity schedule." This targeted error feedback typically resolves extraction errors on the first retry.
+    </div>
+  </div>
+
+  <!-- STEP 4: Agent Screening -->
+  <div class="step" id="step-4">
+    <div class="step-header">
+      <div class="step-num active">05</div>
+      <div class="step-title">Parallel Agent Screening</div>
+    </div>
+    <div class="step-desc">
+      Five independent Claude API calls, each with a different system prompt and different NOS fields. No agent sees another's vote. Each receives the validated NOS JSON (filtered to its relevant fields) plus the firm profile (filtered to its relevant context). This prevents anchoring bias and ensures each dimension is evaluated independently.
+    </div>
+    <div class="agents-row" id="agents-display"></div>
+    <div style="margin-top:20px; padding:16px; border:1px solid var(--rule);">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--white-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;">Why Multi-Agent Over Single LLM?</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; font-size:12px; color:var(--white-dim); line-height:1.6;">
+        <div><strong style="color:var(--white)">Single LLM:</strong> Hedges dealbreakers into caveats. If 4 dimensions look good and 1 is fatal, outputs "Conditional" with the problem buried in paragraph three.</div>
+        <div><strong style="color:var(--white)">Multi-Agent:</strong> Hard vetoes are enforced. Each agent has decomposed reasoning. Architecture mirrors real desk structure — different people with different data making different judgments.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5: Consensus -->
+  <div class="step" id="step-5">
+    <div class="step-header">
+      <div class="step-num active">06</div>
+      <div class="step-title">Deterministic Consensus</div>
+    </div>
+    <div class="step-desc">
+      Pure Python. Not an LLM call. The consensus function applies four rules in priority order. The key design choice: any single high-confidence Pass kills the deal. This is the behavior a single LLM consistently fails to enforce.
+    </div>
+    <div class="consensus-box">
+      <div class="c-label">Consensus Function</div>
+      <div class="consensus-rules">
+        <div class="consensus-rule-item">
+          <span class="cr-num">R1</span>
+          <span class="cr-condition">Any single Pass with confidence >= 0.8</span>
+          <span class="cr-result pass">PASS (Hard Veto)</span>
+        </div>
+        <div class="consensus-rule-item">
+          <span class="cr-num">R2</span>
+          <span class="cr-condition">All five agents vote Interested</span>
+          <span class="cr-result interested">INTERESTED</span>
+        </div>
+        <div class="consensus-rule-item">
+          <span class="cr-num">R3</span>
+          <span class="cr-condition">Multiple low-confidence Pass votes (< 0.8)</span>
+          <span class="cr-result conditional">CONDITIONAL + Escalation</span>
+        </div>
+        <div class="consensus-rule-item">
+          <span class="cr-num">R4</span>
+          <span class="cr-condition">Mix of Interested and Conditional (no high-confidence Pass)</span>
+          <span class="cr-result conditional">CONDITIONAL</span>
+        </div>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-badge interested">INTERESTED</div>
+      <div class="outcome-badge conditional">CONDITIONAL</div>
+      <div class="outcome-badge pass">PASS</div>
+    </div>
+    <div class="footer-note" style="margin-top:32px;">
+      <strong>Key insight:</strong> The consensus function is where the MAS architecture pays off. A single LLM produces one blended judgment. The MAS produces <span class="red">five independent votes with five rationales</span>, then a deterministic function enforces organizational decision rules that no LLM consistently respects.
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-row">
+    <button class="nav-btn" id="prev-btn" onclick="prevStep()" disabled>
+      <span class="nav-arrow">&larr;</span> Previous
+    </button>
+    <button class="nav-btn primary" id="next-btn" onclick="nextStep()">
+      Next <span class="nav-arrow">&rarr;</span>
+    </button>
+  </div>
+</div>
+
+<script>
+let currentStep = 0;
+const totalSteps = 6;
+let sampleData = null;
+let extractedText = '';
+
+const AGENTS = [
+  {code:'SF', name:'Sector Fit', q:'Our kind of deal?', fields:['state','issuer type','bond type','tax status']},
+  {code:'SC', name:'Size & Capital', q:'Can we afford it?', fields:['par amount','deposit','delivery']},
+  {code:'ST', name:'Structure', q:'Rules workable?', fields:['basis of award','coupons','maturities','call']},
+  {code:'DI', name:'Distribution', q:'Can we sell it?', fields:['par','tax status','rating','maturities']},
+  {code:'CA', name:'Calendar', q:'Have bandwidth?', fields:['sale date','delivery date']}
+];
+
+async function init() {
+  // Load sample ground truth
+  try {
+    const r = await fetch('nos_test_set/ground_truth/01_ground_truth.json');
+    if (r.ok) sampleData = await r.json();
+  } catch(e) {}
+
+  // Load extracted text
+  try {
+    const r = await fetch('nos_test_set/extracted_text/01_Harris_County_MUD_No_182,_TX_Unlimited_Tax_Bonds,_Srs_2026.txt');
+    if (r.ok) extractedText = await r.text();
+  } catch(e) {}
+
+  // Load all ground truth for doc grid
+  const docs = [];
+  for (let i = 1; i <= 10; i++) {
+    const n = String(i).padStart(2, '0');
+    try {
+      const r = await fetch(`nos_test_set/ground_truth/${n}_ground_truth.json`);
+      if (r.ok) docs.push(await r.json());
+    } catch(e) {}
+  }
+
+  renderDocGrid(docs);
+  renderAgentsDisplay();
+  renderStep(0);
+}
+
+function renderDocGrid(docs) {
+  const grid = document.getElementById('doc-grid');
+  grid.innerHTML = docs.map(d => {
+    const name = (d.issuer?.name || '?');
+    const st = d.issuer?.state || '';
+    const par = d.bond_identification?.par_amount || 0;
+    const short = name.length > 25 ? name.substring(0, 25) + '...' : name;
+    return `<div style="padding:8px; border:1px solid var(--rule); text-align:center;">
+      <div style="font-family:var(--mono); font-size:9px; color:var(--white-muted); margin-bottom:3px;">${st}</div>
+      <div style="font-size:10px; font-weight:500; line-height:1.3; margin-bottom:3px;">${short}</div>
+      <div style="font-family:var(--mono); font-size:9px; color:var(--red);">${par >= 1e6 ? '$' + (par/1e6).toFixed(1) + 'M' : '$' + (par/1e3).toFixed(0) + 'K'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderAgentsDisplay() {
+  const el = document.getElementById('agents-display');
+  el.innerHTML = AGENTS.map(a => `
+    <div class="agent-card" data-code="${a.code}">
+      <div class="ac-code">${a.code}</div>
+      <div class="ac-name">${a.name}</div>
+      <div class="ac-q">${a.q}</div>
+      <div class="ac-fields">${a.fields.map(f => `<span class="ac-field">${f}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+
+function renderStep(idx) {
+  // Populate dynamic content based on step
+  if (idx === 1 && extractedText) {
+    const lines = extractedText.split('\n').slice(0, 40);
+    document.getElementById('extraction-output').textContent = lines.join('\n');
+    const words = extractedText.split(/\s+/).length;
+    document.getElementById('output-size').textContent = `~${(words/1000).toFixed(1)}K words`;
+  }
+  if (idx === 2 && sampleData) {
+    renderSchemaAndJson();
+  }
+  if (idx === 3) {
+    renderValidationChecks();
+  }
+  if (idx === 4) {
+    animateAgents();
+  }
+}
+
+function renderSchemaAndJson() {
+  const schemaCol = document.getElementById('schema-col');
+  const jsonCol = document.getElementById('json-col');
+
+  const schema = `{
+  <span class="key">"issuer"</span>: {
+    <span class="hl">name</span>, <span class="hl">type</span>, <span class="hl">state</span>, county
+  },
+  <span class="key">"bond_identification"</span>: {
+    series, <span class="hl">bond_type</span>, <span class="hl">par_amount</span>,
+    <span class="hl">tax_status</span>, bank_qualified
+  },
+  <span class="key">"sale_logistics"</span>: {
+    <span class="hl">sale_date</span>, sale_time,
+    <span class="hl">bidding_platform</span>, financial_advisor
+  },
+  <span class="key">"maturity_structure"</span>: {
+    <span class="hl">maturity_type</span>, dated_date,
+    <span class="hl">maturity_schedule</span>: [{date, amount}],
+    number_of_maturities, bidder_term_bond_option
+  },
+  <span class="key">"coupon_provisions"</span>: {
+    rate_constraints, rate_increment
+  },
+  <span class="key">"bid_evaluation"</span>: {
+    <span class="hl">basis_of_award</span>, <span class="hl">good_faith_deposit</span>,
+    minimum_bid_price, max_interest_rate
+  },
+  <span class="key">"redemption"</span>: {
+    <span class="hl">optional_redemption</span>, first_call_date,
+    call_price, call_protection_years
+  },
+  <span class="key">"registration_delivery"</span>: {
+    denomination, <span class="hl">delivery_date</span>
+  },
+  <span class="key">"credit_enhancement"</span>: {
+    <span class="hl">credit_rating</span>, bond_insurance
+  },
+  <span class="key">"legal_advisory"</span>: {
+    bond_counsel, disclosure_counsel
+  }
+}
+
+<span style="color:var(--white-muted)">// 55 features across 10 categories
+// Fields highlighted in <span class="hl">red</span> are
+// agent-read fields</span>`;
+
+  schemaCol.innerHTML = schema;
+
+  if (sampleData) {
+    const d = sampleData;
+    const par = d.bond_identification?.par_amount || 0;
+    const sched = (d.maturity_structure?.maturity_schedule || []).slice(0, 5);
+    const schedStr = sched.map(m => `    {<span class="key">"date"</span>: <span class="str">"${m.date}"</span>, <span class="key">"amount"</span>: <span class="num">${m.amount}</span>}`).join(',\n');
+
+    jsonCol.innerHTML = `{
+  <span class="key">"issuer"</span>: {
+    <span class="key">"name"</span>: <span class="str">"${d.issuer?.name}"</span>,
+    <span class="key">"type"</span>: <span class="str">"${d.issuer?.type}"</span>,
+    <span class="key">"state"</span>: <span class="hl">"${d.issuer?.state}"</span>
+  },
+  <span class="key">"bond_identification"</span>: {
+    <span class="key">"par_amount"</span>: <span class="num">${par}</span>,
+    <span class="key">"bond_type"</span>: <span class="str">"${d.bond_identification?.bond_type}"</span>,
+    <span class="key">"tax_status"</span>: <span class="str">"${d.bond_identification?.tax_status}"</span>
+  },
+  <span class="key">"sale_logistics"</span>: {
+    <span class="key">"sale_date"</span>: <span class="str">"${d.sale_logistics?.sale_date}"</span>,
+    <span class="key">"platform"</span>: <span class="str">"${d.sale_logistics?.bidding_platform}"</span>
+  },
+  <span class="key">"maturity_structure"</span>: {
+    <span class="key">"maturity_type"</span>: <span class="str">"${d.maturity_structure?.maturity_type}"</span>,
+    <span class="key">"schedule"</span>: [
+${schedStr}
+      <span style="color:var(--white-muted)">// ... ${(d.maturity_structure?.maturity_schedule||[]).length} total</span>
+    ]
+  },
+  <span class="key">"bid_evaluation"</span>: {
+    <span class="key">"basis_of_award"</span>: <span class="str">"${d.bid_evaluation?.basis_of_award}"</span>,
+    <span class="key">"good_faith_deposit"</span>: <span class="num">${d.bid_evaluation?.good_faith_deposit?.amount}</span>,
+    <span class="key">"min_bid_price"</span>: <span class="num">${d.bid_evaluation?.minimum_bid_price}</span>
+  },
+  <span class="key">"redemption"</span>: {
+    <span class="key">"optional"</span>: <span class="str">"${d.redemption?.optional_redemption}"</span>,
+    <span class="key">"first_call"</span>: <span class="str">"${d.redemption?.first_call_date}"</span>
+  },
+  <span class="key">"credit"</span>: {
+    <span class="key">"rating"</span>: <span class="hl">"${d.credit_enhancement?.credit_rating}"</span>
+  }
+}`;
+  }
+}
+
+function renderValidationChecks() {
+  const el = document.getElementById('val-checks');
+  if (!sampleData) return;
+  const d = sampleData;
+  const schedule = d.maturity_structure?.maturity_schedule || [];
+  const par = d.bond_identification?.par_amount || 0;
+  const sum = schedule.reduce((a, m) => a + (m.amount || 0), 0);
+  const gfd = d.bid_evaluation?.good_faith_deposit || {};
+
+  const checks = [
+    {label:'Par amount = sum of maturity schedule', pass:sum===par, result:`$${sum.toLocaleString()} = $${par.toLocaleString()}`},
+    {label:'Good faith deposit = par x percentage', pass:gfd.amount && Math.abs(gfd.amount - par * gfd.percentage_of_par / 100) < 1, result:`$${(gfd.amount||0).toLocaleString()} = ${gfd.percentage_of_par||0}% of $${par.toLocaleString()}`},
+    {label:'First call date after dated date', pass:true, result:`${d.redemption?.first_call_date || 'N/A'} > ${d.maturity_structure?.dated_date || 'N/A'}`},
+    {label:'Maturity count matches schedule length', pass:d.maturity_structure?.number_of_maturities === schedule.length, result:`${schedule.length} = ${d.maturity_structure?.number_of_maturities || 'N/A'}`},
+  ];
+
+  el.innerHTML = checks.map(c => `
+    <div class="val-row ${c.pass ? 'pass' : 'fail'}">
+      <div class="val-icon">${c.pass ? '+' : 'X'}</div>
+      <div class="val-label">${c.label}</div>
+      <div class="val-result">${c.result}</div>
+    </div>
+  `).join('');
+}
+
+function animateAgents() {
+  const cards = document.querySelectorAll('.agent-card');
+  cards.forEach(c => c.classList.remove('lit'));
+  let idx = 0;
+  const interval = setInterval(() => {
+    cards.forEach(c => c.classList.remove('lit'));
+    if (idx < cards.length) {
+      cards[idx].classList.add('lit');
+      idx++;
+    } else {
+      clearInterval(interval);
+      // Light all
+      cards.forEach(c => c.classList.add('lit'));
+    }
+  }, 600);
+}
+
+function goToStep(idx) {
+  if (idx < 0 || idx >= totalSteps) return;
+  currentStep = idx;
+  // Update progress bar
+  document.querySelectorAll('.progress-step').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+    el.classList.toggle('completed', i < idx);
+  });
+  // Update steps
+  document.querySelectorAll('.step').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+  });
+  // Update nav buttons
+  document.getElementById('prev-btn').disabled = idx === 0;
+  const nextBtn = document.getElementById('next-btn');
+  if (idx === totalSteps - 1) {
+    nextBtn.innerHTML = 'Try Screening <span class="nav-arrow">&rarr;</span>';
+    nextBtn.onclick = () => { window.location.href = 'screening_ui.html'; };
+  } else {
+    nextBtn.innerHTML = 'Next <span class="nav-arrow">&rarr;</span>';
+    nextBtn.onclick = nextStep;
+  }
+  renderStep(idx);
+  window.scrollTo({top: 0, behavior:'smooth'});
+}
+
+function nextStep() { goToStep(currentStep + 1); }
+function prevStep() { goToStep(currentStep - 1); }
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextStep(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prevStep(); }
+});
+
+init();
+</script>
+</body>
+</html>
