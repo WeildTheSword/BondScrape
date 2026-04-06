@@ -3,540 +3,608 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NOS Multi-Agent Screening</title>
+<title>NOS Screening System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0f1117;
-    --surface: #1a1d27;
-    --surface2: #232736;
-    --border: #2e3347;
-    --text: #e4e4e7;
-    --text-dim: #8b8fa3;
-    --green: #22c55e;
-    --green-bg: rgba(34,197,94,0.12);
-    --amber: #f59e0b;
-    --amber-bg: rgba(245,158,11,0.12);
-    --red: #ef4444;
-    --red-bg: rgba(239,68,68,0.12);
-    --blue: #3b82f6;
-    --blue-bg: rgba(59,130,246,0.12);
-    --purple: #a855f7;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg); color: var(--text);
-    line-height: 1.5; padding: 24px; max-width: 1400px; margin: 0 auto;
-  }
-  h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 4px; }
-  h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: var(--text-dim); }
-  h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
-  .subtitle { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 24px; }
-  .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+@keyframes enterUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+@keyframes scanline { 0%{background-position:0 0} 100%{background-position:0 4px} }
 
-  /* Layout */
-  .panels { display: grid; grid-template-columns: 320px 1fr; gap: 24px; }
-  @media (max-width: 900px) { .panels { grid-template-columns: 1fr; } }
+:root {
+  --black: #0a0a0a;
+  --surface: #111111;
+  --surface2: #181818;
+  --surface3: #1f1f1f;
+  --rule: #222222;
+  --rule-light: #2a2a2a;
+  --white: #f0f0f0;
+  --white-dim: #999999;
+  --white-muted: #555555;
+  --red: #e03e3e;
+  --red-dim: #c53030;
+  --red-wash: rgba(224,62,62,0.07);
+  --red-border: rgba(224,62,62,0.20);
+  --positive-wash: rgba(240,240,240,0.04);
+  --positive-border: rgba(240,240,240,0.12);
+  --caution-wash: rgba(240,240,240,0.02);
+  --caution-border: rgba(240,240,240,0.08);
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'DM Mono', 'Menlo', monospace;
+}
 
-  /* Cards */
-  .card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 20px; margin-bottom: 16px;
-  }
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 
-  /* Deal list */
-  .deal-list { list-style: none; }
-  .deal-item {
-    padding: 10px 12px; border-radius: 8px; cursor: pointer;
-    border: 1px solid transparent; margin-bottom: 4px;
-    transition: all 0.15s;
-  }
-  .deal-item:hover { background: var(--surface2); }
-  .deal-item.active { border-color: var(--blue); background: var(--blue-bg); }
-  .deal-item .deal-name { font-size: 0.85rem; font-weight: 500; }
-  .deal-item .deal-meta { font-size: 0.75rem; color: var(--text-dim); }
+body {
+  font-family: var(--sans);
+  background: var(--black);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
 
-  /* Firm selector */
-  .firm-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
-  .firm-tab {
-    padding: 6px 14px; border-radius: 20px; font-size: 0.8rem;
-    border: 1px solid var(--border); background: var(--surface);
-    color: var(--text-dim); cursor: pointer; transition: all 0.15s;
-  }
-  .firm-tab:hover { border-color: var(--blue); color: var(--text); }
-  .firm-tab.active { border-color: var(--blue); background: var(--blue-bg); color: var(--text); }
+/* ── TOPBAR ─────────────────────────────── */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--black);
+  border-bottom: 1px solid var(--rule);
+  height: 48px; display: flex; align-items: center;
+  padding: 0 28px; gap: 28px;
+  font-size: 13px;
+}
+.topbar::after {
+  content:''; position:absolute; bottom:-1px; left:0; right:0;
+  height: 1px; background: linear-gradient(90deg, var(--red) 0%, var(--red) 20%, transparent 20%);
+}
+.brand { font-weight: 700; letter-spacing: -0.02em; font-size: 14px; white-space: nowrap; }
+.brand span { color: var(--red); }
+.topbar-sep { width:1px; height:20px; background:var(--rule); }
+.topbar-tabs { display:flex; gap:0; }
+.topbar-tab {
+  padding: 14px 18px; font-size: 12px; font-weight: 500;
+  color: var(--white-muted); cursor: pointer;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px; transition: all 0.15s;
+}
+.topbar-tab:hover { color: var(--white-dim); }
+.topbar-tab.active { color: var(--white); border-bottom-color: var(--red); }
+.topbar-spacer { flex:1; }
+.topbar-tag {
+  font-family: var(--mono); font-size: 10px;
+  padding: 3px 10px; border: 1px solid var(--rule-light);
+  color: var(--white-muted); letter-spacing: 0.06em;
+}
 
-  /* Decision badge */
-  .decision {
-    display: inline-block; padding: 4px 16px; border-radius: 20px;
-    font-weight: 600; font-size: 0.9rem; letter-spacing: 0.5px;
-  }
-  .decision.interested { background: var(--green-bg); color: var(--green); }
-  .decision.conditional { background: var(--amber-bg); color: var(--amber); }
-  .decision.pass { background: var(--red-bg); color: var(--red); }
+/* ── TICKER ─────────────────────────────── */
+.ticker {
+  display: flex; gap: 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono); font-size: 12px;
+}
+.ticker-item {
+  flex: 1; padding: 14px 28px;
+  border-right: 1px solid var(--rule);
+}
+.ticker-item:last-child { border-right: none; }
+.ticker-label { font-size: 10px; color: var(--white-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+.ticker-val { font-size: 20px; font-weight: 700; font-family: var(--sans); letter-spacing: -0.02em; }
+.ticker-sub { font-size: 11px; color: var(--white-muted); margin-top: 1px; }
 
-  /* Deal summary */
-  .deal-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-bottom: 20px; }
-  .deal-summary dt { font-size: 0.75rem; color: var(--text-dim); }
-  .deal-summary dd { font-size: 0.9rem; margin-bottom: 4px; }
+/* ── LAYOUT ─────────────────────────────── */
+.shell { display: flex; height: calc(100vh - 48px - 60px); }
+.shell-full { min-height: calc(100vh - 48px - 60px); }
+.sidebar {
+  width: 320px; flex-shrink: 0;
+  border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column;
+  background: var(--black);
+}
+.sidebar-head {
+  padding: 16px 24px 12px;
+  font-size: 10px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--white-muted);
+  border-bottom: 1px solid var(--rule);
+}
+.deal-list { list-style:none; overflow-y:auto; flex:1; }
+.deal-list::-webkit-scrollbar { width:3px; }
+.deal-list::-webkit-scrollbar-thumb { background:var(--rule-light); }
+.deal-item {
+  padding: 12px 24px; cursor: pointer;
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.12s;
+}
+.deal-item:hover { background: var(--surface); }
+.deal-item.active { background: var(--surface2); border-left: 2px solid var(--red); padding-left: 22px; }
+.deal-name { font-size: 13px; font-weight: 500; line-height: 1.35; }
+.deal-meta { font-size: 11px; color: var(--white-muted); margin-top: 3px; display:flex; gap:8px; align-items:center; }
+.deal-meta .st {
+  font-family:var(--mono); font-size:10px; font-weight:500;
+  padding:1px 5px; border:1px solid var(--rule-light); color:var(--white-dim);
+}
 
-  /* Agent votes */
-  .agent-vote {
-    background: var(--surface2); border-radius: 10px; padding: 14px 16px;
-    margin-bottom: 8px; border-left: 3px solid var(--border);
-  }
-  .agent-vote.interested { border-left-color: var(--green); }
-  .agent-vote.conditional { border-left-color: var(--amber); }
-  .agent-vote.pass { border-left-color: var(--red); }
-  .agent-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-  .agent-name { font-weight: 600; font-size: 0.9rem; }
-  .agent-vote-badge {
-    font-size: 0.7rem; padding: 2px 10px; border-radius: 12px;
-    font-weight: 600; text-transform: uppercase;
-  }
-  .agent-vote-badge.interested { background: var(--green-bg); color: var(--green); }
-  .agent-vote-badge.conditional { background: var(--amber-bg); color: var(--amber); }
-  .agent-vote-badge.pass { background: var(--red-bg); color: var(--red); }
-  .agent-rationale { font-size: 0.82rem; color: var(--text-dim); }
-  .agent-confidence { font-size: 0.75rem; color: var(--text-dim); margin-top: 4px; }
-  .conf-bar { display: inline-block; height: 4px; border-radius: 2px; margin-left: 6px; vertical-align: middle; }
-  .conf-bar.interested { background: var(--green); }
-  .conf-bar.conditional { background: var(--amber); }
-  .conf-bar.pass { background: var(--red); }
+/* ── MAIN ───────────────────────────────── */
+.main { flex:1; overflow-y:auto; }
+.main-inner { padding: 0; }
 
-  /* Conditions */
-  .conditions { margin-top: 12px; }
-  .condition-item {
-    font-size: 0.82rem; padding: 6px 12px; background: var(--amber-bg);
-    border-radius: 6px; margin-bottom: 4px; color: var(--amber);
-  }
+/* Firm bar */
+.firm-bar {
+  display: flex; gap: 0; border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+}
+.firm-btn {
+  flex: 1; padding: 12px 20px;
+  font-size: 12px; font-weight: 500; text-align: center;
+  color: var(--white-muted); cursor: pointer;
+  border-right: 1px solid var(--rule);
+  transition: all 0.12s;
+}
+.firm-btn:last-child { border-right: none; }
+.firm-btn:hover { color: var(--white-dim); background: var(--surface2); }
+.firm-btn.active { color: var(--white); background: var(--black); box-shadow: inset 0 -2px 0 var(--red); }
 
-  /* Grid view */
-  .grid-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-  .grid-table th, .grid-table td {
-    padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border);
-  }
-  .grid-table th { color: var(--text-dim); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; }
-  .grid-cell { text-align: center; }
-  .grid-pill {
-    display: inline-block; padding: 2px 10px; border-radius: 10px;
-    font-size: 0.72rem; font-weight: 600;
-  }
-  .grid-pill.interested { background: var(--green-bg); color: var(--green); }
-  .grid-pill.conditional { background: var(--amber-bg); color: var(--amber); }
-  .grid-pill.pass { background: var(--red-bg); color: var(--red); }
+/* Empty */
+.empty {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  height: 400px; color: var(--white-muted); text-align:center;
+}
+.empty-line { width:40px; height:1px; background:var(--rule-light); margin-bottom:20px; }
+.empty p { font-size: 13px; max-width: 280px; line-height: 1.6; }
 
-  /* Tabs */
-  .view-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
-  .view-tab {
-    padding: 8px 20px; border-radius: 8px; font-size: 0.85rem;
-    border: 1px solid var(--border); background: var(--surface);
-    color: var(--text-dim); cursor: pointer;
-  }
-  .view-tab.active { background: var(--blue-bg); border-color: var(--blue); color: var(--text); }
+/* Decision block */
+.decision-block {
+  padding: 32px 36px; border-bottom: 1px solid var(--rule);
+  display: flex; align-items: flex-start; gap: 24px;
+  animation: enterUp 0.3s ease both;
+}
+.decision-badge {
+  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  padding: 8px 22px; letter-spacing: 0.12em; text-transform: uppercase;
+  flex-shrink: 0;
+}
+.decision-badge.interested { background: var(--positive-wash); border: 1px solid var(--positive-border); color: var(--white); }
+.decision-badge.conditional { background: var(--caution-wash); border: 1px solid var(--caution-border); color: var(--white-dim); }
+.decision-badge.pass { background: var(--red-wash); border: 1px solid var(--red-border); color: var(--red); }
+.decision-info { flex:1; }
+.decision-rule { font-family:var(--mono); font-size:11px; color:var(--white-muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.06em; }
+.decision-reason { font-size: 14px; color: var(--white-dim); line-height: 1.55; }
+.escalation-tag {
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:10px; font-weight:700;
+  color:var(--red); padding:4px 12px; border:1px solid var(--red-border);
+  letter-spacing:0.08em; text-transform:uppercase; margin-top:8px;
+}
+.pulse-dot { width:5px;height:5px;border-radius:50%;background:var(--red);animation:pulse 1.8s infinite; }
 
-  /* Rule explanation */
-  .rule-box {
-    font-size: 0.82rem; padding: 10px 14px; border-radius: 8px;
-    background: var(--surface2); margin-top: 12px; margin-bottom: 16px;
-  }
-  .rule-label { font-weight: 600; color: var(--text-dim); font-size: 0.72rem; text-transform: uppercase; margin-bottom: 2px; }
+/* Conditions */
+.conditions-row { padding:12px 36px; border-bottom:1px solid var(--rule); display:flex; gap:8px; flex-wrap:wrap; }
+.cond-tag {
+  font-family:var(--mono); font-size:11px; padding:4px 12px;
+  border:1px solid var(--rule-light); color:var(--white-dim);
+}
 
-  /* Escalation flag */
-  .escalation {
-    display: inline-block; padding: 4px 12px; border-radius: 6px;
-    background: var(--amber-bg); color: var(--amber); font-size: 0.78rem;
-    font-weight: 500; margin-left: 8px;
-  }
+/* Summary grid */
+.summary-section { border-bottom: 1px solid var(--rule); }
+.summary-head {
+  padding: 14px 36px; font-size:10px; font-weight:500; text-transform:uppercase;
+  letter-spacing:0.1em; color:var(--white-muted); border-bottom:1px solid var(--rule);
+}
+.summary-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-bottom: 0;
+}
+.summary-cell {
+  padding: 14px 20px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.summary-cell:nth-child(4n) { border-right: none; }
+.s-label { font-size:10px; color:var(--white-muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px; }
+.s-value { font-size:13px; font-weight:500; }
+.s-value.mono { font-family:var(--mono); }
 
-  .hidden { display: none; }
+/* ── AGENT VOTES ────────────────────────── */
+.votes-head {
+  padding: 14px 36px; font-size:10px; font-weight:500; text-transform:uppercase;
+  letter-spacing:0.1em; color:var(--white-muted); border-bottom:1px solid var(--rule);
+}
+.agents { display:flex; flex-direction:column; }
+.agent {
+  display: grid; grid-template-columns: 48px 1fr 90px;
+  gap: 16px; padding: 18px 36px;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+  animation: enterUp 0.25s ease both;
+}
+.agent:nth-child(1){animation-delay:0.04s}
+.agent:nth-child(2){animation-delay:0.08s}
+.agent:nth-child(3){animation-delay:0.12s}
+.agent:nth-child(4){animation-delay:0.16s}
+.agent:nth-child(5){animation-delay:0.2s}
+.agent-idx {
+  width:48px; height:48px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:14px; font-weight:700;
+  border: 1px solid var(--rule-light);
+}
+.agent-idx.interested { border-color: var(--positive-border); color: var(--white); }
+.agent-idx.conditional { border-color: var(--caution-border); color: var(--white-dim); }
+.agent-idx.pass { border-color: var(--red-border); color: var(--red); }
+.agent-body {}
+.agent-name-row { display:flex; align-items:center; gap:10px; margin-bottom:3px; }
+.agent-n { font-size:14px; font-weight:700; letter-spacing:-0.01em; }
+.agent-q { font-size:11px; color:var(--white-muted); font-style:italic; }
+.agent-rationale { font-size:13px; color:var(--white-dim); line-height:1.5; }
+.agent-conds { margin-top:6px; display:flex; gap:6px; flex-wrap:wrap; }
+.agent-cond {
+  font-family:var(--mono); font-size:10px; padding:2px 8px;
+  border:1px solid var(--rule-light); color:var(--white-muted);
+}
+.agent-right { text-align:right; padding-top:2px; }
+.a-vote {
+  font-family:var(--mono); font-size:10px; font-weight:700;
+  padding:4px 12px; letter-spacing:0.1em; text-transform:uppercase;
+  display:inline-block;
+}
+.a-vote.interested { border:1px solid var(--positive-border); color:var(--white); }
+.a-vote.conditional { border:1px solid var(--caution-border); color:var(--white-dim); }
+.a-vote.pass { border:1px solid var(--red-border); color:var(--red); background:var(--red-wash); }
+.conf-row { margin-top:8px; }
+.conf-track { width:64px; height:2px; background:var(--rule-light); margin-left:auto; }
+.conf-fill { height:100%; }
+.conf-fill.interested { background:var(--white); }
+.conf-fill.conditional { background:var(--white-muted); }
+.conf-fill.pass { background:var(--red); }
+.conf-num { font-family:var(--mono); font-size:10px; color:var(--white-muted); margin-top:3px; }
+
+/* ── GRID VIEW ──────────────────────────── */
+.grid-container { padding: 28px; }
+.grid-title { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--white-muted); margin-bottom:20px; }
+.g-table { width:100%; border-collapse:collapse; }
+.g-table th {
+  font-family:var(--mono); font-size:10px; font-weight:500;
+  text-transform:uppercase; letter-spacing:0.06em; color:var(--white-muted);
+  padding:10px 14px; text-align:left; border-bottom:1px solid var(--rule);
+  position:sticky; top:0; background:var(--black); z-index:5;
+}
+.g-table th.center { text-align:center; }
+.g-table td { padding:12px 14px; border-bottom:1px solid var(--rule); font-size:13px; }
+.g-table tr:hover td { background:var(--surface); }
+.g-table .mono { font-family:var(--mono); font-size:12px; }
+.g-table .dim { color:var(--white-muted); font-size:12px; }
+.g-table .center { text-align:center; }
+.g-pill {
+  font-family:var(--mono); display:inline-block; padding:3px 14px;
+  font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  min-width:100px; text-align:center;
+}
+.g-pill.interested { border:1px solid var(--positive-border); color:var(--white); }
+.g-pill.conditional { border:1px solid var(--caution-border); color:var(--white-dim); }
+.g-pill.pass { border:1px solid var(--red-border); color:var(--red); background:var(--red-wash); }
+
+/* ── ARCHITECTURE VIEW ──────────────────── */
+.arch-page { padding:48px 40px; max-width:900px; margin:0 auto; }
+.arch-title { font-size:28px; font-weight:700; letter-spacing:-0.03em; margin-bottom:8px; }
+.arch-sub { font-size:14px; color:var(--white-muted); margin-bottom:48px; line-height:1.6; }
+.arch-step { display:flex; gap:28px; margin-bottom:40px; align-items:flex-start; }
+.arch-num {
+  width:40px; height:40px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:14px; font-weight:700;
+  border:1px solid var(--rule-light); color:var(--white-dim);
+}
+.arch-content {}
+.arch-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px; }
+.arch-desc { font-size:13px; color:var(--white-dim); line-height:1.6; }
+.arch-connector { width:40px; display:flex; justify-content:center; margin-bottom:40px; }
+.arch-line { width:1px; height:24px; background:var(--rule-light); }
+
+.arch-agents-row { display:flex; gap:12px; margin:20px 0 40px 68px; flex-wrap:wrap; }
+.arch-agent-box {
+  border:1px solid var(--rule-light); padding:14px 18px;
+  width:140px; text-align:center;
+  transition: border-color 0.15s;
+}
+.arch-agent-box:hover { border-color: var(--white-muted); }
+.arch-agent-box .a-name { font-size:12px; font-weight:700; margin-bottom:2px; }
+.arch-agent-box .a-q { font-size:10px; color:var(--white-muted); font-style:italic; }
+
+.arch-consensus-box {
+  border:1px solid var(--red-border); padding:20px 32px; text-align:center;
+  margin:20px 0 40px 68px; max-width:400px;
+}
+.arch-consensus-box .c-label { font-family:var(--mono);font-size:10px;color:var(--red);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px; }
+.arch-consensus-box .c-val { font-size:14px; font-weight:700; }
+
+.arch-outcomes-row { display:flex; gap:12px; margin-left:68px; }
+.arch-out {
+  font-family:var(--mono); font-size:11px; font-weight:700;
+  padding:8px 24px; letter-spacing:0.08em; text-transform:uppercase;
+}
+.arch-out.w { border:1px solid var(--positive-border); color:var(--white); }
+.arch-out.g { border:1px solid var(--caution-border); color:var(--white-dim); }
+.arch-out.r { border:1px solid var(--red-border); color:var(--red); background:var(--red-wash); }
+
+.arch-note {
+  margin-top:48px; padding:24px; border:1px solid var(--rule);
+  font-size:13px; color:var(--white-dim); line-height:1.7;
+}
+.arch-note strong { color:var(--white); }
+.arch-note .red { color:var(--red); font-weight:700; }
+
+.hidden { display:none !important; }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>NOS Multi-Agent Screening</h1>
-  <span class="subtitle">LLM-MAS Consensus System — Capstone Demo</span>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="brand">NOS<span>/</span>SCREEN</div>
+  <div class="topbar-sep"></div>
+  <div class="topbar-tabs">
+    <div class="topbar-tab active" onclick="showView('detail',this)">Screening</div>
+    <div class="topbar-tab" onclick="showView('grid',this)">Matrix</div>
+    <div class="topbar-tab" onclick="showView('arch',this)">Architecture</div>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-tag">MULTI-AGENT CONSENSUS</div>
 </div>
 
-<div class="view-tabs">
-  <div class="view-tab active" onclick="showView('detail')">Detail View</div>
-  <div class="view-tab" onclick="showView('grid')">Grid View</div>
+<!-- TICKER -->
+<div class="ticker" id="ticker-bar">
+  <div class="ticker-item"><div class="ticker-label">Documents</div><div class="ticker-val" id="stat-deals">—</div><div class="ticker-sub">ground truth validated</div></div>
+  <div class="ticker-item"><div class="ticker-label">States</div><div class="ticker-val" id="stat-states">—</div><div class="ticker-sub">geographic coverage</div></div>
+  <div class="ticker-item"><div class="ticker-label">Par Range</div><div class="ticker-val" id="stat-par">—</div><div class="ticker-sub" id="stat-par-sub"></div></div>
+  <div class="ticker-item"><div class="ticker-label">Agents</div><div class="ticker-val">5</div><div class="ticker-sub">parallel independent votes</div></div>
 </div>
 
 <!-- DETAIL VIEW -->
-<div id="view-detail" class="panels">
-  <div>
-    <div class="card">
-      <h2>Select Deal</h2>
-      <ul class="deal-list" id="deal-list"></ul>
-    </div>
+<div id="view-detail" class="shell">
+  <div class="sidebar">
+    <div class="sidebar-head">Notice of Sale Documents</div>
+    <ul class="deal-list" id="deal-list"></ul>
   </div>
-  <div>
-    <div class="card">
-      <h2>Select Firm Profile</h2>
-      <div class="firm-tabs" id="firm-tabs"></div>
-    </div>
-    <div class="card" id="result-card" style="display:none">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-        <h2 style="margin:0">Screening Result</h2>
-        <div class="decision" id="decision-badge"></div>
-        <span class="escalation hidden" id="escalation-flag">ESCALATION — Human Review</span>
+  <div class="main">
+    <div class="firm-bar" id="firm-selector"></div>
+    <div class="main-inner" id="result-area">
+      <div id="empty-card" class="empty">
+        <div class="empty-line"></div>
+        <p>Select a document and firm profile to run the multi-agent screening consensus</p>
       </div>
-      <div class="rule-box">
-        <div class="rule-label">Consensus Rule</div>
-        <div id="rule-text"></div>
+      <div id="result-card" class="hidden">
+        <div class="decision-block" id="decision-block"></div>
+        <div class="conditions-row hidden" id="conditions-row"></div>
+        <div class="summary-section">
+          <div class="summary-head">Deal Profile</div>
+          <div class="summary-grid" id="summary-grid"></div>
+        </div>
+        <div class="votes-head">Agent Votes</div>
+        <div class="agents" id="agents-grid"></div>
       </div>
-      <div id="conditions-box" class="conditions hidden"></div>
-
-      <h3 style="margin-top:20px">Deal Summary</h3>
-      <dl class="deal-summary" id="deal-summary"></dl>
-
-      <h3>Agent Votes</h3>
-      <div id="agent-votes"></div>
     </div>
   </div>
 </div>
 
 <!-- GRID VIEW -->
-<div id="view-grid" class="hidden">
-  <div class="card">
-    <h2>All Deals × All Firms</h2>
-    <table class="grid-table" id="grid-table"></table>
+<div id="view-grid" class="shell-full hidden">
+  <div class="grid-container">
+    <div class="grid-title">Screening Matrix &mdash; All Documents &times; All Firm Profiles</div>
+    <table class="g-table" id="grid-table"></table>
+  </div>
+</div>
+
+<!-- ARCHITECTURE VIEW -->
+<div id="view-arch" class="shell-full hidden">
+  <div class="arch-page">
+    <div class="arch-title">System Architecture</div>
+    <div class="arch-sub">Five specialized LLM agents evaluate a Notice of Sale from different dimensions. Each runs in parallel with no inter-agent communication. Consensus is deterministic Python&mdash;not another LLM call.</div>
+
+    <div class="arch-step"><div class="arch-num">01</div><div class="arch-content"><div class="arch-label">Text Extraction</div><div class="arch-desc">NOS PDF &rarr; <code style="font-family:var(--mono);color:var(--white)">pdftotext -layout</code> &rarr; raw text. Layout mode preserves maturity table alignment that other methods destroy.</div></div></div>
+    <div class="arch-connector"><div class="arch-line"></div></div>
+    <div class="arch-step"><div class="arch-num">02</div><div class="arch-content"><div class="arch-label">LLM Structured Extraction</div><div class="arch-desc">Full text + 55-feature JSON schema &rarr; Claude API &rarr; validated structured JSON. Deterministic checks (par sum, deposit math, date logic) catch errors. Retry on failure.</div></div></div>
+    <div class="arch-connector"><div class="arch-line"></div></div>
+    <div class="arch-step"><div class="arch-num">03</div><div class="arch-content"><div class="arch-label">Parallel Agent Screening</div><div class="arch-desc">Validated NOS JSON + Firm Profile &rarr; 5 independent API calls. Each agent sees only its relevant fields. No agent sees another's vote.</div></div></div>
+
+    <div class="arch-agents-row">
+      <div class="arch-agent-box"><div class="a-name">Sector Fit</div><div class="a-q">"Our kind of deal?"</div></div>
+      <div class="arch-agent-box"><div class="a-name">Size &amp; Capital</div><div class="a-q">"Can we afford it?"</div></div>
+      <div class="arch-agent-box"><div class="a-name">Structure</div><div class="a-q">"Rules workable?"</div></div>
+      <div class="arch-agent-box"><div class="a-name">Distribution</div><div class="a-q">"Can we sell it?"</div></div>
+      <div class="arch-agent-box"><div class="a-name">Calendar</div><div class="a-q">"Have bandwidth?"</div></div>
+    </div>
+
+    <div class="arch-step"><div class="arch-num">04</div><div class="arch-content"><div class="arch-label">Deterministic Consensus</div><div class="arch-desc">Pure Python. No LLM call. Any single Pass &ge; 0.8 confidence triggers a hard veto. Unanimous interested = proceed. Mixed = conditional with action items.</div></div></div>
+
+    <div class="arch-consensus-box"><div class="c-label">Consensus Function</div><div class="c-val">Veto &rarr; Unanimous &rarr; Escalation &rarr; Mixed</div></div>
+
+    <div class="arch-step"><div class="arch-num">05</div><div class="arch-content"><div class="arch-label">Output</div></div></div>
+    <div class="arch-outcomes-row">
+      <div class="arch-out w">Interested</div>
+      <div class="arch-out g">Conditional</div>
+      <div class="arch-out r">Pass</div>
+    </div>
+
+    <div class="arch-note">
+      <strong>Why multi-agent?</strong> A single LLM hedges. If 4 dimensions look great but one is a dealbreaker, a single model says "Conditional" with the problem buried in paragraph three. The MAS architecture enforces <span class="red">hard vetoes</span> that a single LLM softens. Each agent has decomposed reasoning, different context, and the architecture mirrors how real desks work&mdash;different people with different data making different judgments.
+    </div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-// EMBEDDED DATA — ground truth NOS JSONs and firm profiles
-// Generated from the pipeline's test set
-// ═══════════════════════════════════════════════════════════
+const DEALS=[], FIRMS=[];
+let selectedDeal=null, selectedFirm=null;
+const AGENT_NUMS={sector_fit:'SF',size_capital:'SC',structure:'ST',distribution:'DI',calendar:'CA'};
+const AGENT_QS={sector_fit:'Is this our kind of deal?',size_capital:'Can we afford this commitment?',structure:'Are the bidding rules workable?',distribution:'Can we sell these bonds?',calendar:'Do we have time and people?'};
 
-const DEALS = [];
-const FIRMS = [];
-let selectedDeal = null;
-let selectedFirm = null;
+function safeGet(o,p,d=null){for(const k of p.split('.')){if(!o||typeof o!=='object')return d;o=o[k];}return o??d;}
+function fmt$(n){return '$'+n.toLocaleString();}
+function fmtType(t){return(t||'').replace(/_/g,' ').replace(/\bgo\b/gi,'GO');}
 
-// ── Load data from files served alongside this HTML ──────
-// For the demo, we embed the data directly.
-// In production, these would be API calls.
-
-async function loadData() {
-  // Try to load from files first (works when served via python -m http.server from NOS/)
-  const gtFiles = [
-    '01_ground_truth.json','02_ground_truth.json','03_ground_truth.json',
-    '04_ground_truth.json','05_ground_truth.json','06_ground_truth.json',
-    '07_ground_truth.json','08_ground_truth.json','09_ground_truth.json',
-    '10_ground_truth.json'
-  ];
-  const firmFiles = [
-    'texas_regional.json','northeast_institutional.json',
-    'national_large.json','small_boutique.json'
-  ];
-
-  for (const f of gtFiles) {
-    try {
-      const resp = await fetch(`nos_test_set/ground_truth/${f}`);
-      if (resp.ok) DEALS.push(await resp.json());
-    } catch(e) {}
-  }
-  for (const f of firmFiles) {
-    try {
-      const resp = await fetch(`firm_profiles/${f}`);
-      if (resp.ok) FIRMS.push(await resp.json());
-    } catch(e) {}
-  }
-
-  // If fetch failed (opened as file://), use embedded fallback
-  if (DEALS.length === 0) loadEmbeddedData();
-
-  renderDealList();
-  renderFirmTabs();
-  renderGrid();
+async function loadData(){
+  const gf=['01','02','03','04','05','06','07','08','09','10'];
+  const ff=['texas_regional','northeast_institutional','national_large','small_boutique'];
+  await Promise.all(gf.map(async n=>{try{const r=await fetch(`nos_test_set/ground_truth/${n}_ground_truth.json`);if(r.ok)DEALS.push(await r.json());}catch(e){}}));
+  await Promise.all(ff.map(async n=>{try{const r=await fetch(`firm_profiles/${n}.json`);if(r.ok)FIRMS.push(await r.json());}catch(e){}}));
+  if(!DEALS.length)loadFallback();
+  updateStats();renderDealList();renderFirms();renderGrid();
+}
+function loadFallback(){
+  DEALS.push({issuer:{name:"Harris County MUD No. 182",type:"municipal_utility_district",state:"TX"},bond_identification:{series:"Series 2026",bond_type:"go_unlimited_tax",bond_type_description:"Unlimited Tax Bonds",par_amount:2930000,tax_status:"tax_exempt"},sale_logistics:{sale_date:"April 15, 2026",bidding_platform:"parity",financial_advisor:"The GMS Group, L.L.C."},maturity_structure:{maturity_type:"serial_only",dated_date:"May 1, 2026",maturity_schedule:Array(25).fill({amount:117200}),final_maturity_date:"April 1, 2053",bidder_term_bond_option:true},coupon_provisions:{coupon_rate_constraints:{}},bid_evaluation:{basis_of_award:"net_effective_rate",minimum_bid_price:97,max_interest_rate:6.81,good_faith_deposit:{amount:58600,percentage_of_par:2}},redemption:{optional_redemption:"callable",first_call_date:"April 1, 2031",call_price:100},registration_delivery:{denomination:5000,delivery_date:"May 14, 2026",paying_agent:"BOKF, N.A."},credit_enhancement:{credit_rating:"unrated"},legal_advisory:{bond_counsel:"Smith, Murdaugh, Little & Bonham"},bidder_obligations:{commitment_type:"firm_commitment"}});
+  FIRMS.push({firm_name:"Lone Star Municipal Partners",sector_coverage:{states:["TX"],issuer_types:["municipal_utility_district","school_district","city","county"]},capital_limits:{max_single_commitment_dollars:25e6,max_concurrent_bids:4},distribution_profile:{strength:"retail",taxable_demand:"Weak"},current_pipeline:{upcoming_bids:[{}],analyst_availability:{available_analysts:2}}});
+  FIRMS.push({firm_name:"Atlantic Capital Markets",sector_coverage:{states:["ME","NH","VT","MA","CT","RI","NY","NJ","PA","DE","MD","VA"],issuer_types:["state","county","city","school_district","regional_school_unit","authority"]},capital_limits:{max_single_commitment_dollars:1e8,max_concurrent_bids:6},distribution_profile:{strength:"institutional",taxable_demand:"Strong"},current_pipeline:{upcoming_bids:[{},{}],analyst_availability:{available_analysts:3}}});
 }
 
-function loadEmbeddedData() {
-  // Minimal embedded data for file:// usage
-  DEALS.push({
-    issuer:{name:"Harris County MUD No. 182",type:"municipal_utility_district",state:"TX",county:"Harris"},
-    bond_identification:{series:"Series 2026",bond_type:"go_unlimited_tax",bond_type_description:"Unlimited Tax Bonds",par_amount:2930000,tax_status:"tax_exempt",bank_qualified:null},
-    sale_logistics:{sale_date:"April 15, 2026",bidding_platform:"parity",financial_advisor:"The GMS Group, L.L.C."},
-    maturity_structure:{maturity_type:"serial_only",dated_date:"May 1, 2026",maturity_schedule:new Array(25).fill({amount:117200}),number_of_maturities:25,final_maturity_date:"April 1, 2053",bidder_term_bond_option:true},
-    coupon_provisions:{rate_increment:"1/8 of 1%",coupon_rate_constraints:{}},
-    bid_evaluation:{basis_of_award:"net_effective_rate",minimum_bid_price:97,max_interest_rate:6.81,good_faith_deposit:{amount:58600,percentage_of_par:2}},
-    redemption:{optional_redemption:"callable",first_call_date:"April 1, 2031",call_price:100},
-    registration_delivery:{denomination:5000,delivery_date:"May 14, 2026",paying_agent:"BOKF, N.A., Dallas, Texas"},
-    credit_enhancement:{credit_rating:"unrated"},
-    legal_advisory:{bond_counsel:"Smith, Murdaugh, Little & Bonham, L.L.P."},
-    bidder_obligations:{commitment_type:"firm_commitment"}
-  });
-  FIRMS.push({
-    firm_name:"Lone Star Municipal Partners",firm_description:"TX-focused regional",
-    sector_coverage:{states:["TX"],issuer_types:["municipal_utility_district","school_district","city","county"],bond_types:["go_unlimited_tax","go_limited_tax","revenue"]},
-    capital_limits:{max_single_commitment_dollars:25000000,current_inventory_dollars:18500000,max_concurrent_bids:4},
-    distribution_profile:{strength:"retail",taxable_demand:"Weak"},
-    current_pipeline:{upcoming_bids:[{issue:"Fort Bend MUD",sale_date:"2026-04-22",par_amount:4500000}],analyst_availability:{available_analysts:2}},
-    bidding_capabilities:{platforms:["parity"]}
-  });
-  FIRMS.push({
-    firm_name:"Atlantic Capital Markets",firm_description:"NE institutional",
-    sector_coverage:{states:["ME","NH","VT","MA","CT","RI","NY","NJ","PA","DE","MD","VA"],issuer_types:["state","county","city","school_district","regional_school_unit","authority"],bond_types:["go_unlimited_tax","go_limited_tax","revenue"]},
-    capital_limits:{max_single_commitment_dollars:100000000,current_inventory_dollars:85000000,max_concurrent_bids:6},
-    distribution_profile:{strength:"institutional",taxable_demand:"Strong"},
-    current_pipeline:{upcoming_bids:[{issue:"MA GO",sale_date:"2026-04-20",par_amount:150000000}],analyst_availability:{available_analysts:3}},
-    bidding_capabilities:{platforms:["parity","grant_street"]}
-  });
+function updateStats(){
+  document.getElementById('stat-deals').textContent=DEALS.length;
+  const states=new Set(DEALS.map(d=>safeGet(d,'issuer.state','')));
+  document.getElementById('stat-states').textContent=states.size;
+  const pars=DEALS.map(d=>safeGet(d,'bond_identification.par_amount',0));
+  const mn=Math.min(...pars),mx=Math.max(...pars);
+  document.getElementById('stat-par').textContent=mn>=1e6?`$${(mn/1e6).toFixed(1)}M — $${(mx/1e6).toFixed(0)}M`:`$${(mn/1e3).toFixed(0)}K — $${(mx/1e6).toFixed(0)}M`;
+  document.getElementById('stat-par-sub').textContent=`Total: ${fmt$(pars.reduce((a,b)=>a+b,0))}`;
 }
 
-// ── Screening Logic (mirrors Python demo_compare._generate_demo_votes) ──
-
-function safeGet(obj, path, def=null) {
-  for (const key of path.split('.')) {
-    if (!obj || typeof obj !== 'object') return def;
-    obj = obj[key];
-  }
-  return obj ?? def;
+function generateVotes(nos,firm){
+  const v=[],st=safeGet(nos,'issuer.state',''),ty=safeGet(nos,'issuer.type',''),
+    par=safeGet(nos,'bond_identification.par_amount',0),tax=safeGet(nos,'bond_identification.tax_status',''),
+    cs=safeGet(firm,'sector_coverage.states',[]),ct=safeGet(firm,'sector_coverage.issuer_types',[]),
+    mc=safeGet(firm,'capital_limits.max_single_commitment_dollars',0),
+    ds=safeGet(firm,'distribution_profile.strength',''),td=safeGet(firm,'distribution_profile.taxable_demand',''),
+    an=safeGet(firm,'current_pipeline.analyst_availability.available_analysts',1),
+    mx=safeGet(firm,'capital_limits.max_concurrent_bids',5),
+    up=safeGet(firm,'current_pipeline.upcoming_bids',[]).length,
+    nm=safeGet(nos,'maturity_structure.maturity_schedule',[]).length,
+    mb=safeGet(nos,'bid_evaluation.minimum_bid_price',0),
+    mr=safeGet(nos,'coupon_provisions.coupon_rate_constraints.max_rate_cap'),
+    ba=safeGet(nos,'bid_evaluation.basis_of_award','');
+  if(cs.includes(st)&&ct.includes(ty))v.push({agent:'sector_fit',name:'Sector Fit',vote:'interested',confidence:0.95,rationale:`${st} ${fmtType(ty)} is core coverage.`,conditions:[]});
+  else if(cs.includes(st))v.push({agent:'sector_fit',name:'Sector Fit',vote:'conditional',confidence:0.6,rationale:`State ${st} covered but ${fmtType(ty)} is not primary.`,conditions:[`Confirm appetite for ${fmtType(ty)}`]});
+  else v.push({agent:'sector_fit',name:'Sector Fit',vote:'pass',confidence:0.95,rationale:`${st} is outside geographic coverage (${cs.slice(0,5).join(', ')}).`,conditions:[]});
+  if(par<=mc*0.5)v.push({agent:'size_capital',name:'Size & Capital',vote:'interested',confidence:0.9,rationale:`${fmt$(par)} well within ${fmt$(mc)} limit.`,conditions:[]});
+  else if(par<=mc)v.push({agent:'size_capital',name:'Size & Capital',vote:'conditional',confidence:0.7,rationale:`${fmt$(par)} within limit but uses significant capacity.`,conditions:['Monitor inventory levels']});
+  else v.push({agent:'size_capital',name:'Size & Capital',vote:'pass',confidence:0.85,rationale:`${fmt$(par)} exceeds ${fmt$(mc)} max commitment.`,conditions:[]});
+  const iss=[];
+  if(mr&&mr<=5)iss.push('rate cap constrains optimization');
+  if(mb>105)iss.push(`high min bid (${mb}%)`);
+  if(nm<=2)iss.push(`only ${nm} maturities`);
+  if(iss.length>=2)v.push({agent:'structure',name:'Structure',vote:'conditional',confidence:0.6,rationale:`Multiple constraints: ${iss.join('; ')}.`,conditions:iss});
+  else if(iss.length===1)v.push({agent:'structure',name:'Structure',vote:'interested',confidence:0.7,rationale:`Workable but note: ${iss[0]}.`,conditions:[]});
+  else v.push({agent:'structure',name:'Structure',vote:'interested',confidence:0.85,rationale:`Standard structure, ${ba||'standard'} basis, ${nm} maturities.`,conditions:[]});
+  if(tax==='taxable'&&td.toLowerCase().includes('weak'))v.push({agent:'distribution',name:'Distribution',vote:'pass',confidence:0.8,rationale:'Taxable bonds with weak taxable investor base.',conditions:[]});
+  else if(ds==='retail'&&par<2e7)v.push({agent:'distribution',name:'Distribution',vote:'interested',confidence:0.88,rationale:`${fmt$(par)} fits retail distribution sweet spot.`,conditions:[]});
+  else if(ds==='institutional'&&par<1e7)v.push({agent:'distribution',name:'Distribution',vote:'conditional',confidence:0.55,rationale:`${fmt$(par)} below institutional sweet spot.`,conditions:['May need retail distribution partner']});
+  else v.push({agent:'distribution',name:'Distribution',vote:'interested',confidence:0.75,rationale:'Distribution feasible with current accounts.',conditions:[]});
+  if(an===0)v.push({agent:'calendar',name:'Calendar',vote:'pass',confidence:0.9,rationale:'No analysts available for POS review.',conditions:[]});
+  else if(up>=mx)v.push({agent:'calendar',name:'Calendar',vote:'pass',confidence:0.85,rationale:`Pipeline full: ${up} bids at ${mx} max.`,conditions:[]});
+  else v.push({agent:'calendar',name:'Calendar',vote:'interested',confidence:0.82,rationale:'Sufficient time and analyst availability.',conditions:[]});
+  return v;
 }
 
-function generateVotes(nos, firm) {
-  const votes = [];
-  const state = safeGet(nos,'issuer.state','');
-  const type = safeGet(nos,'issuer.type','');
-  const par = safeGet(nos,'bond_identification.par_amount',0);
-  const taxStatus = safeGet(nos,'bond_identification.tax_status','');
-  const coveredStates = safeGet(firm,'sector_coverage.states',[]);
-  const coveredTypes = safeGet(firm,'sector_coverage.issuer_types',[]);
-  const maxCommit = safeGet(firm,'capital_limits.max_single_commitment_dollars',0);
-  const distStrength = safeGet(firm,'distribution_profile.strength','');
-  const taxDemand = safeGet(firm,'distribution_profile.taxable_demand','');
-  const analysts = safeGet(firm,'current_pipeline.analyst_availability.available_analysts',1);
-  const maxConcurrent = safeGet(firm,'capital_limits.max_concurrent_bids',5);
-  const upcoming = safeGet(firm,'current_pipeline.upcoming_bids',[]).length;
-  const nMats = safeGet(nos,'maturity_structure.maturity_schedule',[]).length;
-  const minBid = safeGet(nos,'bid_evaluation.minimum_bid_price',0);
-  const maxRate = safeGet(nos,'coupon_provisions.coupon_rate_constraints.max_rate_cap');
-  const basis = safeGet(nos,'bid_evaluation.basis_of_award','');
-
-  // Sector Fit
-  if (coveredStates.includes(state) && coveredTypes.includes(type)) {
-    votes.push({agent:'sector_fit',name:'Sector Fit',vote:'interested',confidence:0.95,rationale:`${state} ${type} is core coverage.`,conditions:[]});
-  } else if (coveredStates.includes(state)) {
-    votes.push({agent:'sector_fit',name:'Sector Fit',vote:'conditional',confidence:0.6,rationale:`State ${state} covered but ${type} is not primary.`,conditions:[`Confirm appetite for ${type}`]});
-  } else {
-    votes.push({agent:'sector_fit',name:'Sector Fit',vote:'pass',confidence:0.95,rationale:`${state} is outside geographic coverage (${coveredStates.slice(0,5).join(', ')}).`,conditions:[]});
-  }
-
-  // Size & Capital
-  if (par <= maxCommit * 0.5) {
-    votes.push({agent:'size_capital',name:'Size & Capital',vote:'interested',confidence:0.9,rationale:`$${par.toLocaleString()} well within $${maxCommit.toLocaleString()} limit.`,conditions:[]});
-  } else if (par <= maxCommit) {
-    votes.push({agent:'size_capital',name:'Size & Capital',vote:'conditional',confidence:0.7,rationale:`$${par.toLocaleString()} within limit but uses significant capacity.`,conditions:['Monitor inventory levels']});
-  } else {
-    votes.push({agent:'size_capital',name:'Size & Capital',vote:'pass',confidence:0.85,rationale:`$${par.toLocaleString()} exceeds $${maxCommit.toLocaleString()} max commitment.`,conditions:[]});
-  }
-
-  // Structure
-  const issues = [];
-  if (maxRate && maxRate <= 5) issues.push('rate cap constrains optimization');
-  if (minBid > 105) issues.push(`high min bid (${minBid}%)`);
-  if (nMats <= 2) issues.push(`only ${nMats} maturities`);
-  if (issues.length >= 2) {
-    votes.push({agent:'structure',name:'Structure',vote:'conditional',confidence:0.6,rationale:`Multiple constraints: ${issues.join('; ')}.`,conditions:issues});
-  } else if (issues.length === 1) {
-    votes.push({agent:'structure',name:'Structure',vote:'interested',confidence:0.7,rationale:`Workable but note: ${issues[0]}.`,conditions:[]});
-  } else {
-    votes.push({agent:'structure',name:'Structure',vote:'interested',confidence:0.85,rationale:`Standard structure, ${basis || 'standard'} basis, ${nMats} maturities — clean.`,conditions:[]});
-  }
-
-  // Distribution
-  if (taxStatus === 'taxable' && taxDemand.toLowerCase().includes('weak')) {
-    votes.push({agent:'distribution',name:'Distribution',vote:'pass',confidence:0.8,rationale:'Taxable bonds with weak taxable investor base.',conditions:[]});
-  } else if (distStrength === 'retail' && par < 20000000) {
-    votes.push({agent:'distribution',name:'Distribution',vote:'interested',confidence:0.88,rationale:`$${par.toLocaleString()} fits retail distribution sweet spot.`,conditions:[]});
-  } else if (distStrength === 'institutional' && par < 10000000) {
-    votes.push({agent:'distribution',name:'Distribution',vote:'conditional',confidence:0.55,rationale:`$${par.toLocaleString()} below institutional sweet spot.`,conditions:['May need retail distribution partner']});
-  } else {
-    votes.push({agent:'distribution',name:'Distribution',vote:'interested',confidence:0.75,rationale:'Distribution feasible with current accounts.',conditions:[]});
-  }
-
-  // Calendar
-  if (analysts === 0) {
-    votes.push({agent:'calendar',name:'Calendar',vote:'pass',confidence:0.9,rationale:'No analysts available for POS review.',conditions:[]});
-  } else if (upcoming >= maxConcurrent) {
-    votes.push({agent:'calendar',name:'Calendar',vote:'pass',confidence:0.85,rationale:`Pipeline full: ${upcoming} bids at ${maxConcurrent} max.`,conditions:[]});
-  } else {
-    votes.push({agent:'calendar',name:'Calendar',vote:'interested',confidence:0.82,rationale:'Sufficient time and analyst availability.',conditions:[]});
-  }
-
-  return votes;
+function computeConsensus(votes){
+  const hp=votes.filter(v=>v.vote==='pass'&&v.confidence>=0.8),lp=votes.filter(v=>v.vote==='pass'&&v.confidence<0.8),
+    int=votes.filter(v=>v.vote==='interested'),cond=votes.filter(v=>v.vote==='conditional'),
+    ac=votes.flatMap(v=>v.conditions||[]);
+  if(hp.length)return{decision:'pass',rule:'Hard Veto',reason:`Vetoed by ${hp.map(v=>v.name).join(', ')}.`,conditions:ac,escalation:false};
+  if(int.length===votes.length)return{decision:'interested',rule:'Unanimous',reason:'All agents voted Interested. Proceed to POS review.',conditions:ac,escalation:false};
+  if(lp.length>=2)return{decision:'conditional',rule:'Escalation',reason:`${lp.length} agents voted Pass with low confidence — escalating.`,conditions:ac,escalation:true};
+  return{decision:'conditional',rule:'Mixed Votes',reason:`${int.length} Interested, ${cond.length} Conditional, ${lp.length} uncertain Pass.`,conditions:ac,escalation:lp.length>0};
 }
 
-function computeConsensus(votes) {
-  const highPass = votes.filter(v => v.vote === 'pass' && v.confidence >= 0.8);
-  const lowPass = votes.filter(v => v.vote === 'pass' && v.confidence < 0.8);
-  const interested = votes.filter(v => v.vote === 'interested');
-  const conditional = votes.filter(v => v.vote === 'conditional');
-  const allConditions = votes.flatMap(v => v.conditions || []);
-
-  if (highPass.length > 0) {
-    return {
-      decision: 'pass', rule: 'hard_veto',
-      reason: `Hard veto by ${highPass.map(v=>v.name).join(', ')}.`,
-      conditions: allConditions, escalation: false, vetoAgents: highPass.map(v=>v.name)
-    };
-  }
-  if (interested.length === votes.length) {
-    return {
-      decision: 'interested', rule: 'unanimous_interested',
-      reason: 'All agents voted Interested. Proceed to POS review.',
-      conditions: allConditions, escalation: false, vetoAgents: []
-    };
-  }
-  if (lowPass.length >= 2) {
-    return {
-      decision: 'conditional', rule: 'escalation',
-      reason: `${lowPass.length} agents voted Pass with low confidence — escalating for human review.`,
-      conditions: allConditions, escalation: true, vetoAgents: []
-    };
-  }
-  return {
-    decision: 'conditional', rule: 'mixed_votes',
-    reason: `${interested.length} Interested, ${conditional.length} Conditional, ${lowPass.length} low-confidence Pass.`,
-    conditions: allConditions, escalation: lowPass.length > 0, vetoAgents: []
-  };
-}
-
-// ── Rendering ────────────────────────────────────────────
-
-function renderDealList() {
-  const list = document.getElementById('deal-list');
-  list.innerHTML = '';
-  DEALS.forEach((d, i) => {
-    const li = document.createElement('li');
-    li.className = 'deal-item' + (i === selectedDeal ? ' active' : '');
-    const name = safeGet(d,'issuer.name','Unknown');
-    const state = safeGet(d,'issuer.state','?');
-    const par = safeGet(d,'bond_identification.par_amount',0);
-    const type = safeGet(d,'bond_identification.bond_type_description',safeGet(d,'bond_identification.bond_type',''));
-    li.innerHTML = `<div class="deal-name">${name}</div><div class="deal-meta">${state} · $${par.toLocaleString()} · ${type}</div>`;
-    li.onclick = () => { selectedDeal = i; renderDealList(); runScreening(); };
-    list.appendChild(li);
+function renderDealList(){
+  const el=document.getElementById('deal-list');el.innerHTML='';
+  DEALS.forEach((d,i)=>{
+    const li=document.createElement('li');
+    li.className='deal-item'+(i===selectedDeal?' active':'');
+    const n=safeGet(d,'issuer.name','?'),s=safeGet(d,'issuer.state',''),p=safeGet(d,'bond_identification.par_amount',0);
+    const bt=safeGet(d,'bond_identification.bond_type_description',fmtType(safeGet(d,'bond_identification.bond_type','')));
+    li.innerHTML=`<div class="deal-name">${n}</div><div class="deal-meta"><span class="st">${s}</span>${fmt$(p)} &middot; ${bt}</div>`;
+    li.onclick=()=>{selectedDeal=i;renderDealList();runScreening();};
+    el.appendChild(li);
   });
 }
 
-function renderFirmTabs() {
-  const tabs = document.getElementById('firm-tabs');
-  tabs.innerHTML = '';
-  FIRMS.forEach((f, i) => {
-    const div = document.createElement('div');
-    div.className = 'firm-tab' + (i === selectedFirm ? ' active' : '');
-    div.textContent = f.firm_name;
-    div.onclick = () => { selectedFirm = i; renderFirmTabs(); runScreening(); };
-    tabs.appendChild(div);
+function renderFirms(){
+  const el=document.getElementById('firm-selector');el.innerHTML='';
+  FIRMS.forEach((f,i)=>{
+    const d=document.createElement('div');
+    d.className='firm-btn'+(i===selectedFirm?' active':'');
+    d.textContent=f.firm_name;
+    d.onclick=()=>{selectedFirm=i;renderFirms();runScreening();};
+    el.appendChild(d);
   });
 }
 
-function runScreening() {
-  if (selectedDeal === null || selectedFirm === null) return;
-  const nos = DEALS[selectedDeal];
-  const firm = FIRMS[selectedFirm];
-  const votes = generateVotes(nos, firm);
-  const consensus = computeConsensus(votes);
+function runScreening(){
+  if(selectedDeal===null||selectedFirm===null)return;
+  const nos=DEALS[selectedDeal],firm=FIRMS[selectedFirm];
+  const votes=generateVotes(nos,firm),con=computeConsensus(votes);
+  document.getElementById('empty-card').classList.add('hidden');
+  document.getElementById('result-card').classList.remove('hidden');
 
-  const card = document.getElementById('result-card');
-  card.style.display = 'block';
-
-  // Decision badge
-  const badge = document.getElementById('decision-badge');
-  badge.textContent = consensus.decision.toUpperCase();
-  badge.className = 'decision ' + consensus.decision;
-
-  // Escalation
-  const esc = document.getElementById('escalation-flag');
-  esc.classList.toggle('hidden', !consensus.escalation);
-
-  // Rule
-  document.getElementById('rule-text').textContent = `${consensus.rule} — ${consensus.reason}`;
+  // Decision
+  const db=document.getElementById('decision-block');
+  let h=`<div class="decision-badge ${con.decision}">${con.decision.toUpperCase()}</div>`;
+  h+=`<div class="decision-info"><div class="decision-rule">${con.rule}</div><div class="decision-reason">${con.reason}</div>`;
+  if(con.escalation)h+=`<div class="escalation-tag"><span class="pulse-dot"></span>Escalation Required</div>`;
+  h+=`</div>`;
+  db.innerHTML=h;
 
   // Conditions
-  const condBox = document.getElementById('conditions-box');
-  if (consensus.conditions.length > 0) {
-    condBox.classList.remove('hidden');
-    condBox.innerHTML = consensus.conditions.map(c => `<div class="condition-item">${c}</div>`).join('');
-  } else {
-    condBox.classList.add('hidden');
-  }
+  const cr=document.getElementById('conditions-row');
+  if(con.conditions.length){cr.classList.remove('hidden');cr.innerHTML=con.conditions.map(c=>`<span class="cond-tag">${c}</span>`).join('');}
+  else cr.classList.add('hidden');
 
-  // Deal summary
-  const ds = document.getElementById('deal-summary');
-  const fields = [
-    ['Issuer', safeGet(nos,'issuer.name')],
-    ['State', safeGet(nos,'issuer.state')],
-    ['Par Amount', '$' + (safeGet(nos,'bond_identification.par_amount',0)).toLocaleString()],
-    ['Bond Type', safeGet(nos,'bond_identification.bond_type_description',safeGet(nos,'bond_identification.bond_type'))],
-    ['Tax Status', safeGet(nos,'bond_identification.tax_status')],
-    ['Sale Date', safeGet(nos,'sale_logistics.sale_date')],
-    ['Maturity Type', safeGet(nos,'maturity_structure.maturity_type')],
-    ['Maturities', safeGet(nos,'maturity_structure.maturity_schedule',[]).length],
-    ['Basis of Award', safeGet(nos,'bid_evaluation.basis_of_award')],
-    ['Call Provisions', safeGet(nos,'redemption.optional_redemption')],
-    ['Rating', safeGet(nos,'credit_enhancement.credit_rating','not stated')],
-    ['Financial Advisor', safeGet(nos,'sale_logistics.financial_advisor','not stated')],
+  // Summary
+  const sg=document.getElementById('summary-grid');
+  const fields=[
+    ['Issuer',safeGet(nos,'issuer.name')],['State',safeGet(nos,'issuer.state')],
+    ['Par Amount',fmt$(safeGet(nos,'bond_identification.par_amount',0)),true],['Bond Type',safeGet(nos,'bond_identification.bond_type_description',fmtType(safeGet(nos,'bond_identification.bond_type','')))],
+    ['Tax Status',fmtType(safeGet(nos,'bond_identification.tax_status',''))],['Sale Date',safeGet(nos,'sale_logistics.sale_date','—')],
+    ['Maturities',`${safeGet(nos,'maturity_structure.maturity_schedule',[]).length} (${fmtType(safeGet(nos,'maturity_structure.maturity_type',''))})`],['Award Basis',fmtType(safeGet(nos,'bid_evaluation.basis_of_award',''))],
+    ['Call',fmtType(safeGet(nos,'redemption.optional_redemption','—'))],['Rating',safeGet(nos,'credit_enhancement.credit_rating','not stated')],
+    ['Advisor',safeGet(nos,'sale_logistics.financial_advisor','—')],['Bond Counsel',safeGet(nos,'legal_advisory.bond_counsel','—')],
   ];
-  ds.innerHTML = fields.map(([k,v]) => `<dt>${k}</dt><dd>${v || '—'}</dd>`).join('');
+  sg.innerHTML=fields.map(([k,v,m])=>`<div class="summary-cell"><div class="s-label">${k}</div><div class="s-value${m?' mono':''}">${v||'—'}</div></div>`).join('');
 
-  // Agent votes
-  const av = document.getElementById('agent-votes');
-  av.innerHTML = votes.map(v => {
-    const confWidth = Math.round(v.confidence * 100);
-    return `<div class="agent-vote ${v.vote}">
-      <div class="agent-header">
-        <span class="agent-name">${v.name}</span>
-        <span class="agent-vote-badge ${v.vote}">${v.vote}</span>
+  // Agents
+  const ag=document.getElementById('agents-grid');
+  ag.innerHTML=votes.map(v=>{
+    const cw=Math.round(v.confidence*64);
+    return`<div class="agent">
+      <div class="agent-idx ${v.vote}">${AGENT_NUMS[v.agent]||'??'}</div>
+      <div class="agent-body">
+        <div class="agent-name-row"><span class="agent-n">${v.name}</span><span class="agent-q">${AGENT_QS[v.agent]||''}</span></div>
+        <div class="agent-rationale">${v.rationale}</div>
+        ${v.conditions.length?`<div class="agent-conds">${v.conditions.map(c=>`<span class="agent-cond">${c}</span>`).join('')}</div>`:''}
       </div>
-      <div class="agent-rationale">${v.rationale}</div>
-      <div class="agent-confidence">
-        Confidence: ${(v.confidence*100).toFixed(0)}%
-        <span class="conf-bar ${v.vote}" style="width:${confWidth}px"></span>
+      <div class="agent-right">
+        <div class="a-vote ${v.vote}">${v.vote}</div>
+        <div class="conf-row"><div class="conf-track"><div class="conf-fill ${v.vote}" style="width:${cw}px"></div></div><div class="conf-num">${(v.confidence*100).toFixed(0)}%</div></div>
       </div>
-      ${v.conditions.length ? v.conditions.map(c=>`<div class="condition-item" style="margin-top:6px">${c}</div>`).join('') : ''}
     </div>`;
   }).join('');
 }
 
-function renderGrid() {
-  const table = document.getElementById('grid-table');
-  if (DEALS.length === 0 || FIRMS.length === 0) return;
-
-  let html = '<thead><tr><th>Deal</th><th>State</th><th>Par</th>';
-  FIRMS.forEach(f => { html += `<th class="grid-cell">${f.firm_name}</th>`; });
-  html += '</tr></thead><tbody>';
-
-  DEALS.forEach(d => {
-    const name = safeGet(d,'issuer.name','?');
-    const short = name.length > 35 ? name.substring(0,35) + '…' : name;
-    const state = safeGet(d,'issuer.state','?');
-    const par = safeGet(d,'bond_identification.par_amount',0);
-    html += `<tr><td>${short}</td><td>${state}</td><td>$${par.toLocaleString()}</td>`;
-    FIRMS.forEach(f => {
-      const votes = generateVotes(d, f);
-      const consensus = computeConsensus(votes);
-      html += `<td class="grid-cell"><span class="grid-pill ${consensus.decision}">${consensus.decision.toUpperCase()}</span></td>`;
-    });
-    html += '</tr>';
+function renderGrid(){
+  const t=document.getElementById('grid-table');
+  if(!DEALS.length||!FIRMS.length)return;
+  let h='<thead><tr><th>Issuer</th><th>State</th><th>Par</th><th>Type</th>';
+  FIRMS.forEach(f=>{h+=`<th class="center">${f.firm_name}</th>`;});
+  h+='</tr></thead><tbody>';
+  DEALS.forEach(d=>{
+    const n=safeGet(d,'issuer.name','?'),s=safeGet(d,'issuer.state',''),p=safeGet(d,'bond_identification.par_amount',0);
+    const bt=safeGet(d,'bond_identification.bond_type_description',fmtType(safeGet(d,'bond_identification.bond_type','')));
+    h+=`<tr><td>${n.length>42?n.substring(0,42)+'&hellip;':n}</td><td>${s}</td><td class="mono">${fmt$(p)}</td><td class="dim">${bt}</td>`;
+    FIRMS.forEach(f=>{const v=generateVotes(d,f),c=computeConsensus(v);h+=`<td class="center"><span class="g-pill ${c.decision}">${c.decision.toUpperCase()}</span></td>`;});
+    h+='</tr>';
   });
-  html += '</tbody>';
-  table.innerHTML = html;
+  t.innerHTML=h+'</tbody>';
 }
 
-function showView(view) {
-  document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('view-detail').classList.toggle('hidden', view !== 'detail');
-  document.getElementById('view-grid').classList.toggle('hidden', view !== 'grid');
+function showView(v,el){
+  document.querySelectorAll('.topbar-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['detail','grid','arch'].forEach(id=>{document.getElementById('view-'+id).classList.toggle('hidden',id!==v);});
 }
 
-// ── Init ─────────────────────────────────────────────────
 loadData();
 </script>
 </body>

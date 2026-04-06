@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BondScrape</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:none} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes drawLine { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+@keyframes slideRight { from{transform:translateX(-100%)} to{transform:translateX(0)} }
+@keyframes countUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+@keyframes glowPulse { 0%,100%{box-shadow:0 0 0 0 rgba(224,62,62,0)} 50%{box-shadow:0 0 40px 4px rgba(224,62,62,0.15)} }
+
+:root {
+  --black:#0a0a0a; --surface:#111; --surface2:#181818;
+  --rule:#222; --rule-light:#2a2a2a;
+  --white:#f0f0f0; --white-dim:#999; --white-muted:#555;
+  --red:#e03e3e; --red-wash:rgba(224,62,62,0.07); --red-border:rgba(224,62,62,0.20);
+  --sans:'DM Sans',sans-serif; --mono:'DM Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--black);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── NOISE TEXTURE ──── */
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size:256px 256px;
+}
+
+/* ── HERO ──── */
+.hero {
+  position:relative; z-index:1;
+  min-height:100vh; display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  padding:40px;
+}
+
+/* Logo */
+.logo-wrap {
+  margin-bottom:48px;
+  animation: fadeUp 0.8s ease both;
+  animation-delay:0.2s;
+}
+.logo {
+  display:flex; align-items:center; gap:0;
+}
+.logo-mark {
+  width:56px; height:56px; position:relative;
+  border:2px solid var(--white);
+  display:flex; align-items:center; justify-content:center;
+  margin-right:20px;
+}
+.logo-mark::before {
+  content:''; position:absolute; inset:4px;
+  border:1px solid var(--red);
+}
+.logo-mark .inner-grid {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px;
+  width:24px; height:24px;
+}
+.inner-grid span {
+  background:var(--white);
+  transition: background 0.3s;
+}
+.inner-grid span:nth-child(5) { background:var(--red); }
+.inner-grid span:nth-child(7) { background:var(--red); }
+
+.logo-text {
+  font-size:42px; font-weight:700; letter-spacing:-0.04em;
+  line-height:1;
+}
+.logo-text .red { color:var(--red); }
+
+/* Tagline */
+.tagline {
+  font-size:15px; color:var(--white-dim); text-align:center;
+  max-width:520px; line-height:1.7; margin-bottom:56px;
+  animation: fadeUp 0.8s ease both;
+  animation-delay:0.5s;
+}
+.tagline strong { color:var(--white); font-weight:500; }
+
+/* Divider line */
+.hero-line {
+  width:120px; height:1px; background:var(--red);
+  margin-bottom:56px;
+  transform-origin:left;
+  animation: drawLine 0.6s ease both;
+  animation-delay:0.8s;
+}
+
+/* Stats row */
+.hero-stats {
+  display:flex; gap:48px; margin-bottom:64px;
+  animation: fadeUp 0.8s ease both;
+  animation-delay:1s;
+}
+.hero-stat { text-align:center; }
+.hero-stat .num {
+  font-family:var(--mono); font-size:36px; font-weight:700;
+  letter-spacing:-0.02em; line-height:1;
+}
+.hero-stat .num .red { color:var(--red); }
+.hero-stat .lbl {
+  font-size:11px; color:var(--white-muted); text-transform:uppercase;
+  letter-spacing:0.1em; margin-top:8px;
+}
+
+/* CTA */
+.cta-row {
+  display:flex; gap:16px;
+  animation: fadeUp 0.8s ease both;
+  animation-delay:1.3s;
+}
+.cta {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 32px; font-size:14px; font-weight:600;
+  text-decoration:none; cursor:pointer;
+  letter-spacing:0.02em;
+  transition: all 0.2s;
+}
+.cta-primary {
+  background:var(--white); color:var(--black);
+  border:1px solid var(--white);
+}
+.cta-primary:hover {
+  background:var(--red); color:var(--white);
+  border-color:var(--red);
+}
+.cta-secondary {
+  background:transparent; color:var(--white);
+  border:1px solid var(--rule-light);
+}
+.cta-secondary:hover {
+  border-color:var(--white-muted);
+}
+.cta-arrow { font-size:16px; transition:transform 0.2s; }
+.cta:hover .cta-arrow { transform:translateX(4px); }
+
+/* ── FEATURES SECTION ──── */
+.features {
+  position:relative; z-index:1;
+  border-top:1px solid var(--rule);
+  padding:80px 40px;
+}
+.features-inner {
+  max-width:1100px; margin:0 auto;
+}
+.section-label {
+  font-family:var(--mono); font-size:10px; color:var(--red);
+  text-transform:uppercase; letter-spacing:0.12em; margin-bottom:12px;
+}
+.section-title {
+  font-size:28px; font-weight:700; letter-spacing:-0.03em; margin-bottom:48px;
+  max-width:500px; line-height:1.3;
+}
+
+.feature-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--rule);
+}
+.feature-card {
+  background:var(--black); padding:32px;
+  transition: background 0.2s;
+}
+.feature-card:hover { background:var(--surface); }
+.feature-num {
+  font-family:var(--mono); font-size:11px; color:var(--white-muted);
+  margin-bottom:16px;
+}
+.feature-name { font-size:16px; font-weight:700; margin-bottom:8px; letter-spacing:-0.01em; }
+.feature-desc { font-size:13px; color:var(--white-dim); line-height:1.6; }
+
+/* ── PIPELINE SECTION ──── */
+.pipeline-section {
+  position:relative; z-index:1;
+  border-top:1px solid var(--rule);
+  padding:80px 40px;
+}
+.pipeline-inner { max-width:1100px; margin:0 auto; }
+.pipeline-row {
+  display:flex; align-items:center; gap:0;
+  margin-top:40px;
+}
+.pipeline-step {
+  flex:1; padding:24px; border:1px solid var(--rule);
+  text-align:center;
+  transition:border-color 0.2s;
+}
+.pipeline-step:hover { border-color:var(--white-muted); }
+.p-label { font-family:var(--mono); font-size:10px; color:var(--white-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px; }
+.p-value { font-size:14px; font-weight:600; }
+.pipeline-arrow {
+  width:40px; display:flex; align-items:center; justify-content:center;
+  color:var(--white-muted); font-size:18px; flex-shrink:0;
+}
+
+/* ── FOOTER ──── */
+.footer {
+  position:relative; z-index:1;
+  border-top:1px solid var(--rule);
+  padding:32px 40px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-left { font-size:12px; color:var(--white-muted); }
+.footer-right { font-family:var(--mono); font-size:11px; color:var(--white-muted); }
+
+/* Responsive */
+@media(max-width:768px){
+  .logo-text{font-size:28px}
+  .hero-stats{gap:24px;flex-wrap:wrap}
+  .feature-grid{grid-template-columns:1fr}
+  .pipeline-row{flex-direction:column}
+  .pipeline-arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="logo-wrap">
+    <div class="logo">
+      <div class="logo-mark">
+        <div class="inner-grid">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="logo-text">Bond<span class="red">Scrape</span></div>
+    </div>
+  </div>
+
+  <div class="tagline">
+    A <strong>multi-agent LLM consensus system</strong> for automating the first screening gate in competitive municipal bond sales. Five specialized agents evaluate each Notice of Sale independently&mdash;then a deterministic consensus function produces the decision.
+  </div>
+
+  <div class="hero-line"></div>
+
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">5</div><div class="lbl">Screening Agents</div></div>
+    <div class="hero-stat"><div class="num">55</div><div class="lbl">NOS Features</div></div>
+    <div class="hero-stat"><div class="num">10</div><div class="lbl">Test Documents</div></div>
+    <div class="hero-stat"><div class="num"><span class="red">0</span></div><div class="lbl">LLM Consensus Calls</div></div>
+  </div>
+
+  <div class="cta-row">
+    <a class="cta cta-primary" href="screening_ui.html">
+      Launch Screening System <span class="cta-arrow">&rarr;</span>
+    </a>
+    <a class="cta cta-secondary" href="screening_ui.html" onclick="localStorage.setItem('startView','arch')">
+      View Architecture
+    </a>
+  </div>
+</div>
+
+<div class="features">
+  <div class="features-inner">
+    <div class="section-label">The Five Agents</div>
+    <div class="section-title">Each agent answers one question. No agent sees another's vote.</div>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-num">01</div><div class="feature-name">Sector Fit</div><div class="feature-desc">Is this our kind of deal? Evaluates issuer type, state, and bond type against the firm's coverage map and strategic priorities.</div></div>
+      <div class="feature-card"><div class="feature-num">02</div><div class="feature-name">Size &amp; Capital</div><div class="feature-desc">Can we afford this commitment? Compares par amount against capital limits, inventory position, and good faith deposit capacity.</div></div>
+      <div class="feature-card"><div class="feature-num">03</div><div class="feature-name">Structure</div><div class="feature-desc">Are the bidding rules workable? Purely technical&mdash;evaluates coupon constraints, basis of award, and maturity structure. No firm context needed.</div></div>
+      <div class="feature-card"><div class="feature-num">04</div><div class="feature-name">Distribution</div><div class="feature-desc">Can we sell these bonds? Assesses investor appetite by maturity, tax status, credit rating, and the firm's retail vs institutional strength.</div></div>
+      <div class="feature-card"><div class="feature-num">05</div><div class="feature-name">Calendar</div><div class="feature-desc">Do we have bandwidth? Checks analyst availability, pipeline capacity, and time to sale. The simplest agent&mdash;but its Pass is a hard veto.</div></div>
+      <div class="feature-card"><div class="feature-num" style="color:var(--red)">&mdash;</div><div class="feature-name">Consensus</div><div class="feature-desc">Deterministic Python. Not an LLM call. Any Pass at &ge;80% confidence kills the deal. Unanimous interested proceeds. Everything else surfaces conditions for human review.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="pipeline-section">
+  <div class="pipeline-inner">
+    <div class="section-label">Pipeline</div>
+    <div class="section-title">From PDF to screening decision in four steps.</div>
+    <div class="pipeline-row">
+      <div class="pipeline-step"><div class="p-label">Input</div><div class="p-value">NOS PDF</div></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step"><div class="p-label">Extract</div><div class="p-value">pdftotext -layout</div></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step"><div class="p-label">Structure</div><div class="p-value">Claude + Schema</div></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step"><div class="p-label">Validate</div><div class="p-value">Deterministic Checks</div></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step" style="border-color:var(--red-border)"><div class="p-label" style="color:var(--red)">Screen</div><div class="p-value">5 Agents &rarr; Consensus</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-left">Capstone Research Project &mdash; LLM Multi-Agent Systems in Public Finance</div>
+  <div class="footer-right">2026</div>
+</div>
+
+<script>
+// Animate stats counting up on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animation = 'fadeUp 0.6s ease both';
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.feature-card, .pipeline-step').forEach(el => {
+  el.style.opacity = '0';
+  observer.observe(el);
+});
+
+// Logo hover effect
+const grid = document.querySelector('.inner-grid');
+grid.addEventListener('mouseenter', () => {
+  const spans = grid.querySelectorAll('span');
+  spans.forEach((s,i) => {
+    setTimeout(() => {
+      s.style.background = i % 2 === 0 ? 'var(--red)' : 'var(--white)';
+    }, i * 30);
+  });
+});
+grid.addEventListener('mouseleave', () => {
+  const spans = grid.querySelectorAll('span');
+  spans.forEach((s,i) => {
+    s.style.background = (i===4||i===6) ? 'var(--red)' : 'var(--white)';
+  });
+});
+</script>
+</body>
+</html>
