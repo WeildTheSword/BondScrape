@@ -10,6 +10,10 @@
 @keyframes enterUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
 @keyframes scanline { 0%{background-position:0 0} 100%{background-position:0 4px} }
+@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes fillWidth { from{width:0} to{width:var(--target-w)} }
+@keyframes stampIn { 0%{opacity:0;transform:scale(1.8)} 60%{opacity:1;transform:scale(0.95)} 100%{transform:scale(1)} }
+@keyframes shakeNo { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-3px)} 40%{transform:translateX(3px)} 60%{transform:translateX(-2px)} 80%{transform:translateX(2px)} }
 
 :root {
   --black: #0a0a0a;
@@ -330,6 +334,38 @@ body {
 .arch-note strong { color:var(--white); }
 .arch-note .red { color:var(--red); font-weight:700; }
 
+/* ── ANIMATED REASONING ─────────────── */
+.agent.thinking { opacity:1; border-bottom:1px solid var(--rule); }
+.agent.thinking .agent-idx { border-color:var(--rule-light); color:var(--white-muted); }
+.thinking-cursor {
+  display:inline-block; width:7px; height:14px; background:var(--red);
+  animation:cursorBlink 0.7s step-end infinite; vertical-align:middle; margin-left:2px;
+}
+.agent.thinking .agent-rationale { color:var(--white-muted); }
+.agent.thinking .a-vote { opacity:0; }
+.agent.thinking .conf-row { opacity:0; }
+
+.agent.revealing .agent-rationale { color:var(--white-dim); }
+.agent.revealing .a-vote { animation: stampIn 0.3s ease both; }
+.agent.pass.revealing .a-vote { animation: stampIn 0.3s ease both, shakeNo 0.4s ease 0.3s; }
+.agent.revealing .conf-row { animation: enterUp 0.3s ease 0.1s both; }
+.agent.revealing .conf-fill { animation: fillWidth 0.5s ease 0.2s both; }
+
+.consensus-forming {
+  padding: 24px 36px; border-bottom:1px solid var(--rule);
+  font-family:var(--mono); font-size:12px; color:var(--white-muted);
+  display:flex; align-items:center; gap:12px;
+}
+.consensus-forming .spinner {
+  width:14px; height:14px; border:2px solid var(--rule-light);
+  border-top-color:var(--white); border-radius:50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to{transform:rotate(360deg)} }
+
+.decision-block.revealed { animation: enterUp 0.4s ease both; }
+.decision-badge.stamp { animation: stampIn 0.4s ease both; }
+
 .hidden { display:none !important; }
 </style>
 </head>
@@ -370,14 +406,15 @@ body {
         <p>Select a document and firm profile to run the multi-agent screening consensus</p>
       </div>
       <div id="result-card" class="hidden">
-        <div class="decision-block" id="decision-block"></div>
-        <div class="conditions-row hidden" id="conditions-row"></div>
         <div class="summary-section">
           <div class="summary-head">Deal Profile</div>
           <div class="summary-grid" id="summary-grid"></div>
         </div>
-        <div class="votes-head">Agent Votes</div>
+        <div class="votes-head">Agent Reasoning</div>
         <div class="agents" id="agents-grid"></div>
+        <div class="consensus-forming hidden" id="consensus-forming"><div class="spinner"></div><span>Computing consensus...</span></div>
+        <div class="decision-block hidden" id="decision-block"></div>
+        <div class="conditions-row hidden" id="conditions-row"></div>
       </div>
     </div>
   </div>
@@ -532,27 +569,28 @@ function renderFirms(){
   });
 }
 
+let animationRunning = false;
+let animationAbort = null;
+
 function runScreening(){
   if(selectedDeal===null||selectedFirm===null)return;
+  if(animationAbort) animationAbort.abort = true;
+  const ctrl = {abort:false};
+  animationAbort = ctrl;
+  runScreeningAnimated(ctrl);
+}
+
+async function runScreeningAnimated(ctrl){
   const nos=DEALS[selectedDeal],firm=FIRMS[selectedFirm];
-  const votes=generateVotes(nos,firm),con=computeConsensus(votes);
+  const votes=generateVotes(nos,firm);
+
   document.getElementById('empty-card').classList.add('hidden');
   document.getElementById('result-card').classList.remove('hidden');
+  document.getElementById('decision-block').classList.add('hidden');
+  document.getElementById('conditions-row').classList.add('hidden');
+  document.getElementById('consensus-forming').classList.add('hidden');
 
-  // Decision
-  const db=document.getElementById('decision-block');
-  let h=`<div class="decision-badge ${con.decision}">${con.decision.toUpperCase()}</div>`;
-  h+=`<div class="decision-info"><div class="decision-rule">${con.rule}</div><div class="decision-reason">${con.reason}</div>`;
-  if(con.escalation)h+=`<div class="escalation-tag"><span class="pulse-dot"></span>Escalation Required</div>`;
-  h+=`</div>`;
-  db.innerHTML=h;
-
-  // Conditions
-  const cr=document.getElementById('conditions-row');
-  if(con.conditions.length){cr.classList.remove('hidden');cr.innerHTML=con.conditions.map(c=>`<span class="cond-tag">${c}</span>`).join('');}
-  else cr.classList.add('hidden');
-
-  // Summary
+  // Summary (instant)
   const sg=document.getElementById('summary-grid');
   const fields=[
     ['Issuer',safeGet(nos,'issuer.name')],['State',safeGet(nos,'issuer.state')],
@@ -564,23 +602,101 @@ function runScreening(){
   ];
   sg.innerHTML=fields.map(([k,v,m])=>`<div class="summary-cell"><div class="s-label">${k}</div><div class="s-value${m?' mono':''}">${v||'—'}</div></div>`).join('');
 
-  // Agents
+  // Build agent cards in "thinking" state
   const ag=document.getElementById('agents-grid');
-  ag.innerHTML=votes.map(v=>{
+  ag.innerHTML = votes.map(v=>{
     const cw=Math.round(v.confidence*64);
-    return`<div class="agent">
-      <div class="agent-idx ${v.vote}">${AGENT_NUMS[v.agent]||'??'}</div>
+    return`<div class="agent thinking" id="agent-${v.agent}">
+      <div class="agent-idx">${AGENT_NUMS[v.agent]||'??'}</div>
       <div class="agent-body">
         <div class="agent-name-row"><span class="agent-n">${v.name}</span><span class="agent-q">${AGENT_QS[v.agent]||''}</span></div>
-        <div class="agent-rationale">${v.rationale}</div>
-        ${v.conditions.length?`<div class="agent-conds">${v.conditions.map(c=>`<span class="agent-cond">${c}</span>`).join('')}</div>`:''}
+        <div class="agent-rationale" id="rationale-${v.agent}"><span class="thinking-cursor"></span></div>
       </div>
       <div class="agent-right">
-        <div class="a-vote ${v.vote}">${v.vote}</div>
-        <div class="conf-row"><div class="conf-track"><div class="conf-fill ${v.vote}" style="width:${cw}px"></div></div><div class="conf-num">${(v.confidence*100).toFixed(0)}%</div></div>
+        <div class="a-vote ${v.vote}" id="vote-${v.agent}">${v.vote}</div>
+        <div class="conf-row"><div class="conf-track"><div class="conf-fill ${v.vote}" style="--target-w:${cw}px;width:0"></div></div><div class="conf-num">${(v.confidence*100).toFixed(0)}%</div></div>
       </div>
     </div>`;
   }).join('');
+
+  // Animate each agent reasoning one by one
+  for(let i=0; i<votes.length; i++){
+    if(ctrl.abort) return;
+    const v = votes[i];
+    const card = document.getElementById(`agent-${v.agent}`);
+    const ratEl = document.getElementById(`rationale-${v.agent}`);
+
+    // Scroll agent into view
+    card.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+    // Type out the rationale
+    await typeText(ratEl, v.rationale, ctrl, 18);
+    if(ctrl.abort) return;
+
+    // Reveal vote with stamp animation
+    card.classList.remove('thinking');
+    card.classList.add('revealing', v.vote);
+    card.querySelector('.agent-idx').classList.add(v.vote);
+
+    // Add conditions if any
+    if(v.conditions.length){
+      await sleep(200);
+      if(ctrl.abort) return;
+      const condsDiv = document.createElement('div');
+      condsDiv.className='agent-conds';
+      condsDiv.innerHTML = v.conditions.map(c=>`<span class="agent-cond">${c}</span>`).join('');
+      card.querySelector('.agent-body').appendChild(condsDiv);
+    }
+
+    // Pause between agents
+    await sleep(300);
+  }
+
+  if(ctrl.abort) return;
+
+  // Show "computing consensus" spinner
+  const cf = document.getElementById('consensus-forming');
+  cf.classList.remove('hidden');
+  cf.scrollIntoView({behavior:'smooth', block:'nearest'});
+  await sleep(800);
+  if(ctrl.abort) return;
+
+  // Reveal consensus
+  cf.classList.add('hidden');
+  const con = computeConsensus(votes);
+  const db = document.getElementById('decision-block');
+  let h=`<div class="decision-badge stamp ${con.decision}">${con.decision.toUpperCase()}</div>`;
+  h+=`<div class="decision-info"><div class="decision-rule">${con.rule}</div><div class="decision-reason">${con.reason}</div>`;
+  if(con.escalation)h+=`<div class="escalation-tag"><span class="pulse-dot"></span>Escalation Required</div>`;
+  h+=`</div>`;
+  db.innerHTML=h;
+  db.classList.remove('hidden');
+  db.classList.add('revealed');
+  db.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  // Conditions
+  const cr=document.getElementById('conditions-row');
+  if(con.conditions.length){
+    await sleep(300);
+    cr.classList.remove('hidden');
+    cr.innerHTML=con.conditions.map(c=>`<span class="cond-tag">${c}</span>`).join('');
+  } else {
+    cr.classList.add('hidden');
+  }
+}
+
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+async function typeText(el, text, ctrl, speed=20){
+  el.innerHTML = '';
+  for(let i=0; i<text.length; i++){
+    if(ctrl.abort) return;
+    el.textContent = text.substring(0, i+1);
+    // Variable speed: faster on spaces, slower on punctuation
+    const ch = text[i];
+    const delay = ch==='.'||ch===','||ch==='—' ? speed*4 : ch===' ' ? speed*0.5 : speed;
+    await sleep(delay);
+  }
 }
 
 function renderGrid(){
