@@ -278,11 +278,54 @@ body::before {
 }
 .deal-item:hover { background: var(--surface); }
 .deal-item.active { background: var(--surface2); border-left: 2px solid var(--red); padding-left: 18px; }
-.deal-name { font-size: 12px; font-weight: 500; line-height: 1.35; }
+.deal-name { font-size: 12px; font-weight: 500; line-height: 1.35; display:flex; align-items:center; gap:6px; }
 .deal-meta { font-size: 10px; color: var(--white-muted); margin-top: 3px; display:flex; gap:6px; align-items:center; }
 .deal-meta .st {
   font-family:var(--mono); font-size:9px; font-weight:500;
   padding:1px 5px; border:1px solid var(--rule-light); color:var(--white-dim);
+}
+.deal-consensus-badge {
+  font-family:var(--mono); font-size:7px; font-weight:600;
+  padding:1px 4px; border-radius:2px;
+  text-transform:uppercase; letter-spacing:0.04em; flex-shrink:0;
+}
+.deal-consensus-badge.interested { color:var(--green); background:var(--green-wash); border:1px solid var(--green-border); }
+.deal-consensus-badge.conditional { color:var(--amber); background:var(--amber-wash); border:1px solid var(--amber-border); }
+.deal-consensus-badge.pass { color:var(--red); background:var(--red-wash); border:1px solid var(--red-border); }
+.deal-consensus-badge.unscreened { color:var(--white-muted); background:var(--surface2); border:1px solid var(--rule); }
+
+.deal-section-header {
+  font-family:var(--mono); font-size:9px; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.06em;
+  color:var(--white-muted); padding:8px 20px 6px;
+  border-bottom:1px solid var(--rule);
+  display:flex; align-items:center; gap:6px;
+}
+.deal-section-header .section-count {
+  font-weight:400; color:var(--white-muted); opacity:0.6;
+}
+.deal-source-tag {
+  font-family:var(--mono); font-size:7px; font-weight:600;
+  padding:1px 4px; border-radius:2px; flex-shrink:0;
+  text-transform:uppercase; letter-spacing:0.04em;
+}
+.deal-source-tag.idp { color:#4a9eda; background:rgba(74,158,218,0.08); border:1px solid rgba(74,158,218,0.2); }
+.scraped-filter {
+  display:flex; gap:4px; padding:6px 20px; border-bottom:1px solid var(--rule);
+}
+.scraped-filter-btn {
+  font-family:var(--mono); font-size:8px; font-weight:500;
+  padding:2px 6px; border-radius:2px; border:1px solid var(--rule);
+  background:none; color:var(--white-muted); cursor:pointer;
+  text-transform:uppercase; letter-spacing:0.04em; transition:all 0.12s;
+}
+.scraped-filter-btn:hover { border-color:var(--rule-light); color:var(--white-dim); }
+.scraped-filter-btn.active { border-color:var(--red-border); color:var(--red); background:var(--red-wash); }
+
+/* amber/green vars */
+:root {
+  --green:#2d8a4e; --green-wash:rgba(45,138,78,0.08); --green-border:rgba(45,138,78,0.25);
+  --amber:#c4841d; --amber-wash:rgba(196,132,29,0.08); --amber-border:rgba(196,132,29,0.25);
 }
 
 /* firm selector cards */
@@ -795,6 +838,10 @@ body::before {
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6"/><rect x="9" y="1" width="6" height="6"/><rect x="1" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6"/></svg>
       Matrix
     </a>
+    <a href="scraper.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2v12h10V6l-4-4H3z"/><path d="M9 2v4h4"/><path d="M5 9h6M5 11.5h4"/></svg>
+      Scraper
+    </a>
     <a href="pipeline.html">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h4l2-5 3 10 2-5h3"/></svg>
       Pipeline
@@ -905,7 +952,15 @@ body::before {
       <svg class="sh-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 1h7l3 3v11H3V1z"/><path d="M10 1v3h3"/><path d="M5 8h6M5 11h4"/></svg>
       NOS Documents
     </div>
+    <div class="deal-section-header">Test Set <span class="section-count" id="test-count"></span></div>
     <ul class="deal-list" id="deal-list"></ul>
+    <div class="deal-section-header">Scraped NOS <span class="section-count" id="scraped-count"></span> <span class="deal-source-tag idp">S&amp;P i-deal</span></div>
+    <div class="scraped-filter">
+      <button class="scraped-filter-btn active" id="sf-all" onclick="filterScraped('all')">All</button>
+      <button class="scraped-filter-btn" id="sf-unscreened" onclick="filterScraped('unscreened')">Unscreened</button>
+      <button class="scraped-filter-btn" id="sf-screened" onclick="filterScraped('screened')">Screened</button>
+    </div>
+    <ul class="deal-list" id="scraped-deal-list" style="max-height:300px;"></ul>
     <div class="firm-section">
       <div class="sidebar-head">
         <svg class="sh-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 14V5l6-4 6 4v9H2z"/><path d="M6 14v-4h4v4"/></svg>
@@ -1360,7 +1415,9 @@ function playConsensus(decision) {
 
 // ── DATA ──────────────────────────────────
 const DEALS = [], FIRMS = [];
+const SCRAPED_DEALS = [];
 let selectedDeal = null, selectedFirm = null;
+let scrapedFilter = 'all';
 
 const AGENT_CODES = {sector_fit:'SF', size_capital:'SC', structure:'ST', distribution:'DI', calendar:'CA'};
 const AGENT_QS = {sector_fit:'Is this our kind of deal?', size_capital:'Can we afford this commitment?', structure:'Are the bidding rules workable?', distribution:'Can we sell these bonds?', calendar:'Do we have time and people?'};
@@ -1386,6 +1443,269 @@ const EXTRACTED_TEXT_FILES = [
   '10_The_Metropolitan_Govt_of_Nashville_&_Davidson_County,_TN_GO_Improv_Bonds_Srs_202.txt'
 ];
 
+// ── LIVE AGENT API CALLS ──────────────────────────────
+const AGENT_NOS_FIELDS = {
+  sector_fit: ['issuer', 'bond_identification.bond_type', 'bond_identification.bond_type_description', 'bond_identification.tax_status', 'bond_identification.purpose', 'legal_advisory.bond_counsel'],
+  size_capital: ['bond_identification.par_amount', 'bond_identification.bank_qualified', 'bidder_obligations.commitment_type', 'bid_evaluation.good_faith_deposit', 'registration_delivery.delivery_date', 'maturity_structure.final_maturity_date'],
+  structure: ['coupon_provisions', 'bid_evaluation.basis_of_award', 'bid_evaluation.premium_discount_permitted', 'bid_evaluation.minimum_bid_price', 'bid_evaluation.max_interest_rate', 'bid_evaluation.issue_price_requirements', 'maturity_structure.maturity_schedule', 'maturity_structure.maturity_type', 'maturity_structure.bidder_term_bond_option', 'redemption'],
+  distribution: ['bond_identification.par_amount', 'bond_identification.tax_status', 'bond_identification.bank_qualified', 'maturity_structure.maturity_type', 'maturity_structure.final_maturity_date', 'maturity_structure.maturity_schedule', 'credit_enhancement.credit_rating', 'redemption.optional_redemption', 'registration_delivery.denomination'],
+  calendar: ['sale_logistics.sale_date', 'sale_logistics.sale_time', 'sale_logistics.bidding_platform', 'registration_delivery.delivery_date']
+};
+
+const AGENT_FIRM_FIELDS = {
+  sector_fit: ['sector_coverage'],
+  size_capital: ['capital_limits'],
+  structure: [],
+  distribution: ['distribution_profile'],
+  calendar: ['current_pipeline', 'bidding_capabilities']
+};
+
+const CONFIDENCE_CALIBRATION = `
+CONFIDENCE CALIBRATION:
+- 0.9-1.0: Clear-cut, unambiguous. The data directly supports your vote with no caveats.
+- 0.7-0.89: Strong signal but some uncertainty. Most indicators point one way.
+- 0.5-0.69: Genuinely uncertain. Arguments exist for multiple outcomes.
+- 0.3-0.49: Weak signal. Leaning one way but could easily be wrong.
+- 0.0-0.29: Very uncertain. Flagging for human review.
+
+A Pass vote at 0.8+ triggers a HARD VETO — the deal is killed regardless of other agents.
+Only use 0.8+ confidence on Pass when you are certain the deal should not proceed.
+A Pass at 0.6 means "I'm concerned but a human should decide."`;
+
+const AGENT_SYSTEM_PROMPTS = {
+  sector_fit: `You are the sector fit screener for a public finance desk at {firm_name}.
+
+Your job: determine whether this deal falls within the firm's coverage areas and strategic priorities.
+
+Consider:
+- Does the firm actively cover this issuer type and state?
+- Has the firm bid on similar bond types?
+- Does the geography align with the firm's offices and coverage?
+- Is this sector a growth priority or one the firm is exiting?
+- Does the bond counsel or financial advisor suggest a relationship the firm has or wants?
+
+A deal outside the firm's geographic footprint or sector coverage is a clear Pass.
+A deal in an adjacent sector the firm is targeting could be Conditional.
+A deal squarely in the firm's core coverage is Interested.
+
+{firm_description}
+
+You MUST respond with ONLY valid JSON in this exact format:
+{{"agent":"sector_fit","vote":"interested"|"conditional"|"pass","confidence":<float 0.0-1.0>,"rationale":"<one to three sentences>","conditions":["<condition>"] or []}}`,
+
+  size_capital: `You are the risk manager for {firm_name}'s public finance desk.
+
+Your job: assess whether the firm can absorb the capital commitment this deal requires.
+
+Consider:
+- Is the par amount within the firm's max single commitment? If it exceeds the limit, this is a hard Pass.
+- Does the good faith deposit fit within available capacity?
+- What is the firm's current inventory position — how much room is left?
+- Firm commitment means the firm must purchase ALL bonds even if they can't resell them.
+- What is the duration risk if bonds go unsold? Longer final maturities = more risk.
+- Would the firm need syndicate partners to share this commitment?
+
+You are the conservative voice. Your job is to protect the firm's capital.
+Vote Pass if risk exceeds thresholds. Vote Conditional if the deal is manageable with syndicate partners or if it's close to limits.
+
+{firm_description}
+
+You MUST respond with ONLY valid JSON in this exact format:
+{{"agent":"size_capital","vote":"interested"|"conditional"|"pass","confidence":<float 0.0-1.0>,"rationale":"<one to three sentences>","conditions":["<condition>"] or []}}`,
+
+  structure: `You are the structuring desk analyst.
+
+Your job: assess whether the bidding constraints in this NOS leave enough room for a profitable bid.
+
+Consider:
+- Does "ascending coupons only" combined with a rate cap eliminate viable structures?
+- Does the maturity schedule work with the coupon restrictions?
+- Is the basis of award (NIC vs TIC) standard?
+- Will issue price requirements create problematic post-sale obligations?
+- Does the minimum bid price constraint leave room for a profitable bid?
+- Is the call structure standard (10yr par call) or unusual?
+- For serial+term structures with sinking fund provisions, are the terms workable?
+
+You are the technical voice. You don't need to know anything about the firm — you're evaluating the constraints purely on whether they allow a workable bid structure.
+
+A standard structure with no unusual constraints is Interested.
+A complex but workable structure is Conditional.
+Constraints that eliminate all profitable structures is a Pass.
+
+You MUST respond with ONLY valid JSON in this exact format:
+{{"agent":"structure","vote":"interested"|"conditional"|"pass","confidence":<float 0.0-1.0>,"rationale":"<one to three sentences>","conditions":["<condition>"] or []}}`,
+
+  distribution: `You are the distribution desk's voice at {firm_name}.
+
+Your job: assess whether the firm's investor base has appetite for this paper.
+
+Consider:
+- Do the firm's accounts buy this maturity range? Short maturities (1-10yr) are typically retail; long maturities (15-30yr) are institutional.
+- Is the par amount something the firm can distribute, or will bonds sit in inventory?
+- Is bank-qualified status a demand driver? BQ bonds attract community banks at tighter yields.
+- Is this tax-exempt or taxable? Does the firm have the right investor base for the tax status?
+- Will the call structure make investors hesitant? Non-callable bonds are easier to place.
+- Is the credit rated or unrated? Unrated bonds are harder to distribute to institutional accounts.
+
+{firm_description}
+
+You MUST respond with ONLY valid JSON in this exact format:
+{{"agent":"distribution","vote":"interested"|"conditional"|"pass","confidence":<float 0.0-1.0>,"rationale":"<one to three sentences>","conditions":["<condition>"] or []}}`,
+
+  calendar: `You are the operations scheduler at {firm_name}.
+
+Your job: assess whether the team has capacity to review the POS, prepare a bid, and handle settlement for this deal.
+
+Consider:
+- How many days until the sale date? The firm needs time to review the POS (typically 2-5 business days).
+- How many other deals is the firm bidding on the same day or same week?
+- Do available analysts have capacity given the current pipeline?
+- Is the bidding platform one the firm is set up on?
+- Will the settlement/delivery overlap with other closings?
+- If the sale is within 3 days and the POS hasn't been reviewed, this is a hard Pass.
+
+This is the simplest agent. Your Pass votes are rare but they are hard vetoes.
+
+Today's date is {today}.
+
+{firm_description}
+
+You MUST respond with ONLY valid JSON in this exact format:
+{{"agent":"calendar","vote":"interested"|"conditional"|"pass","confidence":<float 0.0-1.0>,"rationale":"<one to three sentences>","conditions":["<condition>"] or []}}`
+};
+
+const AGENT_NAMES = {sector_fit:'Sector Fit', size_capital:'Size & Capital', structure:'Structure', distribution:'Distribution', calendar:'Calendar'};
+
+function extractAgentNosFields(nos, fieldPaths) {
+  const fields = {};
+  for (const path of fieldPaths) {
+    if (!path.includes('.')) {
+      fields[path] = nos[path] || {};
+    } else {
+      const key = path.split('.').pop();
+      fields[key] = safeGet(nos, path);
+    }
+  }
+  return fields;
+}
+
+function extractAgentFirmFields(firm, fieldKeys) {
+  const fields = {};
+  for (const key of fieldKeys) {
+    if (firm[key]) fields[key] = firm[key];
+  }
+  return fields;
+}
+
+function buildAgentAPIRequest(agentKey, nos, firm, apiKey, model) {
+  const nosFields = extractAgentNosFields(nos, AGENT_NOS_FIELDS[agentKey]);
+  const firmFields = extractAgentFirmFields(firm, AGENT_FIRM_FIELDS[agentKey]);
+  const today = new Date().toISOString().split('T')[0];
+
+  let system = AGENT_SYSTEM_PROMPTS[agentKey]
+    .replace('{firm_name}', firm.firm_name || 'the firm')
+    .replace('{firm_description}', firm.firm_description || '')
+    .replace('{today}', today)
+    + CONFIDENCE_CALIBRATION;
+
+  let userMsg = `Here are the relevant NOS fields for your evaluation:\n\n${JSON.stringify(nosFields, null, 2)}`;
+  if (Object.keys(firmFields).length > 0) {
+    userMsg += `\n\nHere is the relevant firm context:\n\n${JSON.stringify(firmFields, null, 2)}`;
+  }
+  userMsg += '\n\nProvide your screening vote as JSON.';
+
+  return { system, userMsg };
+}
+
+function parseAgentResponse(text, agentKey) {
+  text = text.trim();
+  if (text.startsWith('```')) {
+    text = text.replace(/^```(?:json)?\s*\n?/, '').replace(/\n?```\s*$/, '');
+  }
+  let result;
+  try { result = JSON.parse(text); }
+  catch(e) {
+    const m = text.match(/\{[\s\S]*\}/);
+    if (m) result = JSON.parse(m[0]);
+    else throw new Error('No JSON in agent response');
+  }
+  const vote = (result.vote || 'pass').toLowerCase().trim();
+  const confidence = Math.max(0, Math.min(1, parseFloat(result.confidence) || 0.5));
+  return {
+    agent: agentKey, name: AGENT_NAMES[agentKey],
+    vote: ['interested','conditional','pass'].includes(vote) ? vote : 'pass',
+    confidence, rationale: result.rationale || '', conditions: result.conditions || []
+  };
+}
+
+async function streamAgentLiveAPI(agentKey, nos, firm, apiKey, model, onToken) {
+  const { system, userMsg } = buildAgentAPIRequest(agentKey, nos, firm, apiKey, model);
+
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: model,
+      max_tokens: 1024,
+      stream: true,
+      system: system,
+      messages: [{ role: 'user', content: userMsg }]
+    })
+  });
+
+  if (!resp.ok) {
+    const err = await resp.text();
+    throw new Error(`API ${resp.status}: ${err.substring(0, 200)}`);
+  }
+
+  const reader = resp.body.getReader();
+  const decoder = new TextDecoder();
+  let fullText = '';
+  let buffer = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+
+    const lines = buffer.split('\n');
+    buffer = lines.pop();
+
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const data = line.slice(6);
+      if (data === '[DONE]') continue;
+      try {
+        const evt = JSON.parse(data);
+        if (evt.type === 'content_block_delta' && evt.delta?.type === 'text_delta') {
+          const token = evt.delta.text;
+          fullText += token;
+          if (onToken) onToken(token, fullText);
+        }
+      } catch(e) {}
+    }
+  }
+
+  return parseAgentResponse(fullText, agentKey);
+}
+
+function isLiveMode() {
+  try {
+    const s = JSON.parse(localStorage.getItem('nos_settings') || '{}');
+    return (s.liveMode || s.liveApi) && s.apiKey;
+  } catch(e) { return false; }
+}
+
+function getLiveSettings() {
+  const s = JSON.parse(localStorage.getItem('nos_settings') || '{}');
+  return { apiKey: s.apiKey || '', model: s.model || 'claude-sonnet-4-20250514' };
+}
+
 function safeGet(o, p, d=null) { for (const k of p.split('.')) { if (!o || typeof o !== 'object') return d; o = o[k]; } return o ?? d; }
 function fmt$(n) { if (n >= 1e6) return '$' + (n/1e6).toFixed(n%1e6===0?0:1) + 'M'; return '$' + n.toLocaleString(); }
 function fmtType(t) { return (t || '').replace(/_/g, ' ').replace(/\bgo\b/gi, 'GO').replace(/\bban\b/gi, 'BAN'); }
@@ -1402,6 +1722,8 @@ async function loadData() {
   loadCustomFirms();
   loadSettings();
   renderDealList(); renderFirms(); renderGrid();
+  // Load scraped NOS deals
+  loadScrapedDeals();
 }
 
 function loadFallback() {
@@ -1628,9 +1950,153 @@ function renderDealList() {
     const n = safeGet(d, 'issuer.name', '?'), s = safeGet(d, 'issuer.state', ''), p = safeGet(d, 'bond_identification.par_amount', 0);
     const bt = safeGet(d, 'bond_identification.bond_type_description', fmtType(safeGet(d, 'bond_identification.bond_type', '')));
     li.innerHTML = `<div class="deal-name">${n}</div><div class="deal-meta"><span class="st">${s}</span>${fmt$(p)} &middot; ${bt}</div>`;
-    li.onclick = () => { selectedDeal = i; renderDealList(); runScreening(); };
+    li.onclick = () => { selectedDeal = i; renderDealList(); renderScrapedList(); runScreening(); };
     el.appendChild(li);
   });
+  document.getElementById('test-count').textContent = DEALS.length;
+}
+
+// ── SCRAPED DEALS ─────────────────────────
+function getConsensusResults() {
+  try { return JSON.parse(localStorage.getItem('nos_consensus_results') || '{}'); } catch(e) { return {}; }
+}
+
+function saveConsensusResult(issueSlug, firmName, decision, votes) {
+  const results = getConsensusResults();
+  if (!results[issueSlug]) results[issueSlug] = {};
+  results[issueSlug][firmName] = { decision, votes: votes.map(v => ({agent:v.agent,vote:v.vote,confidence:v.confidence})), timestamp: Date.now() };
+  localStorage.setItem('nos_consensus_results', JSON.stringify(results));
+}
+
+async function loadScrapedDeals() {
+  try {
+    const resp = await fetch('/prospectus_json/scraper_output/issues_master.json');
+    if (!resp.ok) return;
+    const data = await resp.json();
+    const issues = data.issues || [];
+    SCRAPED_DEALS.length = 0;
+    issues.forEach(iss => {
+      const docs = iss.documents || [];
+      const nosDocs = docs.filter(d => (d.doc_type || '').toUpperCase().startsWith('NOS'));
+      if (!nosDocs.length || iss.type !== 'Comp') return;
+      const state = ((iss.issue || '').match(/,\s*([A-Z]{2})\s/) || [])[1] || '';
+      SCRAPED_DEALS.push({
+        issue: iss.issue,
+        issue_slug: iss.issue_slug,
+        state: state,
+        par_amt_numeric: iss.par_amt_numeric || 0,
+        manager_fa: iss.manager_fa || '',
+        nos_docs: nosDocs,
+        type: iss.type,
+        _docCount: docs.length
+      });
+    });
+    renderScrapedList();
+  } catch(e) { /* silently fail if not available */ }
+}
+
+function filterScraped(filter) {
+  scrapedFilter = filter;
+  document.querySelectorAll('.scraped-filter-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sf-' + filter).classList.add('active');
+  renderScrapedList();
+}
+
+function renderScrapedList() {
+  const el = document.getElementById('scraped-deal-list');
+  const results = getConsensusResults();
+
+  let deals = SCRAPED_DEALS;
+  if (scrapedFilter === 'unscreened') {
+    deals = deals.filter(d => !results[d.issue_slug]);
+  } else if (scrapedFilter === 'screened') {
+    deals = deals.filter(d => results[d.issue_slug]);
+  }
+
+  el.innerHTML = '';
+  const scrapedOffset = DEALS.length;
+
+  deals.forEach((d, i) => {
+    const globalIdx = DEALS.indexOf(d._loadedDeal);
+    const isActive = globalIdx >= 0 && globalIdx === selectedDeal;
+    const li = document.createElement('li');
+    li.className = 'deal-item' + (isActive ? ' active' : '');
+
+    const consensus = results[d.issue_slug];
+    let badgeHtml = '<span class="deal-consensus-badge unscreened">unscreened</span>';
+    if (consensus) {
+      const firms = Object.keys(consensus);
+      const latest = consensus[firms[firms.length - 1]];
+      badgeHtml = `<span class="deal-consensus-badge ${latest.decision}">${latest.decision}</span>`;
+    }
+
+    const par = d.par_amt_numeric ? fmt$(d.par_amt_numeric) : '—';
+    li.innerHTML = `<div class="deal-name"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">${escapeHtml(d.issue)}</span>${badgeHtml}</div><div class="deal-meta"><span class="st">${d.state}</span>${par} &middot; ${d.nos_docs.length} NOS</div>`;
+    li.onclick = () => selectScrapedDeal(d);
+    el.appendChild(li);
+  });
+
+  document.getElementById('scraped-count').textContent = SCRAPED_DEALS.length;
+}
+
+function selectScrapedDeal(scraped) {
+  // Check if this deal is already loaded in DEALS
+  const existing = DEALS.findIndex(d => d._scraped_slug === scraped.issue_slug);
+  if (existing >= 0) {
+    selectedDeal = existing;
+    renderDealList();
+    renderScrapedList();
+    runScreening();
+    return;
+  }
+
+  // Create a placeholder NOS JSON from scraped metadata + push into DEALS
+  const nosDoc = scraped.nos_docs[0];
+  const placeholder = {
+    _scraped: true,
+    _scraped_slug: scraped.issue_slug,
+    _pdf_url: nosDoc.pdf_url || '',
+    _needs_extraction: true,
+    issuer: {
+      name: scraped.issue,
+      state: scraped.state,
+      type: guessIssuerType(scraped.issue)
+    },
+    bond_identification: {
+      par_amount: scraped.par_amt_numeric || 0,
+      bond_type_description: 'Competitive Sale',
+      bond_type: 'unknown',
+      tax_status: 'tax_exempt'
+    },
+    sale_logistics: {
+      financial_advisor: scraped.manager_fa
+    },
+    maturity_structure: { maturity_schedule: [], number_of_maturities: 0 },
+    coupon_provisions: { coupon_rate_constraints: {} },
+    bid_evaluation: { good_faith_deposit: {} },
+    redemption: {},
+    registration_delivery: {},
+    credit_enhancement: {},
+    legal_advisory: {},
+    bidder_obligations: {}
+  };
+
+  DEALS.push(placeholder);
+  scraped._loadedDeal = placeholder;
+  selectedDeal = DEALS.length - 1;
+  renderDealList();
+  renderScrapedList();
+  runScreening();
+}
+
+function guessIssuerType(name) {
+  const n = name.toLowerCase();
+  if (n.includes('mud') || n.includes('municipal utility')) return 'municipal_utility_district';
+  if (n.includes('isd') || n.includes('school')) return 'school_district';
+  if (n.includes('county')) return 'county';
+  if (n.includes('city') || n.includes('town') || n.includes('village') || n.includes('borough')) return 'city';
+  if (n.includes('authority')) return 'authority';
+  return 'other';
 }
 
 function renderFirms() {
@@ -1745,7 +2211,6 @@ function runScreening() {
 
 async function runFullPipeline(ctrl, fromDrop) {
   const nos = DEALS[selectedDeal], firm = FIRMS[selectedFirm];
-  const votes = generateVotes(nos, firm);
   const main = document.getElementById('main-panel');
 
   // Reset all sections
@@ -1776,9 +2241,25 @@ async function runFullPipeline(ctrl, fromDrop) {
   await sleep(200);
   if (ctrl.abort) return;
 
-  // Phase 6: Agent reasoning
-  await runAgentReasoning(ctrl, votes, nos);
-  if (ctrl.abort) return;
+  // Phase 6: Agent reasoning — live API or local heuristics
+  let votes;
+  const live = isLiveMode();
+  if (live) {
+    const { apiKey, model } = getLiveSettings();
+    const enabled = getEnabledAgents();
+    // Show agents in thinking state with placeholder votes while API calls run
+    const placeholders = Object.keys(AGENT_SYSTEM_PROMPTS)
+      .filter(k => enabled[k] !== false)
+      .map(k => ({agent: k, name: AGENT_NAMES[k], vote: 'interested', confidence: 0.5, rationale: '', conditions: []}));
+    await runAgentReasoningLive(ctrl, placeholders, nos, firm, apiKey, model, enabled);
+    if (ctrl.abort) return;
+    // Votes were resolved inside runAgentReasoningLive; retrieve them
+    votes = ctrl._liveVotes || placeholders;
+  } else {
+    votes = generateVotes(nos, firm);
+    await runAgentReasoning(ctrl, votes, nos);
+    if (ctrl.abort) return;
+  }
 
   // Phase 7: Consensus
   await showConsensus(ctrl, votes);
@@ -2078,6 +2559,136 @@ async function runAgentReasoning(ctrl, votes, nos) {
   }
 }
 
+async function runAgentReasoningLive(ctrl, placeholders, nos, firm, apiKey, model, enabled) {
+  const section = document.getElementById('votes-section');
+  const ag = document.getElementById('agents-grid');
+  section.classList.add('visible');
+
+  // Render all agents in thinking state
+  ag.innerHTML = placeholders.map(v => {
+    const fields = AGENT_FIELDS[v.agent] || [];
+    const fieldLabels = fields.map(f => f.split('.').pop().replace(/_/g,' '));
+    const avatarGrid = AGENT_AVATARS[v.agent];
+    const avatarSvg = avatarGrid ? makePixelAvatar(avatarGrid, 32) : '';
+    return `<div class="agent thinking" id="agent-${v.agent}">
+      <div class="agent-idx">${avatarSvg || `<span class="agent-code-label">${AGENT_CODES[v.agent] || '??'}</span>`}</div>
+      <div class="agent-body">
+        <div class="agent-name-row"><span class="agent-n">${v.name}</span><span class="agent-q">${AGENT_QS[v.agent] || ''}</span></div>
+        <div class="agent-fields" id="fields-${v.agent}">${fieldLabels.map(f => `<span class="agent-field">${f}</span>`).join('')}</div>
+        <div class="agent-reasoning-chain" id="chain-${v.agent}"></div>
+        <div class="agent-rationale" id="rationale-${v.agent}"></div>
+      </div>
+      <div class="agent-right">
+        <div class="a-vote" id="vote-${v.agent}">...</div>
+        <div class="conf-row"><div class="conf-track"><div class="conf-fill" style="width:0"></div></div><div class="conf-num">—</div></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const liveVotes = [];
+
+  for (let i = 0; i < placeholders.length; i++) {
+    if (ctrl.abort) return;
+    const agentKey = placeholders[i].agent;
+    const card = document.getElementById(`agent-${agentKey}`);
+    const chainEl = document.getElementById(`chain-${agentKey}`);
+    const ratEl = document.getElementById(`rationale-${agentKey}`);
+    const fieldsEl = document.getElementById(`fields-${agentKey}`);
+    const voteEl = document.getElementById(`vote-${agentKey}`);
+
+    card.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+    // Light up fields for this agent
+    const fieldSpans = fieldsEl.querySelectorAll('.agent-field');
+    for (let j = 0; j < fieldSpans.length; j++) {
+      await sleep(80);
+      if (ctrl.abort) return;
+      fieldSpans[j].classList.add('lit');
+    }
+
+    // Show streaming area
+    chainEl.classList.add('active');
+    chainEl.style.fontFamily = 'var(--mono)';
+    chainEl.style.fontSize = '10px';
+    chainEl.style.color = 'var(--white-muted)';
+    chainEl.style.whiteSpace = 'pre-wrap';
+    chainEl.style.wordBreak = 'break-word';
+    chainEl.style.maxHeight = '120px';
+    chainEl.style.overflow = 'auto';
+    chainEl.innerHTML = '<span style="color:var(--red)">▸ streaming from Claude API...</span>\n';
+
+    let v;
+    try {
+      // Create stream content span once
+      const streamLabel = document.createElement('span');
+      streamLabel.style.color = 'var(--red)';
+      streamLabel.textContent = '▸ streaming from Claude API...\n';
+      const streamContent = document.createElement('span');
+      streamContent.className = 'stream-content';
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+      chainEl.innerHTML = '';
+      chainEl.appendChild(streamLabel);
+      chainEl.appendChild(streamContent);
+      chainEl.appendChild(cursor);
+
+      v = await streamAgentLiveAPI(agentKey, nos, firm, apiKey, model, (token, fullText) => {
+        if (ctrl.abort) return;
+        streamContent.textContent = fullText;
+        chainEl.scrollTop = chainEl.scrollHeight;
+      });
+    } catch(e) {
+      v = {
+        agent: agentKey, name: AGENT_NAMES[agentKey],
+        vote: 'pass', confidence: 0.0,
+        rationale: `API error: ${e.message}`,
+        conditions: [], error: true
+      };
+    }
+    liveVotes.push(v);
+
+    if (ctrl.abort) return;
+
+    // Collapse stream, dim fields
+    await sleep(300);
+    chainEl.classList.remove('active');
+    fieldSpans.forEach(f => { f.classList.remove('lit'); f.classList.add('dim'); });
+
+    // Show parsed rationale
+    ratEl.textContent = v.rationale;
+
+    // Update vote badge
+    const cw = Math.round(v.confidence * 60);
+    voteEl.className = `a-vote ${v.vote}`;
+    voteEl.textContent = v.vote.toUpperCase();
+    const confFill = card.querySelector('.conf-fill');
+    if (confFill) { confFill.className = `conf-fill ${v.vote}`; confFill.style.setProperty('--target-w', cw + 'px'); confFill.style.width = cw + 'px'; }
+    card.querySelector('.conf-num').textContent = (v.confidence * 100).toFixed(0) + '%';
+
+    // Reveal vote with stamp
+    card.classList.remove('thinking');
+    card.classList.add('revealing', v.vote);
+    card.querySelector('.agent-idx').classList.add(v.vote);
+    playStamp(v.vote === 'pass');
+
+    // Conditions
+    if (v.conditions && v.conditions.length) {
+      await sleep(150);
+      if (ctrl.abort) return;
+      const condsDiv = document.createElement('div');
+      condsDiv.className = 'agent-conds';
+      condsDiv.innerHTML = v.conditions.map(c => `<span class="agent-cond">${c}</span>`).join('');
+      card.querySelector('.agent-body').appendChild(condsDiv);
+    }
+
+    await sleep(250);
+  }
+
+  ctrl._liveVotes = liveVotes;
+}
+
+function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
 async function showConsensus(ctrl, votes) {
   const cf = document.getElementById('consensus-forming');
   cf.classList.add('visible');
@@ -2105,6 +2716,14 @@ async function showConsensus(ctrl, votes) {
     cr.innerHTML = con.conditions.map(c => `<span class="cond-tag">${c}</span>`).join('');
     cr.style.display = '';
     cr.classList.add('visible');
+  }
+
+  // Save consensus result for scraped deal tracking
+  const nos = DEALS[selectedDeal];
+  const firm = FIRMS[selectedFirm];
+  if (nos && nos._scraped_slug && firm) {
+    saveConsensusResult(nos._scraped_slug, firm.firm_name, con.decision, votes);
+    renderScrapedList();
   }
 }
 

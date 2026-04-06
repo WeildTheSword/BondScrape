@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prospectus Scraper — BondScrape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+@keyframes slideRight { from{opacity:0;transform:translateX(-8px)} to{opacity:1;transform:none} }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+@keyframes fillBar { from{width:0%} to{width:var(--fill)} }
+@keyframes scanLine { from{left:-100%} to{left:100%} }
+@keyframes stampIn { 0%{opacity:0;transform:scale(1.6)} 60%{opacity:1;transform:scale(0.95)} 100%{transform:scale(1)} }
+@keyframes rowIn { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:none} }
+@keyframes countUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+@keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+
+:root {
+  --black:#0a0a0a; --surface:#111; --surface2:#181818; --surface3:#1f1f1f;
+  --rule:#222; --rule-light:#2a2a2a;
+  --white:#f0f0f0; --white-dim:#999; --white-muted:#555;
+  --red:#e03e3e; --red-dim:#c53030; --red-wash:rgba(224,62,62,0.07); --red-border:rgba(224,62,62,0.20);
+  --green:#2d8a4e; --green-wash:rgba(45,138,78,0.08); --green-border:rgba(45,138,78,0.25);
+  --amber:#c4841d; --amber-wash:rgba(196,132,29,0.08); --amber-border:rgba(196,132,29,0.25);
+  --sans:'DM Sans',sans-serif; --mono:'DM Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size:256px 256px;
+}
+
+/* ── TOPBAR ─────────────────── */
+.topbar {
+  position:sticky; top:0; z-index:100;
+  background:var(--black); border-bottom:1px solid var(--rule);
+  height:48px; display:flex; align-items:center;
+  padding:0 28px; gap:20px; font-size:13px;
+}
+.topbar::after {
+  content:''; position:absolute; bottom:-1px; left:0; right:0;
+  height:1px; background:linear-gradient(90deg, var(--red) 0%, var(--red) 20%, transparent 20%);
+}
+.brand { text-decoration:none; color:var(--white); font-weight:700; font-size:14px; letter-spacing:-.02em; }
+.brand span { color:var(--red); }
+.topbar-sep { width:1px; height:20px; background:var(--rule); }
+.topbar-nav { display:flex; gap:0; }
+.topbar-nav a {
+  font-size:11px; font-weight:500; color:var(--white-muted); text-decoration:none;
+  text-transform:uppercase; letter-spacing:0.04em;
+  padding:14px 16px; transition:color 0.15s;
+  border-bottom:2px solid transparent;
+  display:flex; align-items:center; gap:6px;
+}
+.topbar-nav a:hover { color: var(--white-dim); }
+.topbar-nav a.active { color: var(--white); border-bottom-color: var(--red); }
+.topbar-nav a .nav-icon { width:12px; height:12px; flex-shrink:0; }
+.topbar-spacer { flex:1; }
+.topbar-tag {
+  font-family:var(--mono); font-size:9px; font-weight:500;
+  color:var(--red); letter-spacing:0.08em;
+  padding:3px 8px; border:1px solid var(--red-border);
+  border-radius:2px; text-transform:uppercase;
+}
+
+/* ── LAYOUT ─────────────────── */
+.page { position:relative; z-index:1; padding:32px 28px 80px; max-width:1400px; margin:0 auto; }
+
+/* ── STATS ROW ──────────────── */
+.stats-row {
+  display:grid; grid-template-columns:repeat(5, 1fr); gap:16px;
+  margin-bottom:32px;
+  animation: fadeUp 0.4s ease both;
+}
+.stat-card {
+  background:var(--surface); border:1px solid var(--rule);
+  border-radius:4px; padding:16px 20px;
+  position:relative; overflow:hidden;
+}
+.stat-card::before {
+  content:''; position:absolute; top:0; left:0; width:3px; height:100%;
+  background:var(--rule-light);
+}
+.stat-card.accent::before { background:var(--red); }
+.stat-card.green::before { background:var(--green); }
+.stat-card.amber::before { background:var(--amber); }
+.stat-label {
+  font-size:10px; font-weight:500; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--white-muted); margin-bottom:6px;
+}
+.stat-value {
+  font-family:var(--mono); font-size:28px; font-weight:500;
+  color:var(--white); line-height:1;
+  animation: countUp 0.5s ease both;
+}
+.stat-sub {
+  font-size:10px; color:var(--white-muted); margin-top:6px;
+  font-family:var(--mono);
+}
+
+/* ── TOOLBAR ────────────────── */
+.toolbar {
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:20px; flex-wrap:wrap;
+  animation: fadeUp 0.5s ease both;
+  animation-delay: 0.1s;
+}
+.search-box {
+  flex:1; min-width:240px; max-width:400px;
+  background:var(--surface); border:1px solid var(--rule);
+  border-radius:3px; padding:0 12px;
+  display:flex; align-items:center; gap:8px;
+  transition:border-color 0.15s;
+}
+.search-box:focus-within { border-color:var(--red-border); }
+.search-box svg { width:14px; height:14px; color:var(--white-muted); flex-shrink:0; }
+.search-box input {
+  flex:1; background:none; border:none; outline:none;
+  font-family:var(--sans); font-size:12px; color:var(--white);
+  padding:8px 0;
+}
+.search-box input::placeholder { color:var(--white-muted); }
+
+.filter-btn {
+  background:var(--surface); border:1px solid var(--rule);
+  border-radius:3px; padding:6px 14px;
+  font-family:var(--sans); font-size:11px; font-weight:500;
+  color:var(--white-muted); cursor:pointer;
+  text-transform:uppercase; letter-spacing:0.04em;
+  transition:all 0.15s;
+  display:flex; align-items:center; gap:6px;
+}
+.filter-btn:hover { border-color:var(--rule-light); color:var(--white-dim); }
+.filter-btn.active { border-color:var(--red-border); color:var(--red); background:var(--red-wash); }
+.filter-btn .count {
+  font-family:var(--mono); font-size:10px;
+  background:var(--surface2); padding:1px 5px; border-radius:2px;
+}
+.filter-btn.active .count { background:rgba(224,62,62,0.15); }
+
+.toolbar-sep { width:1px; height:20px; background:var(--rule); }
+
+.action-btn {
+  background:var(--red); border:none; border-radius:3px;
+  padding:7px 16px; font-family:var(--sans); font-size:11px;
+  font-weight:600; color:var(--white); cursor:pointer;
+  text-transform:uppercase; letter-spacing:0.04em;
+  transition:all 0.15s; display:flex; align-items:center; gap:6px;
+}
+.action-btn:hover { background:var(--red-dim); }
+.action-btn:disabled { opacity:0.3; cursor:not-allowed; }
+.action-btn svg { width:12px; height:12px; }
+
+.selection-info {
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+}
+
+/* ── TABLE ──────────────────── */
+.table-wrap {
+  background:var(--surface); border:1px solid var(--rule);
+  border-radius:4px; overflow:hidden;
+  animation: fadeUp 0.5s ease both;
+  animation-delay: 0.15s;
+}
+.table-header {
+  display:grid;
+  grid-template-columns:36px 2fr 100px 120px 80px 100px 80px 60px;
+  gap:0; padding:0 16px;
+  border-bottom:1px solid var(--rule);
+  background:var(--surface2);
+}
+.th {
+  font-size:9px; font-weight:600; text-transform:uppercase;
+  letter-spacing:0.08em; color:var(--white-muted);
+  padding:10px 8px; cursor:pointer; user-select:none;
+  display:flex; align-items:center; gap:4px;
+  transition:color 0.15s;
+}
+.th:hover { color:var(--white-dim); }
+.th.sorted { color:var(--white); }
+.th .sort-arrow { font-size:8px; opacity:0; transition:opacity 0.15s; }
+.th.sorted .sort-arrow { opacity:1; }
+
+.table-body { max-height:calc(100vh - 320px); overflow-y:auto; }
+.table-body::-webkit-scrollbar { width:6px; }
+.table-body::-webkit-scrollbar-track { background:var(--surface); }
+.table-body::-webkit-scrollbar-thumb { background:var(--rule-light); border-radius:3px; }
+
+.issue-row {
+  display:grid;
+  grid-template-columns:36px 2fr 100px 120px 80px 100px 80px 60px;
+  gap:0; padding:0 16px;
+  border-bottom:1px solid var(--rule);
+  cursor:pointer; transition:background 0.1s;
+  animation: rowIn 0.25s ease both;
+}
+.issue-row:hover { background:var(--surface2); }
+.issue-row.selected { background:var(--red-wash); }
+.issue-row.expanded { background:var(--surface2); border-bottom-color:transparent; }
+
+.td {
+  font-size:12px; padding:10px 8px;
+  display:flex; align-items:center;
+  overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+}
+.td.mono { font-family:var(--mono); font-size:11px; }
+.td.dim { color:var(--white-dim); }
+.td.issuer-name {
+  font-weight:500; display:flex; align-items:center; gap:8px;
+  overflow:hidden; white-space:nowrap;
+  line-height:40px;
+}
+.td.issuer-name .name-text {
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0;
+}
+.source-tag {
+  font-family:var(--mono); font-size:7px; font-weight:600;
+  padding:2px 5px; border-radius:2px; flex-shrink:0;
+  text-transform:uppercase; letter-spacing:0.06em;
+  white-space:nowrap;
+}
+.source-tag.idp {
+  color:#4a9eda; background:rgba(74,158,218,0.08); border:1px solid rgba(74,158,218,0.2);
+}
+.source-tag.gs {
+  color:#5cb87a; background:rgba(92,184,122,0.08); border:1px solid rgba(92,184,122,0.2);
+}
+
+.checkbox-cell {
+  display:flex; align-items:center; justify-content:center;
+}
+.row-check {
+  width:14px; height:14px; appearance:none; -webkit-appearance:none;
+  border:1px solid var(--rule-light); border-radius:2px;
+  background:var(--surface); cursor:pointer; position:relative;
+  transition:all 0.15s;
+}
+.row-check:checked {
+  background:var(--red); border-color:var(--red);
+}
+.row-check:checked::after {
+  content:''; position:absolute; top:2px; left:4px;
+  width:4px; height:7px;
+  border:solid var(--white); border-width:0 1.5px 1.5px 0;
+  transform:rotate(45deg);
+}
+
+/* Sale type badges */
+.sale-badge {
+  font-family:var(--mono); font-size:9px; font-weight:600;
+  padding:2px 8px; border-radius:2px;
+  text-transform:uppercase; letter-spacing:0.06em;
+}
+.sale-badge.comp {
+  color:var(--red); background:var(--red-wash); border:1px solid var(--red-border);
+}
+.sale-badge.neg {
+  color:var(--white-muted); background:var(--surface2); border:1px solid var(--rule);
+}
+
+/* Doc type pills */
+.doc-pills { display:flex; gap:3px; flex-wrap:wrap; align-items:center; }
+.doc-pill {
+  font-family:var(--mono); font-size:8px; font-weight:500;
+  padding:1px 5px; border-radius:2px;
+  text-transform:uppercase; letter-spacing:0.04em;
+  border:1px solid var(--rule);
+  color:var(--white-muted);
+}
+.doc-pill.nos { color:var(--red); border-color:var(--red-border); background:var(--red-wash); }
+.doc-pill.prelim { color:var(--amber); border-color:var(--amber-border); background:var(--amber-wash); }
+.doc-pill.final { color:var(--green); border-color:var(--green-border); background:var(--green-wash); }
+
+/* ── EXPANDED ROW / DOCUMENT DETAIL ── */
+.issue-detail {
+  padding:0 16px 16px 52px;
+  background:var(--surface2);
+  border-bottom:1px solid var(--rule);
+  animation: fadeIn 0.2s ease both;
+}
+.detail-docs-grid {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:10px; margin-top:8px;
+}
+.doc-card {
+  background:var(--surface); border:1px solid var(--rule);
+  border-radius:3px; padding:12px 14px;
+  transition:border-color 0.15s;
+}
+.doc-card:hover { border-color:var(--rule-light); }
+.doc-card-head {
+  display:flex; align-items:center; gap:8px; margin-bottom:8px;
+}
+.doc-card-type {
+  font-family:var(--mono); font-size:10px; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.06em;
+}
+.doc-card-type.nos { color:var(--red); }
+.doc-card-type.prelim { color:var(--amber); }
+.doc-card-type.final { color:var(--green); }
+.doc-card-date {
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+}
+.doc-card-meta {
+  font-size:10px; color:var(--white-muted); line-height:1.5;
+}
+.doc-card-meta span { color:var(--white-dim); }
+.doc-card-actions { display:flex; gap:6px; margin-top:10px; align-items:center; }
+.screening-badge {
+  font-family:var(--mono); font-size:8px; font-weight:600;
+  padding:2px 7px; border-radius:2px;
+  text-transform:uppercase; letter-spacing:0.06em; margin-left:auto;
+}
+.screening-badge.interested { color:var(--green); background:var(--green-wash); border:1px solid var(--green-border); }
+.screening-badge.conditional { color:var(--amber); background:var(--amber-wash); border:1px solid var(--amber-border); }
+.screening-badge.pass { color:var(--red); background:var(--red-wash); border:1px solid var(--red-border); }
+.screening-badge.unscreened { color:var(--white-muted); background:var(--surface2); border:1px solid var(--rule); }
+.issue-screening-badge {
+  font-family:var(--mono); font-size:7px; font-weight:600;
+  padding:2px 5px; border-radius:2px;
+  text-transform:uppercase; letter-spacing:0.04em;
+}
+.issue-screening-badge.interested { color:var(--green); background:var(--green-wash); border:1px solid var(--green-border); }
+.issue-screening-badge.conditional { color:var(--amber); background:var(--amber-wash); border:1px solid var(--amber-border); }
+.issue-screening-badge.pass { color:var(--red); background:var(--red-wash); border:1px solid var(--red-border); }
+.doc-btn {
+  font-family:var(--sans); font-size:10px; font-weight:500;
+  padding:4px 10px; border-radius:2px; border:1px solid var(--rule);
+  background:var(--surface2); color:var(--white-dim); cursor:pointer;
+  text-transform:uppercase; letter-spacing:0.04em;
+  text-decoration:none; display:inline-flex; align-items:center; gap:4px;
+  transition:all 0.15s;
+}
+.doc-btn:hover { border-color:var(--rule-light); color:var(--white); }
+.doc-btn.primary { border-color:var(--red-border); color:var(--red); background:var(--red-wash); }
+.doc-btn.primary:hover { background:rgba(224,62,62,0.12); }
+.doc-btn svg { width:10px; height:10px; }
+
+/* ── LOADING STATE ──────────── */
+.loading-state {
+  display:flex; align-items:center; justify-content:center;
+  padding:60px 20px; gap:12px;
+}
+.loading-dot {
+  width:6px; height:6px; border-radius:50%; background:var(--red);
+  animation:pulse 1s ease infinite;
+}
+.loading-dot:nth-child(2) { animation-delay:0.15s; }
+.loading-dot:nth-child(3) { animation-delay:0.3s; }
+.loading-text {
+  font-family:var(--mono); font-size:11px; color:var(--white-muted);
+}
+
+/* ── EMPTY STATE ────────────── */
+.empty-state {
+  text-align:center; padding:60px 20px;
+  font-size:12px; color:var(--white-muted);
+}
+.empty-state .empty-icon { font-size:24px; margin-bottom:12px; opacity:0.3; }
+
+/* ── PUSH NOTIFICATION ──────── */
+.toast {
+  position:fixed; bottom:24px; right:24px; z-index:200;
+  background:var(--surface2); border:1px solid var(--green-border);
+  border-radius:4px; padding:12px 20px;
+  font-size:12px; color:var(--white);
+  display:flex; align-items:center; gap:10px;
+  animation: fadeUp 0.3s ease both;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+}
+.toast.error { border-color:var(--red-border); }
+.toast .toast-icon { font-size:16px; }
+.toast .toast-msg { flex:1; }
+.toast .toast-close {
+  background:none; border:none; color:var(--white-muted);
+  cursor:pointer; font-size:14px; padding:0 0 0 8px;
+}
+.toast-hide { animation: fadeIn 0.2s ease reverse both; }
+
+/* ── SELECT ALL ─────────────── */
+.select-all-check {
+  width:14px; height:14px; appearance:none; -webkit-appearance:none;
+  border:1px solid var(--rule-light); border-radius:2px;
+  background:var(--surface); cursor:pointer; position:relative;
+  transition:all 0.15s;
+}
+.select-all-check:checked {
+  background:var(--red); border-color:var(--red);
+}
+.select-all-check:checked::after {
+  content:''; position:absolute; top:2px; left:4px;
+  width:4px; height:7px;
+  border:solid var(--white); border-width:0 1.5px 1.5px 0;
+  transform:rotate(45deg);
+}
+.select-all-check.partial {
+  background:var(--red); border-color:var(--red);
+}
+.select-all-check.partial::after {
+  content:''; position:absolute; top:6px; left:3px;
+  width:6px; height:0; border-bottom:1.5px solid var(--white);
+}
+
+/* ── SOURCE PORTALS ─────────── */
+.portals-row {
+  display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  margin-bottom:28px;
+  animation:fadeUp 0.4s ease both;
+}
+
+.portal-card {
+  background:var(--surface); border:1px solid var(--rule);
+  border-radius:4px; overflow:hidden;
+  position:relative;
+  transition:border-color 0.2s;
+}
+.portal-card:hover { border-color:var(--rule-light); }
+.portal-card.active { border-color:var(--red-border); }
+.portal-card.disabled { opacity:0.55; pointer-events:none; }
+.portal-card.disabled .portal-body { filter:grayscale(0.4); }
+
+.portal-head {
+  padding:24px 24px 0;
+  display:flex; align-items:flex-start; gap:16px;
+}
+
+.portal-logo {
+  width:56px; height:56px; border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; position:relative; overflow:hidden;
+}
+.portal-logo.idp {
+  background:linear-gradient(135deg, #1a3a5c 0%, #0d2240 100%);
+  border:1px solid rgba(255,255,255,0.08);
+}
+.portal-logo.gs {
+  background:linear-gradient(135deg, #1c4e2e 0%, #0e2a18 100%);
+  border:1px solid rgba(255,255,255,0.08);
+}
+.portal-logo-text {
+  font-family:var(--sans); font-weight:700; font-size:10px;
+  color:var(--white); text-align:center; line-height:1.2;
+  letter-spacing:0.02em;
+}
+.portal-logo-text .logo-accent { color:#4a9eda; }
+.portal-logo-text .logo-accent-g { color:#5cb87a; }
+
+.portal-info { flex:1; min-width:0; }
+.portal-name {
+  font-size:15px; font-weight:700; letter-spacing:-0.01em;
+  margin-bottom:2px;
+}
+.portal-name .accent { color:var(--red); }
+.portal-provider {
+  font-family:var(--mono); font-size:9px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;
+}
+.portal-desc {
+  font-size:11px; color:var(--white-dim); line-height:1.5;
+}
+.portal-url {
+  font-family:var(--mono); font-size:9px; color:var(--white-muted);
+  margin-top:4px; display:flex; align-items:center; gap:4px;
+}
+.portal-url svg { width:10px; height:10px; flex-shrink:0; }
+
+.portal-status {
+  position:absolute; top:12px; right:12px;
+  font-family:var(--mono); font-size:8px; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.08em;
+  padding:3px 8px; border-radius:2px;
+}
+.portal-status.live {
+  color:var(--red); background:var(--red-wash); border:1px solid var(--red-border);
+}
+.portal-status.coming {
+  color:var(--white-muted); background:var(--surface2); border:1px solid var(--rule);
+}
+
+.portal-body { padding:16px 24px 20px; }
+
+/* ── LAUNCH PANEL (inside portal) ── */
+.launch-panel {
+  background:var(--surface); border:none;
+  border-radius:0; overflow:hidden;
+}
+.launch-header {
+  display:flex; align-items:center; gap:12px;
+  padding:0; padding-top:8px;
+  border-top:1px solid var(--rule);
+}
+.launch-title {
+  font-size:14px; font-weight:700; letter-spacing:-0.01em;
+  flex:1; display:none;
+}
+.launch-title span { color:var(--red); }
+.launch-subtitle {
+  font-size:11px; color:var(--white-muted); margin-top:2px; display:none;
+}
+.launch-btn {
+  background:var(--red); border:none; border-radius:3px;
+  padding:10px 28px; font-family:var(--sans); font-size:12px;
+  font-weight:700; color:var(--white); cursor:pointer;
+  text-transform:uppercase; letter-spacing:0.08em;
+  transition:all 0.15s; display:flex; align-items:center; gap:8px;
+  position:relative; overflow:hidden;
+}
+.launch-btn:hover { background:var(--red-dim); }
+.launch-btn:disabled { opacity:0.4; cursor:not-allowed; }
+.launch-btn::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform:translateX(-100%); transition:none;
+}
+.launch-btn:not(:disabled):hover::after {
+  animation:scanLine 0.6s ease;
+}
+.launch-btn svg { width:14px; height:14px; }
+.launch-btn.running { background:var(--surface2); border:1px solid var(--rule); }
+.launch-btn.running:hover { background:var(--surface3); }
+
+.stop-btn {
+  background:var(--surface2); border:1px solid var(--red-border);
+  border-radius:3px; padding:10px 20px; font-family:var(--sans);
+  font-size:11px; font-weight:600; color:var(--red); cursor:pointer;
+  text-transform:uppercase; letter-spacing:0.06em;
+  transition:all 0.15s; display:none; align-items:center; gap:6px;
+}
+.stop-btn:hover { background:var(--red-wash); }
+.stop-btn.visible { display:flex; }
+.stop-btn svg { width:12px; height:12px; }
+
+.index-btn {
+  background:var(--surface2); border:1px solid var(--rule);
+  border-radius:3px; padding:10px 20px; font-family:var(--sans);
+  font-size:11px; font-weight:600; color:var(--white-dim); cursor:pointer;
+  text-transform:uppercase; letter-spacing:0.06em;
+  transition:all 0.15s; display:flex; align-items:center; gap:6px;
+}
+.index-btn:hover { border-color:var(--rule-light); color:var(--white); }
+.index-btn:disabled { opacity:0.3; cursor:not-allowed; }
+.index-btn svg { width:12px; height:12px; }
+
+.launch-actions { display:flex; align-items:center; gap:10px; }
+.last-fired {
+  font-family:var(--mono); font-size:9px; color:var(--white-muted);
+  padding:6px 0 0; display:flex; align-items:center; gap:5px;
+}
+.last-fired svg { width:10px; height:10px; flex-shrink:0; opacity:0.5; }
+.last-fired .timestamp { color:var(--white-dim); }
+
+.launch-console {
+  display:none; max-height:0; overflow:hidden;
+  transition:max-height 0.3s ease;
+}
+.launch-console.open {
+  display:block; max-height:400px;
+}
+.console-inner {
+  background:var(--black); padding:16px 20px;
+  font-family:var(--mono); font-size:10px; line-height:1.7;
+  color:var(--white-dim); max-height:300px; overflow-y:auto;
+  border-top:1px solid var(--rule);
+}
+.console-inner::-webkit-scrollbar { width:5px; }
+.console-inner::-webkit-scrollbar-track { background:var(--black); }
+.console-inner::-webkit-scrollbar-thumb { background:var(--rule-light); border-radius:3px; }
+.console-line { white-space:pre-wrap; word-break:break-all; }
+.console-line.status { color:var(--red); font-weight:500; }
+.console-line.error { color:#e05555; }
+.console-line.success { color:var(--green); font-weight:500; }
+
+.launch-progress {
+  height:2px; background:var(--rule);
+  position:relative; overflow:hidden; display:none;
+}
+.launch-progress.active { display:block; }
+.launch-progress-bar {
+  height:100%; background:var(--red);
+  animation:shimmer 1.5s linear infinite;
+  background:linear-gradient(90deg, var(--red) 0%, var(--red-dim) 50%, var(--red) 100%);
+  background-size:200% 100%;
+  width:100%;
+}
+
+/* ── GATE SCREEN ────────────── */
+.gate-overlay {
+  position:fixed; inset:0; z-index:150;
+  background:var(--black);
+  display:flex; align-items:center; justify-content:center;
+  animation:fadeIn 0.3s ease both;
+}
+.gate-overlay.dismissed {
+  animation:fadeIn 0.35s ease reverse both;
+  pointer-events:none;
+}
+
+.gate-step { display:none; }
+.gate-step.active { display:block; }
+
+/* Step 1 */
+.gate-content {
+  text-align:center; max-width:520px; padding:0 24px;
+  animation:fadeUp 0.5s ease both;
+  animation-delay:0.15s;
+}
+.gate-brand {
+  font-size:11px; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--white-muted);
+  margin-bottom:40px;
+}
+.gate-brand span { color:var(--red); }
+.gate-title {
+  font-size:28px; font-weight:700; letter-spacing:-0.02em;
+  line-height:1.2; margin-bottom:10px;
+}
+.gate-title span { color:var(--red); }
+.gate-sub {
+  font-size:13px; color:var(--white-dim); line-height:1.6;
+  margin-bottom:48px;
+}
+.gate-options {
+  display:flex; gap:16px; justify-content:center;
+}
+.gate-btn {
+  padding:14px 32px; border-radius:4px;
+  font-family:var(--sans); font-size:13px; font-weight:600;
+  cursor:pointer; transition:all 0.2s;
+  text-transform:uppercase; letter-spacing:0.06em;
+  display:flex; align-items:center; gap:10px;
+  border:none;
+}
+.gate-btn svg { width:16px; height:16px; }
+.gate-btn.primary {
+  background:var(--red); color:var(--white);
+}
+.gate-btn.primary:hover { background:var(--red-dim); }
+.gate-btn.secondary {
+  background:none; color:var(--white-dim);
+  border:1px solid var(--rule);
+}
+.gate-btn.secondary:hover { border-color:var(--rule-light); color:var(--white); }
+.gate-last-fired {
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+  margin-top:36px; display:flex; align-items:center; justify-content:center; gap:5px;
+}
+.gate-last-fired svg { width:10px; height:10px; opacity:0.4; }
+.gate-last-fired .timestamp { color:var(--white-dim); }
+
+/* Step 2 — Source cards */
+.gate-sources {
+  text-align:center; max-width:680px; padding:0 24px;
+  animation:fadeUp 0.4s ease both;
+}
+.gate-sources .gate-title { margin-bottom:8px; }
+.gate-sources .gate-sub { margin-bottom:36px; }
+.source-cards {
+  display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  margin-bottom:32px;
+}
+.source-card {
+  background:var(--surface); border:1px solid var(--rule);
+  border-radius:6px; padding:28px 24px; text-align:center;
+  cursor:pointer; transition:all 0.2s; position:relative;
+}
+.source-card:hover { border-color:var(--rule-light); }
+.source-card.selected { border-color:var(--red); background:var(--red-wash); }
+.source-card.disabled {
+  opacity:0.45; cursor:not-allowed;
+}
+.source-card.disabled:hover { border-color:var(--rule); }
+.source-card-logo {
+  width:64px; height:64px; border-radius:8px; margin:0 auto 16px;
+  display:flex; align-items:center; justify-content:center;
+}
+.source-card-logo.idp {
+  background:linear-gradient(135deg, #1a3a5c 0%, #0d2240 100%);
+  border:1px solid rgba(255,255,255,0.08);
+}
+.source-card-logo.gs {
+  background:linear-gradient(135deg, #1c4e2e 0%, #0e2a18 100%);
+  border:1px solid rgba(255,255,255,0.08);
+}
+.source-card-logo-text {
+  font-family:var(--sans); font-weight:700; font-size:11px;
+  color:var(--white); text-align:center; line-height:1.2;
+}
+.source-card-logo-text .logo-accent { color:#4a9eda; }
+.source-card-logo-text .logo-accent-g { color:#5cb87a; }
+.source-card-name {
+  font-size:14px; font-weight:700; margin-bottom:4px;
+}
+.source-card-name .accent { color:var(--red); }
+.source-card-desc {
+  font-size:11px; color:var(--white-dim); line-height:1.5;
+}
+.source-card-badge {
+  position:absolute; top:10px; right:10px;
+  font-family:var(--mono); font-size:7px; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.08em;
+  padding:2px 6px; border-radius:2px;
+}
+.source-card-badge.ready { color:var(--red); background:var(--red-wash); border:1px solid var(--red-border); }
+.source-card-badge.coming { color:var(--white-muted); background:var(--surface2); border:1px solid var(--rule); }
+.source-card-check {
+  display:none; margin-top:12px;
+  font-family:var(--mono); font-size:9px; font-weight:600;
+  color:var(--red); text-transform:uppercase; letter-spacing:0.06em;
+}
+.source-card.selected .source-card-check { display:block; }
+.source-card-ts {
+  font-family:var(--mono); font-size:8px; color:var(--white-muted);
+  margin-top:8px;
+}
+
+.gate-launch-row {
+  display:flex; justify-content:center; gap:12px;
+}
+.gate-back-btn {
+  background:none; border:1px solid var(--rule); border-radius:4px;
+  padding:12px 24px; font-family:var(--sans); font-size:12px;
+  font-weight:500; color:var(--white-muted); cursor:pointer;
+  transition:all 0.15s;
+}
+.gate-back-btn:hover { border-color:var(--rule-light); color:var(--white-dim); }
+.gate-fire-btn {
+  background:var(--red); border:none; border-radius:4px;
+  padding:12px 32px; font-family:var(--sans); font-size:13px;
+  font-weight:700; color:var(--white); cursor:pointer;
+  text-transform:uppercase; letter-spacing:0.06em;
+  transition:all 0.15s; display:flex; align-items:center; gap:8px;
+}
+.gate-fire-btn:hover { background:var(--red-dim); }
+.gate-fire-btn:disabled { opacity:0.3; cursor:not-allowed; }
+.gate-fire-btn svg { width:14px; height:14px; }
+
+.page { display:none; }
+.page.visible { display:block; }
+
+/* ── RESPONSIVE ─────────────── */
+@media (max-width:900px) {
+  .stats-row { grid-template-columns:repeat(3, 1fr); }
+  .table-header, .issue-row {
+    grid-template-columns:36px 1.5fr 80px 100px 60px;
+  }
+  .th:nth-child(n+6), .td:nth-child(n+6) { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="index.html">Bond<span>Scrape</span></a>
+  <div class="topbar-sep"></div>
+  <div class="topbar-nav">
+    <a href="screening_ui.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h10"/><circle cx="14" cy="8" r="1.5" fill="currentColor" stroke="none"/></svg>
+      Screening
+    </a>
+    <a class="active" href="scraper.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2v12h10V6l-4-4H3z"/><path d="M9 2v4h4"/><path d="M5 9h6M5 11.5h4"/></svg>
+      Scraper
+    </a>
+    <a href="pipeline.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h4l2-5 3 10 2-5h3"/></svg>
+      Pipeline
+    </a>
+    <a href="firms.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="5" r="3"/><circle cx="11" cy="5" r="3"/><path d="M1 14c0-2.5 1.8-4 4-4 1 0 1.8.3 2.5.8M8.5 10.8c.7-.5 1.5-.8 2.5-.8 2.2 0 4 1.5 4 4"/></svg>
+      Firms
+    </a>
+    <a href="index.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8l6-6 6 6M4 7v7h3v-4h2v4h3V7"/></svg>
+      Home
+    </a>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-tag">PROSPECTUS SCRAPER</div>
+</div>
+
+<!-- GATE SCREEN -->
+<div class="gate-overlay" id="gate-overlay">
+
+  <!-- STEP 1: Launch or Skip -->
+  <div class="gate-step active" id="gate-step-1">
+    <div class="gate-content">
+      <div class="gate-brand">Bond<span>Scrape</span> &mdash; Prospectus Scraper</div>
+      <div class="gate-title">Scrape <span>new issues</span> or browse existing?</div>
+      <div class="gate-sub">Launch the Playwright scraper to pull the latest bond documents, or skip ahead to browse previously scraped data.</div>
+      <div class="gate-options">
+        <button class="gate-btn primary" onclick="gateToStep2()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="4,2 14,8 4,14" fill="currentColor" stroke="none"/></svg>
+          Launch Scraper
+        </button>
+        <button class="gate-btn secondary" onclick="gateChoice('skip')">
+          Proceed without scraping
+        </button>
+      </div>
+      <div class="gate-last-fired" id="gate-last-fired">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 4v4l3 2"/></svg>
+        <span id="gate-last-fired-text">Never launched</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Source Selection -->
+  <div class="gate-step" id="gate-step-2">
+    <div class="gate-sources">
+      <div class="gate-brand">Bond<span>Scrape</span> &mdash; Select Source</div>
+      <div class="gate-title">Choose a <span>data source</span></div>
+      <div class="gate-sub">Select which prospectus portal to scrape. You can run multiple sources.</div>
+
+      <div class="source-cards">
+        <div class="source-card selected" id="src-card-idp" onclick="toggleSource('idp')">
+          <div class="source-card-badge ready">Ready</div>
+          <div class="source-card-logo idp">
+            <div class="source-card-logo-text">S&amp;P<br><span class="logo-accent">i-deal</span></div>
+          </div>
+          <div class="source-card-name">S&amp;P Global <span class="accent">i-dealprospectus</span></div>
+          <div class="source-card-desc">Primary prospectus repository. NOS, POS, and Final OS documents for competitive and negotiated sales.</div>
+          <div class="source-card-ts" id="src-ts-idp"></div>
+          <div class="source-card-check">Selected</div>
+        </div>
+
+        <div class="source-card disabled" id="src-card-gs">
+          <div class="source-card-badge coming">Coming Soon</div>
+          <div class="source-card-logo gs">
+            <div class="source-card-logo-text"><span class="logo-accent-g">GRANT</span><br>STREET</div>
+          </div>
+          <div class="source-card-name">Grant Street <span class="accent">Group</span></div>
+          <div class="source-card-desc">Electronic bidding platform and document portal. MuniAuction competitive bond auction system.</div>
+          <div class="source-card-ts"></div>
+          <div class="source-card-check">Selected</div>
+        </div>
+      </div>
+
+      <div class="gate-launch-row">
+        <button class="gate-back-btn" onclick="gateBackToStep1()">Back</button>
+        <button class="gate-fire-btn" id="gate-fire-btn" onclick="gateFireSelected()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="4,2 14,8 4,14" fill="currentColor" stroke="none"/></svg>
+          Fire Selected Scrapers
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="page" id="main-page">
+
+  <!-- SOURCE PORTALS -->
+  <div class="portals-row">
+
+    <!-- i-Deal Prospectus -->
+    <div class="portal-card active" id="portal-idp">
+      <div class="portal-status live">Active</div>
+      <div class="portal-head">
+        <div class="portal-logo idp">
+          <div class="portal-logo-text">S&amp;P<br><span class="logo-accent">i-deal</span></div>
+        </div>
+        <div class="portal-info">
+          <div class="portal-name">S&amp;P Global <span class="accent">i-dealprospectus</span></div>
+          <div class="portal-provider">S&amp;P Global Market Intelligence</div>
+          <div class="portal-desc">Primary prospectus repository for competitive and negotiated municipal bond sales. NOS, POS, and Final OS documents.</div>
+          <div class="portal-url">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3H3v10h10v-3"/><path d="M9 2h5v5"/><path d="M14 2L7 9"/></svg>
+            i-dealprospectus.com
+          </div>
+        </div>
+      </div>
+      <div class="portal-body">
+        <div class="launch-panel" id="launch-panel">
+          <div class="launch-header">
+            <div style="flex:1;">
+              <div class="launch-actions">
+                <button class="index-btn" id="index-btn" onclick="launchIndex()">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2h12v12H2z"/><path d="M2 6h12M6 6v8"/></svg>
+                  Build Index
+                </button>
+                <button class="stop-btn" id="stop-btn" onclick="stopScraper()">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="8" height="8" fill="currentColor"/></svg>
+                  Stop
+                </button>
+                <button class="launch-btn" id="launch-btn" onclick="launchScraper()">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="4,2 14,8 4,14" fill="currentColor" stroke="none"/></svg>
+                  Launch Scraper
+                </button>
+              </div>
+              <div class="last-fired" id="last-fired">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 4v4l3 2"/></svg>
+                <span id="last-fired-text">Never launched</span>
+              </div>
+            </div>
+          </div>
+          <div class="launch-progress" id="launch-progress"><div class="launch-progress-bar"></div></div>
+          <div class="launch-console" id="launch-console">
+            <div class="console-inner" id="console-inner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grant Street -->
+    <div class="portal-card disabled" id="portal-gs">
+      <div class="portal-status coming">Coming Soon</div>
+      <div class="portal-head">
+        <div class="portal-logo gs">
+          <div class="portal-logo-text"><span class="logo-accent-g">GRANT</span><br>STREET</div>
+        </div>
+        <div class="portal-info">
+          <div class="portal-name">Grant Street <span class="accent">Group</span></div>
+          <div class="portal-provider">MuniAuction / Grant Street Group</div>
+          <div class="portal-desc">Electronic bidding platform and document portal for competitive municipal bond sales. Primary auction platform alongside PARITY.</div>
+          <div class="portal-url">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3H3v10h10v-3"/><path d="M9 2h5v5"/><path d="M14 2L7 9"/></svg>
+            grantstreet.com
+          </div>
+        </div>
+      </div>
+      <div class="portal-body">
+        <div style="text-align:center;padding:12px 0;">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--white-muted);text-transform:uppercase;letter-spacing:0.06em;">Scraper integration pending</div>
+          <div style="font-size:11px;color:var(--white-muted);margin-top:6px;line-height:1.5;">Grant Street document scraper will enable pulling NOS and bid documents directly from the MuniAuction platform.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row" id="stats-row">
+    <div class="stat-card accent">
+      <div class="stat-label">Total Issues</div>
+      <div class="stat-value" id="stat-total">—</div>
+      <div class="stat-sub" id="stat-total-sub"></div>
+    </div>
+    <div class="stat-card accent">
+      <div class="stat-label">Competitive Sales</div>
+      <div class="stat-value" id="stat-comp">—</div>
+      <div class="stat-sub" id="stat-comp-sub"></div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-label">NOS Available</div>
+      <div class="stat-value" id="stat-nos">—</div>
+      <div class="stat-sub" id="stat-nos-sub"></div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-label">States Covered</div>
+      <div class="stat-value" id="stat-states">—</div>
+      <div class="stat-sub" id="stat-states-sub"></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Documents</div>
+      <div class="stat-value" id="stat-docs">—</div>
+      <div class="stat-sub" id="stat-docs-sub"></div>
+    </div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar" id="toolbar">
+    <div class="search-box">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l4 4"/></svg>
+      <input type="text" id="search-input" placeholder="Search issues, states, managers...">
+    </div>
+    <button class="filter-btn" id="filter-comp" onclick="toggleFilter('comp')">
+      Competitive <span class="count" id="filter-comp-count">0</span>
+    </button>
+    <button class="filter-btn" id="filter-nos" onclick="toggleFilter('nos')">
+      Has NOS <span class="count" id="filter-nos-count">0</span>
+    </button>
+    <button class="filter-btn" id="filter-neg" onclick="toggleFilter('neg')">
+      Negotiated <span class="count" id="filter-neg-count">0</span>
+    </button>
+    <div class="toolbar-sep"></div>
+    <span class="selection-info" id="selection-info"></span>
+    <button class="action-btn" id="push-btn" disabled onclick="pushToScreening()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M10 5l3 3-3 3"/></svg>
+      Push to Screening
+    </button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <div class="table-header">
+      <div class="th" style="justify-content:center">
+        <input type="checkbox" class="select-all-check" id="select-all" onchange="toggleSelectAll()">
+      </div>
+      <div class="th" onclick="sortBy('issue')">Issuer <span class="sort-arrow">▼</span></div>
+      <div class="th" onclick="sortBy('state')">State <span class="sort-arrow">▼</span></div>
+      <div class="th" onclick="sortBy('par')">Par Amount <span class="sort-arrow">▼</span></div>
+      <div class="th" onclick="sortBy('type')">Sale Type <span class="sort-arrow">▼</span></div>
+      <div class="th" onclick="sortBy('docs')">Documents <span class="sort-arrow">▼</span></div>
+      <div class="th" onclick="sortBy('manager')">Manager/FA <span class="sort-arrow">▼</span></div>
+      <div class="th" style="justify-content:center">Docs</div>
+    </div>
+    <div class="table-body" id="table-body">
+      <div class="loading-state" id="loading-state">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <span class="loading-text">Loading prospectus data...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── STATE ─────────────────────
+let allIssues = [];
+let filteredIssues = [];
+let selectedIds = new Set();
+let expandedIdx = null;
+let sortKey = 'par';
+let sortAsc = false;
+let activeFilters = new Set();
+
+// ── DATA LOADING ──────────────
+async function loadData() {
+  try {
+    const resp = await fetch('/prospectus_json/scraper_output/issues_master.json');
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    const issues = data.issues || data;
+    allIssues = (Array.isArray(issues) ? issues : Object.values(issues)).map(enrichIssue);
+    applyFilters();
+    renderStats();
+    document.getElementById('loading-state').style.display = 'none';
+  } catch(e) {
+    document.getElementById('loading-state').innerHTML =
+      `<div class="empty-state"><div class="empty-icon">!</div>Failed to load data: ${e.message}<br><span style="font-size:10px;color:var(--white-muted);margin-top:8px;display:block">Ensure the scraper has been run and issues_master.json exists in prospectus_json/scraper_output/</span></div>`;
+  }
+}
+
+// ── SCRAPER LAUNCH ────────────
+function consolePrint(msg, cls) {
+  const inner = document.getElementById('console-inner');
+  const line = document.createElement('div');
+  line.className = 'console-line' + (cls ? ' ' + cls : '');
+  line.textContent = msg;
+  inner.appendChild(line);
+  inner.scrollTop = inner.scrollHeight;
+}
+
+async function launchScraper() {
+  const launchBtn = document.getElementById('launch-btn');
+  const stopBtn = document.getElementById('stop-btn');
+  const consoleEl = document.getElementById('launch-console');
+  const progressEl = document.getElementById('launch-progress');
+  const inner = document.getElementById('console-inner');
+
+  launchBtn.disabled = true;
+  launchBtn.classList.add('running');
+  launchBtn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;animation:pulse 1s ease infinite"><circle cx="8" cy="8" r="5"/></svg> Running...';
+  stopBtn.classList.add('visible');
+  consoleEl.classList.add('open');
+  progressEl.classList.add('active');
+  inner.innerHTML = '';
+
+  // Save launch timestamp
+  saveScrapeTimestamp('idp');
+
+  consolePrint('$ python3 iprospectus_scraper/scraper_linkpull.py', 'status');
+
+  try {
+    const evtSource = new EventSource('/api/scraper/launch');
+
+    evtSource.onmessage = (e) => {
+      const data = JSON.parse(e.data);
+      if (data.type === 'log') {
+        consolePrint(data.msg);
+      } else if (data.type === 'status') {
+        consolePrint(data.msg, 'status');
+      } else if (data.type === 'error') {
+        consolePrint('ERROR: ' + data.msg, 'error');
+      } else if (data.type === 'done') {
+        evtSource.close();
+        if (data.success) {
+          consolePrint('Scraper completed successfully.', 'success');
+        } else {
+          consolePrint('Scraper exited with code ' + data.exit_code, 'error');
+        }
+        resetLaunchUI();
+      }
+    };
+
+    evtSource.onerror = () => {
+      evtSource.close();
+      consolePrint('Connection to server lost.', 'error');
+      resetLaunchUI();
+    };
+  } catch(e) {
+    consolePrint('Failed to connect: ' + e.message, 'error');
+    resetLaunchUI();
+  }
+}
+
+async function launchIndex() {
+  const indexBtn = document.getElementById('index-btn');
+  const consoleEl = document.getElementById('launch-console');
+  const progressEl = document.getElementById('launch-progress');
+  const inner = document.getElementById('console-inner');
+
+  indexBtn.disabled = true;
+  consoleEl.classList.add('open');
+  progressEl.classList.add('active');
+
+  consolePrint('$ python3 iprospectus_scraper/build_issue_index.py', 'status');
+
+  try {
+    const evtSource = new EventSource('/api/scraper/build-index');
+
+    evtSource.onmessage = (e) => {
+      const data = JSON.parse(e.data);
+      if (data.type === 'log') {
+        consolePrint(data.msg);
+      } else if (data.type === 'status') {
+        consolePrint(data.msg, 'status');
+      } else if (data.type === 'error') {
+        consolePrint('ERROR: ' + data.msg, 'error');
+      } else if (data.type === 'done') {
+        evtSource.close();
+        if (data.success) {
+          consolePrint('Index built. Reloading data...', 'success');
+          loadData();
+        } else {
+          consolePrint('Index build failed with code ' + data.exit_code, 'error');
+        }
+        indexBtn.disabled = false;
+        document.getElementById('launch-progress').classList.remove('active');
+      }
+    };
+
+    evtSource.onerror = () => {
+      evtSource.close();
+      consolePrint('Connection lost.', 'error');
+      indexBtn.disabled = false;
+      progressEl.classList.remove('active');
+    };
+  } catch(e) {
+    consolePrint('Failed: ' + e.message, 'error');
+    indexBtn.disabled = false;
+    progressEl.classList.remove('active');
+  }
+}
+
+async function stopScraper() {
+  consolePrint('Sending stop signal...', 'status');
+  try {
+    await fetch('/api/scraper/stop', {method: 'POST'});
+    consolePrint('Stop signal sent.', 'status');
+  } catch(e) {
+    consolePrint('Failed to stop: ' + e.message, 'error');
+  }
+}
+
+function resetLaunchUI() {
+  const launchBtn = document.getElementById('launch-btn');
+  launchBtn.disabled = false;
+  launchBtn.classList.remove('running');
+  launchBtn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><polygon points="4,2 14,8 4,14" fill="currentColor" stroke="none"/></svg> Launch Scraper';
+  document.getElementById('stop-btn').classList.remove('visible');
+  document.getElementById('launch-progress').classList.remove('active');
+}
+
+function enrichIssue(iss) {
+  const docs = iss.documents || [];
+  const docTypes = [...new Set(docs.map(d => d.doc_type))];
+  const hasNos = docTypes.some(t => t.toUpperCase().startsWith('NOS'));
+  const state = parseState(iss.issue || '');
+  const source = iss._source || (iss.pdf_url && iss.pdf_url.includes('grantstreet') ? 'grant_street' : 'idp');
+  return { ...iss, _docTypes: docTypes, _hasNos: hasNos, _state: state, _docCount: docs.length, _source: source };
+}
+
+function parseState(name) {
+  // Extract state abbreviation from issue name like "City of X, TX Bond Series..."
+  const m = name.match(/,\s*([A-Z]{2})\s/);
+  return m ? m[1] : '';
+}
+
+// ── STATS ─────────────────────
+function renderStats() {
+  const comp = allIssues.filter(i => i.type === 'Comp');
+  const nos = allIssues.filter(i => i._hasNos);
+  const states = new Set(allIssues.map(i => i._state).filter(Boolean));
+  const totalDocs = allIssues.reduce((a, i) => a + i._docCount, 0);
+
+  animateCount('stat-total', allIssues.length);
+  animateCount('stat-comp', comp.length);
+  animateCount('stat-nos', nos.length);
+  animateCount('stat-states', states.size);
+  animateCount('stat-docs', totalDocs);
+
+  document.getElementById('stat-total-sub').textContent = `from i-dealprospectus.com`;
+  document.getElementById('stat-comp-sub').textContent = `${(comp.length/allIssues.length*100).toFixed(0)}% of total`;
+  document.getElementById('stat-nos-sub').textContent = `screenable by agents`;
+  document.getElementById('stat-states-sub').textContent = [...states].sort().slice(0, 8).join(', ') + (states.size > 8 ? '...' : '');
+  document.getElementById('stat-docs-sub').textContent = `NOS: ${allIssues.reduce((a,i) => a + i._docTypes.filter(t => t.toUpperCase().startsWith('NOS')).length, 0)} | Prelim: ${allIssues.reduce((a,i) => a + i._docTypes.filter(t => t === 'Prelim').length, 0)} | Final: ${allIssues.reduce((a,i) => a + i._docTypes.filter(t => t === 'Final').length, 0)}`;
+
+  document.getElementById('filter-comp-count').textContent = comp.length;
+  document.getElementById('filter-nos-count').textContent = nos.length;
+  document.getElementById('filter-neg-count').textContent = allIssues.filter(i => i.type === 'Neg').length;
+}
+
+function animateCount(id, target) {
+  const el = document.getElementById(id);
+  let current = 0;
+  const step = Math.max(1, Math.floor(target / 20));
+  const interval = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.textContent = current.toLocaleString();
+    if (current >= target) clearInterval(interval);
+  }, 30);
+}
+
+// ── FILTERING & SORTING ───────
+function toggleFilter(key) {
+  const btn = document.getElementById('filter-' + key);
+  if (activeFilters.has(key)) { activeFilters.delete(key); btn.classList.remove('active'); }
+  else { activeFilters.add(key); btn.classList.add('active'); }
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+  filteredIssues = allIssues.filter(iss => {
+    if (activeFilters.has('comp') && iss.type !== 'Comp') return false;
+    if (activeFilters.has('neg') && iss.type !== 'Neg') return false;
+    if (activeFilters.has('nos') && !iss._hasNos) return false;
+    if (q) {
+      const haystack = [iss.issue, iss._state, iss.manager_fa, iss.type, ...iss._docTypes].join(' ').toLowerCase();
+      if (!haystack.includes(q)) return false;
+    }
+    return true;
+  });
+
+  sortIssues();
+  renderTable();
+  updateSelectionInfo();
+}
+
+function sortBy(key) {
+  if (sortKey === key) sortAsc = !sortAsc;
+  else { sortKey = key; sortAsc = key === 'issue' || key === 'state'; }
+
+  document.querySelectorAll('.th').forEach(th => th.classList.remove('sorted'));
+  const headers = ['', 'issue', 'state', 'par', 'type', 'docs', 'manager', ''];
+  const idx = headers.indexOf(key);
+  if (idx > 0) {
+    const th = document.querySelectorAll('.th')[idx];
+    th.classList.add('sorted');
+    th.querySelector('.sort-arrow').textContent = sortAsc ? '▲' : '▼';
+  }
+
+  sortIssues();
+  renderTable();
+}
+
+function sortIssues() {
+  filteredIssues.sort((a, b) => {
+    let va, vb;
+    switch(sortKey) {
+      case 'issue': va = a.issue; vb = b.issue; break;
+      case 'state': va = a._state; vb = b._state; break;
+      case 'par': va = a.par_amt_numeric || 0; vb = b.par_amt_numeric || 0; break;
+      case 'type': va = a.type; vb = b.type; break;
+      case 'docs': va = a._docCount; vb = b._docCount; break;
+      case 'manager': va = a.manager_fa || ''; vb = b.manager_fa || ''; break;
+      default: va = 0; vb = 0;
+    }
+    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return sortAsc ? va - vb : vb - va;
+  });
+}
+
+// ── TABLE RENDERING ───────────
+function renderTable() {
+  const body = document.getElementById('table-body');
+  if (!filteredIssues.length) {
+    body.innerHTML = '<div class="empty-state"><div class="empty-icon">&#x2205;</div>No issues match the current filters</div>';
+    return;
+  }
+
+  let html = '';
+  filteredIssues.forEach((iss, idx) => {
+    const slug = iss.issue_slug || '';
+    const sel = selectedIds.has(slug);
+    const exp = expandedIdx === idx;
+    const par = iss.par_amt_numeric ? fmtPar(iss.par_amt_numeric) : iss.par_amt || '—';
+
+    const consensus = iss._hasNos ? getIssueConsensus(iss.issue_slug) : null;
+    const cBadge = consensus ? `<span class="issue-screening-badge ${consensus.decision}">${consensus.decision}</span>` : (iss._hasNos ? '' : '');
+
+    html += `<div class="issue-row ${sel ? 'selected' : ''} ${exp ? 'expanded' : ''}" data-idx="${idx}" onclick="handleRowClick(event, ${idx})">
+      <div class="td checkbox-cell"><input type="checkbox" class="row-check" ${sel ? 'checked' : ''} onclick="event.stopPropagation(); toggleSelect(${idx})"></div>
+      <div class="td issuer-name" title="${esc(iss.issue)}"><span class="name-text">${esc(iss.issue)}</span>${cBadge}<span class="source-tag ${iss._source === 'grant_street' ? 'gs' : 'idp'}">${iss._source === 'grant_street' ? 'Grant Street' : 'S&amp;P i-deal'}</span></div>
+      <div class="td mono">${iss._state || '—'}</div>
+      <div class="td mono">${par}</div>
+      <div class="td"><span class="sale-badge ${iss.type === 'Comp' ? 'comp' : 'neg'}">${iss.type || '—'}</span></div>
+      <div class="td"><div class="doc-pills">${iss._docTypes.map(t => `<span class="doc-pill ${docPillClass(t)}">${t}</span>`).join('')}</div></div>
+      <div class="td dim" style="font-size:10px;" title="${esc(iss.manager_fa || '')}">${truncate(iss.manager_fa || '—', 20)}</div>
+      <div class="td mono" style="justify-content:center;">${iss._docCount}</div>
+    </div>`;
+
+    if (exp) {
+      html += renderDetail(iss);
+    }
+  });
+
+  body.innerHTML = html;
+}
+
+function renderDetail(iss) {
+  const docs = iss.documents || [];
+  const consensus = getIssueConsensus(iss.issue_slug);
+
+  let cards = docs.map(d => {
+    const typeClass = docPillClass(d.doc_type);
+    const isNos = d.doc_type.toUpperCase().startsWith('NOS');
+    const screenBadge = isNos ? (consensus
+      ? `<span class="screening-badge ${consensus.decision}">${consensus.decision}</span>`
+      : `<span class="screening-badge unscreened">unscreened</span>`) : '';
+    return `<div class="doc-card">
+      <div class="doc-card-head">
+        <span class="doc-card-type ${typeClass}">${d.doc_type}</span>
+        <span class="doc-card-date">${d.date || '—'}</span>
+        ${d.size_mb ? `<span class="doc-card-date">${d.size_mb} MB</span>` : ''}
+        ${screenBadge}
+      </div>
+      <div class="doc-card-meta">
+        ID: <span>${truncate(d.document_id || '—', 40)}</span><br>
+        Status: <span>${d.remote_parse_status || 'unparsed'}</span>
+      </div>
+      <div class="doc-card-actions">
+        ${d.pdf_url ? `<a class="doc-btn" href="${d.pdf_url}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12l4 2 4-2"/><path d="M8 2v10"/></svg>
+          View PDF
+        </a>` : ''}
+        ${isNos ? `<button class="doc-btn primary" onclick="event.stopPropagation(); screenNosDoc('${esc(d.pdf_url || '')}', '${esc(iss.issue)}')">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M10 5l3 3-3 3"/></svg>
+          Screen This NOS
+        </button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  return `<div class="issue-detail"><div class="detail-docs-grid">${cards}</div></div>`;
+}
+
+// ── INTERACTIONS ───────────────
+function handleRowClick(e, idx) {
+  if (e.target.classList.contains('row-check')) return;
+  expandedIdx = expandedIdx === idx ? null : idx;
+  renderTable();
+}
+
+function toggleSelect(idx) {
+  const slug = filteredIssues[idx].issue_slug;
+  if (selectedIds.has(slug)) selectedIds.delete(slug);
+  else selectedIds.add(slug);
+  renderTable();
+  updateSelectionInfo();
+}
+
+function toggleSelectAll() {
+  const allCheck = document.getElementById('select-all');
+  if (allCheck.checked) {
+    filteredIssues.forEach(iss => { if (iss._hasNos) selectedIds.add(iss.issue_slug); });
+  } else {
+    filteredIssues.forEach(iss => selectedIds.delete(iss.issue_slug));
+  }
+  renderTable();
+  updateSelectionInfo();
+}
+
+function updateSelectionInfo() {
+  const n = selectedIds.size;
+  const info = document.getElementById('selection-info');
+  const btn = document.getElementById('push-btn');
+  info.textContent = n > 0 ? `${n} issue${n > 1 ? 's' : ''} selected` : '';
+  btn.disabled = n === 0;
+
+  // Update select-all state
+  const allCheck = document.getElementById('select-all');
+  const visibleSlugs = new Set(filteredIssues.map(i => i.issue_slug));
+  const selectedVisible = [...selectedIds].filter(s => visibleSlugs.has(s)).length;
+  allCheck.checked = selectedVisible > 0 && selectedVisible === filteredIssues.length;
+  allCheck.classList.toggle('partial', selectedVisible > 0 && selectedVisible < filteredIssues.length);
+}
+
+// ── PUSH TO SCREENING ─────────
+function pushToScreening() {
+  const selected = allIssues.filter(iss => selectedIds.has(iss.issue_slug));
+  // Find NOS documents from selected issues
+  const nosDeals = [];
+  selected.forEach(iss => {
+    const nosDocs = (iss.documents || []).filter(d => d.doc_type.toUpperCase().startsWith('NOS'));
+    nosDocs.forEach(d => {
+      nosDeals.push({
+        issue: iss.issue,
+        issue_slug: iss.issue_slug,
+        state: iss._state,
+        par_amt_numeric: iss.par_amt_numeric,
+        type: iss.type,
+        manager_fa: iss.manager_fa,
+        doc_type: d.doc_type,
+        pdf_url: d.pdf_url,
+        document_id: d.document_id
+      });
+    });
+  });
+
+  if (!nosDeals.length) {
+    showToast('No NOS documents found in selected issues. Select issues with NOS documents.', true);
+    return;
+  }
+
+  // Store in localStorage for screening_ui.html to pick up
+  const existing = JSON.parse(localStorage.getItem('nos_scraper_queue') || '[]');
+  const existingIds = new Set(existing.map(d => d.document_id));
+  const newDeals = nosDeals.filter(d => !existingIds.has(d.document_id));
+  const merged = [...existing, ...newDeals];
+  localStorage.setItem('nos_scraper_queue', JSON.stringify(merged));
+
+  showToast(`${newDeals.length} NOS deal${newDeals.length !== 1 ? 's' : ''} queued for screening (${merged.length} total in queue). Go to Screening tab to process.`);
+}
+
+function screenNosDoc(pdfUrl, issueName) {
+  // Store single NOS for immediate screening
+  const queue = [{
+    issue: issueName,
+    pdf_url: pdfUrl,
+    document_id: 'direct_' + Date.now()
+  }];
+  localStorage.setItem('nos_scraper_queue', JSON.stringify(queue));
+  window.location.href = 'screening_ui.html?from=scraper';
+}
+
+// ── TOAST ─────────────────────
+function showToast(msg, isError) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = `toast ${isError ? 'error' : ''}`;
+  toast.innerHTML = `<span class="toast-icon">${isError ? '!' : '+'}</span><span class="toast-msg">${msg}</span><button class="toast-close" onclick="this.parentElement.remove()">x</button>`;
+  document.body.appendChild(toast);
+  setTimeout(() => { if (toast.parentElement) { toast.classList.add('toast-hide'); setTimeout(() => toast.remove(), 200); } }, 5000);
+}
+
+// ── HELPERS ────────────────────
+function fmtPar(n) {
+  if (n >= 1e9) return '$' + (n/1e9).toFixed(2) + 'B';
+  if (n >= 1e6) return '$' + (n/1e6).toFixed(n % 1e6 === 0 ? 0 : 1) + 'M';
+  if (n >= 1e3) return '$' + (n/1e3).toFixed(0) + 'K';
+  return '$' + n.toLocaleString();
+}
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;'); }
+function getConsensusResults() { try { return JSON.parse(localStorage.getItem('nos_consensus_results') || '{}'); } catch(e) { return {}; } }
+function getIssueConsensus(slug) {
+  const results = getConsensusResults();
+  const r = results[slug];
+  if (!r) return null;
+  const firms = Object.keys(r);
+  if (!firms.length) return null;
+  return r[firms[firms.length - 1]];
+}
+function truncate(s, n) { return s.length > n ? s.substring(0, n) + '...' : s; }
+function docPillClass(t) {
+  const u = (t||'').toUpperCase();
+  if (u.startsWith('NOS')) return 'nos';
+  if (u === 'PRELIM') return 'prelim';
+  if (u === 'FINAL') return 'final';
+  return '';
+}
+
+// ── SEARCH DEBOUNCE ───────────
+let searchTimer;
+document.getElementById('search-input').addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(applyFilters, 200);
+});
+
+// ── SCRAPE TIMESTAMPS ─────────
+function getScrapeTimestamps() {
+  try { return JSON.parse(localStorage.getItem('nos_scrape_timestamps') || '{}'); } catch(e) { return {}; }
+}
+
+function saveScrapeTimestamp(source) {
+  const ts = getScrapeTimestamps();
+  ts[source] = Date.now();
+  localStorage.setItem('nos_scrape_timestamps', JSON.stringify(ts));
+  renderLastFired();
+}
+
+function renderLastFired() {
+  const ts = getScrapeTimestamps();
+  const el = document.getElementById('last-fired-text');
+  const idpTs = ts['idp'];
+  if (idpTs) {
+    const d = new Date(idpTs);
+    const date = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    el.innerHTML = `Last fired: <span class="timestamp">${date}</span> at <span class="timestamp">${time}</span>`;
+  } else {
+    el.textContent = 'Never launched';
+  }
+}
+
+// ── GATE SCREEN ───────────────
+let selectedSources = new Set(['idp']);
+
+function formatTimestamp(ts) {
+  if (!ts) return null;
+  const d = new Date(ts);
+  const date = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  return { date, time };
+}
+
+function renderGateTimestamp() {
+  const ts = getScrapeTimestamps();
+
+  // Step 1 timestamp
+  const el = document.getElementById('gate-last-fired-text');
+  const idpTs = ts['idp'];
+  if (idpTs) {
+    const f = formatTimestamp(idpTs);
+    el.innerHTML = `Last scraped: <span class="timestamp">${f.date}</span> at <span class="timestamp">${f.time}</span>`;
+  } else {
+    el.textContent = 'No previous scrape recorded';
+  }
+
+  // Step 2 card timestamps
+  const idpTsEl = document.getElementById('src-ts-idp');
+  if (idpTs) {
+    const f = formatTimestamp(idpTs);
+    idpTsEl.innerHTML = `Last: ${f.date} at ${f.time}`;
+  } else {
+    idpTsEl.textContent = 'Never scraped';
+  }
+}
+
+function gateToStep2() {
+  document.getElementById('gate-step-1').classList.remove('active');
+  document.getElementById('gate-step-2').classList.add('active');
+  renderGateTimestamp();
+}
+
+function gateBackToStep1() {
+  document.getElementById('gate-step-2').classList.remove('active');
+  document.getElementById('gate-step-1').classList.add('active');
+}
+
+function toggleSource(src) {
+  if (src === 'gs') return; // disabled
+  const card = document.getElementById('src-card-' + src);
+  if (selectedSources.has(src)) {
+    selectedSources.delete(src);
+    card.classList.remove('selected');
+  } else {
+    selectedSources.add(src);
+    card.classList.add('selected');
+  }
+  document.getElementById('gate-fire-btn').disabled = selectedSources.size === 0;
+}
+
+function gateFireSelected() {
+  const sources = [...selectedSources];
+  gateChoice('launch', sources);
+}
+
+function gateChoice(choice, sources) {
+  const overlay = document.getElementById('gate-overlay');
+  overlay.classList.add('dismissed');
+  setTimeout(() => {
+    overlay.style.display = 'none';
+    document.getElementById('main-page').classList.add('visible');
+    if (choice === 'launch' && sources && sources.includes('idp')) {
+      setTimeout(() => launchScraper(), 400);
+    }
+  }, 350);
+}
+
+// ── INIT ──────────────────────
+renderGateTimestamp();
+loadData();
+renderLastFired();
+
+// Default: sort by par descending, filter to competitive with NOS
+setTimeout(() => {
+  sortBy('par');
+}, 100);
+</script>
+</body>
+</html>
