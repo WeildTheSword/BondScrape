@@ -1,0 +1,407 @@
+READING SCRIPT FOR: 09_Virginia_HDA,_VA_Rental_Housing_Bonds,_2026_Series_A-Non-AMT.pdf
+Total pages: 12
+========================================================================
+
+--- PAGE 1 of 12 ---
+
+[PARAGRAPH]
+  February 20, 2026
+
+[CENTERED TITLE BLOCK]
+  NOTICE OF SALE
+  VIRGINIA HOUSING DEVELOPMENT AUTHORITY
+  $17,860,000*
+  Rental Housing Bonds
+  $17,860,000* 2026 Series A-Non-AMT
+[END CENTERED TITLE]
+
+[PARAGRAPH]
+  The Rental Housing Bonds, 2026 Series A-Non-AMT (the “Offered Bonds”) are being sold as indicated in this Notice of Sale and are expected to be available for delivery on March 19, 2026 (such date, as may be changed as described herein, is referred to as the “Settlement Date”).
+
+[PARAGRAPH]
+  Electronic bids, via S&P Global Market Intelligence’s Parity electronic bid submission system (the “Bidding System”) for the purchase of the entire amount of the Offered Bonds, at a price equal to 100% of each maturity and the aggregate principal amount of the Offered Bonds, will be received by the Virginia Housing Development Authority (the “Authority”) until 11:00 a.m., NEW YORK, NEW YORK TIME, on Thursday, March 5, 2026 (unless changed as described herein). Such time and date for receipt of bids, as may be so changed, are referred to herein as the “Bid Time” and “Bid Date,” respectively.
+
+[PARAGRAPH]
+  The winning bid will be designated prior to 4:00 p.m., NEW YORK, NEW YORK TIME, on the Bid Date.
+
+[PARAGRAPH]
+  The Offered Bonds are expected to be issued by the Authority on the Settlement Date, pursuant to the Current Resolution as defined in the Preliminary Official Statement dated February 20, 2026, as it may be amended prior to 4:00 p.m. New York, New York time on March 4, 2026 (the “Preliminary Official Statement”). This Notice of Sale, the Preliminary Official Statement and the preliminary Blue Sky Memorandum for the Offered Bonds are being distributed to potential bidders by the Authority electronically through the Bidding System and are available on the Internet at www.i-dealprospectus.com/. At the time of issuance of the Offered Bonds, the approving legal opinion of Hawkins Delafield & Wood LLP, New York, New York, as bond counsel to the Authority (“Bond Counsel”), which will include an opinion as to certain tax matters, will be delivered for the Offered Bonds.
+
+[SUBSECTION HEADING] In the opinion of Bond Counsel, under existing statutes and court decisions and assuming continuing compliance with certain tax covenants, (i) interest on the Offered Bonds is excluded from gross income for federal income tax purposes pursuant to Section 103 of the Internal Revenue Code of 1986, as amended (the “Code”) except that no opinion is expressed as to the exclusion from gross income of interest on any Offered Bond for any period during which the Offered Bond is held by a person who, within the meaning of Section 147(a) of the Code, is a “substantial user” of the facilities financed with the proceeds of the Offered Bonds or a “related person”, and (ii) interest on the Offered Bonds is not treated as a preference item in calculating the alternative minimum tax under the Code, however, interest on the Offered Bonds is included in the “adjusted financial statement income” of certain corporations that are subject to the alternative minimum tax under Section 55 of the Code. See “Tax Matters” in the Preliminary Official Statement.
+
+[FORM FIELDS]
+  ____________________
+[END FORM FIELDS]
+
+[PARAGRAPH]
+  *Preliminary, subject to change.
+
+--- PAGE 2 of 12 ---
+
+[SUBSECTION HEADING] Under the Virginia Housing Development Authority Act, income on the Offered Bonds, including any profit made on the sale thereof, is not included in taxable income for purposes of income taxation by the Commonwealth of Virginia and by the municipalities and all other political subdivisions of the Commonwealth of Virginia. Maturity Schedule
+
+[PARAGRAPH]
+  The principal of the Offered Bonds will be due (subject to the right of prior redemption as set forth in the Preliminary Official Statement) on the dates and in the amounts, respectively, set forth in Appendix A.
+
+[SUBSECTION HEADING] Revised Maturity Schedule
+
+[PARAGRAPH]
+  The specified principal amounts (the “Preliminary Principal Amounts”) as set forth in Appendix A may be revised before the Bid Time on the Bid Date. NOTICE OF ANY SUCH REVISIONS (THE “REVISED PRINCIPAL AMOUNTS”) WILL BE GIVEN IN ACCORDANCE WITH “AMENDMENTS TO THIS NOTICE OF SALE” BELOW. In the event that no such revisions are made, bidders shall submit bids based on the Preliminary Principal Amounts. In the event any such revisions are made, bidders shall submit bids based on the applicable Revised Principal Amounts.
+
+[SUBSECTION HEADING] Changes to Revised Maturity Schedule Prior to Award
+
+[PARAGRAPH]
+  The Authority reserves the right, after bids are opened and prior to award, to increase or reduce the principal amount of the Offered Bonds offered for sale in an amount not to exceed five percent (5%) of the principal amount of the Offered Bonds as such principal amount may be amended pursuant to the preceding paragraph. Any such increase or reduction will be made in integral multiples of $5,000 in each of the maturities (to the extent possible) and will be approximately proportional to the ratio that each such maturity bears to the total principal amount of the Offered Bonds prior to any such increase or decrease. Such changes, if any, will be designated the “Final Principal Amounts”. THE SUCCESSFUL BIDDER MAY NOT WITHDRAW ITS BID OR CHANGE THE INTEREST RATES BID AS A RESULT OF ANY SUCH CHANGES MADE TO THE PRELIMINARY PRINCIPAL AMOUNTS OR REVISED PRINCIPAL AMOUNTS. The dollar amount bid by the successful bidder will be adjusted to reflect the sum of the Final Principal Amounts of the Offered Bonds. The underwriting fee designated in the successful bidder’s bid shall be adjusted so that the per $1,000 of par amount of Offered Bonds underwriting fee shall be the same as the per $1,000 of par amount of Offered Bonds underwriting fee set forth in the successful bidder’s bid. The interest rates specified by the successful bidder for the various maturities of the Offered Bonds will not change. The Authority anticipates that the Final Principal Amounts of the Offered Bonds will be communicated to the successful bidder as soon as possible, but no later than 4:00 p.m., NEW YORK, NEW YORK TIME, on the Bid Date.
+
+[SUBSECTION HEADING] Term Bond Option
+
+[PARAGRAPH]
+  The successful bidder may designate two or more of the consecutive serial maturities for which the interest rate is the same as sinking fund installments of a term bond maturity equal in aggregate principal amount, and with amortization requirements corresponding to such designated serial maturities.
+
+[SUBSECTION HEADING] Electronic Bidding and Bidding Procedures
+
+[PARAGRAPH]
+  Registration to Bid
+
+[PARAGRAPH]
+  All prospective bidders must be contracted customers of the Bidding System. If any prospective bidder does not have a contract with the Bidding System, such bidder should call S&P Global Market
+
+[PARAGRAPH]
+  2
+
+--- PAGE 3 of 12 ---
+
+[PARAGRAPH]
+  Intelligence at (212) 849-5021 to become a customer. By submitting a bid for the Offered Bonds, a prospective bidder represents and warrants to the Authority that such bidder’s bid for the purchase of the Offered Bonds (if a bid is submitted in connection with the sale) is submitted for and on behalf of such prospective bidder by an officer or agent who is duly authorized to bind the prospective bidder to a legal, valid and enforceable contract for the purchase of the Offered Bonds. By contracting with the Bidding System a prospective bidder is not obligated to submit a bid in connection with the sale.
+
+[SECTION HEADING] IF ANY PROVISIONS OF THIS NOTICE OF SALE SHALL CONFLICT WITH INFORMATION PROVIDED BY THE BIDDING SYSTEM, THIS NOTICE OF SALE, AS IT MAY BE AMENDED BY THE AUTHORITY AS DESCRIBED HEREIN, SHALL CONTROL.
+
+[PARAGRAPH]
+  Further information about the Bidding System, including any fee charged, is available by calling S&P Global Market Intelligence at (212) 849-5021.
+
+[PARAGRAPH]
+  Bidding Procedures
+
+[PARAGRAPH]
+  Bids must be submitted electronically via the Bidding System by the Bid Time on the Bid Date. Bids must conform in all respects to the provisions of this Notice of Sale, except for the changes, if any, made by the Authority as described herein.
+
+[PARAGRAPH]
+  Prior to the Bid Time on the Bid Date, a prospective bidder may input and save the proposed terms of its bid in the Bidding System. Once the final bid has been saved in the Bidding System, the bidder may select the final bid button in the Bidding System to submit the bid to the Bidding System. Once the bids are communicated to the Authority electronically via the Bidding System, each bid will constitute an irrevocable offer to purchase the Offered Bonds on the terms therein provided. For purposes of the electronic bidding process, the time as maintained on the Bidding System shall constitute the official time.
+
+[PARAGRAPH]
+  No bids will be accepted in written form, by facsimile transmission or in any other medium or on any system other than by means of the Bidding System. No bid will be accepted after the Bid Time on the Bid Date.
+
+[PARAGRAPH]
+  Bid Specifications
+
+[PARAGRAPH with emphasized text]
+  Bidders shall specify the rates of interest to be borne by the Offered Bonds which may be repeated, provided that: (i) each Offered Bond shall accrue interest from the Settlement Date to its stated maturity date at the interest rate specified in the bid; (ii) all Offered Bonds of the same maturity shall bear the same single rate of interest; and (iii) no bid will be accepted which has any capital appreciation bonds, zero coupon bonds, supplemental coupon bonds or split coupon bonds or which contemplates any other concession. All bids for the Offered Bonds shall be for the full principal amount thereof and shall be
+
+[SUBSECTION HEADING] at a price equal to 100% of each maturity and the aggregate principal amount thereof. No bid for the Offered Bonds will be accepted which varies from the terms described in this Notice of Sale.
+
+[PARAGRAPH]
+  The purchase price in the amount specified on the Bidding System is to be paid by the successful bidder at the delivery of the Offered Bonds. Each bidder for the Offered Bonds shall specify an underwriting fee of not more than $173,587.50 which underwriting fee will be paid upon delivery of the Offered Bonds. The underwriting fee shall be treated as a discount for the purpose of calculating the True Interest Cost as described below. Simultaneously with delivery of the Offered Bonds, payment of the amount due (purchase price less the Deposit amount as defined below) must be made by the successful bidder in immediately available funds via the Fedwire Funds Service to the Authority or its designee without additional cost.
+
+[PARAGRAPH]
+  3
+
+--- PAGE 4 of 12 ---
+
+[PARAGRAPH]
+  Disclaimer
+
+[PARAGRAPH]
+  Each prospective bidder shall be solely responsible to register to bid via the Bidding System and to make necessary arrangements to access the Bidding System for purposes of submitting its bid in a timely manner and in compliance with the requirements of this Notice of Sale. Neither the Authority nor the Bidding System shall have any duty or obligation to undertake such registration to bid for any prospective bidder or to provide or assure such access to any prospective bidder, and neither the Authority nor the Bidding System shall be responsible for a bidder’s failure to register to bid or for proper operation of, or have any liability for any delays or interruptions of, or any damages caused by, the Bidding System. The Authority is using the Bidding System as a communication mechanism, and not as the Authority’s agent, to conduct the electronic bidding for the Offered Bonds. The Authority is not bound by any advice and determination of the Bidding System to the effect that any particular bid complies with the terms of this Notice of Sale and in particular the “Bid Specifications” set forth above. All costs and expenses incurred by a prospective bidder in connection with its registration and submission of bids via the Bidding System are the sole responsibility of the bidder; and the Authority is not responsible, directly or indirectly, for any of such costs or expenses. If a prospective bidder encounters any difficulty in registering to bid or submitting, modifying or withdrawing a bid for the Offered Bonds, it should telephone S&P Global Market Intelligence at (212) 849-5021 and notify the Authority by e-mail to CapitalMarkets@VirginiaHousing.com.
+
+[SUBSECTION HEADING] Award of the Offered Bonds
+
+[PARAGRAPH]
+  Subject to the Authority’s right to amend the terms of this Notice of Sale, to reject any or all bids for any reason, and to waive any irregularity, the Offered Bonds will be awarded to the bidder whose bid produces the lowest true interest cost (the “True Interest Cost”) for the Offered Bonds. The winning bid will be designated as soon as possible but not later than 4:00 p.m., NEW YORK, NEW YORK TIME, on the Bid Date. The True Interest Cost (expressed as an annual interest rate with semi-annual compounding) will be determined as the interest rate which, when discounting each semi-annual debt service payment (interest, or principal and interest, as due, including any mandatory sinking fund installment payment) therefor, will cause the sum of such discounted semi-annual payments to be equal to the purchase price thereof less the underwriting fee. The True Interest Cost shall be calculated from the Settlement Date. In the event of a tie, the Authority may select the successful bidder in such manner as the Authority shall deem appropriate.
+
+[PARAGRAPH]
+  In the event that all of the bids for the Offered Bonds are rejected, the Authority reserves the right to award the Offered Bonds to a purchaser or purchasers on a negotiated basis, which purchaser or purchasers may or may not have submitted a bid in response to this Notice of Sale.
+
+[SUBSECTION HEADING] Good Faith Deposit
+
+[PARAGRAPH]
+  After the Bid Time on the Bid Date and prior to the designation by the Authority of the successful bidder for the Offered Bonds, the apparent successful bidder for the Offered Bonds indicated on the Bidding System must submit a good faith deposit for $357,200 to the Authority by wire transfer. Such good faith deposit for the Offered Bonds is referred to herein as the “Deposit”.
+
+[PARAGRAPH]
+  The award to the apparent successful bidder for the Offered Bonds is contingent upon receipt of the Deposit, and the Offered Bonds will not be awarded to such bidder until the Authority has confirmation of receipt of the Deposit. The Deposit will be credited against the purchase price for the Offered Bonds payable by the successful bidder for the Offered Bonds and held as security for the performance of its bid. The Deposit will be invested by the Authority for its own account and no interest or other earnings thereon will be paid to the successful bidder or credited against the purchase price for the Offered Bonds. In the
+
+[PARAGRAPH]
+  4
+
+--- PAGE 5 of 12 ---
+
+[PARAGRAPH]
+  event the successful bidder shall fail to comply with the terms of its bid, the proceeds of the Deposit and any investment income thereon will be retained by the Authority as and for full liquidated damages.
+
+[PARAGRAPH]
+  In the event that the Authority shall fail to perform its obligations to deliver the Offered Bonds in accordance with the terms hereof (other than as permitted pursuant to the prior paragraph), the Authority shall immediately return the amount of the Deposit to the successful bidder for the Offered Bonds plus liquidated damages in an amount equal to one tenth of one percent (.10%) of the Deposit, and the Authority shall not have any further obligation or liability.
+
+[SUBSECTION HEADING] Undertakings of the Successful Bidder Simultaneously with or before delivery of the Offered Bonds, the successful bidder for the Offered Bonds shall execute a certificate (the “Offering Price Certificate”) with respect to the Offered Bonds in the form attached to this Notice of Sale as Appendix B, with only such changes as have been accepted by the Authority and Bond Counsel. The Initial Offering Price (as defined in the attached form of Offering Price Certificate) of each Offered Bond serial maturity and term bond maturity (as set forth in the successful bidder’s bid) to be specified by the successful bidder in its Offering Price Certificate shall be 100% of the principal amount of such maturity.
+
+[PARAGRAPH]
+  The successful bidder for the Offered Bonds also shall be obligated to furnish to the Authority, when and if requested, prior to the delivery of the Offered Bonds, such further information requested by the Authority or Bond Counsel as shall be necessary to enable the Authority to determine the “issue price” of the Offered Bonds as defined in 26 CFR § 1.148-1(f) (the “Issue Price Regulations”).
+
+[PARAGRAPH]
+  In submitting a bid, each bidder is certifying that its bid is a bona fide good faith bid, and is not a “courtesy bid” being submitted for the purpose of assisting in meeting the requirements of the definition of “competitive sale” in the Issue Price Regulations, including the requirement that bids be received from at least three underwriters of municipal bonds who have established industry reputations for underwriting new issuances of municipal bonds (“Experienced Underwriters”).
+
+[PARAGRAPH]
+  In the event the Authority receives less than three bids for the Offered Bonds from Experienced Underwriters the successful bidder shall have the right to withdraw its bid and to be relieved of any obligations with regard to the Offered Bonds. This right does not limit the Authority’s right to reject any or all bids for any reason.
+
+[PARAGRAPH]
+  The successful bidder agrees not to publish any “tombstone” or other advertisement for the Offered Bonds without the prior approval of the Authority.
+
+[PARAGRAPH]
+  If the successful bidder with respect to the Offered Bonds or any affiliate of such successful bidder transfers, sells or disposes of the Offered Bonds, or any interest in the Offered Bonds, including depositing the Offered Bonds, or an interest therein, in a fund or trust or otherwise participates in offering to a purchaser any derivative products (e.g., a tender option product) with respect to the initial offering of the Offered Bonds, either (a) such transfer of any interest in the Offered Bonds will not occur within 60 days from the date thereof during which time the Offered Bonds will be held exclusively for its own account and not subject to contractual arrangement for such transfer, or (b) such transfer, deposit or disposition, including into a fund or trust, will result in obligations with characteristics substantially and materially different from those of the Offered Bonds, unless Bond Counsel provides a written opinion that the failure to provide such period will not adversely affect the exclusion from gross income of interest on the Offered Bonds.
+
+[PARAGRAPH]
+  5
+
+--- PAGE 6 of 12 ---
+
+[PARAGRAPH]
+  If the successful bidder purchases insurance on all or any portion of the Offered Bonds, the successful bidder shall disclose such purchase and the amount of the premium paid for such insurance to the Authority prior to the Settlement Date. The Authority will not amend its usual and customary certificates and legal opinions, the Offered Bonds or the Official Statement to reflect the purchase of insurance on any of the Offered Bonds by the successful bidder.
+
+[SUBSECTION HEADING] Delivery
+
+[PARAGRAPH]
+  The Offered Bonds will be initially issued and may be purchased only in book-entry form through the facilities of The Depository Trust Company (“DTC”), New York, New York, to which payment of principal and interest will be made. Beneficial owners of the Offered Bonds will not receive certificates representing their ownership interest in the Offered Bonds. The Offered Bonds will be delivered on the Settlement Date at 10:00 a.m. NEW YORK, NEW YORK TIME to the facilities of DTC or its agent or at such other place or on such earlier or later date or time as the successful bidder for the Offered Bonds and the Authority shall agree. The successful bidder for the Offered Bonds shall take any and all actions necessary in order to enable DTC to accept delivery of the Offered Bonds and any failure to take such action shall not constitute cause for a failure or refusal to accept delivery of and make payment for the Offered Bonds.
+
+[SUBSECTION HEADING] Official Statement
+
+[PARAGRAPH]
+  Certain terms of the Offered Bonds are described in the Preliminary Official Statement. The Preliminary Official Statement and the information contained therein have been deemed final as of the date of the Preliminary Official Statement by the Authority with omissions permitted by Rule 15c2-12 promulgated by the Securities and Exchange Commission (“SEC”) under the Securities Exchange Act of 1934, as amended (“Rule 15c2-12”), but are subject to completion and amendment in a final Official Statement.
+
+[PARAGRAPH]
+  The Official Statement, as of its date, will not contain any untrue statement of a material fact or omit to state any material fact necessary to make the statements therein, in light of the circumstances under which they will be made, not misleading. If an event affecting the Authority occurs subsequent to the date of the Official Statement and prior to the Settlement Date which should be disclosed therein for the purpose for which it is to be used or which it is necessary to disclose therein in order to make the statements and information therein, in light of the circumstances under which they were made, not misleading in any material respect, the Authority will notify the successful bidder of such event prior to the Settlement Date.
+
+[PARAGRAPH]
+  On the Settlement Date, the Authority will deliver to the successful bidder an officer’s certificate stating that the Official Statement, as of its date and on the Settlement Date, does not contain any untrue statement of a material fact or omit to state any material fact necessary to make the statements therein, in light of the circumstances under which they were made, not misleading.
+
+[PARAGRAPH]
+  The Authority will deliver the final Official Statement electronically to the successful bidder within seven business days after the day on which the winning bid is designated.
+
+[PARAGRAPH]
+  The Authority, at its expense, will make available to the successful bidder up to the number of copies of the final Official Statement set forth in “Other” below. Additional copies can be obtained from the printer at the expense of the successful bidder.
+
+[SUBSECTION HEADING] Continuing Disclosure
+
+[PARAGRAPH]
+  In order to assist bidders in complying with SEC Rule 15c2-12(b)(5), the Authority will undertake for the benefit of the holders and beneficial owners of the Offered Bonds pursuant to a Continuing
+
+[PARAGRAPH]
+  6
+
+--- PAGE 7 of 12 ---
+
+[PARAGRAPH]
+  Disclosure Agreement between the Authority and the Trustee dated April 6, 1999, as amended (the Continuing Disclosure Agreement, as amended, is referred to herein as the “Agreement”), to provide annual reports and notices of certain events. A description of this undertaking is set forth in the Preliminary Official Statement and will also be set forth in the final Official Statement.  The obligations of the successful bidder for the Offered Bonds to purchase the Offered Bonds shall be conditioned upon their receiving, on or prior to the Settlement Date, evidence that the Offered Bonds to be purchased are subject to the Agreement. Copies of the Agreement will be made available to bidders upon request.
+
+[SUBSECTION HEADING] Ratings
+
+[PARAGRAPH with emphasized text]
+  S&P Global Ratings, a division of Standard & Poor’s Financial Services LLC, is expected to assign the Offered Bonds the rating “AA+” and Moody’s Ratings is expected to assign the Offered Bonds the rating “Aa1”. Such ratings, if given, reflect only the views of such organizations at the time such ratings are issued and an explanation of the significance of the ratings may be obtained from such organizations. There is no assurance that such ratings will continue for any given period of time or that they will not be revised downward, withdrawn or suspended entirely by such rating agencies if, in their judgment, circumstances so warrant. Any downward revision, withdrawal or suspension of ratings can be expected to have an adverse effect on the market price of the Offered Bonds. The successful bidder’s obligation to
+
+[SUBSECTION HEADING] purchase the Offered Bonds is subject to the condition that such rating agencies shall have assigned the above mentioned ratings to the Offered Bonds prior to the Settlement Date and that neither rating agency shall have lowered, withdrawn or suspended its rating prior to the Settlement Date. CUSIP Numbers
+
+[PARAGRAPH]
+  The successful bidder shall apply for CUSIP numbers with respect to the Offered Bonds and shall be responsible for the costs associated with the assignment of such CUSIP numbers. The Authority will assume no obligation for the assignment or printing of such numbers on the Offered Bonds or for the correctness of such numbers, and neither the failure to print such numbers on any Offered Bond nor any error with respect thereto shall constitute cause for a failure or refusal by the successful bidder thereof to accept delivery of and make payment for the Offered Bonds.
+
+[SUBSECTION HEADING] Not an Offer to Sell
+
+[PARAGRAPH]
+  This Notice of Sale does not alone constitute an offer to sell the Offered Bonds, but is merely notice of the sale of the Offered Bonds. The offer to sell the Offered Bonds is being made by means of this Notice of Sale, including any amendments hereto announced via the Bidding System, and the Preliminary Official Statement. Prospective bidders are urged to carefully examine the Preliminary Official Statement for information regarding the Offered Bonds.
+
+[SUBSECTION HEADING] Amendments to this Notice of Sale
+
+[PARAGRAPH]
+  The Authority reserves the right to amend, from time to time, the terms of this Notice of Sale, including, but not limited to, the Preliminary Principal Amounts, Settlement Date, the Bid Time and/or the Bid Date. Any amendment to this Notice of Sale will be announced via the Bidding System not later than 4:00 p.m., NEW YORK, NEW YORK TIME, on or before the business day prior to the most recently announced Bid Date.
+
+[SUBSECTION HEADING] Other
+
+[PARAGRAPH]
+  The Authority shall be responsible for all expenses associated with the printing and delivery to the successful bidder of up to 50 copies of the final Official Statement, fees and disbursements of Bond Counsel, fees of rating agencies and securities depositories, and fees associated with the preparation and
+
+[PARAGRAPH]
+  7
+
+--- PAGE 8 of 12 ---
+
+[PARAGRAPH]
+  delivery of the preliminary and final Blue Sky Memorandum. No other expenses (including the expense associated with underwriter’s counsel, if any, and the assignment of CUSIP numbers) shall be paid by the Authority.
+
+[PARAGRAPH]
+  Bond Counsel shall provide a preliminary and final Blue Sky Memorandum and a supplemental opinion addressed to the successful bidder that (a) with certain exceptions, statements in the Official Statement that purport to summarize certain provisions of the Offered Bonds, the Current Resolution, the applicable Bond Limitations Resolution and Written Determinations for the Offered Bonds, and the Continuing Disclosure Agreement (as such terms are defined in the Official Statement), or the law, including the Internal Revenue Code of 1986, as amended, present a fair summary of such provisions and (b) the Offered Bonds are not subject to the registration requirements of the Securities Act of 1933, as amended, and the Current Resolution, the applicable Bond Limitations Resolution and Written Determinations for the Offered Bonds are exempt from qualification pursuant to the Trust Indenture Act of 1939, as amended. Bond Counsel shall also provide to the successful bidder a letter stating that, subject to the limitations expressed therein, Bond Counsel advises (as a matter of fact and not legal opinion) that no facts came to the attention of the attorneys in such firm rendering legal services to the Authority in connection with the issuance of the Offered Bonds that caused them to believe that the final Official Statement, as of the date thereof or as of the Settlement Date, contained or contains any untrue statement of a material fact or omitted or omits to state a material fact necessary in order to make the statements therein, in light of the circumstances under which they were made, not misleading, except that such statement will not address certain information in the Official Statement including, but not limited to, financial information and certain expressions of opinion contained in the Official Statement. The Authority’s Chief Counsel or Deputy Chief Counsel shall provide an opinion to the effect that, based upon the examination which he has made as Chief Counsel or Deputy Chief Counsel, and without having undertaken to determine independently the accuracy and completeness of the statements contained in the final Official Statement, nothing has come to his attention which would lead him to believe that the final Official Statement as of the date thereof and on the Settlement Date contains any untrue statement of a material fact or omits to state a material fact necessary in order to make the statements made therein, in light of circumstances under which they were made, not misleading, except that he shall not express any opinion with respect to financial statements and other financial and statistical data included in the final Official Statement and information in the final Official Statement with respect to DTC or the description of the book-entry system of DTC.
+
+[PARAGRAPH]
+  On the Settlement Date, the Authority shall deliver to the successful bidder for the Offered Bonds the usual and customary certificates for its Rental Housing Bonds given such successful bidders. The successful bidder for the Offered Bonds will be required to execute a receipt for the Offered Bonds and for all documents and opinions required to be furnished to it pursuant to this Notice of Sale. The receipt will be required to be delivered in escrow to the Authority on the day prior to the Settlement Date and will be released from escrow upon completion of the purchase of the Offered Bonds in accordance with this Notice of Sale.
+
+[PARAGRAPH]
+  The successful bidder will not offer or sell, or solicit any offer to buy, the Offered Bonds in any jurisdiction where it is unlawful for such successful bidder to make such offer, solicitation or sale.
+
+[SUBSECTION HEADING] Additional Information and Copies
+
+[PARAGRAPH]
+  Bidders who have any questions concerning these bid requirements should e-mail CapitalMarkets@VirginiaHousing.com or call Heather Richey at (804) 343-5647, Alex Gambale at (804) 343-5848 or Joe Feaser at (804) 343-5831.
+
+[PARAGRAPH]
+  8
+
+--- PAGE 9 of 12 ---
+
+[PARAGRAPH]
+  APPENDIX A
+
+[SUBSECTION HEADING] $17,860,000* 2026 Series A-Non-AMT
+
+[PARAGRAPH]
+  Preliminary Maturity Schedule*
+
+[PARAGRAPH]
+  Maturity Date (March 1) Principal Amount
+
+[TABLE: 41 rows, 2 columns]
+  [ROW]    2029  $170,000
+  [ROW]    2030 175,000
+  [ROW]    2031  2,180,000
+  [ROW]    2032 180,000
+  [ROW]    2033  185,000
+  [ROW]    2034  195,000
+  [ROW]    2035  200,000
+  [ROW]    2036  205,000
+  [ROW]    2037  215,000
+  [ROW]    2038  220,000
+  [ROW]    2039  230,000
+  [ROW]    2040  235,000
+  [ROW]    2041  245,000
+  [ROW]    2042  255,000
+  [ROW]    2043  265,000
+  [ROW]    2044  275,000
+  [ROW]    2045  290,000
+  [ROW]    2046  300,000
+  [ROW]    2047  315,000
+  [ROW]    2048  330,000
+  [ROW]    2049  345,000
+  [ROW]    2050  360,000
+  [ROW]    2051  380,000
+  [ROW]    2052  400,000
+  [ROW]    2053  415,000
+  [ROW]    2054  435,000
+  [ROW]    2055  455,000
+  [ROW]    2056  480,000
+  [ROW]    2057  500,000
+  [ROW]    2058  525,000
+  [ROW]    2059  550,000
+  [ROW]    2060  580,000
+  [ROW]    2061  605,000
+  [ROW]    2062  635,000
+  [ROW]    2063  665,000
+  [ROW]    2064  700,000
+  [ROW]    2065  735,000
+  [ROW]    2066  770,000
+  [ROW]    2067  810,000
+  [ROW]    2068  850,000
+  [ROW]    $17,860,000
+[END TABLE]
+
+[PARAGRAPH]
+  *Preliminary, subject to change.
+
+[PARAGRAPH]
+  9
+
+--- PAGE 10 of 12 ---
+
+[PARAGRAPH]
+  APPENDIX B
+
+[CENTERED TITLE BLOCK]
+  $______________
+  VIRGINIA HOUSING DEVELOPMENT AUTHORITY
+  RENTAL HOUSING BONDS
+  2026 SERIES A-NON-AMT
+  OFFERING PRICE CERTIFICATE
+[END CENTERED TITLE]
+
+[FORM FIELDS]
+  ____________ (the “Successful Bidder”), in connection with the competitive sale by the Virginia
+  Housing Development Authority (the “Authority”) of its $_________  aggregate principal amount of Rental
+[END FORM FIELDS]
+
+[PARAGRAPH]
+  Housing Bonds, 2026 Series A-Non-AMT (the “Bonds”), hereby certifies as set forth below. Capitalized terms used but not defined elsewhere in this Certificate shall have the meanings set forth under "Definitions," below.
+
+[PARAGRAPH with emphasized text]
+  1.  As of ______, 2026 (the “Sale Date”), the reasonably expected initial offering prices of the Bonds to the Public by the Successful Bidder are the prices listed in Schedule A (each an “Initial Offering Price”). The Initial Offering Prices are the prices for the Maturities of the Bonds used by the Successful Bidder in formulating its bid to purchase the Bonds. Attached as Schedule B is a true and correct copy of the bid provided by the Successful Bidder to purchase the Bonds.
+
+[PARAGRAPH with emphasized text]
+  2. The Successful Bidder was not given the opportunity to review other bids prior to submitting its bid.
+
+[PARAGRAPH with emphasized text]
+  3. The bid submitted by the Successful Bidder constituted a firm offer to purchase the Bonds.
+
+[PARAGRAPH with emphasized text]
+  4. Definitions.  For purposes of this certificate the following definitions apply:
+
+[PARAGRAPH with emphasized text]
+  (a) “Maturity” shall refer to Bonds with the same maturity date, interest rate and credit terms.
+
+[PARAGRAPH with emphasized text]
+  (b) “Public” means any person (including an individual, trust, estate, partnership, association, company or corporation) other than an Underwriter or a Related Party, as defined below, to an Underwriter.
+
+[PARAGRAPH with emphasized text]
+  (c) “Sale Date” means the first date on which there is a binding contract in writing for the sale of a Maturity of the Bonds.
+
+[PARAGRAPH with emphasized text]
+  (d) “Related Party” means any entity if an Underwriter and such entity are subject, directly or indirectly, to (i)  more than 50 percent common ownership of the voting power or the total value of their stock, if both entities are corporations (including direct ownership by one corporation of another), (ii) more than 50 percent common ownership of their capital interests or profit interests, if both entities are partnerships (including direct ownership by one partnership of another), or (iii) more than 50 percent common ownership of the value of the outstanding stock of the corporation or the capital interests or profit interests of the partnership, as 10
+
+--- PAGE 11 of 12 ---
+
+[PARAGRAPH]
+  applicable, if one entity is a corporation and the other entity is a partnership (including direct ownership of the applicable stock or interests by one entity of the other).
+
+[PARAGRAPH with emphasized text]
+  (e) “Underwriter” means (i) any person that agrees pursuant to a written contract to participate in the initial sale of the Bonds to the Public, and (ii) any person that agrees pursuant to a written contract directly or indirectly with a person described in clause (i) of this definition to participate in the initial sale of the Bonds to the Public, including a member of a selling group or a party to a retail distribution agreement participating in the initial sale of the Bonds to the Public.
+
+[PARAGRAPH]
+  5. Neither the undersigned nor any affiliate of the undersigned has participated, or intends to participate, in offering any derivative product with respect to the Bonds.
+
+[PARAGRAPH]
+  We understand that the representations contained herein may be relied upon by the Authority in making certain of the representations contained in the Arbitrage Certificate executed by the Authority in connection with the issuance of the Bonds, and we further understand that Hawkins Delafield & Wood LLP, as bond counsel to the Authority, may rely upon this certificate, among other things, in providing an opinion with respect to the exclusion from gross income of interest on the Bonds pursuant to Section 103 of the Internal Revenue Code of 1986, as amended (the “Code”). The undersigned is certifying only as to facts in existence on the date hereof. Nothing herein represents the undersigned’s interpretation of any laws; in particular the regulations under the Code, or the application of any laws to these facts.
+
+[FORM FIELDS]
+  Dated: __________
+[END FORM FIELDS]
+
+[PARAGRAPH]
+  Very truly yours,
+
+[FORM FIELDS]
+  ______________________________,
+  By: ___________________________
+[END FORM FIELDS]
+
+[PARAGRAPH]
+  Name: Title:
+
+[PARAGRAPH]
+  11
+
+--- PAGE 12 of 12 ---
+
+[PARAGRAPH]
+  Schedule A
+
+[SECTION HEADING] INITIAL OFFERING PRICES
+
+[PARAGRAPH]
+  [Note: Initial Offering Price specified for each
+
+[PARAGRAPH]
+  Maturity must be 100% of the principal amount thereof]
+
+[PARAGRAPH]
+  12

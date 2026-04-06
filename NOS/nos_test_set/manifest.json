@@ -1,0 +1,123 @@
+{
+  "count": 10,
+  "documents": [
+    {
+      "index": 1,
+      "filename": "01_Harris_County_MUD_No_182,_TX_Unlimited_Tax_Bonds,_Srs_2026.pdf",
+      "issue": "Harris County MUD No. 182, TX Unlimited Tax Bonds, Srs 2026",
+      "state": "Srs",
+      "par_amt": "2,930,000.00",
+      "par_amt_numeric": 2930000.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101436?action=Get",
+      "document_id": "Harris_County_MUD_No_182,_TX_Unlimited_Tax_Bonds,_Srs_2026__2026-04-15__NOS__101436",
+      "ground_truth_path": "nos_test_set/01_Harris_County_MUD_No_182,_TX_Unlimited_Tax_Bonds,_Srs_2026_ground_truth.txt"
+    },
+    {
+      "index": 2,
+      "filename": "02_Craig_County_ISD_No_6,_OK_General_Obligation_Building_Bonds,_Series_2025A.pdf",
+      "issue": "Craig County ISD No. 6, OK General Obligation Building Bonds, Series 2025A",
+      "state": "Series",
+      "par_amt": "600,000.00",
+      "par_amt_numeric": 600000.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/100500?action=Get",
+      "document_id": "Craig_County_ISD_No_6,_OK_General_Obligation_Building_Bonds,_Series_2025A__2025-10-08__NOS__100500",
+      "ground_truth_path": "nos_test_set/02_Craig_County_ISD_No_6,_OK_General_Obligation_Building_Bonds,_Series_2025A_ground_truth.txt"
+    },
+    {
+      "index": 3,
+      "filename": "03_Dunellen_(Borough_of),_NJ_Bond_Anticipation_Notes_(2026).pdf",
+      "issue": "Dunellen (Borough of), NJ Bond Anticipation Notes (2026)",
+      "state": "NJ",
+      "par_amt": "15,248,700.00",
+      "par_amt_numeric": 15248700.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101357?action=Get",
+      "document_id": "Dunellen_(Borough_of),_NJ_Bond_Anticipation_Notes_(2026)__2026-03-24__NOS__101357",
+      "ground_truth_path": "nos_test_set/03_Dunellen_(Borough_of),_NJ_Bond_Anticipation_Notes_(2026)_ground_truth.txt"
+    },
+    {
+      "index": 4,
+      "filename": "04_Gallatin_(City_of),_TN_GO_Bonds,_Series_2026.pdf",
+      "issue": "Gallatin (City of), TN GO Bonds, Series 2026",
+      "state": "Series",
+      "par_amt": "22,520,000.00",
+      "par_amt_numeric": 22520000.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101026?action=Get",
+      "document_id": "Gallatin_(City_of),_TN_GO_Bonds,_Series_2026__2026-01-13__NOS__101026",
+      "ground_truth_path": "nos_test_set/04_Gallatin_(City_of),_TN_GO_Bonds,_Series_2026_ground_truth.txt"
+    },
+    {
+      "index": 5,
+      "filename": "05_Hurricane_City,_UT_Sales_Tax_Revenue_Bonds,_Srs_2026.pdf",
+      "issue": "Hurricane City, UT Sales Tax Revenue Bonds, Srs 2026",
+      "par_amt": "5,600,000.00",
+      "par_amt_numeric": 5600000.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101193?action=Get",
+      "document_id": "Hurricane_City,_UT_Sales_Tax_Revenue_Bonds,_Srs_2026__2026-02-25__NOS__101193",
+      "ground_truth_path": "nos_test_set/05_Hurricane_City,_UT_Sales_Tax_Revenue_Bonds,_Srs_2026_ground_truth.txt"
+    },
+    {
+      "index": 6,
+      "filename": "06_Regional_School_Unit_No_14,_ME_2026_GO_Bonds.pdf",
+      "issue": "Regional School Unit No. 14, ME 2026 GO Bonds",
+      "state": "ME",
+      "par_amt": "50,790,000.00",
+      "par_amt_numeric": 50790000.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101438?action=Get",
+      "document_id": "Regional_School_Unit_No_14,_ME_2026_GO_Bonds__2026-04-15__NOS__101438",
+      "ground_truth_path": "nos_test_set/06_Regional_School_Unit_No_14,_ME_2026_GO_Bonds_ground_truth.txt"
+    },
+    {
+      "index": 7,
+      "filename": "07_SD_No_46,_IL_(Elgin)_GO_School_&_Ltd_Tax_School_Bonds,_Series_2026A&B.pdf",
+      "issue": "SD No. 46, IL (Elgin) GO School & Ltd Tax School Bonds, Series 2026A&B",
+      "state": "Series",
+      "par_amt": "81,130,000.00",
+      "par_amt_numeric": 81130000.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101018?action=Get",
+      "document_id": "SD_No_46,_IL_(Elgin)_GO_School_&_Ltd_Tax_School_Bonds,_Series_2026A&B__2026-01-13__NOS__101018",
+      "ground_truth_path": "nos_test_set/07_SD_No_46,_IL_(Elgin)_GO_School_&_Ltd_Tax_School_Bonds,_Series_2026A&B_ground_truth.txt"
+    },
+    {
+      "index": 8,
+      "filename": "08_San_Francisco_(City_&_County_of),_CA_Taxable_GO_Bonds,_Series_2025G.pdf",
+      "issue": "San Francisco (City & County of), CA Taxable GO Bonds, Series 2025G",
+      "state": "Series",
+      "par_amt": "87,665,000.00",
+      "par_amt_numeric": 87665000.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/100712?action=Get",
+      "document_id": "San_Francisco_(City_&_County_of),_CA_Taxable_GO_Bonds,_Series_2025G__2025-11-05__NOS__100712",
+      "ground_truth_path": "nos_test_set/08_San_Francisco_(City_&_County_of),_CA_Taxable_GO_Bonds,_Series_2025G_ground_truth.txt"
+    },
+    {
+      "index": 9,
+      "filename": "09_Virginia_HDA,_VA_Rental_Housing_Bonds,_2026_Series_A-Non-AMT.pdf",
+      "issue": "Virginia HDA, VA Rental Housing Bonds, 2026 Series A-Non-AMT",
+      "par_amt": "17,860,000.00",
+      "par_amt_numeric": 17860000.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101241?action=Get",
+      "document_id": "Virginia_HDA,_VA_Rental_Housing_Bonds,_2026_Series_A-Non-AMT__2026-03-05__NOS__101241",
+      "ground_truth_path": "nos_test_set/09_Virginia_HDA,_VA_Rental_Housing_Bonds,_2026_Series_A-Non-AMT_ground_truth.txt"
+    },
+    {
+      "index": 10,
+      "filename": "10_The_Metropolitan_Govt_of_Nashville_&_Davidson_County,_TN_GO_Improv_Bonds_Srs_202.pdf",
+      "issue": "The Metropolitan Gov't of Nashville & Davidson County, TN GO Improv Bonds. Srs 2026 A,B&C",
+      "state": "B&C",
+      "par_amt": "604,980,000.00",
+      "par_amt_numeric": 604980000.0,
+      "type": "Comp",
+      "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/101197?action=Get",
+      "document_id": "The_Metropolitan_Govt_of_Nashville_&_Davidson_County,_TN_GO_Improv_Bonds_Srs_2026_A,B&C__2026-02-19__NOS__101197",
+      "ground_truth_path": "nos_test_set/10_The_Metropolitan_Govt_of_Nashville_&_Davidson_County,_TN_GO_Improv_Bonds_Srs_202_ground_truth.txt"
+    }
+  ]
+}

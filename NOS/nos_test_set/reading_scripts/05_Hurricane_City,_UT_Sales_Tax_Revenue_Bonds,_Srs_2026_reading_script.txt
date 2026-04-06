@@ -1,0 +1,548 @@
+READING SCRIPT FOR: 05_Hurricane_City,_UT_Sales_Tax_Revenue_Bonds,_Srs_2026.pdf
+Total pages: 13
+========================================================================
+
+--- PAGE 1 of 13 ---
+
+[SUBSECTION HEADING] Official Notice of Bond Sale
+
+[PARAGRAPH]
+  (Bond Sale to be Conducted Electronically)
+
+[CENTERED TITLE BLOCK]
+  $5,600,000*
+  Hurricane City, Utah
+  Sales Tax Revenue Bonds, Series 2026
+[END CENTERED TITLE]
+
+[PARAGRAPH]
+  Bids will be received electronically (as described under “Procedures Regarding Electronic Bidding” below) by Hurricane City, Utah (the “City”) at the offices of Zions Public Finance, Inc., Salt Lake City, Utah, the Municipal Advisor to the City (the “Municipal Advisor”) on the PARITY® bidding system (“PARITY®”) at 9:30:00 a.m., mountain * standard time (“MST”), on Wednesday, February 25, 2026, for the purchase all or none (“AON”) of $5,600,000 aggregate principal amount of the City’s Sales Tax Revenue Bonds, Series 2026 (the “Series 2026 Bonds”).
+
+[PARAGRAPH]
+  The bids will be reviewed and considered by the Designated Officers (as defined in the resolutions previously adopted by the governing body of the City on November 20, 2025, and December 18, 2025 (together, the “Resolution”).
+
+[SUBSECTION HEADING] Description of Series 2026 Bonds
+
+[PARAGRAPH]
+  The Series 2026 Bonds will be dated the date of delivery thereof, will be fully registered bonds, in book- entry form, in denominations of $5,000 or integral multiples thereof, and will mature on March 1 of the years and in the principal amounts as follows:
+
+[PARAGRAPH]
+  Maturity Maturity
+
+[TABLE: 11 rows, 4 columns]
+  [ROW]    (March 1) Amount* (March 1)  Amount*
+  [ROW]    2027 $175,000 2037 $280,000
+  [ROW]    2028 180,000 2038 290,000
+  [ROW]    2029 190,000 2039 305,000
+  [ROW]    2030 195,000 2040 320,000
+  [ROW]    2031 205,000 2041 335,000
+  [ROW]    2032 215,000 2042 355,000
+  [ROW]    2033 230,000 2043 370,000
+  [ROW]    2034 240,000 2044 385,000
+  [ROW]    2035 250,000 2045 400,000
+  [ROW]    2036 265,000 2046 415,000
+[END TABLE]
+
+[PARAGRAPH]
+  * Total ........................................................................................................................................ $5,600,000
+
+[PARAGRAPH]
+  The Series 2026 Bonds will be issued in registered form and, when issued, will be registered in the name of The Depository Trust Company, New York, New York, or its nominee. The Depository Trust Company will act as securities depositary for the Series 2026 Bonds. Purchases of beneficial interests in the Series 2026 Bonds will be made in book-entry form in the denomination of $5,000 or any integral multiple thereof.
+
+[PARAGRAPH]
+  *  Preliminary; subject to change. See “Adjustment of Principal Amount of the Series 2026 Bonds” in this Official Notice of Bond Sale.
+
+--- PAGE 2 of 13 ---
+
+[SUBSECTION HEADING] Term Bonds and Mandatory Sinking Fund Redemption at Bidder’s Option
+
+[PARAGRAPH]
+  The Series 2026 Bonds scheduled to mature on two or more of the above-designated maturity dates may be rescheduled, at bidder’s option, to mature as term bonds on one or more dates within that period, in which event the Series 2026 Bonds will mature and be subject to mandatory sinking fund redemption in such amounts and on such dates as will correspond to the above-designated maturity dates and principal amounts maturing on those dates, as adjusted.
+
+[SUBSECTION HEADING] Adjustment of Principal Amount of the Series 2026 Bonds
+
+[PARAGRAPH]
+  The Designated Officers, on behalf of the City, may adjust the amount of the Series 2026 Bonds and the * amount maturing on one or more of the maturity dates by the amount necessary to deliver approximately $6,000,000 of sale proceeds (after payment of costs of issuance) and to properly size each maturity of the Series 2026 Bonds so that the annual debt service on the Series 2026 Bonds better matches the anticipated revenues and payments; provided, however the adjustment of maturities with respect to the Series 2026 Bonds maturing in any year in the principal amount of $1,000,000 or more, will not reduce such principal amount to an amount less than $1,000,000.  The dollar amount of the price bid by the successful bidder may be changed as described below, but none of the interest rates specified by the successful bidder will change.  A successful bidder may not withdraw its bid as a result of any changes made within these limits, and the City will consider the bid as having been made for the adjusted amount of the Series 2026 Bonds.  The dollar amount of the price bid will be changed so that the percentage net compensation to the successful bidder (i.e., the percentage resulting from dividing (a) the aggregate difference between the offering price of the Series 2026 Bonds to the public and the price to be paid to the City, by (b) the principal amount of the Series 2026 Bonds) does not increase or decrease from what it would have been if no adjustment was made to the principal amounts shown above.
+
+[PARAGRAPH]
+  If the City elects to make such an adjustment, the amount of such adjustment will be allocated to increase or decrease the principal amount of the Series 2026 Bonds maturing on one or more of the maturity dates for the Series 2026 Bonds as described above, all as determined by the Designated Officers, on behalf of the City, with the advice of the Municipal Advisor.  The City expects to advise the successful bidder as soon as possible, but expects no later than 2:00 p.m., MST, on the date of sale, of the amount, if any, by which the aggregate principal amount of the Series 2026 Bonds will be adjusted and the corresponding changes to the principal amount of the Series 2026 Bonds maturing on one or more of the above-designated maturity dates for the Series 2026 Bonds.  Any such adjustment will be in an amount of $5,000 or an integral multiple thereof.  The City will consider the bid as having been made for the adjusted amount of the Series 2026 Bonds.
+
+[PARAGRAPH]
+  To facilitate any adjustment in the principal amounts, the successful bidder is required to indicate by electronic means to the Municipal Advisor at mark.anderson@zionsbancorp.com within one-half hour of the time of bid opening, the amount of any original issue discount or premium on each maturity of the Series 2026 Bonds and the amount received from the sale of the Series 2026 Bonds to the public that will be retained by the successful bidder as its compensation.
+
+[SUBSECTION HEADING] Possible Rejection of All Bids
+
+[PARAGRAPH]
+  As described below under “Sale Reservations,” the City reserves the right to reject any and all bids and to resell the Series 2026 Bonds. In such case the City may elect to negotiate a subsequent sale of the Series 2026 Bonds.
+
+[SUBSECTION HEADING] Ratings
+
+[PARAGRAPH]
+  The City will, at its own expense, pay fees of S&P Global Ratings (“S&P”) for rating the Series 2026 Bonds. As of the date of the Preliminary Official Statement, S&P has assigned its municipal bond rating of “AA” to the Series 2026 Bonds.  Any additional ratings shall be at the option and expense of the bidder.
+
+[PARAGRAPH]
+  * Preliminary; subject to change.
+
+[PARAGRAPH]
+  2
+
+--- PAGE 3 of 13 ---
+
+[SUBSECTION HEADING] Purchase Price
+
+[PARAGRAPH]
+  The purchase price bid for the Series 2026 Bonds shall not be less than 100% of the principal amount of the Series 2026 Bonds.  The final par amount of the Series 2026 Bonds may be adjusted (either increased or decreased) as provided above under “Adjustment of Principal Amount of the Series 2026 Bonds”.
+
+[SUBSECTION HEADING] Interest Rates
+
+[PARAGRAPH]
+  The Series 2026 Bonds will bear interest at any number of different rates, any of which may be repeated,
+
+[FOOTNOTE]
+  thth
+[END FOOTNOTE]
+
+[PARAGRAPH]
+  which rates shall be expressed in multiples of 1/8 or 1/100 of 1% per annum. In addition:
+
+[PARAGRAPH]
+   no rate bid may exceed 6.0% per annum;
+
+[PARAGRAPH]
+   all Series 2026 Bonds of the same maturity must bear a single rate of interest;
+
+[PARAGRAPH]
+   premium must be paid in the funds specified for the payment of the Series 2026 Bonds as part of the purchase price;
+
+[PARAGRAPH]
+   interest shall be computed from the dated date of a Series 2026 Bond to its stated maturity date at the single interest rate specified in the bid for the Series 2026 Bonds of such maturity;
+
+[PARAGRAPH]
+   the purchase price must be paid in immediately available funds, and no bid will be accepted that con- templates the cancellation of any interest or the waiver of interest or other concession by the bidder as a substitute for federal funds;
+
+[PARAGRAPH]
+   there shall be no supplemental interest coupons; and
+
+[PARAGRAPH]
+   interest shall be computed on the basis of a 360-day year of 12, 30-day months.
+
+[PARAGRAPH]
+  Interest for the Series 2026 Bonds will be payable semiannually on March 1 and September 1 beginning September 1, 2026, at the rate or rates to be fixed at the time the Series 2026 Bonds are sold.
+
+[SUBSECTION HEADING] Trustee, Bond Registrar, and Paying Agent; Place of Payment
+
+[PARAGRAPH]
+  Zions Bancorporation, National Association, Salt Lake City, Utah, will be the trustee, paying agent, and bond registrar of the Series 2026 Bonds.  So long as The Depository Trust Company, New York, New York (“DTC”), is the registered owner, DTC will, in turn, remit such principal and interest to its participants, for subsequent disbursements to the beneficial owners of the Series 2026 Bonds as described in the City’s Preliminary Official Statement with respect to the Series 2026 Bonds. Interest on the Series 2026 Bonds will be payable by check or draft mailed to the registered owners thereof (initially DTC) as shown on the registration books kept for the City by the bond registrar.
+
+[SUBSECTION HEADING] Redemption Provisions
+
+[PARAGRAPH]
+  Optional Redemption.  The Series 2026 Bonds maturing on or after March 1, 2037, are subject to redemption at the option of the City, in whole or in part, at any time on or after March 1, 2036, in such order of maturity as shall be directed by the City, at a redemption price equal to 100% of the principal amount of the Series 2026 Bonds to be redeemed plus accrued interest to the date of redemption.
+
+[SUBSECTION HEADING] Security
+
+[PARAGRAPH]
+  The Series 2026 Bonds are special limited obligations of the City, payable solely from the Revenues, moneys, securities and funds pledged therefor in the Indenture, all as more fully described in the Preliminary Official Statement.
+
+[PARAGRAPH]
+  No assurance can be given that the Pledged Sales and Use Taxes (as such term is defined in the Preliminary Official Statement) will remain sufficient for the payment of the principal or interest on the Series 2026 Bonds and the City is limited by Utah law in its ability to increase the rate of such taxes.  The Utah Legislature may alter the sales
+
+[PARAGRAPH]
+  3
+
+--- PAGE 4 of 13 ---
+
+[PARAGRAPH]
+  tax base or the distribution formulas in a way that reduces the amount of Pledged Taxes paid to the City.  The Series 2026 Bonds do not constitute a general obligation indebtedness or a pledge of the ad valorem taxing power or the full faith and credit of the City and are not obligations of the State of Utah or any other agency or other political subdivision or entity of the State of Utah.  The City will not mortgage or grant any security interest in the improvements financed with the proceeds of the Series 2026 Bonds or any portion thereof to secure payment of the Series 2026 Bonds.
+
+[SUBSECTION HEADING] Procedures Regarding Electronic Bidding
+
+[PARAGRAPH]
+  No bid will be accepted unless the City has determined that such bidder has provided the requested Deposit, as the case may be, as described under “Good Faith Deposit” below.
+
+[PARAGRAPH]
+  Bids will be received by means of the PARITY electronic bid submission system. A prospective bidder must
+
+[FOOTNOTE]
+  ®
+[END FOOTNOTE]
+
+[PARAGRAPH]
+  communicate its bid electronically through PARITY® on or before 9:30:00 a.m. MST, on Wednesday, February 25, 2026. No bid will be received after the time for receiving bids specified above. To the extent any instructions or directions set forth in PARITY® conflict with this Official Notice of Bond Sale, the terms of this Official Notice of Bond Sale shall control. For further information about PARITY, potential bidders may contact the Municipal Advisor
+
+[FOOTNOTE]
+  ®
+[END FOOTNOTE]
+
+[PARAGRAPH]
+  or i-Deal LLC at 1359 Broadway, New York, New York 10018; (212) 849-5021. The time as maintained by PARITY® shall constitute the official time.
+
+[PARAGRAPH]
+  Each qualified prospective bidder shall be solely responsible to make necessary arrangements to access PARITY for purposes of submitting its bid in a timely manner and in compliance with the requirements of this Official
+
+[FOOTNOTE]
+  ®
+[END FOOTNOTE]
+
+[PARAGRAPH]
+  Notice of Bond Sale. Neither the Municipal Advisor, the City nor i–Deal LLC shall have any duty or obligation to provide or assure such access to any qualified prospective bidder, and neither the Municipal Advisor, the City nor i– Deal LLC shall be responsible for proper operation of, or have any liability for any delays or interruptions of, or any damages caused by, PARITY. The City is using PARITY as a communication mechanism, and not as the City’s
+
+[FOOTNOTE]
+  ®®
+[END FOOTNOTE]
+
+[PARAGRAPH]
+  agent, to conduct the electronic bidding for the Series 2026 Bonds.
+
+[SUBSECTION HEADING] Notification
+
+[PARAGRAPH]
+  The Municipal Advisor will notify the apparent successful bidder(s) by telephone as soon as possible after the City’s receipt of bids, that such bidder’s bid appears to be the best bid received which conforms to the requirements of this Official Notice of Bond Sale, subject to verification and to official action to be taken by certain authorized officers of the City as described in the next succeeding paragraph.
+
+[PARAGRAPH]
+  The award of the Series 2026 Bonds to the successful bidder will be considered by the Designated Officers of the City on Wednesday, February 25, 2026, pursuant to the Resolution.
+
+[SUBSECTION HEADING] Form of Bid
+
+[PARAGRAPH]
+  Each bidder for the Series 2026 Bonds is required to transmit electronically via PARITY an unconditional
+
+[FOOTNOTE]
+  ®
+[END FOOTNOTE]
+
+[PARAGRAPH]
+  bid specifying the lowest rate or rates of interest and confirm the purchase price (as described under “Purchase Price” above) at which the bidder will purchase the Series 2026 Bonds. Each bid must be for all the Series 2026 Bonds herein offered for sale.
+
+[PARAGRAPH]
+  For information purposes only, bidders are requested to state in their bids the effective interest rate for the Series 2026 Bonds represented on a TIC basis, as described under “Award” below, represented by the rate or rates of interest and the bid price specified in their respective bids.
+
+[PARAGRAPH]
+  No bids will be accepted in written form or in any other medium or on any system other than by means of PARITY®; provided, however, that in the event a prospective bidder cannot access PARITY®, through no fault of its own, it may so notify the office of the Municipal Advisor by telephone at (801) 844-7373. Thereafter, it may submit its bid by telephone to the Municipal Advisor at (801) 844-7373, who shall transcribe such bid into written form before the time bids are due as stated above, on Wednesday, February 25, 2026. For purposes of bids submitted telephonically to the Municipal Advisor (as described above), the time as maintained by PARITY®, shall constitute the official time. Each bid submitted as provided in the preceding sentence must specify the interest rate or rates of the Bonds and the
+
+[PARAGRAPH]
+  4
+
+--- PAGE 5 of 13 ---
+
+[PARAGRAPH]
+  total purchase price of all of the Bonds. The Municipal Advisor will seal transcribed telephonic bids for submission. Neither the City nor the Municipal Advisor assume any responsibility or liability from the failure of any such transcribed telephonic bid (whether such failure arises from equipment failure, unavailability of phone lines or otherwise). No bid will be received after the time for receiving such bids specified above.
+
+[PARAGRAPH]
+  If requested by the Municipal Advisor, the apparent successful bidder(s) will provide written confirmation of its bid (by electronic means) to the Municipal Advisor prior to 2:00 p.m., MST, on Wednesday, February 25, 2026.
+
+[SUBSECTION HEADING] Right of Cancellation
+
+[PARAGRAPH]
+  The successful bidder(s) shall have the right, at its option, to cancel its obligation to purchase the Series 2026 Bonds if the City shall fail to execute the Series 2026 Bonds and tender the same for delivery within 60 days from the date of sale thereof, and in such event the successful bidder(s) shall be entitled to the return of the Deposit.
+
+[SUBSECTION HEADING] Award
+
+[PARAGRAPH]
+  Award or rejection of bids will be made on Wednesday, February 25, 2026, by the Designated Officers of the City. The Series 2026 Bonds will be awarded to the responsible bidder offering to pay not less than the principal amount of the Series 2026 Bonds and specifying a rate or rates of interest that result in the lowest effective interest cost to the City, computed from the date of the Series 2026 Bonds to maturity and taking into consideration the premium or discount, if any, in the purchase price of the Series 2026 Bonds. The effective interest rate to the City shall be the interest rate per annum determined on a per annum true interest cost (“TIC”) based on the discounting of the scheduled semiannual debt service payments of the City on the Series 2026 Bonds (based on such rate or rates of interest so bid) to the dated date of the Series 2026 Bonds, compounded semiannually, and to the bid price. Interest cost shall be computed on a 360-day year of twelve, 30-day months.
+
+[SUBSECTION HEADING] Good Faith Deposit
+
+[PARAGRAPH]
+  A good faith deposit (the “Deposit”) in the amount of $60,000,000 is required only from the successful bidder(s). The Deposit shall be payable to the order of the City in the form of a wire transfer in federal funds as instructed by the Municipal Advisor no later than 12:00 noon, MST, on Wednesday, February 25, 2026. As an alternative to wiring funds, a bidder may deliver a cashier’s or certified check, payable to the order of the City. If a check is used, it must precede each bid. Such check shall be promptly returned to its respective bidder whose bid is not accepted.
+
+[PARAGRAPH]
+  The City shall, as security for the faithful performance by the successful bidder(s) of its obligation to take up and pay for the Series 2026 Bonds when tendered, cash the Deposit check, if applicable, of the successful bidder(s) and hold the proceeds of the Deposit of the successful bidder(s), or invest the same (at the City’s risk) in obligations which mature at or before the delivery of the Series 2026 Bonds as described under the caption “Manner and Time of Delivery” below, until disposed of as follows: (a) at such delivery of the Series 2026 Bonds and upon compliance with the successful bidder’s obligation to take up and pay for the Series 2026 Bonds, the full amount of the Deposit held by the City, without adjustment for interest, shall be applied toward the purchase price of the Series 2026 Bonds at that time and the full amount of any interest earnings thereon shall be retained by the City; and (b) if the successful bidder fails to take up and pay for the Series 2026 Bonds when tendered, the full amount of the Deposit plus any interest earnings thereon will be forfeited to the City as liquidated damages.
+
+[SUBSECTION HEADING] Sale Reservations
+
+[PARAGRAPH]
+  The City reserves the right: (i) to waive any irregularity or informality in any bid or in the bidding process; (ii) to reject any and all bids for the Series 2026 Bonds; and (iii) to resell the Series 2026 Bonds as provided by law.
+
+[SUBSECTION HEADING] Manner and Time of Delivery
+
+[PARAGRAPH]
+  The successful bidder(s) will be given at least five business days advance notice of the proposed date of the delivery of the Series 2026 Bonds when that date has been determined. It is now estimated that the Series 2026 Bonds
+
+[PARAGRAPH]
+  5
+
+--- PAGE 6 of 13 ---
+
+[PARAGRAPH]
+  will be delivered in book-entry form on or about March 11, 2026. Delivery of the Series 2026 Bonds will be made in Salt Lake City, Utah. The successful bidder(s) must also agree to pay for the Series 2026 Bonds in federal funds which will be immediately available to the City on the day of delivery.
+
+[SUBSECTION HEADING] CUSIP Numbers
+
+[PARAGRAPH]
+  It is anticipated that CUSIP numbers will be printed on the Series 2026 Bonds, at the expense of the City, but neither the failure to print such numbers on any Series 2026 Bond nor any error with respect thereto shall constitute cause for a failure or refusal by the successful bidder(s) thereof to accept delivery of and pay for the Series 2026 Bonds in accordance with terms of this Official Notice of Bond Sale.
+
+[SUBSECTION HEADING] Tax-Exempt Status
+
+[PARAGRAPH]
+  In the opinion of Gilmore & Bell, P.C., Bond Counsel to the City, the interest on the Series 2026 Bonds (including any original issue discount properly allocable to an owner thereof) (i) is excludable from gross income for federal income tax purposes and (ii) is not an item of tax preference for purposes of computing the federal alternative minimum tax.  The opinions set forth in this paragraph are subject to the condition that the City complies with all requirements of the Internal Revenue Code that must be satisfied subsequent to the issuance of the Series 2026 Bonds in order that interest thereon be, or continue to be, excludable from gross income for federal income tax purposes. The City has covenanted to comply with all of these requirements.  Failure to comply with certain of these requirements may cause the interest on the Series 2026 Bonds to be included in gross income for federal income tax purposes retroactive to the date of issuance of the Series 2026 Bonds.
+
+[PARAGRAPH]
+  In the opinion of Bond Counsel, interest on the Series 2026 Bonds is exempt from State of Utah individual income taxes.
+
+[SUBSECTION HEADING] Establishment of Issue Price
+
+[PARAGRAPH]
+  The successful bidder shall assist the City in establishing the issue price of the Series 2026 Bonds and shall execute and deliver to the City on the date of issuance of the Series 2026 Bonds an “issue price” or similar certificate setting forth the reasonably expected initial offering price to the public or the sales price or prices of the Series 2026 Bonds, substantially in the form attached hereto as Exhibit A, with such modifications as may be appropriate or necessary, in the reasonable judgment of the successful bidder, the City and Bond Counsel. All actions to be taken by the City under this Official Notice of Bond Sale to establish the issue price of the Series 2026 Bonds may be taken on behalf of the City by the Municipal Advisor identified herein and any notice or report to be provided to the City may be provided to the Municipal Advisor.
+
+[PARAGRAPH]
+  The City intends that the provisions of Treasury Regulation Section 1.148–1(f)(3)(i) (defining “competitive sale” for purposes of establishing the issue price of the Series 2026 Bonds) will apply to the initial sale of the Series 2026 Bonds (the “competitive sale requirements”) because:
+
+[PARAGRAPH]
+  (i) the City shall disseminate this Official Notice of Bond Sale to potential underwriters in a manner that is reasonably designed to reach potential underwriters;
+
+[PARAGRAPH]
+  (ii) all bidders shall have an equal opportunity to bid;
+
+[PARAGRAPH]
+  (iii) the City may receive bids from at least three underwriters of municipal obligations who have established industry reputations for underwriting new issuances of municipal obligations; and
+
+[PARAGRAPH]
+  (iv) the City anticipates awarding the sale of the Series 2026 Bonds to the bidder who submits a firm offer to purchase the Series 2026 Bonds at the highest price (or lowest interest cost), as set forth in this Official Notice of Bond Sale.
+
+[PARAGRAPH]
+  Any bid submitted pursuant to this Official Notice of Bond Sale shall be considered a firm offer for the purchase of the Series 2026 Bonds, as specified in the bid.
+
+[PARAGRAPH]
+  6
+
+--- PAGE 7 of 13 ---
+
+[PARAGRAPH with emphasized text]
+  In the event the competitive sale requirements are not satisfied, the City shall so advise the successful bidder. The City shall then treat (i) the first price at which 10% of a maturity of the Series 2026 Bonds (the “10% Test”) is sold to the public as the issue price of that maturity and/or (ii) the initial offering price to the public as of the sale date of any maturity of the Series 2026 Bonds as the issue price of the maturity (the “hold-the-offering-price rule”), in each case applied on a maturity-by-maturity basis.  The successful bidder shall advise the City if any maturity of the Series 2026 Bonds satisfies the 10% Test as of the date and time of the award of the Series 2026 Bonds.  The City shall promptly advise the successful bidder, at or before the time of award of the Series 2026 Bonds, which maturities (and if different interest rates apply within a maturity, which separate CUSIP number within the maturity) of the Series 2026 Bonds shall be subject to the 10% Test or shall be subject to the hold-the-offering-price rule.  Bids will not be subject to cancellation in the event that the City determines to apply the hold-the-offering-price rule to any maturity of the Series 2026 Bonds. Bidders should prepare their bids on the assumption that some or all of the maturities of
+
+[SUBSECTION HEADING] the Series 2026 Bonds will be subject to the hold-the offering-price rule in order to establish the issue price of the
+
+[PARAGRAPH with emphasized text]
+  Series 2026 Bonds.
+
+[PARAGRAPH]
+  By submitting a bid, the successful bidder shall (i) confirm that the underwriters have offered or will offer the Series 2026 Bonds to the public on or before the date of award at the offering price or prices (the “initial offering price”), or a the corresponding yield or yields, set forth in the bid submitted by the winning bidder and (ii) agree, on behalf of the underwriters participating in the purchase of the Series 2026 Bonds, that the underwriters will neither offer nor sell unsold Series 2026 Bonds of any maturity to which the hold-the-offering price rule shall apply to any person at a price that is higher than the initial offering price to the public during the period starting on the sale date and ending on the earlier of the following:
+
+[PARAGRAPH]
+  (1) the close of the fifth (5th) business day after the sale date; or
+
+[PARAGRAPH]
+  (2) the date on which the underwriters have sold at least 10% of that maturity of the Series 2026 Bonds to the public at a price that is no higher than the initial offering price to the public.
+
+[FOOTNOTE]
+  th
+[END FOOTNOTE]
+
+[PARAGRAPH]
+  The successful bidder will advise the City promptly after the close of the fifth (5) business day after the sale date whether it has sold 10% of the maturity of the Series 2026 Bonds to the public at a price that is not higher than the initial offering price to the public.
+
+[PARAGRAPH]
+  If the competitive sale requirements are not satisfied, then until the 10% Test has been satisfied as to each maturity of the Series 2026 Bonds, the winning bidder agrees to promptly report to the City the prices at which the unsold Series 2026 Bonds of that maturity have been sold to the public.  If as of the award of the Series 2026 Bonds the 10% Test has not been satisfied as to any maturity of the Series 2026 Bonds, the winning bidder agrees to promptly report to the City the prices at which it subsequently sells Series 2026 Bonds of that maturity to the public until the 10% Test is satisfied.  If Series 2026 Bonds constituting the first 10% of a certain maturity are sold at different prices, the winning bidder shall report to the City the prices at which Series 2026 Bonds of such maturity are sold until either (i) all Series 2026 Bonds of that maturity have been sold or (ii) the winning bidder sells 10% of the Series 2026 Bonds of such maturity at a single price. The winning bidder’s reporting obligation shall continue as set forth above, whether or not the date of issuance of the Series 2026 Bonds has occurred provided that, the winning bidder’s reporting obligation after the date of issuance may be at reasonable periodic intervals or otherwise upon request of the City or Bond Counsel.
+
+[PARAGRAPH]
+  The City acknowledges that, in making the representations set forth above, the winning bidder will rely on (i) the agreement of each underwriter to comply with the requirements for establishing issue price of the Series 2026 Bonds, including, but not limited to, its agreement to comply with the hold-the-offering-price rule, if applicable to the Series 2026 Bonds, as set forth in an agreement among underwriters and the related pricing wires, (ii) in the event a selling group has been created in connection with the initial sale of the Series 2026 Bonds to the public, the agreement of each dealer who is a member of the selling group to comply with the requirements for establishing issue price of the Series 2026 Bonds, including, but not limited to, its agreement to comply with the hold-the-offering-price rule, if applicable to the Series 2026 Bonds, as set forth in a selling group agreement and the related pricing wires, and (iii) in the event that an underwriter or dealer who is a member of the selling group is a party to a third-party distribution agreement that was employed in connection with the initial sale of the Series 2026 Bonds to the public, the agreement of each broker-dealer that is a party to such agreement to comply with the requirements for establishing issue price of the Series 2026 Bonds, including, but not limited to, its agreement to comply with the hold-the-offering-price rule, if
+
+[PARAGRAPH]
+  7
+
+--- PAGE 8 of 13 ---
+
+[PARAGRAPH]
+  applicable to the Series 2026 Bonds, as set forth in the third-party distribution agreement and the related pricing wires. The City further acknowledges that each underwriter shall be solely liable for its failure to comply with its agreement regarding the requirements for establishing issue price of the Series 2026 Bonds, including, but not limited to, its agreement to comply with the hold-the-offering-price rule, if applicable to the Series 2026 Bonds, and that no underwriter shall be liable for the failure of any other underwriter, or of any dealer who is a member of a selling group, or of any broker-dealer that is a party to a third party distribution agreement to comply with its corresponding agreement to comply with the requirements for establishing issue price of the Series 2026 Bonds, including, but not limited to, its agreement to comply with the hold-the-offering-price rule, if applicable to the Series 2026 Bonds.
+
+[PARAGRAPH]
+  By submitting a bid, each bidder confirms that: (i) any agreement among underwriters, any selling group agreement and each third-party distribution agreement (to which the bidder is a party) relating to the initial sale of the Series 2026 Bonds to the public, together with the related pricing wires, contains or will contain language obligating each underwriter, each dealer who is a member of the selling group, and each broker-dealer that is a party to such third-party distribution agreement, as applicable:
+
+[PARAGRAPH]
+  (A) to report the prices at which it sells to the public the unsold Series 2026 Bonds of each maturity allocated to it, whether or not the date of issuance has occurred, until either all Series 2026 Bonds of that maturity allocated to it have been sold or it is notified by the successful bidder that the 10% Test has been satisfied as to the Series 2026 Bonds of that maturity; provided that, the reporting obligation after the date of issuance may be at reasonable periodic intervals or otherwise upon request of the successful bidder,
+
+[PARAGRAPH]
+  (B) to promptly notify the successful bidder of any sales of Series 2026 Bonds that, to its knowledge, are made to a purchaser who is a related party to an underwriter participating in the initial sale of the Series 2026 Bonds to the public (each such term being used as defined below),
+
+[PARAGRAPH]
+  (C) to acknowledge that, unless otherwise advised by the underwriter, dealer or broker-dealer, the successful bidder shall assume that each order submitted by the underwriter, dealer or broker-dealer is a sale to the public; and
+
+[PARAGRAPH]
+  (ii) any agreement among underwriters or selling group agreement relating to the initial sale of the Series 2026 Bonds to the public, together with the related pricing wires, contains or will contain language obligating each underwriter or dealer that is a party to a third-party distribution agreement to be employed in connection with the initial sale of the Series 2026 Bonds to the public to require each broker-dealer that is a party to such third-party distribution agreement to report the prices at which it sells to the public the unsold Series 2026 Bonds of each maturity allocated to it, whether or not the date of issuance has occurred, until either all Series 2026 Bonds of that maturity allocated to it have been sold or it is notified by the successful bidder or such underwriter that the 10% Test has been satisfied as to the Series 2026 Bonds of that maturity; provided that the reporting obligation after the date of issuance may be at reasonable periodic intervals or otherwise upon request of the successful bidder or such underwriter.
+
+[PARAGRAPH]
+  Sales of any Series 2026 Bonds to any person that is a related party to an underwriter participating in the initial sale of the Series 2026 Bonds to the public (each such term being used as defined below) shall not constitute sales to the public for purposes of this Official Notice of Bond Sale.  Further, for purposes of this Official Notice of Bond Sale:
+
+[PARAGRAPH]
+  (i) “public” means any person other than an underwriter or a related party,
+
+[PARAGRAPH]
+  (ii) “underwriter” means (A) any person that agrees pursuant to a written contract with the City (or with the lead underwriter to form an underwriting syndicate) to participate in the initial sale of the Series 2026 Bonds to the public and (B) any person that agrees pursuant to a written contract directly or indirectly with a person described in clause (A) to participate in the initial sale of the Series 2026 Bonds to the public (including a member of a selling group or a party to a third-party distribution agreement participating in the initial sale of the Series 2026 Bonds to the public),
+
+[PARAGRAPH]
+  (iii) a purchaser of any of the Series 2026 Bonds is a “related party” to an underwriter if the underwriter and the purchaser are subject, directly or indirectly, to (A) more than 50% common ownership of the voting power or
+
+[PARAGRAPH]
+  8
+
+--- PAGE 9 of 13 ---
+
+[PARAGRAPH]
+  the total value of their stock, if both entities are corporations (including direct ownership by one corporation of another), (B) more than 50% common ownership of their capital interests or profits interests, if both entities are partnerships (including direct ownership by one partnership of another), or (C) more than 50% common ownership of the value of the outstanding stock of the corporation or the capital interests or profit interests of the partnership, as applicable, if one entity is a corporation and the other entity is a partnership (including direct ownership of the applicable stock or interests by one entity of the other), and
+
+[PARAGRAPH]
+  (iv) “sale date” means the date that the Series 2026 Bonds are awarded by the City to the successful bidder.
+
+[SUBSECTION HEADING] Legal Opinion and Closing Documents
+
+[PARAGRAPH]
+  The approving opinion of Gilmore & Bell, P.C., Bond Counsel, covering the legality of the Series 2026 Bonds will be furnished to the successful bidder(s) without charge. There will also be furnished the usual closing certificates dated as of the date of delivery of and payment for the Series 2026 Bonds, including a letter from the attorney for the City that there is no litigation pending or, to the knowledge of the signer thereof, threatened, affecting the validity of the Series 2026 Bonds.
+
+[SUBSECTION HEADING] Disclosure Certificate and Disclosure Counsel Letter
+
+[PARAGRAPH]
+  The City will deliver to the successful bidder(s) a certificate of officer(s) of the City, dated the date of the delivery of the Series 2026 Bonds, stating that as of the date thereof, to the best of the knowledge and belief of said officer(s): (a) the descriptions and statements contained in the Preliminary Official Statement circulated with respect to the Series 2026 Bonds were at the time of the acceptance of the bid true and correct in all material respects and did not at the time of the acceptance of the bid contain any untrue statement of a material fact or omit to state a material fact required to be stated therein or necessary to make the statements therein, in light of the circumstances under which they were made, not misleading; and (b) the descriptions and statements contained in the Official Statement are at the time of delivery of the Series 2026 Bonds true and correct in all material respects and do not at the time of the delivery of the Series 2026 Bonds contain any untrue statement of a material fact or omit to state a material fact required to be stated therein or necessary to make the statements therein, in light of the circumstances under which they were made, not misleading; provided, should the Official Statement be supplemented or amended subsequent to the date thereof, the foregoing confirmation as to the Official Statement shall relate to the Official Statement as so supplemented or amended.
+
+[PARAGRAPH]
+  The City has retained Gilmore & Bell, P.C. to act as disclosure counsel to the City with respect to the Series 2026 Bonds and as such disclosure counsel, such firm will assist the City in the review of the contents of the Preliminary Official Statement and final Official Statement. Gilmore & Bell, P.C. will deliver a letter to the successful bidder for the Series 2026 Bonds with respect to the Preliminary Official Statement and the final Official Statement which will state, in effect, that, while the firm has not verified and is not passing upon, and does not assume responsibility for, the accuracy, completeness or fairness of the statements contained in the Preliminary Official Statement or the final Official Statement, based upon participation in conferences and in reliance thereon with various representatives of the City, counsel to the City, and representatives of the Municipal Advisor for the City at which the contents of the Preliminary Official Statement and the final Official Statement were discussed and reviewed, without independent verification, no facts came to the attention of the attorneys of such firm rendering legal services in connection with such retention which lead such attorneys to believe that either (a) the Preliminary Official Statement as of its date contained any untrue statement of a material fact or omitted to state a material fact necessary to make the statements therein, in light of the circumstances under which they were made, not misleading or (b) the final Official Statement as of its date contained, or as of the date of the delivery of the Series 2026 Bonds contains, any untrue statement of a material fact or omitted or omits to state a material fact necessary to make the statements therein, in light of the circumstances under which they were made, not misleading. However, such firm will not be called upon to and will not express an opinion or belief as to information relating to the book-entry system or the expressions of opinion, the assumptions, the projections, financial statements (including notes and schedules thereto) or other financial, numerical, demographic or statistical data contained in the Preliminary Official Statement and the final Official Statement.
+
+[PARAGRAPH]
+  9
+
+--- PAGE 10 of 13 ---
+
+[SUBSECTION HEADING] Official Statement
+
+[PARAGRAPH]
+  Copies of the City’s Preliminary Official Statement may be obtained as specified below prior to the time bids are taken. The Preliminary Official Statement is in a form “deemed final” by the City for purposes of paragraph (b)(1) of Rule 15c2-12 of the Securities and Exchange Commission, but is subject to revision, amendment and completion in a final Official Statement.
+
+[PARAGRAPH]
+  The City shall deliver to the successful bidder(s) no later than the seventh business day after the award of the Series 2026 Bonds as described under the caption “Award” above, a final Official Statement in electronic format, to comply with paragraph (b)(4) of Rule 15c2-12 of the Securities and Exchange Commission and the rules of the Municipal Securities Rulemaking Board.
+
+[SUBSECTION HEADING] Continuing Disclosure Undertaking
+
+[PARAGRAPH]
+  Pursuant to Securities and Exchange Commission Rule 15c2-12, the City will undertake in a Continuing Disclosure Undertaking to provide certain ongoing disclosure, including annual operating data and financial information (including audited financial statements) and notices of the occurrence of certain material events. A description of the undertaking is set forth in the Preliminary Official Statement.
+
+[PARAGRAPH]
+  The successful bidder’s obligation to purchase the Series 2026 Bonds shall be conditioned upon the City delivering the undertaking on or before the date of delivery of the Series 2026 Bonds.
+
+[SUBSECTION HEADING] Compliance with Public Contract Boycott Restrictions
+
+[PARAGRAPH]
+  To the extent the winning bid for the 2026 Bonds constitutes a contract to acquire or dispose of a good or service for which written certification is required under Section 63G-27-201 of the Utah Code, the bid submitted by the successful bidder shall be deemed to be the written certification by the successful bidder and any syndicate member, including any wholly-owned subsidiary, majority-owned subsidiary, parent company or affiliate of the successful bidder or any syndicate member (collectively, the “Successful Bidder”), that:
+
+[PARAGRAPH]
+  (a) the Successful Bidder is not currently engaged in (i) a Boycott of the State of Israel; or (ii) an Economic Boycott;
+
+[PARAGRAPH]
+  (b) the Successful Bidder agrees not to engage in a Boycott of the State of Israel for the duration of such contract; and
+
+[PARAGRAPH]
+  (c) the Successful Bidder agrees to notify the City in writing if the Successful Bidder begins engaging in an Economic Boycott (which notice may be grounds for termination of the contract).
+
+[PARAGRAPH]
+  For purposes of this OFFICIAL NOTICE OF BOND SALE:
+
+[PARAGRAPH]
+  (a) “Boycott Action” means refusing to deal, terminating business activities, or limiting commercial relations.
+
+[PARAGRAPH]
+  (b) “Boycott of the State of Israel” means engaging in a Boycott Action targeting (i) the State of Israel; and (ii)(A) companies or individuals doing business in or with the State of Israel; or (B) companies authorized by, licensed by, or organized under the laws of the State of Israel to do business.
+
+[PARAGRAPH]
+  (c) “Boycotted Company” means a company that (i) engages in the exploration, production, utilization, transportation, sale, or manufacture of fossil fuel-based energy, timber, mining, or agriculture; (i) engages in, facilitates, or supports the manufacture, distribution, sale, or use of firearms; (iii) does not meet or commit to meet environmental standards, including standards for eliminating, reducing, offsetting, or disclosing greenhouse gas-emissions, beyond applicable state and federal law requirements; or (iv) does not facilitate or commit to facilitate access to abortion or sex characteristic surgical procedures.
+
+[PARAGRAPH]
+  10
+
+--- PAGE 11 of 13 ---
+
+[PARAGRAPH]
+  (d) “Economic Boycott” means, without an ordinary business purpose (i) engaging in a boycott action targeting (A) a Boycotted Company; or (B) another company because the company does business with a Boycotted Company; or (ii) taking an action intended to penalize, inflict economic harm to, or change or limit the activities of (A) a Boycotted Company; or (B) another company because the company does business with a Boycotted Company.
+
+[PARAGRAPH]
+  Certain other terms used herein and not otherwise defined have the meanings assigned such terms in Section 63G-27-102 of the Utah Code. At the request of the City, the Successful Bidder agrees to execute such further written certification as may be deemed necessary or convenient for the City to establish compliance with Title 63G, Chapter 27 of the Utah Code.
+
+[SUBSECTION HEADING] Additional Information
+
+[PARAGRAPH]
+  For copies of this Official Notice of Bond Sale, the Preliminary Official Statement and information regarding the electronic bidding procedures and other related information, contact Mark Anderson (mark.anderson@zionsbancorp.com) (801-844-7377) or Japheth McGee (japhethmcgee@zionsbancorp.com) (801- 844-7142), Zions Public Finance, Inc., One South Main Street, 18th Floor, Salt Lake City, Utah 84133-1109; the Municipal Advisor to the City.
+
+[PARAGRAPH]
+  DATED this February 12, 2026.
+
+[SECTION HEADING] HURRICANE CITY, UTAH
+
+[PARAGRAPH]
+  11
+
+--- PAGE 12 of 13 ---
+
+[PARAGRAPH]
+  EXHIBIT A
+
+[PARAGRAPH]
+  FORM OF ISSUE PRICE CERTIFICATE
+
+[PARAGRAPH]
+  The undersigned, on behalf of [NAME OF PURCHASER] (herein, the “Original Purchaser”), as the Original
+
+[FORM FIELDS]
+  Purchaser of the $__________ Sales Tax Revenue Bonds, Series 2026 (the “Series 2026 Bonds”), being issued on the
+[END FORM FIELDS]
+
+[PARAGRAPH]
+  date of this certificate by Hurricane City, Utah (the “City”), certifies and represents as follows:
+
+[PARAGRAPH]
+  1. Public Offering. The Original Purchaser offered all of the Series 2026 Bonds to the Public (as defined below) in a bona fide initial offering.
+
+[PARAGRAPH]
+  2. Reasonably Expected Initial Offering Price. As of the sale date of the Series 2026 Bonds
+
+[FORM FIELDS]
+  (__________, 2026) (the “Sale Date”), the reasonably expected initial offering prices of the Series 2026 Bonds to the
+[END FORM FIELDS]
+
+[PARAGRAPH]
+  Public by the Original Purchaser are the prices listed in Schedule A (the “Expected Offering Prices”). The Expected Offering Prices are the prices for the Maturities of the Series 2026 Bonds used by the Original Purchaser in formulating its bid to purchase the Series 2026 Bonds.
+
+[PARAGRAPH]
+  [2. [To be used if there are not at least 3 bids received] [As of the date of this certificate, the first price at which at least 10% of [the indicated maturities] of the Series 2026 Bonds was sold to the Public are the prices listed in Schedule A.] or
+
+[PARAGRAPH]
+  [As of the date of this certificate, the Original Purchaser has not sold at least 10% of [each maturity] [certain maturities] of the Series 2026 Bonds at any price (the “Undersold Maturities”).  For each Undersold Maturity listed on Schedule A the Original Purchaser will provide the price or prices at which the first 10% of each such Undersold Maturity was sold to the Public promptly following the date that the first 10% of each such Undersold Maturity is sold to the Public.]]
+
+[PARAGRAPH]
+  3. Defined Terms.
+
+[PARAGRAPH]
+  (a) Maturity means Series 2026 Bonds with the same credit and payment terms.  Series 2026 Bonds with different maturity dates, or Series 2026 Bonds with the same maturity date but different stated interest rates, are treated as separate maturities.
+
+[PARAGRAPH]
+  (b) Public means any person (including an individual, trust, estate, partnership, association, company, or corporation) other than an Underwriter or a related party to an Underwriter. The term “related party” as defined in U.S. Treasury Regulation Section 1.1501(b) which generally provides that the term related party means any two or more persons who have greater than 50% common ownership, directly or indirectly.
+
+[PARAGRAPH]
+  (c) Underwriter means (i) any person that agrees pursuant to a written contract with the City (or with the lead underwriter to form an underwriting syndicate) to participate in the initial sale of the Series 2026 Bonds to the Public, and (ii) any person that agrees pursuant to a written contract directly or indirectly with a person described in clause (i) of this paragraph to participate in the initial sale of the Series 2026 Bonds to the Public (including a member of a selling group or a party to a third-party distribution agreement participating in the initial sale of the Series 2026 Bonds to the Public).
+
+[PARAGRAPH]
+  On the Sale Date the Original Purchaser purchased the Series 2026 Bonds from the City by submitting electronically an “Official Bid Form” responsive to an “Official Notice of Bond Sale” and having its bid accepted by the City. The City has not modified the terms of the purchase since the Sale Date.
+
+[PARAGRAPH]
+  The undersigned understands that the foregoing information will be relied upon by the City with respect to certain of the representations set forth in the tax certificate and with respect to compliance with the federal income tax rules affecting the Series 2026 Bonds, and by Bond Counsel in connection with rendering its opinion that the interest on the Series 2026 Bonds is excluded from gross income for federal income tax purposes, the preparation of the Internal Revenue Service Form 8038-G, and other federal income tax advice that it may give to the City from time to time relating to the Series 2026 Bonds.
+
+[PARAGRAPH]
+  A-1
+
+--- PAGE 13 of 13 ---
+
+[FORM FIELDS]
+  IN WITNESS WHEREOF, the undersigned has hereunto fixed his or her official signature this _____ day of
+  _______________, 2026.
+[END FORM FIELDS]
+
+[PARAGRAPH]
+  [PURCHASER], as Original Purchaser
+
+[FORM FIELDS]
+  By:______________________________
+  Title: ___________________________
+[END FORM FIELDS]
+
+[PARAGRAPH]
+  To Be Attached: SCHEDULE A—EXPECTED OFFERING PRICES
+
+[PARAGRAPH]
+  A-2

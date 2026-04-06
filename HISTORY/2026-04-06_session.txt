@@ -1,0 +1,101 @@
+SESSION: 2026-04-06
+====================
+
+WHAT WAS DONE
+-------------
+
+1. SCRAPER RE-RUN
+   - Ran scraper_linkpull.py to pull fresh data from i-dealprospectus.com (488 documents)
+   - Ran build_issue_index.py to group into issues
+   - Verified local server (index.html) renders correctly at localhost:8000
+
+2. NOS TEST SET CREATED (10 PDFs)
+   - Selected 10 diverse NOS PDFs for ground truth testing
+   - Diversity criteria: 8 states, 8 issuer types, par range $600K-$605M
+   - Initial picks had duplicate states; swapped Marin CA + Tarrant TX for Hurricane City UT + Virginia HDA VA
+   - PDFs downloaded to NOS/nos_test_set/NOS_Test_PDFs/
+   - Manifest created: NOS/nos_test_set/manifest.json
+
+   Final 10:
+     01. Harris County MUD No. 182, TX ($2.9M) — MUD Unlimited Tax
+     02. Craig County ISD No. 6, OK ($600K) — School GO Building
+     03. Dunellen Borough, NJ ($15.2M) — Borough BANs
+     04. Gallatin City, TN ($22.5M) — City GO
+     05. Hurricane City, UT ($5.6M) — Sales Tax Revenue
+     06. Regional School Unit No. 14, ME ($50.8M) — School GO
+     07. SD No. 46 (Elgin), IL ($81.1M) — Dual-series School GO
+     08. San Francisco, CA ($87.7M) — Taxable GO
+     09. Virginia HDA, VA ($17.9M) — Housing Authority Revenue
+     10. Nashville Metro Gov't, TN ($605M) — Metro GO
+
+3. READING SCRIPTS GENERATED
+   - Built generate_reading_script.py — analyzes PDF structure (bold headers, table columns, paragraphs, footnotes, form fields)
+   - Generated reading scripts for all 10 test PDFs
+   - Purpose: routing layer to tell extractors which pages contain which fields
+
+4. VISION EXTRACTION PROTOTYPE
+   - Built vision_extract.py — renders PDF pages as images, routes fields to relevant pages via reading script, sends to vision LLM
+   - Dry-run tested on Harris County PDF — routing correctly identifies pages for each field
+   - Manually validated vision-based extraction: 17 fields extracted accurately from page images, including maturity schedule table where text extraction fails (orphaned 2041 row)
+   - Key finding: vision extraction gets 17 fields right, text heuristics get ~5-6
+
+5. GROUND TRUTH FORMAT DESIGNED
+   - Format: full verbatim PDF text per page + extracted features block at bottom of each page
+   - Features per page (not per document) so extraction can be validated page-by-page
+   - Feature fields aligned with CLAUDE.md NOS taxonomy (not POS parse_remote_pdfs.py fields)
+   - Example format file: NOS/nos_test_set/ground_truth/test_ground_truth.txt
+   - Harris County ground truth started (verbatim text done, needs per-page features)
+
+6. CODEBASE REORGANIZATION
+   - Created iprospectus_scraper/ — scraper_linkpull.py, build_issue_index.py
+   - Created POS/ — parse_remote_pdfs.py, aggregate_issue_features.py, parsed/, issues_enriched_pos.json
+   - Created NOS/ — nos_parsing/ (generate_reading_script.py, vision_extract.py), nos_test_set/
+   - Reorganized prospectus_json/ — scraper_output/ subfolder with renamed JSONs:
+     - rows_raw.json → scrape_output_raw.json
+     - issues_grouped.json → issues_master.json
+     - documents_flat.json → documents_master.json
+     - issues_enriched.json → POS/issues_enriched_pos.json
+   - Deleted scraper_pdf_download.py and downloads_all_issues/ (unused)
+   - Added header comments to all Python files
+   - Created NOS_README.md, POS_README.md
+   - Updated all path references across codebase
+   - Organized nos_test_set into subfolders: NOS_Test_PDFs/, ground_truth/, reading_scripts/
+
+7. KEY ARCHITECTURAL DECISIONS
+   - Reading scripts are useful for CHUNKING/ROUTING (which pages to send for which fields) but NOT for helping the LLM understand ambiguous structure
+   - Vision-based extraction solves the real problem: PDFs are visual documents, text extraction destroys layout meaning
+   - Tiered extraction approach: text heuristics for easy fields, vision for hard fields — the ground truth comparison determines which tier each field belongs to
+   - The ground truth files are the bottleneck for everything else
+
+
+WHAT NEEDS TO BE DONE NEXT
+--------------------------
+
+1. COMPLETE GROUND TRUTH FILES (HUMAN TASK — CRITICAL PATH)
+   - For each of the 10 NOS PDFs:
+     a. Open the PDF
+     b. Have Claude generate the verbatim text transcription
+     c. YOU review and correct against the actual PDF (add page markers, section dividers)
+     d. Add === PAGE N FEATURES === block at the bottom of each page with correct field values
+     e. Verify all feature values by reading the PDF yourself — this is the answer key
+   - Harris County (#01) is started but needs per-page feature blocks added
+   - #02-10 not started
+   - See NOS/nos_test_set/ground_truth/test_ground_truth.txt for the format example
+
+2. RUN TEXT HEURISTIC EXTRACTION ON ALL 10
+   - Adapt existing extraction logic to work on local PDFs
+   - Score each field against ground truth
+   - This establishes the baseline
+
+3. RUN VISION EXTRACTION ON ALL 10
+   - Requires either API key or local vision model
+   - Score each field against ground truth
+   - Compare with text heuristic results
+
+4. DETERMINE TIER ASSIGNMENTS
+   - For each field: does text heuristic work well enough, or is vision needed?
+   - Based on accuracy delta from steps 2 and 3
+
+5. BUILD TIERED EXTRACTOR
+   - Single script that uses the right method per field
+   - Tier assignments come from measurement, not guessing

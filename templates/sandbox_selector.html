@@ -1,0 +1,212 @@
+<!-- sandbox_selector.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sandbox Selector</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f7fb;
+      padding: 20px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      z-index: 10;
+    }
+
+    .issue-card {
+      display: flex;
+      gap: 12px;
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .issue-content {
+      flex: 1;
+    }
+
+    .issue-title {
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .tags {
+      margin-top: 4px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #e5f0ff;
+      font-size: 12px;
+      margin-right: 4px;
+    }
+
+    .docs {
+      margin-top: 8px;
+      padding-left: 10px;
+    }
+
+    .doc-row {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+      padding: 3px 0;
+    }
+
+    pre {
+      background: #111;
+      color: #0f0;
+      padding: 10px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+    }
+
+    button {
+      padding: 6px 10px;
+      margin-right: 6px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: #2d6cdf;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <strong>Selected:</strong>
+  <span id="issueCount">0</span> issues |
+  <span id="docCount">0</span> docs
+
+  <br><br>
+
+  <label><input type="checkbox" id="useLLM"> Use LLM</label>
+  <label><input type="checkbox" id="fullMode"> Full Mode</label>
+  <label><input type="checkbox" id="retryFailed"> Retry Failed</label>
+
+  <br><br>
+
+  <button onclick="buildSandbox()">Build Sandbox</button>
+  <button onclick="generateCLI()">Generate CLI</button>
+
+  <pre id="cliOutput"></pre>
+</div>
+
+<div id="issues"></div>
+
+<script>
+let selectedDocs = new Set();
+let selectedIssues = new Set();
+
+function toggleIssue(issueSlug, checked, docIds) {
+  if (checked) {
+    selectedIssues.add(issueSlug);
+    docIds.forEach(id => selectedDocs.add(id));
+  } else {
+    selectedIssues.delete(issueSlug);
+    docIds.forEach(id => selectedDocs.delete(id));
+  }
+  updateCounts();
+}
+
+function toggleDoc(docId, checked) {
+  if (checked) selectedDocs.add(docId);
+  else selectedDocs.delete(docId);
+  updateCounts();
+}
+
+function updateCounts() {
+  document.getElementById("docCount").innerText = selectedDocs.size;
+  document.getElementById("issueCount").innerText = selectedIssues.size;
+}
+
+function buildSandbox() {
+  fetch("/sandbox/build-from-selection", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      document_ids: Array.from(selectedDocs)
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    alert(`Sandbox built with ${data.issue_count} issues`);
+  });
+}
+
+function generateCLI() {
+  fetch("/sandbox/generate-cli", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      use_llm: document.getElementById("useLLM").checked,
+      full_mode: document.getElementById("fullMode").checked,
+      retry_failed: document.getElementById("retryFailed").checked,
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById("cliOutput").innerText =
+      data.parse + "\n\n" + data.aggregate;
+  });
+}
+
+function renderIssues(issues) {
+  const container = document.getElementById("issues");
+
+  issues.forEach(issue => {
+    const docIds = issue.documents.map(d => d.document_id);
+
+    const div = document.createElement("div");
+    div.className = "issue-card";
+
+    div.innerHTML = `
+      <input type="checkbox"
+        onchange="toggleIssue('${issue.issue_slug}', this.checked, ${JSON.stringify(docIds)})">
+
+      <div class="issue-content">
+        <div class="issue-title">${issue.issue}</div>
+
+        <div class="tags">
+          <span class="tag">${issue.type || ''}</span>
+          <span class="tag">${issue.par_amt_numeric || ''}</span>
+          <span class="tag">${issue.manager_fa || ''}</span>
+        </div>
+
+        <div class="docs">
+          ${issue.documents.map(doc => `
+            <div class="doc-row">
+              <input type="checkbox"
+                onchange="toggleDoc('${doc.document_id}', this.checked)">
+              <span class="tag">${doc.doc_type}</span>
+              <span>${doc.date || ''}</span>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+// 🔥 THIS IS THE CRITICAL LINE (DO NOT CHANGE)
+renderIssues(JSON.parse('{{ issues_json | safe }}'));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "document_id": "Burlington_(City_of),_VT_GO_Public_Improvement_Bonds,_Srs_2025A__2025-11-20__Moodys__100830",
+  "issue": "Burlington (City of), VT GO Public Improvement Bonds, Srs 2025A",
+  "issue_slug": "Burlington_(City_of),_VT_GO_Public_Improvement_Bonds,_Srs_2025A",
+  "doc_type": "Moodys",
+  "pdf_url": "https://www.i-dealprospectus.com/api/PdfDownload/100830?action=Get",
+  "parsed_at": "2026-03-29T07:18:59.861649+00:00",
+  "page_count_examined": 5,
+  "extracted": {
+    "issuer": "Burlington (City of), VT GO Public Improvement Bonds, Srs 2025A",
+    "offering_type": null,
+    "sale_type": "Comp",
+    "par_amount_from_manifest": 31000000.0,
+    "par_amount_from_text": null,
+    "tax_status": null,
+    "dated_date": null,
+    "delivery_date": null,
+    "call_features": [],
+    "underwriter": "PFM Financial Advisors LLC (FA)",
+    "financial_advisor": null
+  },
+  "source_excerpt": "[PAGE 1]\n\n\n[PAGE 2]\n\n\n[PAGE 3]\n\n\n[PAGE 4]\n\n\n[PAGE 5]\n",
+  "pages": [
+    {
+      "page_number": 1,
+      "text": ""
+    },
+    {
+      "page_number": 2,
+      "text": ""
+    },
+    {
+      "page_number": 3,
+      "text": ""
+    },
+    {
+      "page_number": 4,
+      "text": ""
+    },
+    {
+      "page_number": 5,
+      "text": ""
+    }
+  ],
+  "notes": [
+    "Tax status not confidently detected.",
+    "Dated date not found in selected pages.",
+    "Delivery date not found in selected pages."
+  ]
+}
