@@ -655,6 +655,68 @@ body::before {
 .g-pill.pass { border:1px solid var(--red-border); color:var(--red); background:var(--red-wash); }
 
 /* ── EMPTY STATE ───────────────────────── */
+/* ── MODE SELECT MODAL ────────── */
+.mode-overlay {
+  position:fixed; inset:0; z-index:9000;
+  background:rgba(0,0,0,0.85); backdrop-filter:blur(6px);
+  display:flex; align-items:center; justify-content:center;
+}
+.mode-modal {
+  background:var(--surface); border:1px solid var(--rule);
+  width:560px; max-width:90vw; padding:0; overflow:hidden;
+}
+.mode-header {
+  padding:20px 28px; border-bottom:1px solid var(--rule);
+  display:flex; align-items:center; gap:10px;
+}
+.mode-header h2 { font-size:15px; font-weight:700; letter-spacing:-0.02em; }
+.mode-header .tag { font-family:var(--mono); font-size:9px; color:var(--red); text-transform:uppercase; letter-spacing:0.08em; border:1px solid var(--red-border); padding:2px 8px; }
+.mode-body { padding:24px 28px; }
+.mode-body p { font-size:13px; color:var(--white-dim); line-height:1.65; margin-bottom:16px; }
+.mode-options { display:flex; flex-direction:column; gap:12px; }
+.mode-option {
+  border:1px solid var(--rule); padding:18px 20px; cursor:pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.mode-option:hover { border-color:var(--white-muted); background:var(--surface2); }
+.mode-option.selected { border-color:var(--red-border); background:rgba(224,62,62,0.04); }
+.mode-option .mo-row { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+.mode-option .mo-radio {
+  width:16px; height:16px; border:1px solid var(--white-muted);
+  border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.mode-option.selected .mo-radio { border-color:var(--red); }
+.mode-option.selected .mo-radio::after { content:''; width:8px; height:8px; border-radius:50%; background:var(--red); }
+.mode-option .mo-title { font-size:14px; font-weight:600; }
+.mode-option .mo-badge {
+  font-family:var(--mono); font-size:9px; text-transform:uppercase; letter-spacing:0.06em;
+  padding:2px 8px; border:1px solid var(--rule); color:var(--white-muted); margin-left:auto;
+}
+.mode-option .mo-desc { font-size:12px; color:var(--white-muted); line-height:1.55; padding-left:28px; }
+.mode-api-input {
+  margin-top:12px; padding-left:28px; display:none;
+}
+.mode-option.selected .mode-api-input { display:block; }
+.mode-api-input input {
+  width:100%; padding:8px 12px; background:var(--black); border:1px solid var(--rule);
+  color:var(--white); font-family:var(--mono); font-size:12px; outline:none;
+}
+.mode-api-input input:focus { border-color:var(--red-border); }
+.mode-api-input input::placeholder { color:var(--white-muted); }
+.mode-api-input .api-hint { font-size:10px; color:var(--white-muted); margin-top:6px; }
+.mode-footer {
+  padding:16px 28px; border-top:1px solid var(--rule);
+  display:flex; justify-content:flex-end; gap:10px;
+}
+.mode-btn {
+  padding:10px 28px; font-size:13px; font-weight:600; cursor:pointer;
+  font-family:var(--sans); border:1px solid; transition: all 0.15s;
+}
+.mode-btn-primary { background:var(--white); color:var(--black); border-color:var(--white); }
+.mode-btn-primary:hover { background:var(--red); color:var(--white); border-color:var(--red); }
+.mode-btn-primary:disabled { opacity:0.3; cursor:default; }
+.mode-btn-primary:disabled:hover { background:var(--white); color:var(--black); }
+
 .empty-state {
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   padding:80px 40px; color: var(--white-muted); text-align:center;
@@ -674,6 +736,51 @@ body::before {
 </style>
 </head>
 <body>
+
+<!-- MODE SELECT MODAL -->
+<div class="mode-overlay" id="mode-overlay">
+  <div class="mode-modal">
+    <div class="mode-header">
+      <h2>Select Extraction Mode</h2>
+      <span class="tag">Required</span>
+    </div>
+    <div class="mode-body">
+      <p>When you drop a NOS PDF, the system extracts structured data from the raw text. Choose how that extraction happens:</p>
+      <div class="mode-options">
+        <div class="mode-option selected" id="mode-local" onclick="selectMode('local')">
+          <div class="mo-row">
+            <div class="mo-radio"></div>
+            <div class="mo-title">Local Mode</div>
+            <div class="mo-badge">No API Key</div>
+          </div>
+          <div class="mo-desc">
+            Heuristic extraction using regex pattern matching on the raw PDF text. Captures core fields (issuer, par amount, dates, maturity schedule, bond type, basis of award, call provisions). Complex fields like coupon constraints or issue price requirements may be incomplete. Best for demos and testing.
+          </div>
+        </div>
+        <div class="mode-option" id="mode-llm" onclick="selectMode('llm')">
+          <div class="mo-row">
+            <div class="mo-radio"></div>
+            <div class="mo-title">LLM Mode</div>
+            <div class="mo-badge" style="border-color:var(--red-border);color:var(--red)">API Key Required</div>
+          </div>
+          <div class="mo-desc">
+            Full extracted text is sent to Claude (Anthropic API) with the 55-feature JSON schema. Returns complete structured extraction with high accuracy across all fields. Requires an Anthropic API key.
+          </div>
+          <div class="mode-api-input">
+            <input type="password" id="mode-api-key" placeholder="sk-ant-..." value="">
+            <div class="api-hint">Your key is stored in your browser only (localStorage). Never sent anywhere except the Anthropic API.</div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:16px;font-size:11px;color:var(--white-muted)">
+        Pre-loaded test documents from the sidebar always use their validated ground truth data regardless of mode. This setting only affects newly dropped PDFs.
+      </p>
+    </div>
+    <div class="mode-footer">
+      <button class="mode-btn mode-btn-primary" id="mode-continue-btn" onclick="confirmMode()">Continue</button>
+    </div>
+  </div>
+</div>
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -755,6 +862,7 @@ body::before {
         </div>
       </div>
       <button class="settings-save" onclick="saveSettings()">Save Settings</button>
+      <button class="settings-save" style="background:transparent;color:var(--white-dim);border:1px solid var(--rule);margin-top:8px;" onclick="reopenModeSelect()">Change Extraction Mode</button>
     </div>
   </div>
 </div>
@@ -2328,6 +2436,78 @@ document.addEventListener('keydown', e => {
 });
 
 // ── INIT ───────────────────────────────────
+// ── MODE SELECT MODAL ─────────────────────────
+let selectedMode = 'local';
+
+function selectMode(mode) {
+  selectedMode = mode;
+  document.getElementById('mode-local').classList.toggle('selected', mode === 'local');
+  document.getElementById('mode-llm').classList.toggle('selected', mode === 'llm');
+  // Validate continue button
+  validateModeBtn();
+}
+
+function validateModeBtn() {
+  const btn = document.getElementById('mode-continue-btn');
+  if (selectedMode === 'llm') {
+    const key = document.getElementById('mode-api-key').value.trim();
+    btn.disabled = !key;
+  } else {
+    btn.disabled = false;
+  }
+}
+
+// Live validate on key input
+document.getElementById('mode-api-key').addEventListener('input', validateModeBtn);
+
+function confirmMode() {
+  const settings = JSON.parse(localStorage.getItem('nos_settings') || '{}');
+  if (selectedMode === 'llm') {
+    const key = document.getElementById('mode-api-key').value.trim();
+    if (!key) return;
+    settings.apiKey = key;
+    settings.liveMode = true;
+    settings.liveApi = true;
+  } else {
+    settings.liveMode = false;
+    settings.liveApi = false;
+  }
+  settings._modeChosen = true;
+  localStorage.setItem('nos_settings', JSON.stringify(settings));
+
+  // Close modal
+  document.getElementById('mode-overlay').style.display = 'none';
+}
+
+function reopenModeSelect() {
+  // Close settings panel, reopen mode modal
+  document.getElementById('settings-overlay').classList.remove('visible');
+  const settings = JSON.parse(localStorage.getItem('nos_settings') || '{}');
+  delete settings._modeChosen;
+  localStorage.setItem('nos_settings', JSON.stringify(settings));
+  // Reset modal state
+  if (settings.liveMode || settings.liveApi) {
+    selectMode('llm');
+    if (settings.apiKey) document.getElementById('mode-api-key').value = settings.apiKey;
+  } else {
+    selectMode('local');
+  }
+  document.getElementById('mode-overlay').style.display = 'flex';
+}
+
+// Pre-fill from localStorage
+(function initModal() {
+  const settings = JSON.parse(localStorage.getItem('nos_settings') || '{}');
+  if (settings.apiKey) {
+    document.getElementById('mode-api-key').value = settings.apiKey;
+  }
+  // If user already chose before, check if we should skip
+  if (settings._modeChosen) {
+    document.getElementById('mode-overlay').style.display = 'none';
+    if (settings.liveMode) selectedMode = 'llm';
+  }
+})();
+
 loadData();
 </script>
 </body>
