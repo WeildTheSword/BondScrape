@@ -1,0 +1,147 @@
+SESSION: 2026-04-06 (Session 2 — NOS Pipeline + UI Build)
+============================================================
+
+WHAT WAS DONE
+-------------
+
+1. NOS EXTRACTION PIPELINE (NOS/nos_extraction/)
+   - schema.py: 55-feature JSON schema across 10 categories (issuer, bond ID,
+     sale logistics, maturity, coupons, bid evaluation, redemption, delivery,
+     credit, legal, bidder obligations). Includes field-to-agent mapping.
+   - extract_text.py: pdftotext -layout extraction with pypdf fallback.
+   - llm_extract.py: Claude/OpenAI structured extraction with retry on
+     validation failure. Detailed per-field extraction guidance in system prompt.
+   - validate.py: Deterministic checks (par sum, GFD math, date logic,
+     maturity count, bond years, average maturity, required fields).
+   - evaluate.py: Ground truth comparison harness with weighted field-level
+     accuracy, maturity schedule validation, batch mode.
+
+2. MULTI-AGENT SCREENING SYSTEM (NOS/nos_agents/)
+   - agents.py: 5 screening agents (Sector Fit, Size & Capital, Structure,
+     Distribution, Calendar). Parallel execution via ThreadPoolExecutor.
+     Confidence calibration guidance in all system prompts.
+   - consensus.py: 4-rule deterministic consensus (hard veto at 0.8+ Pass,
+     unanimous interested, mixed → conditional, multiple low-confidence
+     Pass → escalation with human review flag).
+
+3. GROUND TRUTH (NOS/nos_test_set/ground_truth/)
+   - Created validated ground truth JSON for all 10 test PDFs
+   - All pass validation checks (par sum, field presence, date logic)
+   - Extracted text files saved for all 10 PDFs via pdftotext -layout
+
+4. FIRM PROFILES (NOS/firm_profiles/)
+   - texas_regional.json: Lone Star Municipal Partners (TX, $25M max, retail)
+   - northeast_institutional.json: Atlantic Capital Markets (NE, $100M max, institutional)
+   - national_large.json: National Municipal Securities (24 states, $500M max)
+   - small_boutique.json: Magnolia Capital Advisors (TN only, $10M max, 0 analysts)
+
+5. PIPELINE RUNNERS & TOOLS
+   - run_screening.py: End-to-end pipeline (PDF → extraction → validation →
+     agents → consensus). Context-aware dry-run mode.
+   - demo_compare.py: Firm comparison demo (single, 6-scenario, full 10×4 grid)
+   - batch_extract.py: Batch extraction + evaluation across all test PDFs
+   - generate_report.py: Formatted text screening reports
+   - interactive_demo.py: Menu-driven interactive screening
+   - run_tests.py: 33 self-tests covering all pipeline components
+   - test_set_stats.py: Test set diversity statistics for presentations
+   - run_full_demo.sh: One-command full demo sequence
+
+6. WEB UI (NOS/*.html)
+   - index.html: Animated landing page with katana slash intro (click to
+     trigger, Web Audio API sound effects, metallic blade + sparks + split),
+     scroll blur reveal, word-by-word tagline animation, counter rollup for
+     stats (5 agents, 55 features, 10 docs, 0 LLM consensus calls),
+     agent feature cards with SVG icons, pipeline visualization.
+   - screening_ui.html: Full screening tool with:
+     * PDF drag-and-drop with real browser-side text extraction (pdf.js)
+     * Mode selection popup (Local heuristic vs LLM with API key)
+     * Extraction animation (terminal text streaming with scanline)
+     * Scrollable extracted text panel after animation
+     * Validation checklist with animated pass/fail
+     * Feature tags (color-coded, stagger animation)
+     * NOS prose summary
+     * Agent reasoning with pixel art avatars, chain-of-thought reasoning
+       chains, typing animation, vote stamp with shake on PASS
+     * Sound effects (click, typing ticks, stamp thud, consensus chord)
+     * Mute toggle, settings panel with API config and agent toggles
+     * Firm profile cards with pixel art people-in-suits avatars
+     * Firm profile generator form
+     * Matrix view (10 deals × 4 firms)
+   - pipeline.html: Interactive 6-step pipeline walkthrough with keyboard
+     navigation, real data from test set at each step.
+   - firms.html: Dedicated firm profiles page with pixel art avatars, key
+     metrics, strategic priorities, "Screen with this firm" links, and
+     firm profile generator form.
+
+7. DOCUMENTATION
+   - NOS_FEATURE_TAXONOMY.md: 55-feature taxonomy with color-coded value pills
+   - NOS_REASONING_CHAIN.md: 10-step NOS reasoning chain
+   - MAS_ARCHITECTURE.md: Agent topology, consensus rules, anti-patterns
+   - PRESENTATION_OUTLINE.md: 14-slide capstone presentation plan
+   - NOS_README.md: Comprehensive guide with quick start
+   - sample_output.json: Example screening output
+   - CLAUDE.md: Updated with all new file paths and commands
+   - PROGRESS.md: Full progress report
+   - requirements.txt: All pip dependencies
+   - .gitignore: Updated for NOS pipeline outputs
+
+FILES CREATED/MODIFIED (54 files, ~15,000+ lines added)
+-------------------------------------------------------
+NOS/nos_extraction/__init__.py
+NOS/nos_extraction/schema.py
+NOS/nos_extraction/extract_text.py
+NOS/nos_extraction/llm_extract.py
+NOS/nos_extraction/validate.py
+NOS/nos_extraction/evaluate.py
+NOS/nos_agents/__init__.py
+NOS/nos_agents/agents.py
+NOS/nos_agents/consensus.py
+NOS/firm_profiles/texas_regional.json
+NOS/firm_profiles/northeast_institutional.json
+NOS/firm_profiles/national_large.json
+NOS/firm_profiles/small_boutique.json
+NOS/nos_test_set/ground_truth/01-10_ground_truth.json (10 files)
+NOS/nos_test_set/extracted_text/01-10_*.txt (10 files)
+NOS/run_screening.py
+NOS/demo_compare.py
+NOS/batch_extract.py
+NOS/generate_report.py
+NOS/interactive_demo.py
+NOS/run_tests.py
+NOS/test_set_stats.py
+NOS/run_full_demo.sh
+NOS/index.html
+NOS/screening_ui.html
+NOS/pipeline.html
+NOS/firms.html
+NOS/sample_output.json
+NOS/NOS_README.md
+NOS/NOS_FEATURE_TAXONOMY.md
+NOS/NOS_REASONING_CHAIN.md
+NOS/MAS_ARCHITECTURE.md
+NOS/PRESENTATION_OUTLINE.md
+CLAUDE.md
+PROGRESS.md
+requirements.txt
+.gitignore
+
+COMMITS ON claude-work BRANCH
+------------------------------
+38 commits (not yet pushed to remote)
+
+KEY DEMO CAPABILITIES
+---------------------
+- Drop any NOS PDF → browser extracts text → heuristic or LLM extraction →
+  validation → feature tags → 5 agents reason with animated chain of thought →
+  consensus stamps in with sound effects
+- Same deal through different firm profiles → consensus flips (INTERESTED vs PASS)
+- 10×4 matrix grid showing all deals × all firms at a glance
+- Landing page with katana slash intro animation + sound
+- Interactive pipeline walkthrough with keyboard navigation
+- Firm profile generator for custom firms
+- All works offline (no API needed for local mode)
+
+TO RUN THE DEMO
+---------------
+  cd NOS && python3 -m http.server 8080
+  Open http://localhost:8080
