@@ -1,0 +1,56 @@
+{
+  "nos_summary": {
+    "issuer": "Harris County Municipal Utility District No. 182",
+    "state": "TX",
+    "par_amount": 2930000,
+    "bond_type": "Unlimited Tax Bonds",
+    "sale_date": "April 15, 2026",
+    "tax_status": "tax_exempt"
+  },
+  "firm_profile": "Lone Star Municipal Partners",
+  "validation_errors": [],
+  "consensus": {
+    "decision": "INTERESTED",
+    "rule_applied": "unanimous_interested",
+    "reason": "All agents voted Interested. Proceed to POS review.",
+    "conditions": [],
+    "escalation": false
+  },
+  "agent_votes": [
+    {
+      "agent": "sector_fit",
+      "vote": "interested",
+      "confidence": 0.95,
+      "rationale": "Texas MUD GO unlimited tax \u2014 core coverage area and issuer type.",
+      "conditions": []
+    },
+    {
+      "agent": "size_capital",
+      "vote": "interested",
+      "confidence": 0.9,
+      "rationale": "$2.93M par well within $25M single commitment limit. Good faith deposit of $58,600 is trivial.",
+      "conditions": []
+    },
+    {
+      "agent": "structure",
+      "vote": "interested",
+      "confidence": 0.85,
+      "rationale": "Standard serial structure, net effective rate basis (standard for Texas), 1/8% rate increment, 97% min bid \u2014 clean and workable.",
+      "conditions": []
+    },
+    {
+      "agent": "distribution",
+      "vote": "interested",
+      "confidence": 0.88,
+      "rationale": "Small tax-exempt deal with 1-27yr serial range. Sweet spot for retail distribution. Unrated but typical for Texas MUDs.",
+      "conditions": []
+    },
+    {
+      "agent": "calendar",
+      "vote": "interested",
+      "confidence": 0.82,
+      "rationale": "Sale April 15 \u2014 9 days out, sufficient for POS review. Only 1 other bid that week. 2 analysts available.",
+      "conditions": []
+    }
+  ]
+}
