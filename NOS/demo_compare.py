@@ -253,11 +253,39 @@ def _generate_demo_votes(nos_json: dict, firm_profile: dict) -> list[dict]:
         })
 
     # Agent 3: Structure (firm-independent)
-    votes.append({
-        "agent": "structure", "vote": "interested", "confidence": 0.85,
-        "rationale": "Standard serial structure, workable constraints.",
-        "conditions": []
-    })
+    bond_type = _safe_get(nos_json, "bond_identification.bond_type", "")
+    basis = _safe_get(nos_json, "bid_evaluation.basis_of_award", "")
+    n_maturities = len(_safe_get(nos_json, "maturity_structure.maturity_schedule", []))
+    max_rate = _safe_get(nos_json, "coupon_provisions.coupon_rate_constraints.max_rate_cap")
+    ascending = _safe_get(nos_json, "coupon_provisions.coupon_rate_constraints.ascending_only")
+    min_bid = _safe_get(nos_json, "bid_evaluation.minimum_bid_price", 0)
+
+    structure_issues = []
+    if ascending and max_rate and max_rate <= 5.0:
+        structure_issues.append("ascending coupons + rate cap limits optimization")
+    if min_bid and min_bid > 105:
+        structure_issues.append(f"high minimum bid ({min_bid}%) constrains pricing")
+    if n_maturities <= 2:
+        structure_issues.append(f"only {n_maturities} maturities — limited structure")
+
+    if len(structure_issues) >= 2:
+        votes.append({
+            "agent": "structure", "vote": "conditional", "confidence": 0.6,
+            "rationale": f"Multiple constraints: {'; '.join(structure_issues)}.",
+            "conditions": structure_issues
+        })
+    elif structure_issues:
+        votes.append({
+            "agent": "structure", "vote": "interested", "confidence": 0.7,
+            "rationale": f"Workable but note: {structure_issues[0]}.",
+            "conditions": []
+        })
+    else:
+        votes.append({
+            "agent": "structure", "vote": "interested", "confidence": 0.85,
+            "rationale": f"Standard structure, {basis or 'standard'} basis, {n_maturities} maturities — clean and workable.",
+            "conditions": []
+        })
 
     # Agent 4: Distribution
     if tax_status == "taxable" and taxable_demand in ("Weak", "weak"):
