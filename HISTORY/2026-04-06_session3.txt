@@ -1,0 +1,116 @@
+SESSION: 2026-04-06 (Session 3 — Scraper Dashboard + Live Agent Streaming)
+============================================================
+
+WHAT WAS DONE
+-------------
+
+1. LIVE AGENT API STREAMING (NOS/screening_ui.html)
+   - Agents now call Anthropic API directly from the browser when live mode is on
+   - Full streaming via SSE: raw JSON tokens appear in real time in each agent's
+     reasoning chain area as Claude generates the response
+   - Uses stream: true with content_block_delta event parsing
+   - System prompts mirror Python agent definitions exactly (sector fit,
+     size/capital, structure, distribution, calendar) with confidence calibration
+   - Each agent: lights up input fields -> streams response -> reveals parsed
+     vote/rationale/confidence with stamp animation
+   - Sequential agent execution so user watches each one reason through the deal
+   - Falls back to local heuristic votes when no API key configured
+
+2. SCRAPER DASHBOARD (NOS/scraper.html) — NEW PAGE
+   - Two-step gate screen on page entry:
+     Step 1: "Scrape new issues or browse existing?" with Launch Scraper
+             (red primary button) or Proceed without scraping (outlined secondary)
+     Step 2: Source selection cards — S&P Global i-dealprospectus (active,
+             selectable, blue logo) and Grant Street Group (coming soon, disabled,
+             green logo). Back button and Fire Selected Scrapers button.
+   - Two portal cards in the main dashboard:
+     S&P i-deal: blue logo, "Active" badge, full launch controls
+     Grant Street: green logo, "Coming Soon" badge, placeholder text
+   - Launch panel: Launch Scraper button fires Playwright scraper via SSE,
+     live console output streams every print() line from the script,
+     animated progress bar, Stop button sends kill signal, Build Index
+     button runs build_issue_index.py with SSE streaming then auto-reloads data
+   - "Last fired" timestamp persisted in localStorage, shown on both gate
+     screen and launch panel (e.g. "Last fired: Apr 6, 2026 at 3:45 PM")
+   - Issue browser: 339 scraped issues in sortable table with:
+     Search box (issues, states, managers), filter buttons (Competitive /
+     Has NOS / Negotiated) with counts, select-all checkbox
+   - Source tags on every issuer name row ("S&P i-deal" blue, "Grant Street"
+     green for future data)
+   - Expandable issue rows showing document cards with doc type badges
+     (NOS red, Prelim amber, Final green), parse status, View PDF link,
+     Screen This NOS button
+   - Screening status badges on NOS documents and issue rows
+     (unscreened/interested/conditional/pass) read from localStorage
+   - Bulk selection + Push to Screening stores deals in localStorage queue
+   - Stats row: Total Issues, Competitive Sales, NOS Available, States
+     Covered, Total Documents — all with animated count-up on load
+
+3. FASTAPI BACKEND SCRAPER API (app.py)
+   - GET /api/scraper/status — running state, raw row count, issue count
+   - GET /api/scraper/launch — launches scraper_linkpull.py as async
+     subprocess, streams stdout/stderr as SSE events to browser
+   - GET /api/scraper/build-index — launches build_issue_index.py with
+     SSE streaming, auto-reloads table data on completion
+   - POST /api/scraper/stop — terminates running scraper process
+   - Static file mounts: /NOS/ serves the website (html=True),
+     /prospectus_json/ serves scraper data files
+   - Site now runs entirely through FastAPI (uvicorn app:app --reload)
+     instead of needing a separate static file server
+
+4. SCRAPED DEAL INTEGRATION IN SCREENING UI (NOS/screening_ui.html)
+   - Sidebar now has two sections:
+     "Test Set" (10 ground truth deals) and
+     "Scraped NOS" (competitive sales with NOS from issues_master.json)
+   - Filter buttons on scraped section: All / Unscreened / Screened
+   - Each scraped deal shows consensus badge from localStorage
+   - Clicking a scraped deal creates placeholder NOS JSON from metadata,
+     adds to DEALS array, and runs the screening pipeline
+   - guessIssuerType() heuristic derives issuer type from issue name
+     (MUD, school district, city, county, authority, other)
+   - Consensus results saved to localStorage (nos_consensus_results)
+     keyed by issue_slug -> firm_name after screening completes
+   - Both scraper page and screening page read the same localStorage
+     so screening status stays in sync
+
+5. NAVIGATION UPDATES
+   - "Scraper" tab with document SVG icon added to all 5 pages:
+     index.html, screening_ui.html, pipeline.html, firms.html, scraper.html
+
+
+FILES CHANGED
+-------------
+New:     NOS/scraper.html (scraper dashboard, ~900 lines)
+Modified: NOS/screening_ui.html (+631 lines — streaming, scraped deals, CSS)
+Modified: app.py (+153 lines — scraper API endpoints, static mounts)
+Modified: NOS/index.html (+1 line — Scraper nav link)
+Modified: NOS/pipeline.html (+1 line — Scraper nav link)
+Modified: NOS/firms.html (+1 line — Scraper nav link)
+Modified: PROGRESS.md (session 3 log appended)
+
+
+ARCHITECTURE NOTES
+------------------
+- Scraper page fetches issues_master.json from /prospectus_json/scraper_output/
+  (served by FastAPI static mount, not relative path)
+- Consensus results in localStorage: nos_consensus_results
+  Structure: { [issue_slug]: { [firm_name]: { decision, votes, timestamp } } }
+- Scrape timestamps in localStorage: nos_scrape_timestamps
+  Structure: { idp: <epoch_ms>, gs: <epoch_ms> }
+- Gate screen reads timestamps to show "Last scraped: ..." on both steps
+- Grant Street integration fully scaffolded (source card, CSS, toggle logic,
+  source tag rendering) — only needs the actual scraper script to go live
+- The streaming agent flow builds the request identically to the Python
+  agents.py (same field extraction, same system prompts, same confidence
+  calibration text) so live API results match what the CLI pipeline produces
+
+
+WHAT STILL NEEDS WORK
+---------------------
+- Grant Street scraper implementation
+- PDF fetch + extraction for scraped NOS documents on the screening page
+  (currently creates placeholder JSON from metadata only; full extraction
+  requires fetching the PDF from i-dealprospectus.com which needs auth cookies)
+- Live API testing of the streaming agent calls with a real ANTHROPIC_API_KEY
+- Scraper page could show aggregate screening stats (% screened, consensus
+  distribution across all NOS deals)
