@@ -178,6 +178,56 @@ def run_all():
     test("Consensus flips between firms",
          consensus_tx["decision"] != consensus_ne["decision"])
 
+    # ── Additional firm profiles ──────────────────────────
+    print("\n--- Multi-Firm Demo ---")
+    profile_nat = json.load(open(Path(__file__).parent / "firm_profiles" / "national_large.json"))
+    profile_bout = json.load(open(Path(__file__).parent / "firm_profiles" / "small_boutique.json"))
+
+    test("4 firm profiles exist",
+         len(list((Path(__file__).parent / "firm_profiles").glob("*.json"))) == 4)
+
+    votes_nat = _generate_demo_votes(sample, profile_nat)
+    consensus_nat = compute_consensus(votes_nat)
+    test("National firm → INTERESTED on TX MUD", consensus_nat["decision"] == "INTERESTED")
+
+    votes_bout = _generate_demo_votes(sample, profile_bout)
+    consensus_bout = compute_consensus(votes_bout)
+    test("Boutique firm → PASS on TX MUD", consensus_bout["decision"] == "PASS")
+
+    # Test NJ deal through NE firm (should be INTERESTED)
+    with open(gt_dir / "03_ground_truth.json") as f:
+        nj_nos = json.load(f)
+    votes_nj = _generate_demo_votes(nj_nos, profile_ne)
+    consensus_nj = compute_consensus(votes_nj)
+    test("NE firm → INTERESTED on NJ BAN", consensus_nj["decision"] == "INTERESTED")
+
+    # Test large Nashville deal through national firm
+    with open(gt_dir / "10_ground_truth.json") as f:
+        tn_nos = json.load(f)
+    votes_tn = _generate_demo_votes(tn_nos, profile_nat)
+    consensus_tn = compute_consensus(votes_tn)
+    test("National firm → INTERESTED on $204M Nashville GO", consensus_tn["decision"] == "INTERESTED")
+
+    # ── Text extraction ──────────────────────────────────
+    print("\n--- Text Extraction ---")
+    test_pdf = Path(__file__).parent / "nos_test_set" / "NOS_Test_PDFs" / "01_Harris_County_MUD_No_182,_TX_Unlimited_Tax_Bonds,_Srs_2026.pdf"
+    if test_pdf.exists():
+        from extract_text import extract_text
+        text = extract_text(str(test_pdf))
+        test("Text extraction produces content", len(text) > 1000, f"got {len(text)} chars")
+        test("Text contains issuer name", "Harris County" in text)
+        test("Text contains par amount", "2,930,000" in text)
+    else:
+        test("Test PDF exists", False, f"not found: {test_pdf}")
+
+    # ── Report generation ─────────────────────────────────
+    print("\n--- Report Generation ---")
+    from generate_report import generate_report
+    report = generate_report(sample, profile_tx, votes_tx, consensus_tx)
+    test("Report contains issuer name", "Harris County" in report)
+    test("Report contains decision", "INTERESTED" in report)
+    test("Report has 5 agent sections", report.count("confidence:") == 5)
+
     # ── Summary ───────────────────────────────────────────
     total = PASS + FAIL
     print(f"\n{'=' * 60}")
