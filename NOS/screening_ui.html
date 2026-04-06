@@ -373,11 +373,15 @@ body::before {
 }
 .extract-header .cmd { color:var(--red); }
 .extract-body {
-  height:160px; overflow:hidden; position:relative;
+  height:200px; overflow-y:auto; position:relative;
   font-family:var(--mono); font-size:10px; line-height:1.6;
   color:var(--white-dim); padding:10px 14px;
   white-space:pre-wrap; word-break:break-all;
 }
+.extract-body::-webkit-scrollbar { width:4px; }
+.extract-body::-webkit-scrollbar-thumb { background:var(--rule-light); border-radius:2px; }
+.extract-body.streaming { overflow-y:hidden; }
+.extract-body.done { height:300px; overflow-y:auto; }
 .extract-body .scan-line {
   position:absolute; left:0; right:0; height:2px;
   background:linear-gradient(180deg, transparent, var(--red), transparent);
@@ -1706,31 +1710,47 @@ async function runExtractionAnimation(ctrl, nos) {
   }
   if (!text) text = generatePlaceholderText(nos);
 
-  fname.textContent = safeGet(nos, 'source_pdf', 'input.pdf') || 'input.pdf';
+  fname.textContent = safeGet(nos, 'source_pdf', nos._filename || 'input.pdf') || 'input.pdf';
   panel.classList.add('visible');
+  body.classList.add('streaming');
+  body.classList.remove('done');
 
-  // Stream text rapidly
+  // Stream text rapidly (auto-scrolling during animation)
   const lines = text.split('\n');
-  const displayLines = [];
-  const scrollSpeed = 8; // lines per tick
+  const scrollSpeed = 8;
   const totalTicks = Math.ceil(lines.length / scrollSpeed);
   const tickMs = 30;
 
   for (let tick = 0; tick < totalTicks && tick < 120; tick++) {
     if (ctrl.abort) return;
     const start = tick * scrollSpeed;
-    const chunk = lines.slice(start, start + scrollSpeed);
-    displayLines.push(...chunk);
-    // Keep only last ~12 lines visible
-    const visible = displayLines.slice(-12);
+    const end = Math.min(start + scrollSpeed * (tick + 1), lines.length);
+    const visible = lines.slice(Math.max(0, end - 14), end);
     body.innerHTML = '<div class="scan-line"></div>' + visible.join('\n');
     await sleep(tickMs);
   }
 
-  await sleep(300);
-  if (ctrl.abort) return;
-  // Done - leave panel visible briefly then proceed
   await sleep(200);
+  if (ctrl.abort) return;
+
+  // Show ALL text and make scrollable
+  const wordCount = text.split(/\s+/).length;
+  body.innerHTML = text;
+  body.classList.remove('streaming');
+  body.classList.add('done');
+  body.scrollTop = 0;
+
+  // Update header with word count
+  const header = panel.querySelector('.extract-header');
+  if (header && !header.querySelector('.wc')) {
+    const wc = document.createElement('span');
+    wc.className = 'wc';
+    wc.style.cssText = 'margin-left:auto;color:var(--white-dim);';
+    wc.textContent = `${wordCount.toLocaleString()} words · ${lines.length} lines`;
+    header.appendChild(wc);
+  }
+
+  await sleep(300);
 }
 
 function generatePlaceholderText(nos) {
