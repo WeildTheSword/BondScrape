@@ -382,6 +382,15 @@ body::before {
 .scraped-section-wrap .deal-item { border-left:3px solid transparent; padding-left:17px; }
 .scraped-section-wrap .deal-item:hover { border-left-color:rgba(74,158,218,0.3); }
 .scraped-section-wrap .deal-item.active { border-left-color:#4a9eda; }
+.scraped-section-wrap .deal-item.upcoming { border-left-color:rgba(96,165,250,0.5); background:rgba(96,165,250,0.06); }
+.scraped-section-wrap .deal-item.upcoming:hover { background:rgba(96,165,250,0.12); }
+.scraped-section-wrap .deal-item.upcoming.active { border-left-color:#60a5fa; background:rgba(96,165,250,0.15); }
+.scraped-section-wrap .deal-item.past { border-left-color:rgba(248,113,113,0.5); background:rgba(248,113,113,0.06); }
+.scraped-section-wrap .deal-item.past:hover { background:rgba(248,113,113,0.12); }
+.scraped-section-wrap .deal-item.past.active { border-left-color:#f87171; background:rgba(248,113,113,0.15); }
+.scraped-date-tag { font-family:var(--mono); font-size:9px; padding:1px 5px; border-radius:3px; font-weight:600; letter-spacing:0.03em; }
+.scraped-date-tag.upcoming { color:#60a5fa; background:rgba(96,165,250,0.12); border:1px solid rgba(96,165,250,0.25); }
+.scraped-date-tag.past { color:#f87171; background:rgba(248,113,113,0.12); border:1px solid rgba(248,113,113,0.25); }
 .scraped-filter {
   display:flex; gap:6px; padding:8px 20px; border-bottom:1px solid var(--rule);
   background:var(--surface);
@@ -2739,11 +2748,22 @@ async function loadScrapedDeals() {
     const data = await resp.json();
     const issues = data.issues || [];
     SCRAPED_DEALS.length = 0;
+    const today = new Date(); today.setHours(0,0,0,0);
     issues.forEach(iss => {
       const docs = iss.documents || [];
       const nosDocs = docs.filter(d => (d.doc_type || '').toUpperCase().startsWith('NOS'));
       if (!nosDocs.length || iss.type !== 'Comp') return;
       const state = ((iss.issue || '').match(/,\s*([A-Z]{2})\s/) || [])[1] || '';
+      // Parse earliest document date
+      const dates = docs.map(d => {
+        if (!d.date) return null;
+        const p = d.date.split('/');
+        if (p.length !== 3) return null;
+        const dt = new Date(parseInt(p[2]), parseInt(p[0]) - 1, parseInt(p[1]));
+        return isNaN(dt.getTime()) ? null : dt;
+      }).filter(Boolean);
+      const issueDate = dates.length ? new Date(Math.min(...dates.map(d => d.getTime()))) : null;
+      const isUpcoming = issueDate ? issueDate >= today : false;
       SCRAPED_DEALS.push({
         issue: iss.issue,
         issue_slug: iss.issue_slug,
@@ -2752,8 +2772,19 @@ async function loadScrapedDeals() {
         manager_fa: iss.manager_fa || '',
         nos_docs: nosDocs,
         type: iss.type,
-        _docCount: docs.length
+        _docCount: docs.length,
+        _issueDate: issueDate,
+        _isUpcoming: isUpcoming
       });
+    });
+    // Sort: upcoming (soonest first), then past (most recent first), then no-date
+    SCRAPED_DEALS.sort((a, b) => {
+      const aG = a._issueDate ? (a._isUpcoming ? 0 : 1) : 2;
+      const bG = b._issueDate ? (b._isUpcoming ? 0 : 1) : 2;
+      if (aG !== bG) return aG - bG;
+      if (!a._issueDate && !b._issueDate) return 0;
+      if (aG === 0) return a._issueDate - b._issueDate;
+      return b._issueDate - a._issueDate;
     });
     renderScrapedList();
   } catch(e) { /* silently fail if not available */ }
@@ -2784,8 +2815,9 @@ function renderScrapedList() {
     const loadedIdx = d._loadedDeal ? DEALS.indexOf(d._loadedDeal) : -1;
     const isActive = loadedIdx >= 0 && loadedIdx === selectedDeal;
     const failed = d._loadedDeal && d._loadedDeal._validationFailed;
+    const dateClass = d._issueDate ? (d._isUpcoming ? 'upcoming' : 'past') : '';
     const li = document.createElement('li');
-    li.className = 'deal-item' + (isActive ? ' active' : '') + (failed ? ' failed' : '');
+    li.className = 'deal-item' + (isActive ? ' active' : '') + (failed ? ' failed' : '') + (dateClass ? ' ' + dateClass : '');
 
     const consensus = results[d.issue_slug];
     let badgeHtml = '<span class="deal-consensus-badge unscreened">unscreened</span>';
@@ -2796,8 +2828,9 @@ function renderScrapedList() {
     }
 
     const par = d.par_amt_numeric ? fmt$(d.par_amt_numeric) : '—';
+    const dateTag = d._issueDate ? `<span class="scraped-date-tag ${dateClass}">${d._issueDate.getMonth()+1}/${d._issueDate.getDate()}/${d._issueDate.getFullYear()}</span>` : '';
     const failTag = `<div class="deal-fail-tag"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1L1 14h14L8 1z"/><path d="M8 6v4M8 12v.5"/></svg>Critical failure — Investigate</div>`;
-    li.innerHTML = `<div class="deal-name"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">${escapeHtml(d.issue)}</span>${badgeHtml}</div><div class="deal-meta"><span class="st">${d.state}</span>${par} &middot; ${d.nos_docs.length} NOS</div>${failTag}`;
+    li.innerHTML = `<div class="deal-name"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">${escapeHtml(d.issue)}</span>${badgeHtml}</div><div class="deal-meta"><span class="st">${d.state}</span>${dateTag}${par} &middot; ${d.nos_docs.length} NOS</div>${failTag}`;
     li.onclick = () => selectScrapedDeal(d);
     el.appendChild(li);
   });

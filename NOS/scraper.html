@@ -175,7 +175,7 @@ body::before {
 }
 .table-header {
   display:grid;
-  grid-template-columns:36px 2fr 100px 120px 80px 100px 80px 60px;
+  grid-template-columns:36px 2fr 80px 100px 120px 80px 100px 80px 60px;
   gap:0; padding:0 16px;
   border-bottom:2px solid var(--rule);
   background:var(--surface2);
@@ -199,7 +199,7 @@ body::before {
 
 .issue-row {
   display:grid;
-  grid-template-columns:36px 2fr 100px 120px 80px 100px 80px 60px;
+  grid-template-columns:36px 2fr 80px 100px 120px 80px 100px 80px 60px;
   gap:0; padding:0 16px;
   border-bottom:1px solid var(--rule);
   cursor:pointer; transition:background 0.1s;
@@ -207,6 +207,15 @@ body::before {
 }
 .issue-row:hover { background:var(--surface2); }
 .issue-row.selected { background:var(--red-wash); }
+.issue-row.upcoming { border-left:3px solid #60a5fa; background:rgba(96,165,250,0.06); }
+.issue-row.upcoming:hover { background:rgba(96,165,250,0.12); }
+.issue-row.past { border-left:3px solid #f87171; background:rgba(248,113,113,0.06); }
+.issue-row.past:hover { background:rgba(248,113,113,0.12); }
+.issue-row.selected.upcoming { background:rgba(96,165,250,0.15); }
+.issue-row.selected.past { background:rgba(248,113,113,0.15); }
+.date-badge { font-size:10px; padding:2px 6px; border-radius:3px; font-weight:600; letter-spacing:0.03em; }
+.date-badge.upcoming { color:#60a5fa; background:rgba(96,165,250,0.12); border:1px solid rgba(96,165,250,0.25); }
+.date-badge.past { color:#f87171; background:rgba(248,113,113,0.12); border:1px solid rgba(248,113,113,0.25); }
 .issue-row.expanded { background:var(--surface2); border-bottom-color:transparent; }
 
 .td {
@@ -753,9 +762,9 @@ body::before {
 @media (max-width:900px) {
   .stats-row { grid-template-columns:repeat(3, 1fr); }
   .table-header, .issue-row {
-    grid-template-columns:36px 1.5fr 80px 100px 60px;
+    grid-template-columns:36px 1.5fr 80px 80px 100px 60px;
   }
-  .th:nth-child(n+6), .td:nth-child(n+6) { display:none; }
+  .th:nth-child(n+7), .td:nth-child(n+7) { display:none; }
 }
 </style>
 </head>
@@ -986,6 +995,7 @@ body::before {
         <input type="checkbox" class="select-all-check" id="select-all" onchange="toggleSelectAll()">
       </div>
       <div class="th" onclick="sortBy('issue')">Issuer <span class="sort-arrow">▼</span></div>
+      <div class="th" onclick="sortBy('date')">Date <span class="sort-arrow">▼</span></div>
       <div class="th" onclick="sortBy('state')">State <span class="sort-arrow">▼</span></div>
       <div class="th" onclick="sortBy('par')">Par Amount <span class="sort-arrow">▼</span></div>
       <div class="th" onclick="sortBy('type')">Sale Type <span class="sort-arrow">▼</span></div>
@@ -1010,7 +1020,7 @@ let allIssues = [];
 let filteredIssues = [];
 let selectedIds = new Set();
 let expandedIdx = null;
-let sortKey = 'par';
+let sortKey = 'date';
 let sortAsc = false;
 let activeFilters = new Set();
 
@@ -1215,7 +1225,20 @@ function enrichIssue(iss) {
   const hasNos = docTypes.some(t => t.toUpperCase().startsWith('NOS'));
   const state = parseState(iss.issue || '');
   const source = iss._source || (iss.pdf_url && iss.pdf_url.includes('grantstreet') ? 'grant_street' : 'idp');
-  return { ...iss, _docTypes: docTypes, _hasNos: hasNos, _state: state, _docCount: docs.length, _source: source };
+
+  // Parse earliest document date for upcoming/past sorting
+  const dates = docs.map(d => {
+    if (!d.date) return null;
+    const parts = d.date.split('/');
+    if (parts.length !== 3) return null;
+    const dt = new Date(parseInt(parts[2]), parseInt(parts[0]) - 1, parseInt(parts[1]));
+    return isNaN(dt.getTime()) ? null : dt;
+  }).filter(Boolean);
+  const issueDate = dates.length ? new Date(Math.min(...dates.map(d => d.getTime()))) : null;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const isUpcoming = issueDate ? (issueDate >= today) : false;
+
+  return { ...iss, _docTypes: docTypes, _hasNos: hasNos, _state: state, _docCount: docs.length, _source: source, _issueDate: issueDate, _isUpcoming: isUpcoming };
 }
 
 function parseState(name) {
@@ -1287,10 +1310,10 @@ function applyFilters() {
 
 function sortBy(key) {
   if (sortKey === key) sortAsc = !sortAsc;
-  else { sortKey = key; sortAsc = key === 'issue' || key === 'state'; }
+  else { sortKey = key; sortAsc = key === 'issue' || key === 'state' || key === 'date'; }
 
   document.querySelectorAll('.th').forEach(th => th.classList.remove('sorted'));
-  const headers = ['', 'issue', 'state', 'par', 'type', 'docs', 'manager', ''];
+  const headers = ['', 'issue', 'date', 'state', 'par', 'type', 'docs', 'manager', ''];
   const idx = headers.indexOf(key);
   if (idx > 0) {
     const th = document.querySelectorAll('.th')[idx];
@@ -1303,20 +1326,41 @@ function sortBy(key) {
 }
 
 function sortIssues() {
-  filteredIssues.sort((a, b) => {
-    let va, vb;
-    switch(sortKey) {
-      case 'issue': va = a.issue; vb = b.issue; break;
-      case 'state': va = a._state; vb = b._state; break;
-      case 'par': va = a.par_amt_numeric || 0; vb = b.par_amt_numeric || 0; break;
-      case 'type': va = a.type; vb = b.type; break;
-      case 'docs': va = a._docCount; vb = b._docCount; break;
-      case 'manager': va = a.manager_fa || ''; vb = b.manager_fa || ''; break;
-      default: va = 0; vb = 0;
-    }
-    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
-    return sortAsc ? va - vb : vb - va;
-  });
+  if (sortKey === 'date') {
+    // Upcoming-first sort: upcoming (soonest first), then past (most recent first), then no-date
+    const today = new Date(); today.setHours(0,0,0,0);
+    filteredIssues.sort((a, b) => {
+      const aDate = a._issueDate, bDate = b._issueDate;
+      const aUp = a._isUpcoming, bUp = b._isUpcoming;
+      const aHas = !!aDate, bHas = !!bDate;
+      // Group: upcoming=0, past=1, no-date=2
+      const aGroup = aHas ? (aUp ? 0 : 1) : 2;
+      const bGroup = bHas ? (bUp ? 0 : 1) : 2;
+      if (aGroup !== bGroup) return sortAsc ? aGroup - bGroup : bGroup - aGroup;
+      if (!aHas && !bHas) return 0;
+      if (aGroup === 0) {
+        // Upcoming: soonest first (ascending) when sortAsc, farthest first when desc
+        return sortAsc ? aDate - bDate : bDate - aDate;
+      }
+      // Past: most recent first (descending) when sortAsc, oldest first when desc
+      return sortAsc ? bDate - aDate : aDate - bDate;
+    });
+  } else {
+    filteredIssues.sort((a, b) => {
+      let va, vb;
+      switch(sortKey) {
+        case 'issue': va = a.issue; vb = b.issue; break;
+        case 'state': va = a._state; vb = b._state; break;
+        case 'par': va = a.par_amt_numeric || 0; vb = b.par_amt_numeric || 0; break;
+        case 'type': va = a.type; vb = b.type; break;
+        case 'docs': va = a._docCount; vb = b._docCount; break;
+        case 'manager': va = a.manager_fa || ''; vb = b.manager_fa || ''; break;
+        default: va = 0; vb = 0;
+      }
+      if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+      return sortAsc ? va - vb : vb - va;
+    });
+  }
 }
 
 // ── TABLE RENDERING ───────────
@@ -1337,9 +1381,14 @@ function renderTable() {
     const consensus = iss._hasNos ? getIssueConsensus(iss.issue_slug) : null;
     const cBadge = consensus ? `<span class="issue-screening-badge ${consensus.decision}">${consensus.decision}</span>` : (iss._hasNos ? '' : '');
 
-    html += `<div class="issue-row ${sel ? 'selected' : ''} ${exp ? 'expanded' : ''}" data-idx="${idx}" onclick="handleRowClick(event, ${idx})">
+    const dateClass = iss._issueDate ? (iss._isUpcoming ? 'upcoming' : 'past') : '';
+    const dateStr = iss._issueDate ? `${iss._issueDate.getMonth()+1}/${iss._issueDate.getDate()}/${iss._issueDate.getFullYear()}` : '—';
+    const dateBadge = iss._issueDate ? `<span class="date-badge ${dateClass}">${dateStr}</span>` : '—';
+
+    html += `<div class="issue-row ${sel ? 'selected' : ''} ${exp ? 'expanded' : ''} ${dateClass}" data-idx="${idx}" onclick="handleRowClick(event, ${idx})">
       <div class="td checkbox-cell"><input type="checkbox" class="row-check" ${sel ? 'checked' : ''} onclick="event.stopPropagation(); toggleSelect(${idx})"></div>
       <div class="td issuer-name" title="${esc(iss.issue)}"><span class="name-text">${esc(iss.issue)}</span>${cBadge}<span class="source-tag ${iss._source === 'grant_street' ? 'gs' : 'idp'}">${iss._source === 'grant_street' ? 'Grant Street' : 'S&amp;P i-deal'}</span></div>
+      <div class="td mono" style="justify-content:center;">${dateBadge}</div>
       <div class="td mono">${iss._state || '—'}</div>
       <div class="td mono">${par}</div>
       <div class="td"><span class="sale-badge ${iss.type === 'Comp' ? 'comp' : 'neg'}">${iss.type || '—'}</span></div>
@@ -1734,9 +1783,9 @@ renderGateTimestamp();
 loadData();
 renderLastFired();
 
-// Default: sort by par descending, filter to competitive with NOS
+// Default: sort by date (upcoming first, then past most-recent-first)
 setTimeout(() => {
-  sortBy('par');
+  sortBy('date');
 }, 100);
 </script>
 </body>

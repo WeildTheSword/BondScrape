@@ -1,0 +1,53 @@
+SESSION: 2026-04-07 (Session 7 — Date-Based Sorting, Upcoming/Past Deal Coloring)
+============================================================
+
+WHAT WAS DONE
+-------------
+
+1. SCRAPER DASHBOARD (NOS/scraper.html) — DATE SORT & COLOR CODING
+   - Added "Date" column to the issue table between Issuer and State
+   - Date extracted from earliest document date per issue in enrichIssue()
+   - Default sort changed from par amount descending to date-based:
+     * Upcoming deals (blue row highlight + blue date badge) sorted soonest-first
+     * Past deals (red row highlight + red date badge) sorted most-recent-first
+     * No-date issues sorted last
+   - Clickable Date column header toggles sort direction
+   - Grid template updated across desktop and responsive breakpoints
+   - Date badges: styled pill with color-coded border matching upcoming/past state
+
+2. SCREENING PAGE (NOS/screening_ui.html) — SCRAPED NOS SORTING & COLOR
+   - Scraped NOS deal list now sorted by date (upcoming first, past second)
+   - Date parsing added to loadScrapedDeals(): extracts earliest doc date,
+     computes upcoming/past relative to today
+   - Deal items color-coded:
+     * Upcoming: blue left border + blue background tint
+     * Past: red left border + red background tint
+   - Date shown as small colored badge in deal metadata row
+   - Active/hover states preserve the upcoming/past coloring
+   - Sort order: upcoming (soonest first) → past (most recent first) → no-date
+
+3. PATTERN CONSISTENCY
+   - Both pages now mirror the same date-based sorting pattern used in
+     the main issue browser (index.html): upcoming blue on top, past red below
+   - Same date parsing logic (MM/DD/YYYY split, earliest date per issue)
+     replicated consistently across all three views
+
+
+FILES CHANGED
+-------------
+Modified: NOS/scraper.html (~99 lines changed — date column, enrichIssue date
+          parsing, sortIssues date logic, row color classes, grid updates)
+Modified: NOS/screening_ui.html (~39 lines changed — loadScrapedDeals date
+          parsing/sorting, renderScrapedList color classes, CSS for upcoming/past)
+New:      HISTORY/2026-04-07_session7.txt
+
+
+ARCHITECTURE NOTES
+------------------
+- Date sort in scraper.html uses a three-group approach: upcoming (group 0),
+  past (group 1), no-date (group 2). Within upcoming, ascending by date.
+  Within past, descending by date. sortAsc flag toggles the group order.
+- Screening page sorts SCRAPED_DEALS array in-place after loading, so the
+  order persists across filter toggles (unscreened/screened/all).
+- Color scheme: upcoming uses #60a5fa (blue-400), past uses #f87171 (red-400),
+  matching Tailwind color palette conventions used elsewhere in the project.
