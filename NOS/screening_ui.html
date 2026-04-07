@@ -2320,16 +2320,39 @@ function buildAgentAPIRequest(agentKey, nos, firm, apiKey, model) {
 }
 
 function parseAgentResponse(text, agentKey) {
+  console.log(`[${agentKey}] raw response:`, text.substring(0, 500));
   text = text.trim();
   if (text.startsWith('```')) {
     text = text.replace(/^```(?:json)?\s*\n?/, '').replace(/\n?```\s*$/, '');
   }
   let result;
+
+  // Try direct parse first
   try { result = JSON.parse(text); }
   catch(e) {
-    const m = text.match(/\{[\s\S]*\}/);
-    if (m) result = JSON.parse(m[0]);
-    else throw new Error('No JSON in agent response');
+    // Try to find a balanced JSON object by tracking brace depth
+    // Look for opening brace followed by a quote (skip prose like "Here is {my analysis}")
+    let start = -1;
+    for (let i = 0; i < text.length - 1; i++) {
+      if (text[i] === '{') {
+        const after = text.substring(i + 1).trimStart();
+        if (after.startsWith('"') || after.startsWith('}')) { start = i; break; }
+      }
+    }
+    if (start === -1) throw new Error(`No JSON found in: ${text.substring(0, 200)}`);
+    let depth = 0, inStr = false, esc = false, end = -1;
+    for (let i = start; i < text.length; i++) {
+      const c = text[i];
+      if (esc) { esc = false; continue; }
+      if (c === '\\' && inStr) { esc = true; continue; }
+      if (c === '"') { inStr = !inStr; continue; }
+      if (inStr) continue;
+      if (c === '{') depth++;
+      else if (c === '}') { depth--; if (depth === 0) { end = i; break; } }
+    }
+    if (end === -1) throw new Error(`Incomplete JSON in: ${text.substring(0, 200)}`);
+    try { result = JSON.parse(text.substring(start, end + 1)); }
+    catch(e2) { throw new Error(`${e2.message} | Raw: ${text.substring(start, start + 200)}`); }
   }
   const vote = (result.vote || 'pass').toLowerCase().trim();
   const confidence = Math.max(0, Math.min(1, parseFloat(result.confidence) || 0.5));
@@ -2356,7 +2379,10 @@ async function streamAgentLiveAPI(agentKey, nos, firm, apiKey, model, onToken) {
       max_tokens: 1024,
       stream: true,
       system: system,
-      messages: [{ role: 'user', content: userMsg }]
+      messages: [
+        { role: 'user', content: userMsg },
+        { role: 'assistant', content: '{' }
+      ]
     })
   });
 
@@ -2367,7 +2393,7 @@ async function streamAgentLiveAPI(agentKey, nos, firm, apiKey, model, onToken) {
 
   const reader = resp.body.getReader();
   const decoder = new TextDecoder();
-  let fullText = '';
+  let fullText = '{';
   let buffer = '';
   let inputTokens = 0, outputTokens = 0;
 
@@ -4122,11 +4148,25 @@ async function extractWithLLM(text, apiKey, model) {
   if (data.usage) {
     trackUsage(data.usage.input_tokens || 0, data.usage.output_tokens || 0, model);
   }
-  const content = data.content[0].text;
-  // Parse JSON from response
-  const jsonMatch = content.match(/\{[\s\S]*\}/);
-  if (jsonMatch) return JSON.parse(jsonMatch[0]);
-  throw new Error('No JSON in API response');
+  const content = data.content[0].text.trim();
+  // Parse JSON from response — try direct parse, then balanced brace extraction
+  try { return JSON.parse(content.replace(/^```(?:json)?\s*\n?/, '').replace(/\n?```\s*$/, '')); }
+  catch(e) {
+    let start = content.indexOf('{');
+    if (start === -1) throw new Error('No JSON in API response');
+    let depth = 0, inStr = false, esc = false, end = -1;
+    for (let i = start; i < content.length; i++) {
+      const c = content[i];
+      if (esc) { esc = false; continue; }
+      if (c === '\\' && inStr) { esc = true; continue; }
+      if (c === '"') { inStr = !inStr; continue; }
+      if (inStr) continue;
+      if (c === '{') depth++;
+      else if (c === '}') { depth--; if (depth === 0) { end = i; break; } }
+    }
+    if (end !== -1) return JSON.parse(content.substring(start, end + 1));
+    throw new Error('No parseable JSON in API response');
+  }
 }
 
 // ── MATRIX VIEW ────────────────────────────

@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Optional
 
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -517,6 +517,19 @@ async def extract_text(pdf_url: str):
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=500)
 
+
+# =========================
+# REDIRECTS — bare NOS page names → /NOS/
+# =========================
+NOS_PAGES = ["index.html", "scraper.html", "screening_ui.html", "pipeline.html", "firms.html"]
+
+@app.get("/{page}")
+async def redirect_nos_pages(page: str, request: Request):
+    if page in NOS_PAGES:
+        qs = str(request.query_params)
+        target = f"/NOS/{page}" + (f"?{qs}" if qs else "")
+        return RedirectResponse(target)
+    return JSONResponse({"detail": "Not Found"}, status_code=404)
 
 # =========================
 # STATIC FILE SERVING
