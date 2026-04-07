@@ -220,13 +220,13 @@ textarea.form-input { min-height:70px; resize:vertical; }
 
 <!-- TOPBAR -->
 <div class="topbar">
-  <a class="brand" href="index.html">Bond<span>Scrape</span></a>
+  <a class="brand" href="/NOS/index.html">Bond<span>Scrape</span></a>
   <div class="topbar-sep"></div>
   <div class="topbar-nav">
-    <a href="screening_ui.html">Screening</a>
-    <a href="scraper.html">Scraper</a>
-    <a href="pipeline.html">Pipeline</a>
-    <a href="firms.html" class="active">Firms</a>
+    <a href="/NOS/screening_ui.html">Screening</a>
+    <a href="/NOS/scraper.html">Scraper</a>
+    <a href="/NOS/pipeline.html">Pipeline</a>
+    <a href="/NOS/firms.html" class="active">Firms</a>
   </div>
   <div class="topbar-spacer"></div>
   <div class="topbar-tag">FIRM PROFILES</div>
@@ -547,7 +547,7 @@ function renderFirms() {
         <div class="priorities-label">Strategic Priorities</div>
         ${priorities.map(p => `<div class="priority-item">${p}</div>`).join('')}
       </div>` : ''}
-      <a class="firm-screen-link" href="screening_ui.html?firm=${encodeURIComponent(f.firm_name)}">
+      <a class="firm-screen-link" href="/NOS/screening_ui.html?firm=${encodeURIComponent(f.firm_name)}">
         Screen with this firm <span class="arrow">&rarr;</span>
       </a>
     `;

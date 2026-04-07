@@ -1,0 +1,19 @@
+Session 8 — 2026-04-07
+
+Fixed navigation links across all NOS static pages to use absolute /NOS/ paths.
+
+Problem:
+- Nav links used relative paths (e.g., href="scraper.html")
+- When served via FastAPI at /NOS/, clicking nav from a non-/NOS/ URL resulted in 404 "Not Found"
+- Also: scraper page requires FastAPI backend (uvicorn app:app), not python3 -m http.server
+
+Changes:
+- NOS/scraper.html — brand + nav links updated to /NOS/ absolute paths
+- NOS/screening_ui.html — brand + nav links updated
+- NOS/pipeline.html — brand + nav links updated
+- NOS/firms.html — brand + nav links + firm screen link updated
+- NOS/index.html — brand + nav links + CTA buttons updated
+
+Server note:
+- Must run `uvicorn app:app --reload` (not static file server) for scraper API endpoints to work
+- Scraper launch uses SSE via /api/scraper/launch which only exists in app.py
