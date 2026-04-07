@@ -102,6 +102,7 @@ def home(request: Request):
     sandbox = load_json(get_sandbox_issues_path()) or {"issue_count": 0}
 
     return templates.TemplateResponse(
+        request,
         name="dashboard.html",
         context={
             "request": request,
@@ -120,6 +121,7 @@ def sandbox_select(request: Request):
     prod = load_json(get_prod_issues_path()) or {"issues": []}
 
     return templates.TemplateResponse(
+        request,
         name="sandbox_selector.html",
         context={
             "request": request,

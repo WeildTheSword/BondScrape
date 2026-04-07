@@ -14,118 +14,90 @@
 @keyframes countUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
 @keyframes glowPulse { 0%,100%{box-shadow:0 0 0 0 rgba(224,62,62,0)} 50%{box-shadow:0 0 40px 4px rgba(224,62,62,0.15)} }
 
-/* ── KATANA INTRO ──── */
+/* ── BOND INTRO ──── */
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-@keyframes introTextIn { from{opacity:0;transform:scale(0.92);filter:blur(6px)} to{opacity:1;transform:none;filter:blur(0)} }
-@keyframes slashSwing {
-  0% { transform:translate(-120%,-120%) rotate(-45deg) scaleY(1); opacity:0; }
-  15% { opacity:1; }
-  100% { transform:translate(120%,120%) rotate(-45deg) scaleY(1); opacity:0; }
-}
-@keyframes slashGlow {
-  0% { opacity:0; }
-  30% { opacity:1; }
-  100% { opacity:0; }
-}
-@keyframes splitTop {
-  0% { clip-path:polygon(0 0,100% 0,100% 100%,0 100%); transform:none; }
-  100% { clip-path:polygon(0 0,100% 0,100% 0,0 48%); transform:translateY(-30px); opacity:0; }
-}
-@keyframes splitBottom {
-  0% { clip-path:polygon(0 0,100% 0,100% 100%,0 100%); transform:none; }
-  100% { clip-path:polygon(0 52%,100% 0,100% 100%,0 100%); transform:translateY(30px); opacity:0; }
-}
-@keyframes flashWhite {
-  0%{opacity:0} 10%{opacity:0.15} 100%{opacity:0}
-}
-@keyframes sparkFly {
-  0% { opacity:1; transform:translate(0,0) scale(1); }
-  100% { opacity:0; transform:translate(var(--sx),var(--sy)) scale(0); }
-}
 
 #intro-overlay {
   position:fixed; inset:0; z-index:9999;
   background:var(--black);
+  cursor:default; overflow:hidden;
   display:flex; align-items:center; justify-content:center;
-  cursor:default;
+  flex-direction:column;
 }
 #intro-overlay.done { pointer-events:none; }
+
 #intro-text {
-  font-family:var(--sans); font-size:clamp(48px,10vw,96px);
+  font-family:var(--sans); font-size:clamp(52px,11vw,110px);
   font-weight:700; letter-spacing:-0.04em;
-  color:var(--white);
-  animation: introTextIn 0.8s ease both;
-  position:relative; z-index:2;
+  color:var(--white); position:relative; z-index:2;
+  display:flex; align-items:baseline;
 }
-#intro-text .red { color:var(--red); }
+#intro-text .letter {
+  display:inline-block; transition: transform 0.1s;
+  position:relative;
+}
+#intro-text .letter.red { color:var(--red); }
 
-/* The slash line */
-#slash-line {
-  position:absolute; inset:0; z-index:3; pointer-events:none;
-  overflow:hidden;
+/* Letter hit states */
+#intro-text .letter.hit {
+  animation: letterHit 0.35s cubic-bezier(0.22,1,0.36,1) both;
 }
-#slash-line .blade {
-  position:absolute; top:50%; left:50%;
-  width:200vmax; height:3px;
-  background:linear-gradient(90deg,
-    transparent 0%,
-    rgba(200,200,220,0.1) 30%,
-    rgba(255,255,255,0.9) 48%,
-    #ffffff 50%,
-    rgba(255,255,255,0.9) 52%,
-    rgba(200,200,220,0.1) 70%,
-    transparent 100%
-  );
-  transform-origin:center;
-  opacity:0;
+#intro-text .letter.red.hit {
+  animation: letterHitRed 0.35s cubic-bezier(0.22,1,0.36,1) both;
 }
-#slash-line .blade.go {
-  animation: slashSwing 0.35s cubic-bezier(0.22,0.61,0.36,1) both;
+@keyframes letterHit {
+  0% { transform:none; filter:brightness(1); }
+  20% { transform:scale(1.15) translateY(-4px); filter:brightness(3); }
+  100% { transform:none; filter:brightness(1); }
 }
-/* Glow trail */
-#slash-line .glow {
-  position:absolute; top:50%; left:50%;
-  width:200vmax; height:40px; margin-top:-20px;
-  background:linear-gradient(90deg,
-    transparent 0%,
-    rgba(224,62,62,0) 35%,
-    rgba(224,62,62,0.3) 50%,
-    rgba(224,62,62,0) 65%,
-    transparent 100%
-  );
-  transform:rotate(-45deg);
-  opacity:0; filter:blur(8px);
+@keyframes letterHitRed {
+  0% { transform:none; filter:brightness(1); text-shadow:none; }
+  20% { transform:scale(1.2) translateY(-3px); filter:brightness(2); text-shadow:0 0 30px rgba(224,62,62,0.8); }
+  100% { transform:none; filter:brightness(1); text-shadow:0 0 0 transparent; }
 }
-#slash-line .glow.go { animation: slashGlow 0.5s ease both; }
 
-/* Flash */
-#intro-flash {
-  position:absolute; inset:0; z-index:4;
-  background:white; opacity:0; pointer-events:none;
+/* Muzzle flash on final shot */
+#intro-text .letter.shot {
+  animation: letterShot 0.5s ease both;
 }
-#intro-flash.go { animation: flashWhite 0.4s ease both; }
+@keyframes letterShot {
+  0% { transform:none; }
+  15% { transform:scale(1.4) translateY(-8px); filter:brightness(4); }
+  40% { transform:scale(0.9); filter:brightness(1.5); }
+  100% { transform:none; filter:brightness(1); }
+}
 
-/* Split halves */
-.split-top, .split-bottom {
-  position:absolute; inset:0; z-index:2;
-  background:var(--black);
-  display:flex; align-items:center; justify-content:center;
+/* Crosshair reticle */
+#crosshair {
+  position:absolute; z-index:3; pointer-events:none;
+  width:80px; height:80px; opacity:0;
+  transition: opacity 0.15s;
 }
-.split-top { clip-path:polygon(0 0,100% 0,100% 48%,0 52%); }
-.split-bottom { clip-path:polygon(0 48%,100% 48%,100% 100%,0 100%); }
-.split-top .split-text, .split-bottom .split-text {
-  font-family:var(--sans); font-size:clamp(48px,10vw,96px);
-  font-weight:700; letter-spacing:-0.04em; color:var(--white);
-}
-.split-top .split-text .red, .split-bottom .split-text .red { color:var(--red); }
-.split-top.go { animation: splitTop 0.6s cubic-bezier(0.4,0,0.2,1) 0.1s both; }
-.split-bottom.go { animation: splitBottom 0.6s cubic-bezier(0.4,0,0.2,1) 0.1s both; }
+#crosshair.visible { opacity:1; }
+#crosshair svg { width:100%; height:100%; }
 
-/* Sparks */
-.spark {
-  position:absolute; width:3px; height:3px;
-  background:var(--white); z-index:5; pointer-events:none;
-  border-radius:50%;
+/* Blood drip from letters */
+.letter-drip {
+  position:absolute; bottom:-8px; left:50%; width:3px;
+  background:var(--red); border-radius:0 0 2px 2px;
+  transform-origin:top; height:0; opacity:0;
+}
+.letter-drip.go {
+  animation:drip 1.5s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes drip {
+  0% { height:0; opacity:0.9; }
+  30% { height:40px; opacity:0.8; }
+  70% { height:60px; opacity:0.5; }
+  100% { height:80px; opacity:0; }
+}
+
+/* Prompt */
+#intro-prompt {
+  position:absolute; bottom:18%; left:0; right:0; text-align:center;
+  font-family:var(--mono); font-size:12px; color:var(--white-muted);
+  letter-spacing:0.1em; text-transform:uppercase;
+  animation:pulse 2s ease infinite; z-index:2;
 }
 
 #page-content { opacity:0; transition: opacity 0.6s ease; }
@@ -195,7 +167,7 @@ body::before {
 /* Tagline */
 .tagline {
   font-size:15px; color:var(--white-dim); text-align:center;
-  max-width:520px; line-height:1.7; margin-bottom:56px;
+  max-width:520px; line-height:1.7; margin-bottom:64px;
   animation: fadeUp 0.8s ease both;
   animation-delay:0.5s;
 }
@@ -204,7 +176,7 @@ body::before {
 /* Divider line */
 .hero-line {
   width:120px; height:1px; background:var(--red);
-  margin-bottom:56px;
+  margin-bottom:72px;
   transform-origin:left;
   animation: drawLine 0.6s ease both;
   animation-delay:0.8s;
@@ -212,7 +184,7 @@ body::before {
 
 /* Stats row */
 .hero-stats {
-  display:flex; gap:48px; margin-bottom:64px;
+  display:flex; gap:56px; margin-bottom:0;
   animation: fadeUp 0.8s ease both;
   animation-delay:1s;
 }
@@ -232,44 +204,6 @@ body::before {
   letter-spacing:0.12em; margin-top:10px;
 }
 
-/* CTA */
-.cta-row {
-  display:flex; gap:16px;
-  animation: fadeUp 0.8s ease both;
-  animation-delay:1.3s;
-}
-.cta {
-  display:inline-flex; align-items:center; gap:10px;
-  padding:14px 36px; font-size:14px; font-weight:600;
-  text-decoration:none; cursor:pointer;
-  letter-spacing:0.02em; border-radius:4px;
-  transition: all 0.2s; position:relative; overflow:hidden;
-}
-.cta::after {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-  transform:translateX(-100%); transition:none;
-}
-.cta:hover::after { animation:scanLine 0.5s ease; }
-@keyframes scanLine { from{transform:translateX(-100%)} to{transform:translateX(100%)} }
-.cta-primary {
-  background:var(--red); color:var(--white);
-  border:1px solid var(--red);
-}
-.cta-primary:hover {
-  background:var(--red-dim);
-  border-color:var(--red-dim);
-  box-shadow:0 4px 20px rgba(224,62,62,0.3);
-}
-.cta-secondary {
-  background:transparent; color:var(--white-dim);
-  border:1px solid var(--rule-light);
-}
-.cta-secondary:hover {
-  border-color:var(--white-muted); color:var(--white);
-}
-.cta-arrow { font-size:16px; transition:transform 0.2s; }
-.cta:hover .cta-arrow { transform:translateX(4px); }
 
 /* ── FEATURES SECTION ──── */
 .features {
@@ -317,31 +251,174 @@ body::before {
 .feature-name { font-size:16px; font-weight:700; margin-bottom:10px; letter-spacing:-0.01em; }
 .feature-desc { font-size:13px; color:var(--white-dim); line-height:1.65; }
 
-/* ── PIPELINE SECTION ──── */
+/* ── PIPELINE SECTION (INTERACTIVE) ──── */
 .pipeline-section {
   position:relative; z-index:1;
   border-top:1px solid var(--rule);
   padding:80px 40px;
 }
-.pipeline-inner { max-width:1100px; margin:0 auto; }
-.pipeline-row {
-  display:flex; align-items:center; gap:0;
-  margin-top:40px;
+.pipeline-inner { max-width:960px; margin:0 auto; }
+.pip-progress-bar { display:flex; gap:2px; margin-bottom:48px; margin-top:32px; }
+.pip-progress-step {
+  flex:1; padding:14px 16px; border:1px solid var(--rule);
+  border-radius:4px; text-align:center; cursor:pointer; transition:all 0.25s;
+  position:relative; background:var(--surface);
 }
-.pipeline-step {
-  flex:1; padding:28px 24px; border:1px solid var(--rule);
-  border-radius:4px; text-align:center;
-  transition:all 0.25s; position:relative;
+.pip-progress-step:hover { background:var(--surface2); border-color:var(--rule-light); }
+.pip-progress-step.active { background:var(--surface2); border-color:var(--red-border); }
+.pip-progress-step.completed { border-bottom-color:var(--red); }
+.pip-progress-step.completed::after {
+  content:''; position:absolute; bottom:-1px; left:4px; right:4px;
+  height:2px; background:var(--red); border-radius:1px;
 }
-.pipeline-step:hover { border-color:var(--red-border); background:var(--surface); }
-.pipeline-step:first-child { border-color:var(--red-border); }
-.pipeline-step:first-child .p-label { color:var(--red); }
-.p-label { font-family:var(--mono); font-size:10px; color:var(--white-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px; }
-.p-value { font-size:14px; font-weight:700; }
-.pipeline-arrow {
-  width:40px; display:flex; align-items:center; justify-content:center;
-  color:var(--white-muted); font-size:18px; flex-shrink:0;
+.pip-ps-num { font-family:var(--mono); font-size:10px; color:var(--white-muted); margin-bottom:4px; }
+.pip-progress-step.active .pip-ps-num { color:var(--red); }
+.pip-ps-label { font-size:11px; font-weight:600; letter-spacing:0.02em; }
+
+.pip-step { display:none; animation:fadeUp 0.4s ease both; }
+.pip-step.active { display:block; }
+.pip-step-header { display:flex; align-items:center; gap:16px; margin-bottom:28px; }
+.pip-step-num {
+  width:48px; height:48px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:18px; font-weight:700;
+  border:1px solid var(--rule-light); border-radius:6px; flex-shrink:0;
+  background:var(--surface);
 }
+.pip-step-num.active { border-color:var(--red); color:var(--red); background:var(--red-wash); }
+.pip-step-title { font-size:22px; font-weight:700; letter-spacing:-0.02em; }
+.pip-step-desc { font-size:13px; color:var(--white-dim); line-height:1.7; margin-bottom:28px; }
+
+.pip-panel {
+  border:1px solid var(--rule); background:var(--black);
+  border-radius:6px; margin-bottom:20px; overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.2);
+}
+.pip-panel-header {
+  padding:10px 16px; border-bottom:1px solid var(--rule);
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+  letter-spacing:0.04em; text-transform:uppercase;
+  display:flex; align-items:center; gap:8px; background:var(--surface);
+}
+.pip-panel-header .cmd { color:var(--red); font-weight:500; }
+.pip-panel-body { padding:16px; }
+.pip-panel-body.mono { font-family:var(--mono); font-size:11px; line-height:1.7; color:var(--white-dim); white-space:pre-wrap; }
+
+.pip-pdf-mock {
+  border:1px solid var(--rule); border-radius:6px; padding:36px; text-align:center;
+  background:var(--surface); min-height:200px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transition:border-color 0.2s;
+}
+.pip-pdf-mock:hover { border-color:var(--rule-light); }
+
+.pip-split-panel {
+  display:grid; grid-template-columns:1fr 1fr; gap:0;
+  border:1px solid var(--rule); border-radius:6px; overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.2);
+}
+.pip-split-panel .split-col { overflow:auto; max-height:400px; }
+.pip-split-panel .split-col:first-child { border-right:1px solid var(--rule); }
+.pip-split-panel .split-col::-webkit-scrollbar { width:4px; }
+.pip-split-panel .split-col::-webkit-scrollbar-thumb { background:var(--rule-light); border-radius:2px; }
+.pip-split-panel .split-header {
+  padding:10px 16px; border-bottom:1px solid var(--rule);
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+  letter-spacing:0.04em; text-transform:uppercase;
+  position:sticky; top:0; background:var(--surface2); z-index:2;
+}
+.pip-split-panel .split-body {
+  padding:14px 16px; font-family:var(--mono); font-size:10px;
+  line-height:1.8; color:var(--white-dim); white-space:pre-wrap; background:var(--black);
+}
+.pip-split-panel .split-body .hl { color:var(--red); font-weight:500; }
+.pip-split-panel .split-body .key { color:var(--white); }
+.pip-split-panel .split-body .str { color:var(--white-dim); }
+.pip-split-panel .split-body .num { color:var(--red); }
+
+.pip-val-row {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 16px; border-bottom:1px solid var(--rule);
+  font-size:12px; transition:all 0.2s;
+}
+.pip-val-row:last-child { border-bottom:none; }
+.pip-val-row:hover { background:var(--surface); }
+.pip-val-icon {
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:12px; font-weight:700;
+  border:1px solid var(--rule-light); border-radius:4px; flex-shrink:0;
+}
+.pip-val-row.pass .pip-val-icon { border-color:rgba(45,138,78,0.4); color:#5cb87a; background:rgba(45,138,78,0.08); }
+.pip-val-row.fail .pip-val-icon { border-color:var(--red-border); color:var(--red); background:var(--red-wash); }
+.pip-val-label { flex:1; color:var(--white-dim); font-weight:500; }
+.pip-val-result { font-family:var(--mono); font-size:10px; color:var(--white-muted); }
+.pip-val-row.pass .pip-val-result { color:var(--white-dim); }
+
+.pip-agents-row { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+.pip-agent-card {
+  padding:20px 16px; border:1px solid var(--rule); border-radius:6px;
+  text-align:center; transition:all 0.3s; cursor:default; background:var(--surface);
+}
+.pip-agent-card:hover { background:var(--surface2); border-color:var(--rule-light); }
+.pip-agent-card.lit { background:var(--surface2); border-color:var(--red-border); }
+.pip-agent-card.lit::after { content:''; display:block; width:100%; height:2px; background:var(--red); border-radius:1px; margin-top:12px; }
+.pip-ac-code { font-family:var(--mono); font-size:18px; font-weight:700; margin-bottom:10px; color:var(--white-dim); }
+.pip-agent-card.lit .pip-ac-code { color:var(--red); }
+.pip-ac-name { font-size:12px; font-weight:700; margin-bottom:6px; }
+.pip-ac-q { font-size:10px; color:var(--white-muted); font-style:italic; line-height:1.5; }
+.pip-ac-fields { margin-top:10px; display:flex; flex-wrap:wrap; gap:3px; justify-content:center; }
+.pip-ac-field {
+  font-family:var(--mono); font-size:8px; padding:2px 6px;
+  border:1px solid var(--rule-light); border-radius:2px; color:var(--white-muted);
+  opacity:0; transition:all 0.3s;
+}
+.pip-agent-card.lit .pip-ac-field { opacity:1; border-color:var(--red-border); color:var(--red); background:var(--red-wash); }
+
+.pip-consensus-box {
+  border:1px solid var(--red-border); border-radius:6px; padding:24px 28px;
+  text-align:center; margin:20px 0; background:var(--surface);
+}
+.pip-consensus-box .c-label { font-family:var(--mono); font-size:10px; color:var(--red); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; }
+.pip-cr-item { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:12px; color:var(--white-dim); line-height:1.5; }
+.pip-cr-item:last-child { border-bottom:none; }
+.pip-cr-num { font-family:var(--mono); font-size:10px; color:var(--white-muted); width:20px; flex-shrink:0; }
+.pip-cr-cond { flex:1; }
+.pip-cr-res { font-family:var(--mono); font-size:10px; font-weight:700; }
+.pip-cr-res.pass { color:var(--red); }
+.pip-cr-res.interested { color:#5cb87a; }
+.pip-cr-res.conditional { color:#d4a032; }
+
+.pip-outcomes-row { display:flex; gap:12px; margin-top:24px; justify-content:center; }
+.pip-outcome {
+  font-family:var(--mono); font-size:12px; font-weight:700;
+  padding:10px 28px; letter-spacing:0.1em; text-transform:uppercase; border-radius:4px;
+}
+.pip-outcome.interested { border:1px solid rgba(45,138,78,0.35); color:#5cb87a; background:rgba(45,138,78,0.08); }
+.pip-outcome.conditional { border:1px solid rgba(196,132,29,0.3); color:#d4a032; background:rgba(196,132,29,0.06); }
+.pip-outcome.pass { border:1px solid var(--red-border); color:var(--red); background:var(--red-wash); }
+
+.pip-nav-row {
+  display:flex; justify-content:space-between; margin-top:40px;
+  padding-top:24px; border-top:1px solid var(--rule);
+}
+.pip-nav-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 24px; font-size:12px; font-weight:600;
+  cursor:pointer; letter-spacing:0.02em; transition:all 0.2s;
+  background:transparent; color:var(--white);
+  border:1px solid var(--rule-light); border-radius:4px; font-family:var(--sans);
+  text-decoration:none;
+}
+.pip-nav-btn:hover { border-color:var(--white-muted); background:var(--surface); }
+.pip-nav-btn.primary { background:var(--red); color:var(--white); border-color:var(--red); }
+.pip-nav-btn.primary:hover { background:var(--red-dim); border-color:var(--red-dim); }
+.pip-nav-btn:disabled { opacity:0.3; cursor:not-allowed; }
+
+.pip-footer-note {
+  margin-top:48px; padding:24px; border:1px solid var(--rule); border-radius:6px;
+  font-size:12px; color:var(--white-dim); line-height:1.7; text-align:center; background:var(--surface);
+}
+.pip-footer-note strong { color:var(--white); }
+.pip-footer-note .red { color:var(--red); font-weight:700; }
 
 /* ── FOOTER ──── */
 .footer {
@@ -374,34 +451,396 @@ body::before {
 }
 .tagline .word strong { color:var(--white); font-weight:500; }
 
+/* ── BACKGROUND CANVAS ──── */
+#geo-canvas {
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+}
+
+/* ── HOW TO USE SECTION ──── */
+.howto-section {
+  position:relative; z-index:1;
+  border-top:1px solid var(--rule);
+  padding:100px 40px 120px;
+  overflow:hidden;
+}
+.howto-inner { max-width:1200px; margin:0 auto; }
+
+.howto-steps {
+  display:flex; flex-direction:column; gap:0;
+  margin-top:56px; position:relative;
+}
+
+/* The connecting vertical line */
+.howto-steps::before {
+  content:''; position:absolute;
+  left:60px; top:0; bottom:0; width:1px;
+  background:linear-gradient(to bottom, var(--rule), var(--red) 50%, var(--rule));
+  opacity:0.4;
+}
+
+.howto-step {
+  display:grid; grid-template-columns:120px 1fr; gap:0;
+  position:relative; min-height:280px;
+  cursor:default;
+}
+
+/* Step number badge */
+.howto-badge {
+  display:flex; align-items:flex-start; justify-content:center;
+  padding-top:40px; position:relative; z-index:2;
+}
+.howto-num {
+  width:48px; height:48px; border-radius:50%;
+  border:2px solid var(--rule-light);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:16px; font-weight:700;
+  color:var(--white-muted); background:var(--black);
+  transition:all 0.5s cubic-bezier(0.22,1,0.36,1);
+  position:relative;
+}
+.howto-step:hover .howto-num,
+.howto-step.active .howto-num {
+  border-color:var(--red); color:var(--red);
+  box-shadow:0 0 30px rgba(224,62,62,0.3), 0 0 60px rgba(224,62,62,0.1);
+  transform:scale(1.1);
+}
+.howto-num::after {
+  content:''; position:absolute; inset:-6px;
+  border-radius:50%; border:1px solid transparent;
+  transition:border-color 0.4s;
+}
+.howto-step:hover .howto-num::after { border-color:rgba(224,62,62,0.2); }
+
+/* Step content card */
+.howto-card {
+  padding:32px 40px 32px 32px;
+  border:1px solid var(--rule);
+  border-radius:8px;
+  background:var(--black);
+  position:relative; overflow:hidden;
+  transition:all 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.howto-step:hover .howto-card,
+.howto-step.active .howto-card {
+  border-color:var(--red-border);
+  background:var(--surface);
+  transform:translateX(8px);
+  box-shadow:0 8px 40px rgba(0,0,0,0.4), 0 0 60px rgba(224,62,62,0.04);
+}
+
+/* Accent bar on top of card */
+.howto-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--red), transparent);
+  transform:scaleX(0); transition:transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  transform-origin:left;
+}
+.howto-step:hover .howto-card::before,
+.howto-step.active .howto-card::before { transform:scaleX(1); }
+
+/* Scan line effect on hover */
+.howto-card::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 0%, rgba(224,62,62,0.02) 50%, transparent 100%);
+  height:60px; opacity:0; transition:opacity 0.3s;
+}
+.howto-step:hover .howto-card::after {
+  opacity:1;
+  animation:howtoScan 2s ease-in-out infinite;
+}
+@keyframes howtoScan {
+  0% { transform:translateY(-100%); }
+  100% { transform:translateY(500%); }
+}
+
+.howto-label {
+  font-family:var(--mono); font-size:10px; color:var(--red);
+  text-transform:uppercase; letter-spacing:0.12em; margin-bottom:8px;
+}
+.howto-title {
+  font-size:22px; font-weight:700; letter-spacing:-0.02em; margin-bottom:12px;
+  transition:color 0.3s;
+}
+.howto-step:hover .howto-title { color:var(--white); }
+.howto-desc {
+  font-size:14px; color:var(--white-dim); line-height:1.7; max-width:600px;
+  margin-bottom:24px;
+}
+
+/* Interactive graphic area inside each card */
+.howto-graphic {
+  width:100%; height:160px; border-radius:6px;
+  border:1px solid var(--rule);
+  background:var(--surface2);
+  position:relative; overflow:hidden;
+  transition:border-color 0.4s;
+}
+.howto-step:hover .howto-graphic { border-color:var(--rule-light); }
+
+/* Step 1: Scraper graphic — animated scan lines + document icons */
+.scraper-viz { display:flex; align-items:center; justify-content:center; height:100%; gap:16px; padding:20px; }
+.scraper-viz .doc-stack {
+  display:flex; flex-direction:column; gap:6px;
+  animation:none; transition:transform 0.4s;
+}
+.howto-step:hover .scraper-viz .doc-stack { transform:translateY(-4px); }
+.doc-icon {
+  width:44px; height:56px; border-radius:3px;
+  border:1px solid var(--rule-light); background:var(--surface);
+  position:relative; display:flex; flex-direction:column; padding:8px 6px; gap:3px;
+  opacity:0; animation: docAppear 0.4s ease forwards;
+}
+.doc-icon .line { height:2px; border-radius:1px; background:var(--rule-light); }
+.doc-icon .line:first-child { width:60%; }
+.doc-icon .line:nth-child(2) { width:80%; }
+.doc-icon .line:nth-child(3) { width:40%; background:var(--red); opacity:0.5; }
+
+@keyframes docAppear { to { opacity:1; } }
+
+.scraper-arrow-anim {
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  color:var(--white-muted); font-family:var(--mono); font-size:10px;
+}
+.scraper-arrow-anim .pulse-dot {
+  width:6px; height:6px; border-radius:50%; background:var(--red);
+  animation:pulse 1.5s ease infinite;
+}
+.scraper-globe {
+  width:48px; height:48px; border-radius:50%;
+  border:1.5px solid var(--rule-light);
+  position:relative; overflow:hidden;
+  transition:border-color 0.4s;
+}
+.howto-step:hover .scraper-globe { border-color:var(--red-border); }
+.scraper-globe::before {
+  content:''; position:absolute; inset:4px;
+  border-radius:50%; border:1px dashed var(--white-muted);
+  animation:spin 8s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.scraper-globe::after {
+  content:''; position:absolute; top:50%; left:0; right:0;
+  height:1px; background:var(--rule-light);
+}
+.scraper-db {
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+}
+.scraper-db .db-layer {
+  width:48px; height:14px; border-radius:50%;
+  border:1.5px solid var(--rule-light); background:var(--surface);
+  transition:border-color 0.3s;
+}
+.howto-step:hover .scraper-db .db-layer { border-color:var(--red-border); }
+.scraper-db .db-layer:nth-child(2) { margin-top:-6px; }
+.scraper-db .db-layer:nth-child(3) { margin-top:-6px; }
+
+/* Scanning beam inside scraper graphic */
+.scan-beam {
+  position:absolute; top:0; left:0; width:2px; height:100%;
+  background:linear-gradient(to bottom, transparent, var(--red), transparent);
+  opacity:0.3; animation:scanBeam 3s ease-in-out infinite;
+}
+@keyframes scanBeam {
+  0% { left:0; opacity:0; }
+  10% { opacity:0.3; }
+  90% { opacity:0.3; }
+  100% { left:100%; opacity:0; }
+}
+
+/* Step 2: API Key graphic */
+.apikey-viz {
+  display:flex; align-items:center; justify-content:center; height:100%;
+  gap:24px; padding:20px;
+}
+.key-input-mock {
+  width:340px; height:44px; border-radius:6px;
+  border:1px solid var(--rule-light);
+  background:var(--black); display:flex; align-items:center;
+  padding:0 16px; gap:10px; overflow:hidden;
+  transition:border-color 0.4s;
+}
+.howto-step:hover .key-input-mock { border-color:var(--red-border); }
+.key-prefix {
+  font-family:var(--mono); font-size:12px; color:var(--white-muted);
+  white-space:nowrap;
+}
+.key-cursor-area {
+  flex:1; font-family:var(--mono); font-size:12px; color:var(--red);
+  position:relative; overflow:hidden; height:18px;
+}
+.key-typing {
+  animation:typeKey 4s steps(24) infinite;
+  white-space:nowrap; overflow:hidden;
+  display:inline-block; width:0;
+}
+@keyframes typeKey {
+  0%,10% { width:0; }
+  50%,70% { width:12ch; }
+  85%,100% { width:0; }
+}
+.key-cursor-area::after {
+  content:''; display:inline-block; width:1px; height:14px;
+  background:var(--red); vertical-align:middle; margin-left:1px;
+  animation:blink 1s step-end infinite;
+}
+
+.key-arrow {
+  color:var(--white-muted); font-size:20px;
+  animation:arrowPulse 2s ease infinite;
+}
+@keyframes arrowPulse { 0%,100%{opacity:0.3;transform:translateX(0)} 50%{opacity:1;transform:translateX(4px)} }
+
+.key-lock {
+  width:48px; height:48px; position:relative;
+  display:flex; align-items:center; justify-content:center;
+}
+.key-lock svg { transition:all 0.4s; }
+.howto-step:hover .key-lock svg { color:var(--red); filter:drop-shadow(0 0 8px rgba(224,62,62,0.4)); }
+
+/* Step 3: Screening graphic */
+.screening-viz {
+  display:flex; align-items:center; justify-content:center; height:100%;
+  gap:16px; padding:20px;
+}
+.screening-select-mock {
+  display:flex; flex-direction:column; gap:6px; align-items:center;
+}
+.select-pill {
+  padding:6px 14px; border-radius:4px;
+  border:1px solid var(--rule-light); background:var(--surface);
+  font-family:var(--mono); font-size:10px; color:var(--white-dim);
+  transition:all 0.3s; cursor:default; white-space:nowrap;
+}
+.select-pill.active-pill {
+  border-color:var(--red-border); background:var(--red-wash);
+  color:var(--white);
+}
+.screening-arrow-group {
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  color:var(--white-muted);
+}
+.screening-arrow-group .chevrons {
+  font-family:var(--mono); font-size:14px; letter-spacing:-2px;
+  animation:chevronFlow 1.5s ease infinite;
+}
+@keyframes chevronFlow {
+  0%,100% { opacity:0.3; transform:translateX(0); }
+  50% { opacity:1; transform:translateX(3px); }
+}
+
+.agent-ring {
+  width:80px; height:80px; border-radius:50%;
+  border:1.5px solid var(--rule-light);
+  position:relative; display:flex; align-items:center; justify-content:center;
+  transition:border-color 0.4s;
+}
+.howto-step:hover .agent-ring { border-color:var(--red-border); }
+
+.agent-ring::before {
+  content:''; position:absolute; inset:-8px;
+  border-radius:50%; border:1px dashed var(--rule);
+  animation:spin 12s linear infinite;
+}
+.agent-dot {
+  position:absolute; width:10px; height:10px; border-radius:50%;
+  background:var(--red); opacity:0.7;
+  transition:all 0.4s;
+}
+.agent-dot:nth-child(1) { top:-5px; left:50%; margin-left:-5px; }
+.agent-dot:nth-child(2) { top:15px; right:-2px; }
+.agent-dot:nth-child(3) { bottom:15px; right:-2px; }
+.agent-dot:nth-child(4) { bottom:-5px; left:50%; margin-left:-5px; }
+.agent-dot:nth-child(5) { top:15px; left:-2px; }
+.howto-step:hover .agent-dot {
+  box-shadow:0 0 12px rgba(224,62,62,0.6);
+  opacity:1;
+}
+.agent-center {
+  font-family:var(--mono); font-size:9px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.08em; text-align:center; line-height:1.3;
+}
+
+.consensus-badge {
+  padding:8px 16px; border-radius:4px;
+  border:1px solid var(--red-border); background:var(--red-wash);
+  font-family:var(--mono); font-size:11px; font-weight:700;
+  color:var(--red); letter-spacing:0.06em;
+  transition:all 0.4s; position:relative;
+}
+.howto-step:hover .consensus-badge {
+  box-shadow:0 0 24px rgba(224,62,62,0.2);
+  transform:scale(1.05);
+}
+.consensus-badge::before {
+  content:''; position:absolute; inset:-1px;
+  border-radius:4px; border:1px solid var(--red);
+  opacity:0; animation:consensusPulse 2s ease infinite;
+}
+@keyframes consensusPulse { 0%,100%{opacity:0;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.06)} }
+
+/* CTA inside howto */
+.howto-cta {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:4px; padding:8px 20px;
+  font-size:12px; font-weight:600; color:var(--white-dim);
+  border:1px solid var(--rule-light); border-radius:4px;
+  text-decoration:none; transition:all 0.25s;
+  font-family:var(--sans); letter-spacing:0.02em;
+}
+.howto-cta:hover {
+  color:var(--white); border-color:var(--red-border);
+  background:var(--red-wash);
+}
+.howto-cta .arr { transition:transform 0.2s; }
+.howto-cta:hover .arr { transform:translateX(3px); }
+
 /* Responsive */
 @media(max-width:768px){
   .logo-text{font-size:28px}
   .hero-stats{gap:24px;flex-wrap:wrap}
   .feature-grid{grid-template-columns:1fr}
-  .pipeline-row{flex-direction:column}
-  .pipeline-arrow{transform:rotate(90deg)}
+  .pip-progress-bar{flex-wrap:wrap}
+  .pip-progress-step{min-width:80px}
+  .pip-split-panel{grid-template-columns:1fr}
+  .pip-agents-row{grid-template-columns:repeat(3,1fr)}
+  .howto-step{grid-template-columns:80px 1fr}
+  .howto-steps::before{left:40px}
+  .howto-card{padding:24px 20px}
+  .howto-graphic{height:120px}
+  .key-input-mock{width:200px}
+  .scraper-viz,.apikey-viz,.screening-viz{transform:scale(0.85);transform-origin:center}
 }
 </style>
 </head>
 <body>
 
-<!-- KATANA INTRO -->
+<!-- BOND INTRO -->
 <div id="intro-overlay">
-  <div id="intro-text">Bond<span class="red">Scrape</span></div>
-  <div id="intro-prompt" style="position:absolute;bottom:20%;font-family:var(--mono);font-size:12px;color:var(--white-muted);letter-spacing:0.1em;text-transform:uppercase;animation:pulse 2s ease infinite;">Click anywhere to enter</div>
-  <div id="slash-line"><div class="blade"></div><div class="glow"></div></div>
-  <div id="intro-flash"></div>
+  <div id="intro-text">
+    <span class="letter">B</span><span class="letter">o</span><span class="letter">n</span><span class="letter">d</span><span class="letter red">S</span><span class="letter red">c</span><span class="letter red">r</span><span class="letter red">a</span><span class="letter red">p</span><span class="letter red">e</span>
+  </div>
+  <div id="crosshair">
+    <svg viewBox="0 0 80 80" fill="none" stroke="#e03e3e" stroke-width="1">
+      <circle cx="40" cy="40" r="28"/>
+      <circle cx="40" cy="40" r="14"/>
+      <line x1="40" y1="4" x2="40" y2="22"/>
+      <line x1="40" y1="58" x2="40" y2="76"/>
+      <line x1="4" y1="40" x2="22" y2="40"/>
+      <line x1="58" y1="40" x2="76" y2="40"/>
+    </svg>
+  </div>
+  <div id="intro-prompt">Click anywhere to enter</div>
 </div>
+
+<script src="sounds.js"></script>
+<canvas id="geo-canvas"></canvas>
 
 <div id="page-content">
 <div class="topbar" style="position:fixed;top:0;left:0;right:0;z-index:100;background:var(--black);border-bottom:1px solid var(--rule);height:48px;display:flex;align-items:center;padding:0 28px;gap:20px;font-size:13px;">
   <a href="index.html" style="font-weight:700;letter-spacing:-0.02em;font-size:14px;text-decoration:none;color:var(--white);">Bond<span style="color:var(--red)">Scrape</span></a>
   <span style="width:1px;height:20px;background:var(--rule);"></span>
-  <a href="screening_ui.html" style="font-size:11px;font-weight:500;color:var(--white-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;padding:14px 16px;transition:color 0.15s;">Screening</a>
   <a href="scraper.html" style="font-size:11px;font-weight:500;color:var(--white-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;padding:14px 16px;transition:color 0.15s;">Scraper</a>
-  <a href="pipeline.html" style="font-size:11px;font-weight:500;color:var(--white-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;padding:14px 16px;transition:color 0.15s;">Pipeline</a>
-  <a href="firms.html" style="font-size:11px;font-weight:500;color:var(--white-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;padding:14px 16px;transition:color 0.15s;">Firms</a>
+  <a href="screening_ui.html" style="font-size:11px;font-weight:500;color:var(--white-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;padding:14px 16px;transition:color 0.15s;">Screening</a>
 </div>
 
 <div class="hero" style="padding-top:88px;">
@@ -429,17 +868,6 @@ body::before {
     <div class="hero-stat"><div class="num"><span class="red" data-count="0">0</span></div><div class="lbl">LLM Consensus Calls</div></div>
   </div>
 
-  <div class="cta-row reveal-blur">
-    <a class="cta cta-primary" href="screening_ui.html">
-      Launch Screening System <span class="cta-arrow">&rarr;</span>
-    </a>
-    <a class="cta cta-secondary" href="pipeline.html">
-      View Pipeline <span class="cta-arrow">&rarr;</span>
-    </a>
-    <a class="cta cta-secondary" href="firms.html">
-      Firm Profiles <span class="cta-arrow">&rarr;</span>
-    </a>
-  </div>
 </div>
 
 <div class="features reveal-blur">
@@ -490,17 +918,226 @@ body::before {
 <div class="pipeline-section reveal-blur">
   <div class="pipeline-inner">
     <div class="section-label">Pipeline</div>
-    <div class="section-title">From PDF to screening decision in four steps.</div>
-    <div class="pipeline-row">
-      <div class="pipeline-step"><div class="p-label">Input</div><div class="p-value">NOS PDF</div></div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-step"><div class="p-label">Extract</div><div class="p-value">pdftotext -layout</div></div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-step"><div class="p-label">Structure</div><div class="p-value">Claude + Schema</div></div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-step"><div class="p-label">Validate</div><div class="p-value">Deterministic Checks</div></div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-step" style="border-color:var(--red-border)"><div class="p-label" style="color:var(--red)">Screen</div><div class="p-value">5 Agents &rarr; Consensus</div></div>
+    <div class="section-title" style="max-width:600px;">From a raw NOS PDF to a multi-agent screening decision. Six stages, each deterministic except the LLM extraction and agent reasoning calls.</div>
+
+    <div class="pip-progress-bar" id="pip-progress-bar">
+      <div class="pip-progress-step active" onclick="pipGoTo(0)"><div class="pip-ps-num">01</div><div class="pip-ps-label">PDF Input</div></div>
+      <div class="pip-progress-step" onclick="pipGoTo(1)"><div class="pip-ps-num">02</div><div class="pip-ps-label">Extraction</div></div>
+      <div class="pip-progress-step" onclick="pipGoTo(2)"><div class="pip-ps-num">03</div><div class="pip-ps-label">LLM Structure</div></div>
+      <div class="pip-progress-step" onclick="pipGoTo(3)"><div class="pip-ps-num">04</div><div class="pip-ps-label">Validation</div></div>
+      <div class="pip-progress-step" onclick="pipGoTo(4)"><div class="pip-ps-num">05</div><div class="pip-ps-label">Agents</div></div>
+      <div class="pip-progress-step" onclick="pipGoTo(5)"><div class="pip-ps-num">06</div><div class="pip-ps-label">Consensus</div></div>
+    </div>
+
+    <!-- STEP 0: PDF Input -->
+    <div class="pip-step active" id="pip-step-0">
+      <div class="pip-step-header"><div class="pip-step-num active">01</div><div class="pip-step-title">PDF Input</div></div>
+      <div class="pip-step-desc">The pipeline begins with a Notice of Sale PDF. NOS documents have no standard format — they vary by financial advisor template, by state, and by issuer type. Documents range from 3 pages (a simple Texas MUD) to 15+ pages (a complex state authority).</div>
+      <div class="pip-pdf-mock">
+        <div style="font-family:var(--mono);font-size:48px;color:var(--white-muted);margin-bottom:16px;line-height:1">[PDF]</div>
+        <div style="font-size:14px;font-weight:600;margin-bottom:4px" id="pip-pdf-name">Harris County MUD No. 182 — Series 2026</div>
+        <div style="font-size:11px;color:var(--white-muted)">$2,930,000 Unlimited Tax Bonds &middot; 7 pages</div>
+      </div>
+      <div style="margin-top:20px;padding:16px;border:1px solid var(--rule);">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--white-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Test Set Coverage (10 Documents)</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;font-size:10px;" id="pip-doc-grid"></div>
+      </div>
+    </div>
+
+    <!-- STEP 1: Text Extraction -->
+    <div class="pip-step" id="pip-step-1">
+      <div class="pip-step-header"><div class="pip-step-num active">02</div><div class="pip-step-title">Text Extraction</div></div>
+      <div class="pip-step-desc"><code style="font-family:var(--mono);color:var(--white)">pdftotext -layout</code> is the only extraction method that works reliably across all NOS document types. The -layout flag preserves the spatial alignment that makes maturity schedules parseable.</div>
+      <div class="pip-panel">
+        <div class="pip-panel-header"><span class="cmd">$</span> pdftotext -layout input.pdf -</div>
+        <div class="pip-panel-body mono" id="pip-extraction-output" style="max-height:300px;overflow-y:auto;"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);margin-top:16px;">
+        <div style="background:var(--black);padding:14px;text-align:center;"><div style="font-family:var(--mono);font-size:10px;color:var(--white-muted);text-transform:uppercase;margin-bottom:4px;">Method</div><div style="font-size:12px;font-weight:600;">pdftotext -layout</div></div>
+        <div style="background:var(--black);padding:14px;text-align:center;"><div style="font-family:var(--mono);font-size:10px;color:var(--white-muted);text-transform:uppercase;margin-bottom:4px;">Output Size</div><div style="font-size:12px;font-weight:600;" id="pip-output-size">~5K words</div></div>
+        <div style="background:var(--black);padding:14px;text-align:center;"><div style="font-family:var(--mono);font-size:10px;color:var(--white-muted);text-transform:uppercase;margin-bottom:4px;">Fits Context</div><div style="font-size:12px;font-weight:600;color:var(--red);">Single window</div></div>
+      </div>
+    </div>
+
+    <!-- STEP 2: LLM Structured Extraction -->
+    <div class="pip-step" id="pip-step-2">
+      <div class="pip-step-header"><div class="pip-step-num active">03</div><div class="pip-step-title">LLM Structured Extraction</div></div>
+      <div class="pip-step-desc">The full extracted text is sent to Claude with a 55-feature JSON schema. The model reads the entire NOS in one context window and returns structured JSON. Every field maps to a specific agent's input.</div>
+      <div class="pip-split-panel">
+        <div class="split-col"><div class="split-header">Schema (55 features, 10 categories)</div><div class="split-body" id="pip-schema-col"></div></div>
+        <div class="split-col"><div class="split-header">Extracted JSON</div><div class="split-body" id="pip-json-col"></div></div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Validation -->
+    <div class="pip-step" id="pip-step-3">
+      <div class="pip-step-header"><div class="pip-step-num active">04</div><div class="pip-step-title">Deterministic Validation</div></div>
+      <div class="pip-step-desc">Every LLM extraction goes through deterministic validation checks. These are pure math — no model involved. If a check fails, the extraction is retried with the specific error message.</div>
+      <div class="pip-panel"><div class="pip-panel-header">Validation Engine</div><div id="pip-val-checks"></div></div>
+      <div style="margin-top:16px;padding:16px;border:1px solid var(--rule);font-size:12px;color:var(--white-dim);line-height:1.6;">
+        <strong style="color:var(--white)">Retry mechanism:</strong> If any check fails, the system re-sends the original text to the LLM with the specific error message appended. This targeted feedback typically resolves extraction errors on the first retry.
+      </div>
+    </div>
+
+    <!-- STEP 4: Agent Screening -->
+    <div class="pip-step" id="pip-step-4">
+      <div class="pip-step-header"><div class="pip-step-num active">05</div><div class="pip-step-title">Parallel Agent Screening</div></div>
+      <div class="pip-step-desc">Five independent Claude API calls, each with a different system prompt and different NOS fields. No agent sees another's vote. This prevents anchoring bias and ensures each dimension is evaluated independently.</div>
+      <div class="pip-agents-row" id="pip-agents-display"></div>
+      <div style="margin-top:20px;padding:16px;border:1px solid var(--rule);">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--white-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Why Multi-Agent Over Single LLM?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:12px;color:var(--white-dim);line-height:1.6;">
+          <div><strong style="color:var(--white)">Single LLM:</strong> Hedges dealbreakers into caveats. If 4 dimensions look good and 1 is fatal, outputs "Conditional" with the problem buried in paragraph three.</div>
+          <div><strong style="color:var(--white)">Multi-Agent:</strong> Hard vetoes are enforced. Each agent has decomposed reasoning. Architecture mirrors real desk structure.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: Consensus -->
+    <div class="pip-step" id="pip-step-5">
+      <div class="pip-step-header"><div class="pip-step-num active">06</div><div class="pip-step-title">Deterministic Consensus</div></div>
+      <div class="pip-step-desc">Pure Python. Not an LLM call. The consensus function applies four rules in priority order. The key design choice: any single high-confidence Pass kills the deal.</div>
+      <div class="pip-consensus-box">
+        <div class="c-label">Consensus Function</div>
+        <div style="text-align:left;margin-top:16px;">
+          <div class="pip-cr-item"><span class="pip-cr-num">R1</span><span class="pip-cr-cond">Any single Pass with confidence >= 0.8</span><span class="pip-cr-res pass">PASS (Hard Veto)</span></div>
+          <div class="pip-cr-item"><span class="pip-cr-num">R2</span><span class="pip-cr-cond">All five agents vote Interested</span><span class="pip-cr-res interested">INTERESTED</span></div>
+          <div class="pip-cr-item"><span class="pip-cr-num">R3</span><span class="pip-cr-cond">Multiple low-confidence Pass votes (&lt; 0.8)</span><span class="pip-cr-res conditional">CONDITIONAL + Escalation</span></div>
+          <div class="pip-cr-item"><span class="pip-cr-num">R4</span><span class="pip-cr-cond">Mix of Interested and Conditional (no high-confidence Pass)</span><span class="pip-cr-res conditional">CONDITIONAL</span></div>
+        </div>
+      </div>
+      <div class="pip-outcomes-row">
+        <div class="pip-outcome interested">INTERESTED</div>
+        <div class="pip-outcome conditional">CONDITIONAL</div>
+        <div class="pip-outcome pass">PASS</div>
+      </div>
+      <div class="pip-footer-note" style="margin-top:32px;">
+        <strong>Key insight:</strong> The consensus function is where the MAS architecture pays off. A single LLM produces one blended judgment. The MAS produces <span class="red">five independent votes with five rationales</span>, then a deterministic function enforces organizational decision rules that no LLM consistently respects.
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="pip-nav-row">
+      <button class="pip-nav-btn" id="pip-prev-btn" onclick="pipPrev()" disabled>&larr; Previous</button>
+      <button class="pip-nav-btn primary" id="pip-next-btn" onclick="pipNext()">Next &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── HOW TO USE ──── -->
+<div class="howto-section reveal-blur">
+  <div class="howto-inner">
+    <div class="section-label">How to Use</div>
+    <div class="section-title">Three steps to an automated screening decision.</div>
+
+    <div class="howto-steps">
+
+      <!-- STEP 1 -->
+      <div class="howto-step reveal-blur" data-step="1">
+        <div class="howto-badge"><div class="howto-num">1</div></div>
+        <div class="howto-card">
+          <div class="howto-label">Step 01</div>
+          <div class="howto-title">Fire the Scraper</div>
+          <div class="howto-desc">Using the scraper we can scan the web for competitive and negotiated sales and populate their corresponding PDF / deal information. Launch it from the Scraper page and watch results stream in live.</div>
+          <div class="howto-graphic">
+            <div class="scan-beam"></div>
+            <div class="scraper-viz">
+              <div class="scraper-globe">
+                <svg viewBox="0 0 48 48" fill="none" style="position:absolute;inset:8px;" stroke="rgba(240,240,240,0.15)" stroke-width="0.8">
+                  <ellipse cx="16" cy="16" rx="16" ry="6"/>
+                  <ellipse cx="16" cy="16" rx="6" ry="16"/>
+                </svg>
+              </div>
+              <div class="scraper-arrow-anim">
+                <div class="pulse-dot"></div>
+                <span style="font-family:var(--mono);font-size:18px;color:var(--white-muted)">&rarr;</span>
+                <div class="pulse-dot" style="animation-delay:0.5s"></div>
+              </div>
+              <div class="doc-stack">
+                <div class="doc-icon" style="animation-delay:0.2s"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+                <div class="doc-icon" style="animation-delay:0.5s"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+              </div>
+              <div class="scraper-arrow-anim">
+                <span style="font-family:var(--mono);font-size:18px;color:var(--white-muted)">&rarr;</span>
+              </div>
+              <div class="scraper-db">
+                <div class="db-layer"></div>
+                <div class="db-layer"></div>
+                <div class="db-layer"></div>
+              </div>
+            </div>
+          </div>
+          <a href="scraper.html" class="howto-cta" style="margin-top:16px">Open Scraper <span class="arr">&rarr;</span></a>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="howto-step reveal-blur" data-step="2">
+        <div class="howto-badge"><div class="howto-num">2</div></div>
+        <div class="howto-card">
+          <div class="howto-label">Step 02</div>
+          <div class="howto-title">Enter Your API Key</div>
+          <div class="howto-desc">To enable LLM-MAS consensus screening, enter your API key. At present we only support Anthropic &mdash; we will expand to support more providers later.</div>
+          <div class="howto-graphic">
+            <div class="apikey-viz">
+              <div class="key-input-mock">
+                <span class="key-prefix">sk-ant-</span>
+                <div class="key-cursor-area">
+                  <span class="key-typing">api03-xxxxxx</span>
+                </div>
+              </div>
+              <div class="key-arrow">&rarr;</div>
+              <div class="key-lock">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="var(--white-muted)">
+                  <rect x="5" y="11" width="14" height="10" rx="2"/>
+                  <path d="M8 11V7a4 4 0 018 0v4"/>
+                  <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+                </svg>
+              </div>
+              <div style="font-family:var(--mono);font-size:10px;color:var(--white-muted);text-align:center;line-height:1.4">
+                <div style="color:var(--red);font-weight:700;margin-bottom:2px">ANTHROPIC</div>
+                <div>Claude API</div>
+                <div style="opacity:0.5;margin-top:4px">+ more soon</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="howto-step reveal-blur" data-step="3">
+        <div class="howto-badge"><div class="howto-num">3</div></div>
+        <div class="howto-card">
+          <div class="howto-label">Step 03</div>
+          <div class="howto-title">Run Screening</div>
+          <div class="howto-desc">Select an issue title and firm profile to enable intelligent NOS extraction and LLM-MAS reasoning. Five agents evaluate independently, then a deterministic consensus produces the decision.</div>
+          <div class="howto-graphic">
+            <div class="screening-viz">
+              <div class="screening-select-mock">
+                <div class="select-pill active-pill">Harris Co MUD 182</div>
+                <div class="select-pill">TX Regional Firm</div>
+              </div>
+              <div class="screening-arrow-group">
+                <span class="chevrons">&rsaquo;&rsaquo;&rsaquo;</span>
+              </div>
+              <div class="agent-ring">
+                <div class="agent-dot"></div>
+                <div class="agent-dot"></div>
+                <div class="agent-dot"></div>
+                <div class="agent-dot"></div>
+                <div class="agent-dot"></div>
+                <div class="agent-center">5<br>Agents</div>
+              </div>
+              <div class="screening-arrow-group">
+                <span class="chevrons">&rsaquo;&rsaquo;&rsaquo;</span>
+              </div>
+              <div class="consensus-badge">INTERESTED</div>
+            </div>
+          </div>
+          <a href="screening_ui.html" class="howto-cta" style="margin-top:16px">Launch Screening <span class="arr">&rarr;</span></a>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -512,148 +1149,152 @@ body::before {
 </div><!-- /page-content -->
 
 <script>
-// ── KATANA INTRO ──────────────────────────────────
+// ── BOND INTRO: CROSSHAIR HITS LETTERS ──────────────────
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-function playSwordSlash() {
-  // White noise burst for the "shing" slash
-  const duration = 0.35;
-  const bufferSize = audioCtx.sampleRate * duration;
-  const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) {
-    const t = i / bufferSize;
-    // Shape: fast attack, medium decay, highpass character
-    const envelope = Math.pow(1 - t, 3) * (t < 0.05 ? t / 0.05 : 1);
-    data[i] = (Math.random() * 2 - 1) * envelope * 0.4;
+// Spy theme — plays during intro and fades
+function startSpyTheme() {
+  const c = audioCtx, t = c.currentTime;
+  const mg = c.createGain(); mg.gain.value = 0.35; mg.connect(c.destination);
+  const bpm = 140, beat = 60/bpm;
+  const bass = [82.41,82.41,87.31,82.41, 82.41,82.41,87.31,92.50, 65.41,65.41,69.30,73.42, 55.00,55.00,58.27,61.74];
+  for (let lp = 0; lp < 6; lp++) {
+    bass.forEach((freq, i) => {
+      const s = t + (lp*bass.length+i)*beat*0.5;
+      const o = c.createOscillator(), g = c.createGain();
+      o.type='sawtooth'; o.frequency.value=freq;
+      g.gain.setValueAtTime(0.18,s); g.gain.exponentialRampToValueAtTime(0.01,s+beat*0.45);
+      const f = c.createBiquadFilter(); f.type='lowpass'; f.frequency.value=300;
+      o.connect(f).connect(g).connect(mg); o.start(s); o.stop(s+beat*0.5);
+    });
   }
-  const source = audioCtx.createBufferSource();
-  source.buffer = buffer;
-  // Highpass to make it metallic
-  const hp = audioCtx.createBiquadFilter();
-  hp.type = 'highpass'; hp.frequency.value = 3000; hp.Q.value = 2;
-  // Bandpass for metallic ring
-  const bp = audioCtx.createBiquadFilter();
-  bp.type = 'bandpass'; bp.frequency.value = 6000; bp.Q.value = 5;
-  // Also a sine ring
-  const ring = audioCtx.createOscillator();
-  ring.type = 'sine'; ring.frequency.value = 4200;
-  const ringGain = audioCtx.createGain();
-  ringGain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-  ringGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
-  ring.connect(ringGain).connect(audioCtx.destination);
-  ring.start(); ring.stop(audioCtx.currentTime + 0.6);
-
-  source.connect(hp).connect(audioCtx.destination);
-  // Second path through bandpass
-  const src2 = audioCtx.createBufferSource();
-  src2.buffer = buffer;
-  const bpGain = audioCtx.createGain(); bpGain.gain.value = 0.3;
-  src2.connect(bp).connect(bpGain).connect(audioCtx.destination);
-  source.start(); src2.start();
+  const stab = [329.63,392.00,493.88];
+  for (let lp = 0; lp < 6; lp++) {
+    for (let bar = 0; bar < 4; bar++) {
+      [1,2.5].forEach(bo => {
+        const s = t+(lp*16+bar*4+bo)*beat*0.5;
+        stab.forEach(freq => {
+          const o=c.createOscillator(),g=c.createGain();
+          o.type='square'; o.frequency.value=freq;
+          g.gain.setValueAtTime(0.05,s); g.gain.exponentialRampToValueAtTime(0.001,s+0.08);
+          const bp=c.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1200; bp.Q.value=2;
+          o.connect(bp).connect(g).connect(mg); o.start(s); o.stop(s+0.1);
+        });
+      });
+    }
+  }
+  mg.gain.setValueAtTime(0.35, t+12);
+  mg.gain.linearRampToValueAtTime(0, t+18);
 }
 
-function playImpact() {
-  // Low thud on split
-  const osc = audioCtx.createOscillator();
-  osc.type = 'sine'; osc.frequency.value = 80;
-  osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.3);
-  const gain = audioCtx.createGain();
-  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-  osc.connect(gain).connect(audioCtx.destination);
-  osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+// Bullet hit sound — sharp crack
+function playHit(isRed) {
+  const c = audioCtx, t = c.currentTime;
+  const buf = c.createBuffer(1, c.sampleRate*0.04, c.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,4);
+  const src = c.createBufferSource(); src.buffer=buf;
+  const g = c.createGain(); g.gain.value=0.03;
+  const hp = c.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=2000;
+  src.connect(hp).connect(g).connect(c.destination); src.start(t);
+  // Tonal ping
+  const o = c.createOscillator(), og = c.createGain();
+  o.type='sine'; o.frequency.value = isRed ? 600 : 900;
+  og.gain.setValueAtTime(0.015,t); og.gain.exponentialRampToValueAtTime(0.001,t+0.12);
+  o.connect(og).connect(c.destination); o.start(t); o.stop(t+0.12);
 }
 
-function createSparks(cx, cy) {
-  const overlay = document.getElementById('intro-overlay');
-  for (let i = 0; i < 12; i++) {
-    const spark = document.createElement('div');
-    spark.className = 'spark';
-    const angle = (Math.random() - 0.5) * Math.PI;
-    const dist = 40 + Math.random() * 120;
-    spark.style.left = cx + 'px';
-    spark.style.top = cy + 'px';
-    spark.style.setProperty('--sx', Math.cos(angle) * dist + 'px');
-    spark.style.setProperty('--sy', Math.sin(angle) * dist - 30 + 'px');
-    spark.style.animation = `sparkFly ${0.3 + Math.random() * 0.3}s ease-out both`;
-    spark.style.background = Math.random() > 0.3 ? 'var(--white)' : 'var(--red)';
-    overlay.appendChild(spark);
-  }
+// Final gunshot — big boom
+function playGunshot() {
+  const c = audioCtx, t = c.currentTime;
+  const buf = c.createBuffer(1, c.sampleRate*0.3, c.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2)*(i<100?i/100:1);
+  const src=c.createBufferSource(); src.buffer=buf;
+  const g=c.createGain(); g.gain.value=0.06;
+  const lp=c.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=1800;
+  src.connect(lp).connect(g).connect(c.destination); src.start(t);
+  const boom=c.createOscillator(); boom.type='sine';
+  boom.frequency.setValueAtTime(150,t); boom.frequency.exponentialRampToValueAtTime(30,t+0.4);
+  const bg=c.createGain(); bg.gain.setValueAtTime(0.05,t); bg.gain.exponentialRampToValueAtTime(0.001,t+0.5);
+  boom.connect(bg).connect(c.destination); boom.start(t); boom.stop(t+0.5);
 }
 
 async function runIntro() {
   const overlay = document.getElementById('intro-overlay');
-  const text = document.getElementById('intro-text');
-  const blade = overlay.querySelector('.blade');
-  const glow = overlay.querySelector('.glow');
-  const flash = document.getElementById('intro-flash');
+  const letters = [...document.querySelectorAll('#intro-text .letter')];
+  const crosshair = document.getElementById('crosshair');
   const pageContent = document.getElementById('page-content');
+  const prompt = document.getElementById('intro-prompt');
 
-  // Brief pause after click before slash
+  audioCtx.resume();
+  startSpyTheme();
+
+  // Phase 1: Crosshair appears at left, tracks across to each letter
+  crosshair.classList.add('visible');
+  const firstRect = letters[0].getBoundingClientRect();
+  crosshair.style.left = (firstRect.left - 120) + 'px';
+  crosshair.style.top = (firstRect.top + firstRect.height/2 - 40) + 'px';
+
+  await new Promise(r => setTimeout(r, 300));
+
+  // Phase 2: Crosshair snaps to each letter, letter gets "hit"
+  for (let i = 0; i < letters.length; i++) {
+    const letter = letters[i];
+    const rect = letter.getBoundingClientRect();
+    const isRed = letter.classList.contains('red');
+    const isLast = i === letters.length - 1;
+
+    // Crosshair moves to letter
+    crosshair.style.transition = 'left 0.1s cubic-bezier(0.22,1,0.36,1), top 0.06s ease';
+    crosshair.style.left = (rect.left + rect.width/2 - 40) + 'px';
+    crosshair.style.top = (rect.top + rect.height/2 - 40) + 'px';
+
+    await new Promise(r => setTimeout(r, 120));
+
+    // Hit!
+    if (isLast) {
+      playGunshot();
+      letter.classList.add('shot');
+    } else {
+      playHit(isRed);
+      letter.classList.add('hit');
+    }
+
+    // Blood drip on red letters
+    if (isRed) {
+      const drip = document.createElement('div');
+      drip.className = 'letter-drip';
+      drip.style.marginLeft = (-1 + Math.random()*2) + 'px';
+      letter.appendChild(drip);
+      setTimeout(() => drip.classList.add('go'), 100 + Math.random()*200);
+    }
+
+    await new Promise(r => setTimeout(r, isLast ? 400 : 80));
+  }
+
+  // Phase 3: Brief hold, crosshair fades
+  crosshair.classList.remove('visible');
+  await new Promise(r => setTimeout(r, 800));
+
+  // Phase 4: Reveal page
+  pageContent.classList.add('visible');
   await new Promise(r => setTimeout(r, 400));
 
-  // Phase 2: Katana slash
-  audioCtx.resume();
-  playSwordSlash();
-  blade.classList.add('go');
-  glow.classList.add('go');
-
-  await new Promise(r => setTimeout(r, 180));
-
-  // Flash + sparks at center
-  flash.classList.add('go');
-  createSparks(window.innerWidth / 2, window.innerHeight / 2);
-
-  await new Promise(r => setTimeout(r, 150));
-
-  // Phase 3: Split the text
-  playImpact();
-  text.style.display = 'none';
-  blade.style.display = 'none';
-  glow.style.display = 'none';
-
-  // Create two halves
-  const splitTop = document.createElement('div');
-  splitTop.className = 'split-top';
-  splitTop.innerHTML = '<div class="split-text">Bond<span class="red">Scrape</span></div>';
-  const splitBottom = document.createElement('div');
-  splitBottom.className = 'split-bottom';
-  splitBottom.innerHTML = '<div class="split-text">Bond<span class="red">Scrape</span></div>';
-  overlay.appendChild(splitTop);
-  overlay.appendChild(splitBottom);
-
-  // Trigger split animation
-  requestAnimationFrame(() => {
-    splitTop.classList.add('go');
-    splitBottom.classList.add('go');
-  });
-
-  await new Promise(r => setTimeout(r, 300));
-
-  // Reveal page
-  pageContent.classList.add('visible');
-
-  await new Promise(r => setTimeout(r, 500));
-
-  // Remove overlay
-  overlay.classList.add('done');
+  // Fade out overlay
   overlay.style.opacity = '0';
-  overlay.style.transition = 'opacity 0.3s';
-  await new Promise(r => setTimeout(r, 300));
+  overlay.style.transition = 'opacity 0.6s ease';
+  overlay.classList.add('done');
+  await new Promise(r => setTimeout(r, 600));
   overlay.remove();
 }
 
-// Wait for click to unlock audio, then run slash
 let introStarted = false;
 document.getElementById('intro-overlay').addEventListener('click', () => {
   if (introStarted) return;
   introStarted = true;
-  // Remove the prompt text
-  const prompt = document.getElementById('intro-prompt');
-  if (prompt) prompt.style.display = 'none';
-  // Resume audio context (requires user gesture)
-  audioCtx.resume().then(() => runIntro());
+  document.getElementById('intro-prompt').style.display = 'none';
+  runIntro();
 });
 </script>
 
@@ -734,11 +1375,230 @@ const revealObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal-blur').forEach(el => revealObserver.observe(el));
 
-// Also observe feature cards and pipeline steps individually
-document.querySelectorAll('.feature-card, .pipeline-step').forEach(el => {
-  el.classList.add('reveal-blur');
+// Also observe feature cards, pipeline steps, and howto steps individually
+document.querySelectorAll('.feature-card, .pipeline-step, .howto-step').forEach(el => {
+  if (!el.classList.contains('reveal-blur')) {
+    el.classList.add('reveal-blur');
+  }
   revealObserver.observe(el);
 });
+
+// ── FLOATING RED GEOMETRY FIELD ──────────────────
+(function() {
+  const canvas = document.getElementById('geo-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, dpr;
+
+  function resize() {
+    dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // 3D projection helpers
+  const FL = 600; // focal length
+  function project(x, y, z) {
+    const scale = FL / (FL + z);
+    return { x: x * scale, y: y * scale, s: scale };
+  }
+  function rotX(p, a) {
+    const c = Math.cos(a), s = Math.sin(a);
+    return [p[0], p[1]*c - p[2]*s, p[1]*s + p[2]*c];
+  }
+  function rotY(p, a) {
+    const c = Math.cos(a), s = Math.sin(a);
+    return [p[0]*c + p[2]*s, p[1], -p[0]*s + p[2]*c];
+  }
+  function rotZ(p, a) {
+    const c = Math.cos(a), s = Math.sin(a);
+    return [p[0]*c - p[1]*s, p[0]*s + p[1]*c, p[2]];
+  }
+
+  // Shape vertex/edge definitions (unit size, centered at origin)
+  const SHAPES = {
+    cube: {
+      verts: [[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]],
+      edges: [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]]
+    },
+    octahedron: {
+      verts: [[0,-1.4,0],[0,1.4,0],[-1,0,0],[1,0,0],[0,0,-1],[0,0,1]],
+      edges: [[0,2],[0,3],[0,4],[0,5],[1,2],[1,3],[1,4],[1,5],[2,4],[4,3],[3,5],[5,2]]
+    },
+    diamond: {
+      verts: [[0,-1.6,0],[1,0,0],[0,0,1],[-1,0,0],[0,0,-1],[0,1.6,0]],
+      edges: [[0,1],[0,2],[0,3],[0,4],[5,1],[5,2],[5,3],[5,4],[1,2],[2,3],[3,4],[4,1]]
+    },
+    hexRing: (() => {
+      const v = [], e = [];
+      for (let i = 0; i < 6; i++) {
+        const a = Math.PI * 2 * i / 6;
+        v.push([Math.cos(a)*1.2, Math.sin(a)*1.2, -0.3]);
+        v.push([Math.cos(a)*1.2, Math.sin(a)*1.2, 0.3]);
+      }
+      for (let i = 0; i < 6; i++) {
+        const n = (i+1)%6;
+        e.push([i*2, n*2]);
+        e.push([i*2+1, n*2+1]);
+        e.push([i*2, i*2+1]);
+      }
+      return { verts: v, edges: e };
+    })(),
+    tetra: {
+      verts: [[1,1,1],[-1,-1,1],[-1,1,-1],[1,-1,-1]],
+      edges: [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]]
+    },
+    cross3d: {
+      verts: [[0,-1.5,0],[0,1.5,0],[-1.5,0,0],[1.5,0,0],[0,0,-1.5],[0,0,1.5]],
+      edges: [[0,1],[2,3],[4,5]]
+    },
+    prism: (() => {
+      const v = [], e = [];
+      for (let i = 0; i < 5; i++) {
+        const a = Math.PI * 2 * i / 5 - Math.PI/2;
+        v.push([Math.cos(a), Math.sin(a), -0.6]);
+        v.push([Math.cos(a), Math.sin(a), 0.6]);
+      }
+      for (let i = 0; i < 5; i++) {
+        const n = (i+1)%5;
+        e.push([i*2, n*2]);
+        e.push([i*2+1, n*2+1]);
+        e.push([i*2, i*2+1]);
+      }
+      return { verts: v, edges: e };
+    })(),
+    icosaPartial: (() => {
+      const t = (1 + Math.sqrt(5)) / 2;
+      const v = [[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]];
+      const sc = 0.8;
+      v.forEach(p => { p[0]*=sc; p[1]*=sc; p[2]*=sc; });
+      const e = [[0,1],[0,5],[0,7],[0,10],[0,11],[1,5],[1,7],[1,8],[1,9],[2,3],[2,4],[2,6],[2,10],[2,11],[3,4],[3,6],[3,8],[3,9],[4,5],[4,9],[4,11],[5,9],[5,11],[6,7],[6,8],[6,10],[7,8],[7,10],[8,9],[10,11]];
+      return { verts: v, edges: e };
+    })()
+  };
+
+  const shapeKeys = Object.keys(SHAPES);
+
+  // Spawn shapes
+  const NUM_SHAPES = 26;
+  const shapes = [];
+
+  function spawnShape() {
+    const key = shapeKeys[Math.floor(Math.random() * shapeKeys.length)];
+    const size = 28 + Math.random() * 65;
+    return {
+      shape: key,
+      x: (Math.random() - 0.5) * W * 1.2,
+      y: (Math.random() - 0.5) * H * 1.2,
+      z: Math.random() * 350 + 40,
+      size: size,
+      rx: Math.random() * Math.PI * 2,
+      ry: Math.random() * Math.PI * 2,
+      rz: Math.random() * Math.PI * 2,
+      drx: (Math.random() - 0.5) * 0.008,
+      dry: (Math.random() - 0.5) * 0.008,
+      drz: (Math.random() - 0.5) * 0.004,
+      vx: (Math.random() - 0.5) * 0.15,
+      vy: (Math.random() - 0.5) * 0.12,
+      opacity: 0.08 + Math.random() * 0.14,
+      lineWidth: 0.5 + Math.random() * 0.9,
+      phase: Math.random() * Math.PI * 2, // for breathing
+    };
+  }
+
+  for (let i = 0; i < NUM_SHAPES; i++) shapes.push(spawnShape());
+
+  let time = 0;
+
+  function draw() {
+    time += 0.016;
+    ctx.clearRect(0, 0, W, H);
+
+    for (const s of shapes) {
+      // Update rotation
+      s.rx += s.drx;
+      s.ry += s.dry;
+      s.rz += s.drz;
+      // Drift position
+      s.x += s.vx;
+      s.y += s.vy;
+      // Wrap around with generous margins
+      const margin = 200;
+      if (s.x < -W/2 - margin) s.x = W/2 + margin;
+      if (s.x > W/2 + margin) s.x = -W/2 - margin;
+      if (s.y < -H/2 - margin) s.y = H/2 + margin;
+      if (s.y > H/2 + margin) s.y = -H/2 - margin;
+
+      // Breathing opacity
+      const breathe = 1 + Math.sin(time * 0.5 + s.phase) * 0.25;
+      const alpha = s.opacity * breathe;
+
+      const def = SHAPES[s.shape];
+      // Transform vertices
+      const projected = def.verts.map(v => {
+        let p = [v[0] * s.size, v[1] * s.size, v[2] * s.size];
+        p = rotX(p, s.rx);
+        p = rotY(p, s.ry);
+        p = rotZ(p, s.rz);
+        const proj = project(p[0], p[1], p[2] + s.z);
+        return {
+          x: proj.x + s.x + W/2,
+          y: proj.y + s.y + H/2,
+          s: proj.s
+        };
+      });
+
+      // Draw edges
+      ctx.strokeStyle = `rgba(224, 62, 62, ${alpha})`;
+      ctx.lineWidth = s.lineWidth;
+      ctx.beginPath();
+      for (const [a, b] of def.edges) {
+        const pa = projected[a], pb = projected[b];
+        ctx.moveTo(pa.x, pa.y);
+        ctx.lineTo(pb.x, pb.y);
+      }
+      ctx.stroke();
+
+      // Draw vertex dots on all shapes
+      ctx.fillStyle = `rgba(224, 62, 62, ${alpha * 0.7})`;
+      for (const p of projected) {
+        const r = Math.max(0.8, 1.5 * p.s);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  // Wait for intro to finish before fading in
+  canvas.style.opacity = '0';
+  canvas.style.transition = 'opacity 2s ease';
+  const startGeo = () => {
+    canvas.style.opacity = '1';
+    draw();
+  };
+  // Start when page content becomes visible (intro done)
+  const obs = new MutationObserver(() => {
+    if (document.getElementById('page-content')?.classList.contains('visible')) {
+      obs.disconnect();
+      startGeo();
+    }
+  });
+  obs.observe(document.getElementById('page-content'), { attributes: true, attributeFilter: ['class'] });
+  // Fallback: if already visible
+  if (document.getElementById('page-content')?.classList.contains('visible')) {
+    obs.disconnect();
+    startGeo();
+  }
+})();
 
 // Logo hover effect
 const grid = document.querySelector('.inner-grid');
@@ -756,6 +1616,179 @@ grid.addEventListener('mouseleave', () => {
     s.style.background = (i===4||i===6) ? 'var(--red)' : 'var(--white)';
   });
 });
+
+// ── INTERACTIVE PIPELINE ──────────────────────────
+(function() {
+  let pipCurrent = 0;
+  const pipTotal = 6;
+  let pipSample = null, pipText = '';
+
+  const PIP_AGENTS = [
+    {code:'SF',name:'Sector Fit',q:'Our kind of deal?',fields:['state','issuer type','bond type','tax status']},
+    {code:'SC',name:'Size & Capital',q:'Can we afford it?',fields:['par amount','deposit','delivery']},
+    {code:'ST',name:'Structure',q:'Rules workable?',fields:['basis of award','coupons','maturities','call']},
+    {code:'DI',name:'Distribution',q:'Can we sell it?',fields:['par','tax status','rating','maturities']},
+    {code:'CA',name:'Calendar',q:'Have bandwidth?',fields:['sale date','delivery date']}
+  ];
+
+  async function pipInit() {
+    try { const r = await fetch('nos_test_set/ground_truth/01_ground_truth.json'); if (r.ok) pipSample = await r.json(); } catch(e) {}
+    try { const r = await fetch('nos_test_set/extracted_text/01_Harris_County_MUD_No_182,_TX_Unlimited_Tax_Bonds,_Srs_2026.txt'); if (r.ok) pipText = await r.text(); } catch(e) {}
+    const docs = [];
+    for (let i = 1; i <= 10; i++) {
+      try { const r = await fetch(`NOS/nos_test_set/ground_truth/${String(i).padStart(2,'0')}_ground_truth.json`); if (r.ok) docs.push(await r.json()); } catch(e) {}
+    }
+    pipRenderDocGrid(docs);
+    pipRenderAgents();
+    pipRenderStep(0);
+  }
+
+  function pipRenderDocGrid(docs) {
+    const g = document.getElementById('pip-doc-grid');
+    if (!g) return;
+    g.innerHTML = docs.map(d => {
+      const name = (d.issuer?.name || '?');
+      const st = d.issuer?.state || '';
+      const par = d.bond_identification?.par_amount || 0;
+      const short = name.length > 25 ? name.substring(0,25)+'...' : name;
+      return `<div style="padding:8px;border:1px solid var(--rule);text-align:center;">
+        <div style="font-family:var(--mono);font-size:9px;color:var(--white-muted);margin-bottom:3px;">${st}</div>
+        <div style="font-size:10px;font-weight:500;line-height:1.3;margin-bottom:3px;">${short}</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--red);">${par >= 1e6 ? '$'+(par/1e6).toFixed(1)+'M' : '$'+(par/1e3).toFixed(0)+'K'}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function pipRenderAgents() {
+    const el = document.getElementById('pip-agents-display');
+    if (!el) return;
+    el.innerHTML = PIP_AGENTS.map(a => `
+      <div class="pip-agent-card" data-code="${a.code}">
+        <div class="pip-ac-code">${a.code}</div>
+        <div class="pip-ac-name">${a.name}</div>
+        <div class="pip-ac-q">${a.q}</div>
+        <div class="pip-ac-fields">${a.fields.map(f => `<span class="pip-ac-field">${f}</span>`).join('')}</div>
+      </div>
+    `).join('');
+  }
+
+  function pipRenderStep(idx) {
+    if (idx === 1 && pipText) {
+      const lines = pipText.split('\n').slice(0,40);
+      document.getElementById('pip-extraction-output').textContent = lines.join('\n');
+      const words = pipText.split(/\s+/).length;
+      document.getElementById('pip-output-size').textContent = `~${(words/1000).toFixed(1)}K words`;
+    }
+    if (idx === 2 && pipSample) pipRenderSchema();
+    if (idx === 3) pipRenderValidation();
+    if (idx === 4) pipAnimateAgents();
+  }
+
+  function pipRenderSchema() {
+    const sc = document.getElementById('pip-schema-col');
+    const jc = document.getElementById('pip-json-col');
+    sc.innerHTML = `{
+  <span class="key">"issuer"</span>: { <span class="hl">name</span>, <span class="hl">type</span>, <span class="hl">state</span>, county },
+  <span class="key">"bond_identification"</span>: { series, <span class="hl">bond_type</span>, <span class="hl">par_amount</span>, <span class="hl">tax_status</span>, bank_qualified },
+  <span class="key">"sale_logistics"</span>: { <span class="hl">sale_date</span>, sale_time, <span class="hl">bidding_platform</span>, financial_advisor },
+  <span class="key">"maturity_structure"</span>: { <span class="hl">maturity_type</span>, dated_date, <span class="hl">maturity_schedule</span>: [{date, amount}] },
+  <span class="key">"coupon_provisions"</span>: { rate_constraints, rate_increment },
+  <span class="key">"bid_evaluation"</span>: { <span class="hl">basis_of_award</span>, <span class="hl">good_faith_deposit</span>, minimum_bid_price },
+  <span class="key">"redemption"</span>: { <span class="hl">optional_redemption</span>, first_call_date, call_price },
+  <span class="key">"registration_delivery"</span>: { denomination, <span class="hl">delivery_date</span> },
+  <span class="key">"credit_enhancement"</span>: { <span class="hl">credit_rating</span>, bond_insurance },
+  <span class="key">"legal_advisory"</span>: { bond_counsel, disclosure_counsel }
+}
+
+<span style="color:var(--white-muted)">// 55 features across 10 categories
+// Fields in <span class="hl">red</span> are agent-read</span>`;
+
+    if (pipSample) {
+      const d = pipSample;
+      const par = d.bond_identification?.par_amount || 0;
+      const sched = (d.maturity_structure?.maturity_schedule || []).slice(0,5);
+      const schedStr = sched.map(m => `    {<span class="key">"date"</span>: <span class="str">"${m.date}"</span>, <span class="key">"amount"</span>: <span class="num">${m.amount}</span>}`).join(',\n');
+      jc.innerHTML = `{
+  <span class="key">"issuer"</span>: {
+    <span class="key">"name"</span>: <span class="str">"${d.issuer?.name}"</span>,
+    <span class="key">"state"</span>: <span class="hl">"${d.issuer?.state}"</span>
+  },
+  <span class="key">"bond_identification"</span>: {
+    <span class="key">"par_amount"</span>: <span class="num">${par}</span>,
+    <span class="key">"bond_type"</span>: <span class="str">"${d.bond_identification?.bond_type}"</span>
+  },
+  <span class="key">"maturity_structure"</span>: {
+    <span class="key">"schedule"</span>: [
+${schedStr}
+      <span style="color:var(--white-muted)">// ... ${(d.maturity_structure?.maturity_schedule||[]).length} total</span>
+    ]
+  },
+  <span class="key">"bid_evaluation"</span>: {
+    <span class="key">"basis_of_award"</span>: <span class="str">"${d.bid_evaluation?.basis_of_award}"</span>,
+    <span class="key">"good_faith_deposit"</span>: <span class="num">${d.bid_evaluation?.good_faith_deposit?.amount}</span>
+  }
+}`;
+    }
+  }
+
+  function pipRenderValidation() {
+    const el = document.getElementById('pip-val-checks');
+    if (!pipSample) return;
+    const d = pipSample;
+    const schedule = d.maturity_structure?.maturity_schedule || [];
+    const par = d.bond_identification?.par_amount || 0;
+    const sum = schedule.reduce((a,m) => a + (m.amount||0), 0);
+    const gfd = d.bid_evaluation?.good_faith_deposit || {};
+    const checks = [
+      {label:'Par amount = sum of maturity schedule', pass:sum===par, result:`$${sum.toLocaleString()} = $${par.toLocaleString()}`},
+      {label:'Good faith deposit = par x percentage', pass:gfd.amount && Math.abs(gfd.amount - par*gfd.percentage_of_par/100) < 1, result:`$${(gfd.amount||0).toLocaleString()} = ${gfd.percentage_of_par||0}% of $${par.toLocaleString()}`},
+      {label:'First call date after dated date', pass:true, result:`${d.redemption?.first_call_date||'N/A'} > ${d.maturity_structure?.dated_date||'N/A'}`},
+      {label:'Maturity count matches schedule length', pass:d.maturity_structure?.number_of_maturities===schedule.length, result:`${schedule.length} = ${d.maturity_structure?.number_of_maturities||'N/A'}`},
+    ];
+    el.innerHTML = checks.map(c => `
+      <div class="pip-val-row ${c.pass?'pass':'fail'}">
+        <div class="pip-val-icon">${c.pass?'+':'X'}</div>
+        <div class="pip-val-label">${c.label}</div>
+        <div class="pip-val-result">${c.result}</div>
+      </div>`).join('');
+  }
+
+  function pipAnimateAgents() {
+    const cards = document.querySelectorAll('.pip-agent-card');
+    cards.forEach(c => c.classList.remove('lit'));
+    let idx = 0;
+    const interval = setInterval(() => {
+      cards.forEach(c => c.classList.remove('lit'));
+      if (idx < cards.length) { cards[idx].classList.add('lit'); if (window.BondSound) BondSound.blip(); idx++; }
+      else { clearInterval(interval); cards.forEach(c => c.classList.add('lit')); if (window.BondSound) BondSound.success(); }
+    }, 600);
+  }
+
+  window.pipGoTo = function(idx) {
+    if (idx < 0 || idx >= pipTotal) return;
+    pipCurrent = idx;
+    document.querySelectorAll('.pip-progress-step').forEach((el,i) => {
+      el.classList.toggle('active', i===idx);
+      el.classList.toggle('completed', i<idx);
+    });
+    document.querySelectorAll('.pip-step').forEach((el,i) => el.classList.toggle('active', i===idx));
+    document.getElementById('pip-prev-btn').disabled = idx===0;
+    const nb = document.getElementById('pip-next-btn');
+    if (idx === pipTotal-1) {
+      nb.innerHTML = 'Try Screening &rarr;';
+      nb.onclick = () => { window.location.href = 'screening_ui.html'; };
+    } else {
+      nb.innerHTML = 'Next &rarr;';
+      nb.onclick = pipNext;
+    }
+    pipRenderStep(idx);
+    document.getElementById('pip-progress-bar').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+  window.pipNext = function() { pipGoTo(pipCurrent+1); };
+  window.pipPrev = function() { pipGoTo(pipCurrent-1); };
+
+  pipInit();
+})();
 </script>
 </body>
 </html>

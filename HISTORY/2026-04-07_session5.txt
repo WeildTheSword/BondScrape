@@ -1,0 +1,114 @@
+SESSION: 2026-04-07 (Session 5 — Landing Page Overhaul, Site Consolidation, Sound & Intro)
+============================================================
+
+WHAT WAS DONE
+-------------
+
+1. LANDING PAGE — "HOW TO USE" SECTION
+   - Added 3-step interactive guide below the pipeline section:
+     Step 1: Fire the Scraper — globe, document icons, database graphic
+     Step 2: Enter API Key — mock input with typing animation, lock icon
+     Step 3: Run Screening — selection pills, agent ring, consensus badge
+   - Each step has hover states: card slides right, red accent bar draws in,
+     scan line effect, number badge glows
+   - Connected by vertical line with red gradient, scroll-triggered reveal
+
+2. FLOATING RED GEOMETRY BACKGROUND
+   - Full-screen canvas with 26 wireframe 3D shapes (cubes, octahedrons,
+     diamonds, hexagonal rings, tetrahedra, 3D crosses, pentagonal prisms,
+     partial icosahedra)
+   - Shapes rotate on 3 axes, drift across viewport, wrap around edges
+   - "Breathing" opacity on sine wave, vertex dots, 3D perspective projection
+   - Tuned to subtle visibility (~8-22% opacity, 0.5-1.4px lines)
+
+3. NAVIGATION CONSOLIDATION
+   - Removed Firms tab — firm profiles moved into Screening page
+   - Removed Pipeline tab — full interactive pipeline moved to landing page
+   - Removed Home tab — logo click navigates home on all pages
+   - Removed nav icons — clean text-only nav across all pages
+   - Final nav: Scraper | Screening (Scraper first, matching workflow order)
+   - Consistent across index.html, screening_ui.html, scraper.html, pipeline.html
+
+4. FIRMS INTEGRATION INTO SCREENING PAGE
+   - Full firm profile cards with pixel art avatars, metrics grids,
+     strategic priorities, and create form ported from firms.html
+   - Appears below the screener as a dedicated section
+   - "Screen with this firm" button on each card selects firm in sidebar
+     and scrolls to top
+   - Create form with state/issuer tag pools, all fields, localStorage persistence
+
+5. INTERACTIVE PIPELINE ON LANDING PAGE
+   - Replaced simple 5-step pipeline row with full 6-step interactive breakdown
+   - Progress bar with clickable steps, prev/next navigation
+   - Step 1: PDF mock + 10-document test set grid (loads ground truth JSON)
+   - Step 2: Extracted text preview with word count and method stats
+   - Step 3: Schema/JSON split panel with syntax highlighting
+   - Step 4: Validation checks with pass/fail indicators
+   - Step 5: Agent cards with sequential light-up animation + MAS comparison
+   - Step 6: Consensus rules, outcome badges, key insight
+   - "Try Screening" button on final step links to screening page
+
+6. SIDEBAR COLLAPSIBLE SECTIONS
+   - "Test Set" and "Scraped NOS" headers are now clickable to collapse/expand
+   - Chevron rotates to indicate state, smooth max-height transition
+   - Scraped filter bar collapses with its section
+
+7. SCRAPER SEQUENTIAL PIPELINE
+   - "Fire Selected Scrapers" now runs 3 steps automatically in sequence:
+     1. Launch Scraper (scraper_linkpull.py)
+     2. Build Index (build_issue_index.py)
+     3. Download NOS PDFs (batch download via /api/download-nos-pdfs)
+   - Each step waits for previous to complete; pipeline stops on failure
+   - Progress logged to console with [1/3], [2/3], [3/3] prefixes
+   - Individual buttons still work independently
+
+8. SOUND ENGINE (sounds.js)
+   - Shared Web Audio API sound module loaded on all pages
+   - Auto-wired click sound on any interactive element (links, buttons, cards,
+     pills, filters, nav items)
+   - Key moment sounds: agent blip on light-up, success chime on completion,
+     error buzz on failure
+   - Screening page retains its own audio system (playClick, playStamp,
+     playConsensus)
+
+9. BOND-INSPIRED INTRO ANIMATION
+   - "BondScrape" logo text displayed from the start
+   - On click: spy theme music starts, red crosshair reticle appears
+   - Crosshair snaps to each letter — white letters flash bright, red letters
+     glow with text-shadow
+   - Blood drips fall from red letters ("Scrape")
+   - Final "e" gets gunshot boom, then page reveals
+   - Spy theme: E-minor chromatic bass walk, staccato chord stabs, ~16s fade
+
+10. HERO SECTION — KEPT ORIGINAL
+    - Reverted hero back to original clean design after failed redesign attempt
+    - Removed CTA buttons (redundant with nav), let stats and tagline breathe
+    - Action buttons were briefly added/styled but removed for cleaner Apple feel
+
+
+FILES CHANGED
+-------------
+Modified: NOS/index.html (~900 lines — howto section, geometry bg, pipeline
+          integration, Bond intro, nav consolidation)
+Modified: NOS/screening_ui.html (~400 lines — firms section, collapsible
+          sidebar, nav cleanup, sound integration)
+Modified: NOS/scraper.html (~120 lines — sequential pipeline, nav cleanup,
+          sound integration)
+Modified: NOS/pipeline.html (~10 lines — nav cleanup, sound integration)
+Modified: NOS/firms.html (nav cleanup only — content moved to screening)
+Modified: app.py (no changes this session)
+New:      NOS/sounds.js (shared Web Audio sound engine)
+New:      HISTORY/2026-04-07_session5.txt
+
+
+ARCHITECTURE NOTES
+------------------
+- Sound engine: NOS/sounds.js loaded via <script> on all pages, auto-wires
+  click sounds on DOMContentLoaded via event delegation
+- Intro uses Web Audio API for all sounds (spy theme, hit effects, gunshot)
+  — no external audio files
+- Geometry canvas uses requestAnimationFrame loop, fades in after intro
+- Pipeline data fetched from nos_test_set/ (ground truth JSON + extracted text)
+- Firms section uses IIFE to avoid polluting global scope, loads firm JSON
+  files and localStorage custom firms independently from sidebar firm selector
+- Sequential scraper pipeline uses Promise-wrapped SSE EventSource listeners

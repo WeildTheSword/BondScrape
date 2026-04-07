@@ -760,31 +760,14 @@ body::before {
 </style>
 </head>
 <body>
+<script src="sounds.js"></script>
 
 <div class="topbar">
   <a class="brand" href="index.html">Bond<span>Scrape</span></a>
   <div class="topbar-sep"></div>
   <div class="topbar-nav">
-    <a href="screening_ui.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h10"/><circle cx="14" cy="8" r="1.5" fill="currentColor" stroke="none"/></svg>
-      Screening
-    </a>
-    <a class="active" href="scraper.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2v12h10V6l-4-4H3z"/><path d="M9 2v4h4"/><path d="M5 9h6M5 11.5h4"/></svg>
-      Scraper
-    </a>
-    <a href="pipeline.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h4l2-5 3 10 2-5h3"/></svg>
-      Pipeline
-    </a>
-    <a href="firms.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="5" r="3"/><circle cx="11" cy="5" r="3"/><path d="M1 14c0-2.5 1.8-4 4-4 1 0 1.8.3 2.5.8M8.5 10.8c.7-.5 1.5-.8 2.5-.8 2.2 0 4 1.5 4 4"/></svg>
-      Firms
-    </a>
-    <a href="index.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8l6-6 6 6M4 7v7h3v-4h2v4h3V7"/></svg>
-      Home
-    </a>
+    <a class="active" href="scraper.html">Scraper</a>
+    <a href="screening_ui.html">Screening</a>
   </div>
   <div class="topbar-spacer"></div>
   <div class="topbar-tag">PROSPECTUS SCRAPER</div>
@@ -1055,6 +1038,10 @@ function consolePrint(msg, cls) {
   line.textContent = msg;
   inner.appendChild(line);
   inner.scrollTop = inner.scrollHeight;
+  if (window.BondSound) {
+    if (cls === 'success') BondSound.success();
+    else if (cls === 'error') BondSound.error();
+  }
 }
 
 async function launchScraper() {
@@ -1634,9 +1621,111 @@ function gateChoice(choice, sources) {
     overlay.style.display = 'none';
     document.getElementById('main-page').classList.add('visible');
     if (choice === 'launch' && sources && sources.includes('idp')) {
-      setTimeout(() => launchScraper(), 400);
+      setTimeout(() => runFullPipeline(), 400);
     }
   }, 350);
+}
+
+// Run scraper → build index → download NOS PDFs sequentially
+async function runFullPipeline() {
+  consolePrint('━━━ Starting full pipeline: Scrape → Index → Download ━━━', 'status');
+
+  // Step 1: Launch Scraper
+  consolePrint('', 'status');
+  consolePrint('[1/3] Launching scraper...', 'status');
+  const scrapeOk = await runSSEStep('/api/scraper/launch', 'launch-btn', true);
+
+  if (!scrapeOk) {
+    consolePrint('[1/3] Scraper failed. Pipeline stopped.', 'error');
+    resetLaunchUI();
+    return;
+  }
+  consolePrint('[1/3] Scraper complete.', 'success');
+
+  // Step 2: Build Index
+  consolePrint('', 'status');
+  consolePrint('[2/3] Building issue index...', 'status');
+  const indexOk = await runSSEStep('/api/scraper/build-index', 'index-btn', false);
+
+  if (!indexOk) {
+    consolePrint('[2/3] Index build failed. Pipeline stopped.', 'error');
+    resetLaunchUI();
+    return;
+  }
+  consolePrint('[2/3] Index built. Reloading data...', 'success');
+  loadData();
+
+  // Step 3: Download NOS PDFs
+  consolePrint('', 'status');
+  consolePrint('[3/3] Downloading NOS PDFs...', 'status');
+  const dlOk = await runSSEStep('/api/download-nos-pdfs', 'download-pdfs-btn', false);
+
+  if (dlOk) {
+    consolePrint('[3/3] Download complete.', 'success');
+  } else {
+    consolePrint('[3/3] Download had issues.', 'error');
+  }
+
+  consolePrint('', 'status');
+  consolePrint('━━━ Full pipeline finished ━━━', 'success');
+  resetLaunchUI();
+}
+
+// Generic SSE step runner that returns a promise resolving to success boolean
+function runSSEStep(url, btnId, isScraper) {
+  return new Promise((resolve) => {
+    const btn = document.getElementById(btnId);
+    const consoleEl = document.getElementById('launch-console');
+    const progressEl = document.getElementById('launch-progress');
+    const stopBtn = document.getElementById('stop-btn');
+
+    if (btn) btn.disabled = true;
+    consoleEl.classList.add('open');
+    progressEl.classList.add('active');
+
+    if (isScraper) {
+      btn.classList.add('running');
+      btn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;animation:pulse 1s ease infinite"><circle cx="8" cy="8" r="5"/></svg> Running...';
+      stopBtn.classList.add('visible');
+      saveScrapeTimestamp('idp');
+    }
+
+    try {
+      const evtSource = new EventSource(url);
+      evtSource.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        if (data.type === 'log') {
+          consolePrint(data.msg);
+        } else if (data.type === 'status') {
+          consolePrint(data.msg, 'status');
+        } else if (data.type === 'error') {
+          consolePrint('ERROR: ' + data.msg, 'error');
+        } else if (data.type === 'done') {
+          evtSource.close();
+          if (btn) btn.disabled = false;
+          progressEl.classList.remove('active');
+          if (isScraper) {
+            stopBtn.classList.remove('visible');
+            btn.classList.remove('running');
+            btn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><polygon points="4,2 14,8 4,14" fill="currentColor" stroke="none"/></svg> Launch Scraper';
+          }
+          resolve(data.success !== false);
+        }
+      };
+      evtSource.onerror = () => {
+        evtSource.close();
+        if (btn) btn.disabled = false;
+        progressEl.classList.remove('active');
+        consolePrint('Connection lost.', 'error');
+        resolve(false);
+      };
+    } catch(e) {
+      consolePrint('Failed to connect: ' + e.message, 'error');
+      if (btn) btn.disabled = false;
+      progressEl.classList.remove('active');
+      resolve(false);
+    }
+  });
 }
 
 // ── INIT ──────────────────────

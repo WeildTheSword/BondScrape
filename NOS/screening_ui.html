@@ -346,6 +346,17 @@ body::before {
   border-bottom:1px solid var(--rule);
   display:flex; align-items:center; gap:8px;
   background:var(--surface); position:relative;
+  cursor:pointer; user-select:none; transition:background 0.15s;
+}
+.deal-section-header:hover { background:var(--surface2); }
+.deal-section-header .collapse-chevron {
+  width:10px; height:10px; flex-shrink:0;
+  transition:transform 0.2s ease;
+}
+.deal-section-header.test-header .collapse-chevron { margin-left:auto; }
+.deal-section-header.collapsed .collapse-chevron { transform:rotate(-90deg); }
+.deal-list, .scraped-filter {
+  transition:max-height 0.25s ease, opacity 0.2s ease;
 }
 .deal-section-header::before {
   content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
@@ -1040,14 +1051,150 @@ body::before {
 .main::-webkit-scrollbar, .sidebar::-webkit-scrollbar { width:3px; }
 .main::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb { background:var(--rule-light); }
 
+/* ── FIRMS PAGE SECTION ──── */
+.firms-page {
+  border-top:1px solid var(--rule);
+  padding:60px 40px 80px; position:relative; z-index:1;
+}
+.firms-page-inner { max-width:1100px; margin:0 auto; }
+.firms-page-title { font-size:32px; font-weight:700; letter-spacing:-0.04em; margin-bottom:8px; line-height:1.2; }
+.firms-page-sub { font-size:14px; color:var(--white-dim); line-height:1.7; margin-bottom:12px; max-width:680px; }
+.firms-page-line { width:80px; height:1px; background:var(--red); margin-bottom:40px; transform-origin:left; animation:drawLine 0.5s ease both 0.3s; }
+
+.firms-page-actions { margin-bottom:40px; }
+.firms-btn-create {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 24px; font-size:13px; font-weight:600;
+  background:transparent; color:var(--white); border:1px solid var(--rule-light);
+  border-radius:4px; cursor:pointer; letter-spacing:0.02em; font-family:var(--sans);
+  transition:all 0.15s;
+}
+.firms-btn-create:hover { border-color:var(--red); color:var(--red); background:var(--red-wash); }
+.firms-btn-create .plus { font-size:16px; font-weight:400; }
+
+.firms-grid {
+  display:grid; grid-template-columns:repeat(2, 1fr);
+  gap:16px; margin-bottom:60px;
+}
+
+.fp-card {
+  background:var(--surface); padding:32px; border-radius:6px;
+  border:1px solid var(--rule); transition:all 0.25s;
+  animation:fadeIn 0.5s ease both;
+}
+.fp-card:hover { border-color:var(--rule-light); background:var(--surface2); }
+
+.fp-header { display:flex; align-items:flex-start; gap:20px; margin-bottom:24px; }
+.fp-avatar-wrap {
+  width:64px; height:64px; flex-shrink:0;
+  border:1px solid var(--rule-light); border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--black);
+}
+.fp-title { flex:1; }
+.fp-title h2 { font-size:18px; font-weight:700; letter-spacing:-0.02em; margin-bottom:4px; }
+.fp-title p { font-size:12px; color:var(--white-dim); line-height:1.5; }
+
+.fp-metrics-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0; border:1px solid var(--rule); border-radius:4px;
+  margin-bottom:16px; overflow:hidden;
+}
+.fp-metric {
+  padding:12px 16px; border-bottom:1px solid var(--rule);
+  transition:background 0.15s;
+}
+.fp-metric:hover { background:rgba(224,62,62,0.02); }
+.fp-metric:nth-child(odd) { border-right:1px solid var(--rule); }
+.fp-metric:nth-last-child(-n+2) { border-bottom:none; }
+.fp-metric-label {
+  font-family:var(--mono); font-size:9px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;
+}
+.fp-metric-value { font-size:13px; font-weight:600; line-height:1.4; }
+.fp-metric-value.mono { font-family:var(--mono); font-size:12px; }
+
+.fp-priorities { margin-bottom:16px; }
+.fp-priorities-label {
+  font-family:var(--mono); font-size:9px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;
+}
+.fp-priority-item {
+  font-size:11px; color:var(--white-dim); line-height:1.5;
+  padding-left:12px; position:relative; margin-bottom:2px;
+}
+.fp-priority-item::before { content:''; position:absolute; left:0; top:7px; width:4px; height:4px; background:var(--red); }
+
+.fp-screen-link {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:600; color:var(--red);
+  text-decoration:none; letter-spacing:0.02em; cursor:pointer;
+  transition:opacity 0.15s; background:none; border:none; font-family:var(--sans);
+}
+.fp-screen-link:hover { opacity:0.7; }
+
+/* Create form */
+.firms-create-section {
+  border:1px solid var(--rule); border-radius:6px; padding:36px;
+  margin-top:60px; background:var(--surface);
+}
+.firms-create-section h3 { font-size:18px; font-weight:700; letter-spacing:-0.02em; margin-bottom:4px; }
+.firms-form-sub { font-size:12px; color:var(--white-dim); margin-bottom:24px; }
+.firms-form-row { margin-bottom:20px; }
+.firms-form-label {
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px; display:block;
+}
+.firms-form-input {
+  width:100%; padding:10px 14px; font-size:13px;
+  background:var(--black); border:1px solid var(--rule-light);
+  border-radius:4px; color:var(--white); font-family:var(--sans);
+  outline:none; transition:border-color 0.15s;
+}
+.firms-form-input:focus { border-color:var(--red); }
+.firms-form-input::placeholder { color:var(--white-muted); }
+textarea.firms-form-input { min-height:70px; resize:vertical; }
+.firms-form-row-half { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+.firms-tag-pool { display:flex; flex-wrap:wrap; gap:4px; }
+.firms-tag-option {
+  padding:5px 12px; font-size:10px; font-family:var(--mono);
+  border:1px solid var(--rule-light); border-radius:3px; color:var(--white-muted);
+  cursor:pointer; letter-spacing:0.04em; transition:all 0.12s; user-select:none;
+}
+.firms-tag-option:hover { border-color:var(--white-muted); color:var(--white-dim); }
+.firms-tag-option.selected { border-color:var(--red); color:var(--red); background:var(--red-wash); }
+
+.firms-form-select {
+  width:100%; padding:10px 14px; font-size:13px;
+  background:var(--black); border:1px solid var(--rule-light);
+  border-radius:4px; color:var(--white); font-family:var(--sans);
+  outline:none; cursor:pointer; appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 12px center;
+}
+.firms-form-select:focus { border-color:var(--red); }
+
+.firms-btn-submit {
+  padding:12px 32px; font-size:13px; font-weight:700;
+  background:var(--red); color:var(--white); border:none;
+  border-radius:4px; cursor:pointer; font-family:var(--sans);
+  letter-spacing:0.02em; text-transform:uppercase; transition:all 0.15s;
+}
+.firms-btn-submit:hover { background:var(--red-dim); box-shadow:0 4px 16px rgba(224,62,62,0.25); }
+
 @media(max-width:900px){
   .app-layout { flex-direction:column; }
   .sidebar { width:100%; max-height:200px; }
   .summary-grid { grid-template-columns: repeat(2,1fr); }
+  .firms-grid { grid-template-columns:1fr; }
+  .firms-form-row-half { grid-template-columns:1fr; }
+  .firms-page { padding:40px 20px 60px; }
 }
 </style>
 </head>
 <body>
+<script src="sounds.js"></script>
 
 <!-- MODE SELECT MODAL -->
 <div class="mode-overlay" id="mode-overlay">
@@ -1099,30 +1246,8 @@ body::before {
   <a class="brand" href="index.html">Bond<span>Scrape</span></a>
   <div class="topbar-sep"></div>
   <div class="topbar-nav">
-    <a class="active" href="screening_ui.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h10"/><circle cx="14" cy="8" r="1.5" fill="currentColor" stroke="none"/></svg>
-      Screening
-    </a>
-    <a href="#matrix" onclick="showView('matrix',event)">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6"/><rect x="9" y="1" width="6" height="6"/><rect x="1" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6"/></svg>
-      Matrix
-    </a>
-    <a href="scraper.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2v12h10V6l-4-4H3z"/><path d="M9 2v4h4"/><path d="M5 9h6M5 11.5h4"/></svg>
-      Scraper
-    </a>
-    <a href="pipeline.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h4l2-5 3 10 2-5h3"/></svg>
-      Pipeline
-    </a>
-    <a href="firms.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="5" r="3"/><circle cx="11" cy="5" r="3"/><path d="M1 14c0-2.5 1.8-4 4-4 1 0 1.8.3 2.5.8M8.5 10.8c.7-.5 1.5-.8 2.5-.8 2.2 0 4 1.5 4 4"/></svg>
-      Firms
-    </a>
-    <a href="index.html">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8l6-6 6 6M4 7v7h3v-4h2v4h3V7"/></svg>
-      Home
-    </a>
+    <a href="scraper.html">Scraper</a>
+    <a class="active" href="screening_ui.html">Screening</a>
   </div>
   <div class="topbar-spacer"></div>
   <div class="live-badge" id="live-badge">LIVE MODE</div>
@@ -1235,15 +1360,17 @@ body::before {
       <svg class="sh-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 1h7l3 3v11H3V1z"/><path d="M10 1v3h3"/><path d="M5 8h6M5 11h4"/></svg>
       NOS Documents
     </div>
-    <div class="deal-section-header test-header">
+    <div class="deal-section-header test-header" onclick="toggleSection(this,'deal-list')">
       <svg class="section-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2h12v12H2z"/><path d="M5 6h6M5 9h4"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/></svg>
       Test Set <span class="section-count" id="test-count"></span>
+      <svg class="collapse-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2l4 3-4 3"/></svg>
     </div>
     <ul class="deal-list" id="deal-list"></ul>
     <div class="scraped-section-wrap">
-      <div class="deal-section-header scraped-header">
+      <div class="deal-section-header scraped-header" onclick="toggleSection(this,'scraped-deal-list')">
         <svg class="section-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2v12h10V6l-4-4H3z"/><path d="M9 2v4h4"/><path d="M5 9h6M5 11.5h4"/></svg>
         Scraped NOS <span class="section-count" id="scraped-count"></span> <span class="deal-source-tag idp">S&amp;P i-deal</span>
+        <svg class="collapse-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2l4 3-4 3"/></svg>
       </div>
       <div class="scraped-filter">
         <button class="scraped-filter-btn active" id="sf-all" onclick="filterScraped('all')">All</button>
@@ -1371,6 +1498,85 @@ body::before {
 
   </div>
 </div>
+</div>
+
+<!-- FIRM PROFILES SECTION -->
+<div class="firms-page">
+  <div class="firms-page-inner">
+    <div class="firms-page-title">Firm Profiles</div>
+    <div class="firms-page-sub">
+      Different firms evaluate the same deal differently. A $4.2M Texas MUD is core business for a regional underwriter and irrelevant to a Northeast institutional shop. The firm profile is the variable&mdash;not the agents.
+    </div>
+    <div class="firms-page-line"></div>
+
+    <div class="firms-page-actions">
+      <button class="firms-btn-create" onclick="document.getElementById('firms-create-section').scrollIntoView({behavior:'smooth'})">
+        <span class="plus">+</span> Create New Profile
+      </button>
+    </div>
+
+    <div class="firms-grid" id="firms-grid-full"></div>
+
+    <div class="firms-create-section" id="firms-create-section">
+      <h3>Create Firm Profile</h3>
+      <div class="firms-form-sub">Custom profiles are stored locally in your browser and appear alongside the built-in profiles.</div>
+
+      <div class="firms-form-row">
+        <label class="firms-form-label">Firm Name</label>
+        <input class="firms-form-input" id="fp-name" placeholder="e.g. Pacific Coast Municipal Group">
+      </div>
+      <div class="firms-form-row">
+        <label class="firms-form-label">Description</label>
+        <textarea class="firms-form-input" id="fp-desc" placeholder="Brief description of the firm's focus and capabilities"></textarea>
+      </div>
+
+      <div class="firms-form-row">
+        <label class="firms-form-label">States Covered</label>
+        <div class="firms-tag-pool" id="fp-state-tags"></div>
+      </div>
+
+      <div class="firms-form-row">
+        <label class="firms-form-label">Issuer Types Covered</label>
+        <div class="firms-tag-pool" id="fp-issuer-tags"></div>
+      </div>
+
+      <div class="firms-form-row-half">
+        <div class="firms-form-row">
+          <label class="firms-form-label">Max Single Commitment ($)</label>
+          <input class="firms-form-input" id="fp-max-commit" type="number" placeholder="25000000">
+        </div>
+        <div class="firms-form-row">
+          <label class="firms-form-label">Max Total Inventory ($)</label>
+          <input class="firms-form-input" id="fp-max-inv" type="number" placeholder="75000000">
+        </div>
+      </div>
+      <div class="firms-form-row-half">
+        <div class="firms-form-row">
+          <label class="firms-form-label">Current Inventory ($)</label>
+          <input class="firms-form-input" id="fp-cur-inv" type="number" placeholder="18500000">
+        </div>
+        <div class="firms-form-row">
+          <label class="firms-form-label">Available Analysts</label>
+          <input class="firms-form-input" id="fp-analysts" type="number" placeholder="2">
+        </div>
+      </div>
+
+      <div class="firms-form-row">
+        <label class="firms-form-label">Distribution Strength</label>
+        <select class="firms-form-select" id="fp-dist">
+          <option value="retail">Retail</option>
+          <option value="institutional">Institutional</option>
+          <option value="both">Both (Retail + Institutional)</option>
+        </select>
+      </div>
+
+      <div class="firms-form-row" style="margin-top:24px;">
+        <button class="firms-btn-submit" onclick="createFirmFull()">Create Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <!-- MATRIX VIEW -->
@@ -3720,17 +3926,45 @@ function renderGrid() {
   t.innerHTML = h + '</tbody>';
 }
 
+// ── SECTION COLLAPSE ──────────────────────────
+function toggleSection(header, listId) {
+  const list = document.getElementById(listId);
+  const isCollapsed = header.classList.toggle('collapsed');
+  if (isCollapsed) {
+    list.style.maxHeight = list.scrollHeight + 'px';
+    list.offsetHeight; // force reflow
+    list.style.maxHeight = '0';
+    list.style.overflow = 'hidden';
+    list.style.opacity = '0';
+    // Also hide the filter bar if it's the scraped section
+    const filter = list.previousElementSibling;
+    if (filter && filter.classList.contains('scraped-filter')) {
+      filter.style.maxHeight = '0';
+      filter.style.overflow = 'hidden';
+      filter.style.opacity = '0';
+    }
+  } else {
+    list.style.maxHeight = list.scrollHeight + 'px';
+    list.style.overflow = '';
+    list.style.opacity = '1';
+    setTimeout(() => { list.style.maxHeight = ''; }, 250);
+    const filter = list.previousElementSibling;
+    if (filter && filter.classList.contains('scraped-filter')) {
+      filter.style.maxHeight = '';
+      filter.style.overflow = '';
+      filter.style.opacity = '1';
+    }
+  }
+}
+
 // ── VIEW SWITCHING ─────────────────────────
 function showView(view, e) {
   if (e) e.preventDefault();
   document.querySelectorAll('.view-panel').forEach(el => el.classList.remove('visible'));
-  document.querySelectorAll('.topbar-nav a').forEach(a => a.classList.remove('active'));
   if (view === 'screening') {
     document.getElementById('view-screening').classList.add('visible');
-    document.querySelector('.topbar-nav a[href="screening_ui.html"]').classList.add('active');
   } else if (view === 'matrix') {
     document.getElementById('view-matrix').classList.add('visible');
-    document.querySelector('.topbar-nav a[href="#matrix"]').classList.add('active');
   }
 }
 
@@ -3818,6 +4052,178 @@ function reopenModeSelect() {
 })();
 
 loadData();
+
+// ── FIRMS PAGE SECTION ──────────────────────────
+(function() {
+  // Pixel art avatars
+  const PEOPLE_TEXAS = [
+    '................','....RRR.........','...RRRRR...WWW..','....WWW....WWW..','....WWW....WWW..',
+    '...RWWWR..RWWWR.','...RWWWR..RWWWR.','...RWWWR..RWWWR.','....WWW....WWW..',
+    '....WWW....WWW..','...WW.WW..WW.WW.','...WW.WW..WW.WW.','...W...W..W...W.','................'
+  ].map(r=>r.split(''));
+  const PEOPLE_NE = [
+    '.W...W...W...W..','.W...W...W...W..','.W..WWW.WWW.WWW.','.W..WWW.WWW.WWW.','.W..WWW.WWW.WWW.',
+    '...RWWWRWWWRWWWR','...RWWWRWWWRWWWR','...RWWWRWWWRWWWR','....WWW.WWW.WWW.',
+    '....WWW.WWW.WWW.','...WW.WWW.WWW.WW','...WW.WWW.WWW.WW','...W...W...W...W','................'
+  ].map(r=>r.split(''));
+  const PEOPLE_NATIONAL = [
+    '....WWWWWWWW....','....WRRRRRRW....','....WWWWWWWW....','.WWW.WWW.WWW.WW.','.WWW.WWW.WWW.WW.',
+    '.WWW.WWW.WWW.WW.','RWWWRWWWRWWWRWWR','RWWWRWWWRWWWRWWR','RWWWRWWWRWWWRWWR',
+    '.WWW.WWW.WWW.WW.','.WWW.WWW.WWW.WW.','WW.WWW.WWW.WWW.W','W...W...W...W..W','................'
+  ].map(r=>r.split(''));
+  const PEOPLE_BOUTIQUE = [
+    '................','................','......WWW.......','......WWW.......','......WWW.......',
+    '.....RWWWR......','.....RWWWR......','.....RWWWR......','......WWW.......',
+    '......WWW.......', '.....WW.WW......','.....WW.WW......','.....W...W......','................'
+  ].map(r=>r.split(''));
+  const PEOPLE_GENERIC = [
+    '................','..WWW..WWW..WWW.','..WWW..WWW..WWW.','..WWW..WWW..WWW.','.RWWWR.WWWR.WWR.',
+    '.RWWWRR.WWR.WWR.','.RWWWR.RWWR.WWR.','..WWW..RWWWR.WR.','..WWW..WWW..WWW.',
+    '..WWW..WWW..WWW.','.WW.WW.W.WW.W.W.','.WW.WW.W.WWWW.W.','.W...W.W...W.W..','................'
+  ].map(r=>r.split(''));
+
+  function makePixelAvatar(grid, size) {
+    size = size || 64;
+    const rows = grid.length, cols = grid[0].length;
+    let svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${cols} ${rows}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">`;
+    for (let r = 0; r < rows; r++)
+      for (let c = 0; c < cols; c++) {
+        const ch = grid[r][c];
+        if (ch === 'W') svg += `<rect x="${c}" y="${r}" width="1" height="1" fill="#f0f0f0"/>`;
+        else if (ch === 'R') svg += `<rect x="${c}" y="${r}" width="1" height="1" fill="#e03e3e"/>`;
+      }
+    return svg + '</svg>';
+  }
+
+  function getFirmAvatar(name) {
+    const n = (name || '').toLowerCase();
+    if (n.includes('texas') || n.includes('lone star') || n.includes('southwest')) return PEOPLE_TEXAS;
+    if (n.includes('northeast') || n.includes('institutional') || n.includes('atlantic')) return PEOPLE_NE;
+    if (n.includes('national') || n.includes('american')) return PEOPLE_NATIONAL;
+    if (n.includes('boutique') || n.includes('small') || n.includes('magnolia')) return PEOPLE_BOUTIQUE;
+    return PEOPLE_GENERIC;
+  }
+
+  const FP_FILES = ['firm_profiles/texas_regional.json','firm_profiles/northeast_institutional.json','firm_profiles/national_large.json','firm_profiles/small_boutique.json'];
+  const ALL_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+  const ALL_ISSUERS = ['city','county','town','state','school_district','independent_school_district','municipal_utility_district','special_district','authority','regional_school_unit'];
+  let fpFirms = [], fpSelectedStates = new Set(), fpSelectedIssuers = new Set();
+
+  function fpFmt$(n) {
+    if (!n) return '$0';
+    if (n >= 1e9) return '$' + (n/1e9).toFixed(1) + 'B';
+    if (n >= 1e6) return '$' + (n/1e6).toFixed(1) + 'M';
+    if (n >= 1e3) return '$' + (n/1e3).toFixed(0) + 'K';
+    return '$' + n.toLocaleString();
+  }
+  function fpFmtIssuer(t) { return (t||'').replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase()); }
+  function fpGet(obj, path, def) { return path.split('.').reduce((o,k) => (o && o[k] !== undefined) ? o[k] : def, obj); }
+
+  function renderFirmsFull() {
+    const grid = document.getElementById('firms-grid-full');
+    if (!grid) return;
+    grid.innerHTML = '';
+    fpFirms.forEach((f, idx) => {
+      const card = document.createElement('div');
+      card.className = 'fp-card';
+      card.style.animationDelay = (idx * 0.08) + 's';
+      const avatar = getFirmAvatar(f.firm_name);
+      const states = fpGet(f, 'sector_coverage.states', []);
+      const issuers = fpGet(f, 'sector_coverage.issuer_types', []);
+      const mc = fpGet(f, 'capital_limits.max_single_commitment_dollars', 0);
+      const mi = fpGet(f, 'capital_limits.max_total_inventory_dollars', 0);
+      const ci = fpGet(f, 'capital_limits.current_inventory_dollars', 0);
+      const ds = fpGet(f, 'distribution_profile.strength', '?');
+      const an = fpGet(f, 'current_pipeline.analyst_availability.available_analysts', 0);
+      const platforms = fpGet(f, 'bidding_capabilities.platforms', []);
+      const priorities = fpGet(f, 'sector_coverage.strategic_priorities', []);
+      const desc = f.firm_description || '';
+
+      card.innerHTML = `
+        <div class="fp-header">
+          <div class="fp-avatar-wrap">${makePixelAvatar(avatar, 64)}</div>
+          <div class="fp-title">
+            <h2>${f.firm_name}</h2>
+            <p>${desc}</p>
+          </div>
+        </div>
+        <div class="fp-metrics-grid">
+          <div class="fp-metric"><div class="fp-metric-label">States</div><div class="fp-metric-value">${states.join(', ') || 'None'}</div></div>
+          <div class="fp-metric"><div class="fp-metric-label">Issuer Types</div><div class="fp-metric-value">${issuers.map(fpFmtIssuer).join(', ') || 'None'}</div></div>
+          <div class="fp-metric"><div class="fp-metric-label">Max Commitment</div><div class="fp-metric-value mono">${fpFmt$(mc)}</div></div>
+          <div class="fp-metric"><div class="fp-metric-label">Max Inventory</div><div class="fp-metric-value mono">${fpFmt$(mi)}</div></div>
+          <div class="fp-metric"><div class="fp-metric-label">Current Inventory</div><div class="fp-metric-value mono">${fpFmt$(ci)}</div></div>
+          <div class="fp-metric"><div class="fp-metric-label">Distribution</div><div class="fp-metric-value">${ds.charAt(0).toUpperCase() + ds.slice(1)}</div></div>
+          <div class="fp-metric"><div class="fp-metric-label">Available Analysts</div><div class="fp-metric-value mono">${an}</div></div>
+          <div class="fp-metric"><div class="fp-metric-label">Platforms</div><div class="fp-metric-value">${platforms.map(p => p.replace(/_/g,' ')).join(', ') || 'None'}</div></div>
+        </div>
+        ${priorities.length ? `<div class="fp-priorities"><div class="fp-priorities-label">Strategic Priorities</div>${priorities.map(p => `<div class="fp-priority-item">${p}</div>`).join('')}</div>` : ''}
+        <button class="fp-screen-link" onclick="selectFirmByName('${f.firm_name.replace(/'/g,"\\'")}')">Screen with this firm &rarr;</button>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function fpRenderTagPool(containerId, items, selectedSet, labelFn) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    el.innerHTML = '';
+    items.forEach(item => {
+      const tag = document.createElement('span');
+      tag.className = 'firms-tag-option' + (selectedSet.has(item) ? ' selected' : '');
+      tag.textContent = labelFn ? labelFn(item) : item;
+      tag.onclick = () => { selectedSet.has(item) ? selectedSet.delete(item) : selectedSet.add(item); tag.classList.toggle('selected'); };
+      el.appendChild(tag);
+    });
+  }
+
+  window.createFirmFull = function() {
+    const name = document.getElementById('fp-name').value.trim();
+    if (!name) { alert('Firm name is required.'); return; }
+    const firm = {
+      firm_name: name,
+      firm_description: document.getElementById('fp-desc').value.trim(),
+      sector_coverage: { states:[...fpSelectedStates], issuer_types:[...fpSelectedIssuers], bond_types:['go_unlimited_tax','go_limited_tax','revenue'], strategic_priorities:[], sectors_exiting:[] },
+      capital_limits: { max_single_commitment_dollars:parseInt(document.getElementById('fp-max-commit').value)||25000000, max_total_inventory_dollars:parseInt(document.getElementById('fp-max-inv').value)||75000000, current_inventory_dollars:parseInt(document.getElementById('fp-cur-inv').value)||0, max_concurrent_bids:4, good_faith_deposit_capacity_dollars:2000000 },
+      distribution_profile: { strength:document.getElementById('fp-dist').value, retail_reach:'Custom', institutional_reach:'Custom', bank_qualified_demand:'Moderate', taxable_demand:'Moderate', sweet_spot_maturity_range:'1-20 years', difficulty_maturity_range:'N/A', sweet_spot_par_range:'N/A' },
+      current_pipeline: { deals_in_review:0, upcoming_bids:[], analyst_availability:{ total_analysts:parseInt(document.getElementById('fp-analysts').value)||2, available_analysts:parseInt(document.getElementById('fp-analysts').value)||2, pos_review_days_needed:3 } },
+      bidding_capabilities: { platforms:['parity'], basis_of_award_experience:['tic'], notes:'Custom firm profile' }
+    };
+    let custom = []; try { custom = JSON.parse(localStorage.getItem('nos_custom_firms')||'[]'); } catch(e) {}
+    custom.push(firm); localStorage.setItem('nos_custom_firms', JSON.stringify(custom));
+    fpFirms.push(firm); renderFirmsFull();
+    // Also refresh sidebar firm selector
+    if (typeof loadFirmProfiles === 'function') loadFirmProfiles();
+    // Reset form
+    ['fp-name','fp-desc','fp-max-commit','fp-max-inv','fp-cur-inv','fp-analysts'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    fpSelectedStates.clear(); fpSelectedIssuers.clear();
+    fpRenderTagPool('fp-state-tags', ALL_STATES, fpSelectedStates);
+    fpRenderTagPool('fp-issuer-tags', ALL_ISSUERS, fpSelectedIssuers, fpFmtIssuer);
+    document.getElementById('firms-grid-full').scrollIntoView({ behavior:'smooth' });
+  };
+
+  // Helper to select a firm in the sidebar by name
+  window.selectFirmByName = function(name) {
+    const cards = document.querySelectorAll('#firm-selector .firm-card');
+    cards.forEach(c => {
+      if (c.textContent.includes(name)) c.click();
+    });
+    window.scrollTo({ top: 0, behavior:'smooth' });
+  };
+
+  async function loadFirmsFull() {
+    fpFirms = [];
+    for (const f of FP_FILES) {
+      try { const res = await fetch(f); if (res.ok) fpFirms.push(await res.json()); } catch(e) {}
+    }
+    try { const custom = JSON.parse(localStorage.getItem('nos_custom_firms')||'[]'); custom.forEach(c => fpFirms.push(c)); } catch(e) {}
+    renderFirmsFull();
+  }
+
+  fpRenderTagPool('fp-state-tags', ALL_STATES, fpSelectedStates);
+  fpRenderTagPool('fp-issuer-tags', ALL_ISSUERS, fpSelectedIssuers, fpFmtIssuer);
+  loadFirmsFull();
+})();
 </script>
 </body>
 </html>
