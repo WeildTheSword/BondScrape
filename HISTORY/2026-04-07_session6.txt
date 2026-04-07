@@ -1,0 +1,79 @@
+SESSION: 2026-04-07 (Session 6 — Reasoning Path, Disco Mode, Intro Refinements)
+============================================================
+
+WHAT WAS DONE
+-------------
+
+1. REASONING PATH SECTION (Screening Page)
+   - Replaced modal popup mode selector with inline section between screener
+     and firm profiles
+   - Two side-by-side cards matching firm profiles visual style:
+     * Local Mode: regex heuristics, rule-based agents, ~20/55 fields, $0, <1s
+     * LLM Mode: Claude + schema, 5x Claude API, all 55 features, ~$0.03/deal
+   - Each card has: icon, title, badge, description, 6-cell metrics grid,
+     "Active" checkmark indicator
+   - LLM card reveals API key input on selection with "Save & Activate" button
+   - Local mode saves immediately on click
+   - Pre-fills from localStorage on page load
+   - Backwards-compatible with old modal function signatures (selectMode, etc.)
+
+2. DISCO MODE
+   - Purple "DISCO MODE" button auto-injected into topbar on all pages
+   - Shared disco.js loaded on index, screening, scraper, pipeline pages
+   - When activated:
+     * Full-screen canvas overlay with disco ball (gradient sphere, rotating
+       mirror facets) at top center
+     * 14 colored light beams sweep from disco ball (purple, pink, blue, green,
+       amber, red, yellow, cyan) with oscillating angles
+     * 40 floating light dots with glow halos drifting across screen
+     * Page hue-rotates through color spectrum (4s cycle)
+     * Topbar pulses with color-cycling box shadows
+   - Disco music (Web Audio API synthesized):
+     * 104 BPM, Fm key, 70s funk/disco style
+     * Four-on-the-floor kick with click transient
+     * 16th-note hi-hats with accented off-beats
+     * Octave-pumping bass with filter-enveloped "bwow" sound
+     * Wah guitar chops: sawtooth through sweeping bandpass (Q=6),
+       choppy 16th rhythm with ghost notes
+     * Falsetto synth melody: high-register sine with vibrato, pentatonic Fm
+     * Thick string pad: detuned sawtooth pair, Fm to Db progression
+     * Loops continuously (re-schedules every 16 bars) until deactivated
+   - "EXIT DISCO" button fades everything out (canvas, CSS, music)
+
+3. BOND INTRO ANIMATION REFINEMENTS
+   - Replaced gun barrel sequence with letter-targeting crosshair animation
+   - Original "BondScrape" logo text displayed from the start
+   - On click: spy theme starts, red crosshair snaps to each letter
+   - White letters flash bright on hit, red letters glow with text-shadow
+   - Blood drips fall from red "Scrape" letters
+   - Final letter gets gunshot boom, then page reveals
+   - Tuned audio levels: theme music louder (0.35), hit/gunshot sfx quieter
+
+4. NAVIGATION CLEANUP
+   - Removed old mode-select modal overlay HTML from screening page
+   - Mode selection now happens inline in the Reasoning Path section
+
+
+FILES CHANGED
+-------------
+Modified: NOS/screening_ui.html (~200 lines — reasoning path section, modal
+          removal, inline mode selection logic)
+Modified: NOS/index.html (+1 line — disco.js script tag)
+Modified: NOS/scraper.html (+1 line — disco.js script tag)
+Modified: NOS/pipeline.html (+1 line — disco.js script tag)
+New:      NOS/disco.js (~440 lines — disco mode: visuals, music, button injection)
+New:      HISTORY/2026-04-07_session6.txt
+
+
+ARCHITECTURE NOTES
+------------------
+- disco.js is self-contained IIFE: injects button into .topbar-spacer on
+  DOMContentLoaded, manages its own AudioContext, canvas, and CSS injection
+- Disco music uses separate AudioContext from main sounds.js to avoid
+  interference; all nodes tracked in discoNodes[] for cleanup on stop
+- Music loops via setTimeout re-scheduling: scheduleDiscoLoop() fires 0.5s
+  before current 16-bar chunk ends, schedules next chunk seamlessly
+- Reasoning path cards use same visual patterns as firm profile cards:
+  rp-card, rp-metrics, rp-metric (mirrored naming convention with rp- prefix)
+- Mode state stored in localStorage nos_settings: apiKey, liveMode, liveApi,
+  _modeChosen — same keys as the old modal for backwards compatibility

@@ -1051,6 +1051,112 @@ body::before {
 .main::-webkit-scrollbar, .sidebar::-webkit-scrollbar { width:3px; }
 .main::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb { background:var(--rule-light); }
 
+/* ── REASONING PATH SECTION ──── */
+.reasoning-page {
+  border-top:1px solid var(--rule);
+  padding:60px 40px 80px; position:relative; z-index:1;
+}
+.reasoning-page-inner { max-width:1100px; margin:0 auto; }
+.reasoning-page-title { font-size:32px; font-weight:700; letter-spacing:-0.04em; margin-bottom:8px; line-height:1.2; }
+.reasoning-page-sub { font-size:14px; color:var(--white-dim); line-height:1.7; margin-bottom:12px; max-width:680px; }
+.reasoning-page-line { width:80px; height:1px; background:var(--red); margin-bottom:40px; transform-origin:left; animation:drawLine 0.5s ease both 0.3s; }
+.reasoning-page-note { font-size:11px; color:var(--white-muted); margin-top:24px; line-height:1.6; }
+
+.reasoning-grid {
+  display:grid; grid-template-columns:repeat(2, 1fr);
+  gap:16px;
+}
+
+.rp-card {
+  background:var(--surface); padding:32px; border-radius:6px;
+  border:2px solid var(--rule); transition:all 0.25s;
+  cursor:pointer; position:relative;
+}
+.rp-card:hover { border-color:var(--rule-light); background:var(--surface2); }
+.rp-card.selected { border-color:var(--red); background:rgba(224,62,62,0.03); }
+.rp-card.selected::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:var(--red); border-radius:4px 4px 0 0;
+}
+
+.rp-header { display:flex; align-items:flex-start; gap:20px; margin-bottom:20px; }
+.rp-icon-wrap {
+  width:56px; height:56px; flex-shrink:0;
+  border:1px solid var(--rule-light); border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--black); transition:border-color 0.25s;
+}
+.rp-card.selected .rp-icon-wrap { border-color:var(--red-border); }
+.rp-icon-wrap svg { width:28px; height:28px; color:var(--white-dim); transition:color 0.25s; }
+.rp-card.selected .rp-icon-wrap svg { color:var(--red); }
+.rp-title-area { flex:1; }
+.rp-title-row { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+.rp-title { font-size:18px; font-weight:700; letter-spacing:-0.02em; }
+.rp-badge {
+  font-family:var(--mono); font-size:9px; font-weight:600;
+  padding:3px 8px; border-radius:3px;
+  text-transform:uppercase; letter-spacing:0.06em;
+}
+.rp-badge.free { color:var(--white-dim); background:var(--surface2); border:1px solid var(--rule-light); }
+.rp-badge.api { color:var(--red); background:var(--red-wash); border:1px solid var(--red-border); }
+.rp-desc { font-size:12px; color:var(--white-dim); line-height:1.6; }
+
+.rp-metrics {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0; border:1px solid var(--rule); border-radius:4px;
+  margin-bottom:16px; overflow:hidden;
+}
+.rp-metric {
+  padding:12px 16px; border-bottom:1px solid var(--rule);
+  transition:background 0.15s;
+}
+.rp-metric:hover { background:rgba(224,62,62,0.02); }
+.rp-metric:nth-child(odd) { border-right:1px solid var(--rule); }
+.rp-metric:nth-last-child(-n+2) { border-bottom:none; }
+.rp-metric-label {
+  font-family:var(--mono); font-size:9px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;
+}
+.rp-metric-value { font-size:13px; font-weight:600; line-height:1.4; }
+.rp-metric-value.mono { font-family:var(--mono); font-size:12px; }
+.rp-metric-value.green { color:#5cb87a; }
+.rp-metric-value.amber { color:#d4a032; }
+
+.rp-selected-indicator {
+  display:none; margin-top:16px;
+  font-family:var(--mono); font-size:10px; font-weight:600;
+  color:var(--red); text-transform:uppercase; letter-spacing:0.08em;
+}
+.rp-card.selected .rp-selected-indicator { display:flex; align-items:center; gap:6px; }
+
+/* API key input inside LLM card */
+.rp-api-section {
+  margin-top:16px; padding-top:16px; border-top:1px solid var(--rule);
+  display:none;
+}
+.rp-card.selected .rp-api-section { display:block; }
+.rp-api-label {
+  font-family:var(--mono); font-size:10px; color:var(--white-muted);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px; display:block;
+}
+.rp-api-input {
+  width:100%; padding:10px 14px; font-size:13px;
+  background:var(--black); border:1px solid var(--rule-light);
+  border-radius:4px; color:var(--white); font-family:var(--mono);
+  outline:none; transition:border-color 0.15s;
+}
+.rp-api-input:focus { border-color:var(--red); }
+.rp-api-input::placeholder { color:var(--white-muted); }
+.rp-api-hint { font-size:10px; color:var(--white-muted); margin-top:6px; line-height:1.5; }
+.rp-api-save {
+  margin-top:12px; padding:8px 20px; font-size:11px; font-weight:700;
+  background:var(--red); color:var(--white); border:none;
+  border-radius:4px; cursor:pointer; font-family:var(--sans);
+  letter-spacing:0.02em; text-transform:uppercase; transition:all 0.15s;
+}
+.rp-api-save:hover { background:var(--red-dim); }
+.rp-api-save:disabled { opacity:0.3; cursor:not-allowed; }
+
 /* ── FIRMS PAGE SECTION ──── */
 .firms-page {
   border-top:1px solid var(--rule);
@@ -1187,6 +1293,8 @@ textarea.firms-form-input { min-height:70px; resize:vertical; }
   .app-layout { flex-direction:column; }
   .sidebar { width:100%; max-height:200px; }
   .summary-grid { grid-template-columns: repeat(2,1fr); }
+  .reasoning-grid { grid-template-columns:1fr; }
+  .reasoning-page { padding:40px 20px 60px; }
   .firms-grid { grid-template-columns:1fr; }
   .firms-form-row-half { grid-template-columns:1fr; }
   .firms-page { padding:40px 20px 60px; }
@@ -1195,51 +1303,10 @@ textarea.firms-form-input { min-height:70px; resize:vertical; }
 </head>
 <body>
 <script src="sounds.js"></script>
+<script src="disco.js"></script>
 
 <!-- MODE SELECT MODAL -->
-<div class="mode-overlay" id="mode-overlay">
-  <div class="mode-modal">
-    <div class="mode-header">
-      <h2>Select Extraction Mode</h2>
-      <span class="tag">Required</span>
-    </div>
-    <div class="mode-body">
-      <p>When you drop a NOS PDF, the system extracts structured data from the raw text. Choose how that extraction happens:</p>
-      <div class="mode-options">
-        <div class="mode-option selected" id="mode-local" onclick="selectMode('local')">
-          <div class="mo-row">
-            <div class="mo-radio"></div>
-            <div class="mo-title">Local Mode</div>
-            <div class="mo-badge">No API Key</div>
-          </div>
-          <div class="mo-desc">
-            Heuristic extraction using regex pattern matching on the raw PDF text. Captures core fields (issuer, par amount, dates, maturity schedule, bond type, basis of award, call provisions). Complex fields like coupon constraints or issue price requirements may be incomplete. Best for demos and testing.
-          </div>
-        </div>
-        <div class="mode-option" id="mode-llm" onclick="selectMode('llm')">
-          <div class="mo-row">
-            <div class="mo-radio"></div>
-            <div class="mo-title">LLM Mode</div>
-            <div class="mo-badge" style="border-color:var(--red-border);color:var(--red)">API Key Required</div>
-          </div>
-          <div class="mo-desc">
-            Full extracted text is sent to Claude (Anthropic API) with the 55-feature JSON schema. Returns complete structured extraction with high accuracy across all fields. Requires an Anthropic API key.
-          </div>
-          <div class="mode-api-input">
-            <input type="password" id="mode-api-key" placeholder="sk-ant-..." value="">
-            <div class="api-hint">Your key is stored in your browser only (localStorage). Never sent anywhere except the Anthropic API.</div>
-          </div>
-        </div>
-      </div>
-      <p style="margin-top:16px;font-size:11px;color:var(--white-muted)">
-        Pre-loaded test documents from the sidebar always use their validated ground truth data regardless of mode. This setting only affects newly dropped PDFs.
-      </p>
-    </div>
-    <div class="mode-footer">
-      <button class="mode-btn mode-btn-primary" id="mode-continue-btn" onclick="confirmMode()">Continue</button>
-    </div>
-  </div>
-</div>
+<!-- mode overlay removed — reasoning path now inline below screener -->
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -1498,6 +1565,126 @@ textarea.firms-form-input { min-height:70px; resize:vertical; }
 
   </div>
 </div>
+</div>
+
+<!-- REASONING PATH SECTION -->
+<div class="reasoning-page">
+  <div class="reasoning-page-inner">
+    <div class="reasoning-page-title">Reasoning Path</div>
+    <div class="reasoning-page-sub">
+      Choose how the system extracts structured data from NOS documents and reasons about screening decisions. This affects newly dropped PDFs and scraped deals&mdash;pre-loaded test documents always use their validated ground truth.
+    </div>
+    <div class="reasoning-page-line"></div>
+
+    <div class="reasoning-grid">
+      <!-- LOCAL MODE -->
+      <div class="rp-card selected" id="rp-local" onclick="selectReasoningPath('local')">
+        <div class="rp-header">
+          <div class="rp-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <path d="M9 9h6M9 12h4M9 15h5"/>
+              <path d="M4 9h2M4 12h2M4 15h2"/>
+            </svg>
+          </div>
+          <div class="rp-title-area">
+            <div class="rp-title-row">
+              <div class="rp-title">Local Mode</div>
+              <div class="rp-badge free">No API Key</div>
+            </div>
+            <div class="rp-desc">Heuristic extraction using regex pattern matching on raw PDF text. Agent reasoning uses deterministic rule-based logic. Best for demos, testing, and offline use.</div>
+          </div>
+        </div>
+        <div class="rp-metrics">
+          <div class="rp-metric">
+            <div class="rp-metric-label">Extraction</div>
+            <div class="rp-metric-value">Regex Heuristics</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Agent Reasoning</div>
+            <div class="rp-metric-value">Rule-Based</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Accuracy</div>
+            <div class="rp-metric-value amber">Core fields only</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Cost</div>
+            <div class="rp-metric-value green mono">$0.00</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Speed</div>
+            <div class="rp-metric-value green">&lt; 1 second</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Fields Captured</div>
+            <div class="rp-metric-value mono">~20 / 55</div>
+          </div>
+        </div>
+        <div class="rp-selected-indicator">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M3 8l3 3 7-7"/></svg>
+          Active
+        </div>
+      </div>
+
+      <!-- LLM MODE -->
+      <div class="rp-card" id="rp-llm" onclick="selectReasoningPath('llm')">
+        <div class="rp-header">
+          <div class="rp-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+          </div>
+          <div class="rp-title-area">
+            <div class="rp-title-row">
+              <div class="rp-title">LLM Mode</div>
+              <div class="rp-badge api">API Key Required</div>
+            </div>
+            <div class="rp-desc">Full NOS text sent to Claude with 55-feature JSON schema. Five independent Claude API calls for agent reasoning. Complete structured extraction with high accuracy. Currently supports Anthropic&mdash;more providers coming.</div>
+          </div>
+        </div>
+        <div class="rp-metrics">
+          <div class="rp-metric">
+            <div class="rp-metric-label">Extraction</div>
+            <div class="rp-metric-value">Claude + Schema</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Agent Reasoning</div>
+            <div class="rp-metric-value">5x Claude API</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Accuracy</div>
+            <div class="rp-metric-value green">All 55 features</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Cost</div>
+            <div class="rp-metric-value mono">~$0.03 / deal</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Speed</div>
+            <div class="rp-metric-value">~15 seconds</div>
+          </div>
+          <div class="rp-metric">
+            <div class="rp-metric-label">Provider</div>
+            <div class="rp-metric-value">Anthropic (Claude)</div>
+          </div>
+        </div>
+        <div class="rp-api-section" id="rp-api-section">
+          <label class="rp-api-label">Anthropic API Key</label>
+          <input type="password" class="rp-api-input" id="rp-api-key" placeholder="sk-ant-api03-...">
+          <div class="rp-api-hint">Stored in your browser only (localStorage). Never sent anywhere except the Anthropic API.</div>
+          <button class="rp-api-save" id="rp-api-save" onclick="saveReasoningPath()">Save &amp; Activate</button>
+        </div>
+        <div class="rp-selected-indicator">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M3 8l3 3 7-7"/></svg>
+          Active
+        </div>
+      </div>
+    </div>
+
+    <div class="reasoning-page-note">Pre-loaded test documents from the sidebar always use their validated ground truth data regardless of mode. This setting only affects newly dropped PDFs and scraped deals.</div>
+  </div>
 </div>
 
 <!-- FIRM PROFILES SECTION -->
@@ -3982,72 +4169,72 @@ document.addEventListener('keydown', e => {
 // ── MODE SELECT MODAL ─────────────────────────
 let selectedMode = 'local';
 
-function selectMode(mode) {
+function selectReasoningPath(mode) {
   selectedMode = mode;
-  document.getElementById('mode-local').classList.toggle('selected', mode === 'local');
-  document.getElementById('mode-llm').classList.toggle('selected', mode === 'llm');
-  // Validate continue button
-  validateModeBtn();
+  document.getElementById('rp-local').classList.toggle('selected', mode === 'local');
+  document.getElementById('rp-llm').classList.toggle('selected', mode === 'llm');
+
+  if (mode === 'local') {
+    // Save immediately
+    const settings = JSON.parse(localStorage.getItem('nos_settings') || '{}');
+    settings.liveMode = false;
+    settings.liveApi = false;
+    settings._modeChosen = true;
+    localStorage.setItem('nos_settings', JSON.stringify(settings));
+    // Update live badge
+    const lb = document.getElementById('live-badge');
+    if (lb) lb.style.display = 'none';
+  }
+  // LLM mode requires key — user must click Save & Activate
+  validateRpSaveBtn();
 }
 
-function validateModeBtn() {
-  const btn = document.getElementById('mode-continue-btn');
-  if (selectedMode === 'llm') {
-    const key = document.getElementById('mode-api-key').value.trim();
-    btn.disabled = !key;
-  } else {
-    btn.disabled = false;
-  }
+function validateRpSaveBtn() {
+  const btn = document.getElementById('rp-api-save');
+  if (!btn) return;
+  const key = document.getElementById('rp-api-key').value.trim();
+  btn.disabled = !key;
+}
+
+function saveReasoningPath() {
+  const key = document.getElementById('rp-api-key').value.trim();
+  if (!key) return;
+  const settings = JSON.parse(localStorage.getItem('nos_settings') || '{}');
+  settings.apiKey = key;
+  settings.liveMode = true;
+  settings.liveApi = true;
+  settings._modeChosen = true;
+  localStorage.setItem('nos_settings', JSON.stringify(settings));
+  // Update live badge
+  const lb = document.getElementById('live-badge');
+  if (lb) lb.style.display = '';
+  // Flash the save button to confirm
+  const btn = document.getElementById('rp-api-save');
+  btn.textContent = 'Saved';
+  setTimeout(() => { btn.textContent = 'Save & Activate'; }, 1500);
+}
+
+// Backwards compat — old modal references
+function selectMode(mode) { selectReasoningPath(mode); }
+function confirmMode() { if (selectedMode === 'llm') saveReasoningPath(); }
+function reopenModeSelect() {
+  document.getElementById('settings-overlay').classList.remove('visible');
+  document.querySelector('.reasoning-page').scrollIntoView({behavior:'smooth'});
 }
 
 // Live validate on key input
-document.getElementById('mode-api-key').addEventListener('input', validateModeBtn);
-
-function confirmMode() {
-  const settings = JSON.parse(localStorage.getItem('nos_settings') || '{}');
-  if (selectedMode === 'llm') {
-    const key = document.getElementById('mode-api-key').value.trim();
-    if (!key) return;
-    settings.apiKey = key;
-    settings.liveMode = true;
-    settings.liveApi = true;
-  } else {
-    settings.liveMode = false;
-    settings.liveApi = false;
-  }
-  settings._modeChosen = true;
-  localStorage.setItem('nos_settings', JSON.stringify(settings));
-
-  // Close modal
-  document.getElementById('mode-overlay').style.display = 'none';
-}
-
-function reopenModeSelect() {
-  // Close settings panel, reopen mode modal
-  document.getElementById('settings-overlay').classList.remove('visible');
-  const settings = JSON.parse(localStorage.getItem('nos_settings') || '{}');
-  delete settings._modeChosen;
-  localStorage.setItem('nos_settings', JSON.stringify(settings));
-  // Reset modal state
-  if (settings.liveMode || settings.liveApi) {
-    selectMode('llm');
-    if (settings.apiKey) document.getElementById('mode-api-key').value = settings.apiKey;
-  } else {
-    selectMode('local');
-  }
-  document.getElementById('mode-overlay').style.display = 'flex';
-}
+document.getElementById('rp-api-key').addEventListener('input', validateRpSaveBtn);
 
 // Pre-fill from localStorage
-(function initModal() {
+(function initReasoningPath() {
   const settings = JSON.parse(localStorage.getItem('nos_settings') || '{}');
   if (settings.apiKey) {
-    document.getElementById('mode-api-key').value = settings.apiKey;
+    document.getElementById('rp-api-key').value = settings.apiKey;
   }
-  // If user already chose before, check if we should skip
-  if (settings._modeChosen) {
-    document.getElementById('mode-overlay').style.display = 'none';
-    if (settings.liveMode) selectedMode = 'llm';
+  if (settings.liveMode || settings.liveApi) {
+    selectReasoningPath('llm');
+  } else {
+    selectReasoningPath('local');
   }
 })();
 
