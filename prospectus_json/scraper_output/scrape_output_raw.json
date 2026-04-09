@@ -1,5 +1,31 @@
 [
   {
+    "date": "04/23/2026",
+    "issue": "North Texas MWD, TX Regional Solid Waste Disposal Sys Rev Bonds, Series 2026",
+    "manager_fa": "Hilltop Securities Inc. (FA)",
+    "par_amt": "9,875,000.00",
+    "doc_type": "Prelim",
+    "type": "Comp",
+    "size_mb": "2.47",
+    "href": "/api/PdfDownload/101478?action=Get",
+    "batch": 1,
+    "visible_row_index": 1,
+    "success_row_number": 1
+  },
+  {
+    "date": "04/23/2026",
+    "issue": "North Texas MWD, TX Regional Solid Waste Disposal Sys Rev Bonds, Series 2026",
+    "manager_fa": "Hilltop Securities Inc. (FA)",
+    "par_amt": "9,875,000.00",
+    "doc_type": "NOS",
+    "type": "Comp",
+    "size_mb": ".26",
+    "href": "/api/PdfDownload/101479?action=Get",
+    "batch": 1,
+    "visible_row_index": 2,
+    "success_row_number": 2
+  },
+  {
     "date": "04/21/2026",
     "issue": "Horseshoe Bay (City of), TX Combo Tax & Revenue COO, Series 2026",
     "manager_fa": "Specialized Public Finance Inc. (FA)",
@@ -9,8 +35,86 @@
     "size_mb": "11.46",
     "href": "/api/PdfDownload/101466?action=Get",
     "batch": 1,
-    "visible_row_index": 1,
-    "success_row_number": 1
+    "visible_row_index": 3,
+    "success_row_number": 3
+  },
+  {
+    "date": "04/21/2026",
+    "issue": "Horseshoe Bay (City of), TX Combo Tax & Revenue COO, Series 2026",
+    "manager_fa": "Specialized Public Finance Inc. (FA)",
+    "par_amt": "8,400,000.00",
+    "doc_type": "S&P'S",
+    "type": "Comp",
+    "size_mb": ".16",
+    "href": "/api/PdfDownload/101477?action=Get",
+    "batch": 1,
+    "visible_row_index": 4,
+    "success_row_number": 4
+  },
+  {
+    "date": "04/21/2026",
+    "issue": "ISD No. 22 (Piedmont BOE), OK GO Taxable Combined Purpose Building Bonds of 2026",
+    "manager_fa": "Stephen L. Smith Corp. (FA)",
+    "par_amt": "13,245,000.00",
+    "doc_type": "Prelim",
+    "type": "Comp",
+    "size_mb": "1.11",
+    "href": "/api/PdfDownload/101472?action=Get",
+    "batch": 1,
+    "visible_row_index": 5,
+    "success_row_number": 5
+  },
+  {
+    "date": "04/21/2026",
+    "issue": "Garwood (Borough of), NJ General Improvement Bonds(2026)",
+    "manager_fa": "Rogut McCarthy LLC (FA)",
+    "par_amt": "6,365,000.00",
+    "doc_type": "Prelim",
+    "type": "Comp",
+    "size_mb": "9.46",
+    "href": "/api/PdfDownload/101482?action=Get",
+    "batch": 1,
+    "visible_row_index": 6,
+    "success_row_number": 6
+  },
+  {
+    "date": "04/21/2026",
+    "issue": "Garwood (Borough of), NJ General Improvement Bonds(2026)",
+    "manager_fa": "Rogut McCarthy LLC (FA)",
+    "par_amt": "6,365,000.00",
+    "doc_type": "NOS",
+    "type": "Comp",
+    "size_mb": ".17",
+    "href": "/api/PdfDownload/101483?action=Get",
+    "batch": 1,
+    "visible_row_index": 7,
+    "success_row_number": 7
+  },
+  {
+    "date": "04/21/2026",
+    "issue": "Garwood (Borough of), NJ General Improvement Bonds(2026)",
+    "manager_fa": "Rogut McCarthy LLC (FA)",
+    "par_amt": "6,365,000.00",
+    "doc_type": "Bid Form",
+    "type": "Comp",
+    "size_mb": ".09",
+    "href": "/api/PdfDownload/101484?action=Get",
+    "batch": 1,
+    "visible_row_index": 8,
+    "success_row_number": 8
+  },
+  {
+    "date": "04/21/2026",
+    "issue": "Garwood (Borough of), NJ General Improvement Bonds(2026)",
+    "manager_fa": "Rogut McCarthy LLC (FA)",
+    "par_amt": "6,365,000.00",
+    "doc_type": "S&P'S",
+    "type": "Comp",
+    "size_mb": ".14",
+    "href": "/api/PdfDownload/101485?action=Get",
+    "batch": 1,
+    "visible_row_index": 9,
+    "success_row_number": 9
   },
   {
     "date": "04/16/2026",
@@ -22,8 +126,8 @@
     "size_mb": "1.28",
     "href": "/api/PdfDownload/101431?action=Get",
     "batch": 1,
-    "visible_row_index": 2,
-    "success_row_number": 2
+    "visible_row_index": 10,
+    "success_row_number": 10
   },
   {
     "date": "04/16/2026",
@@ -35,8 +139,8 @@
     "size_mb": ".31",
     "href": "/api/PdfDownload/101432?action=Get",
     "batch": 1,
-    "visible_row_index": 3,
-    "success_row_number": 3
+    "visible_row_index": 11,
+    "success_row_number": 11
   },
   {
     "date": "04/16/2026",
@@ -48,8 +152,8 @@
     "size_mb": "1.13",
     "href": "/api/PdfDownload/101439?action=Get",
     "batch": 1,
-    "visible_row_index": 4,
-    "success_row_number": 4
+    "visible_row_index": 12,
+    "success_row_number": 12
   },
   {
     "date": "04/16/2026",
@@ -61,8 +165,8 @@
     "size_mb": ".05",
     "href": "/api/PdfDownload/101440?action=Get",
     "batch": 1,
-    "visible_row_index": 5,
-    "success_row_number": 5
+    "visible_row_index": 13,
+    "success_row_number": 13
   },
   {
     "date": "04/16/2026",
@@ -74,8 +178,8 @@
     "size_mb": "1.12",
     "href": "/api/PdfDownload/101445?action=Get",
     "batch": 1,
-    "visible_row_index": 6,
-    "success_row_number": 6
+    "visible_row_index": 14,
+    "success_row_number": 14
   },
   {
     "date": "04/16/2026",
@@ -87,8 +191,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/101446?action=Get",
     "batch": 1,
-    "visible_row_index": 7,
-    "success_row_number": 7
+    "visible_row_index": 15,
+    "success_row_number": 15
   },
   {
     "date": "04/16/2026",
@@ -100,8 +204,8 @@
     "size_mb": "3.96",
     "href": "/api/PdfDownload/101450?action=Get",
     "batch": 1,
-    "visible_row_index": 8,
-    "success_row_number": 8
+    "visible_row_index": 16,
+    "success_row_number": 16
   },
   {
     "date": "04/16/2026",
@@ -113,8 +217,8 @@
     "size_mb": ".24",
     "href": "/api/PdfDownload/101451?action=Get",
     "batch": 1,
-    "visible_row_index": 9,
-    "success_row_number": 9
+    "visible_row_index": 17,
+    "success_row_number": 17
   },
   {
     "date": "04/16/2026",
@@ -126,8 +230,8 @@
     "size_mb": "1.07",
     "href": "/api/PdfDownload/101457?action=Get",
     "batch": 1,
-    "visible_row_index": 10,
-    "success_row_number": 10
+    "visible_row_index": 18,
+    "success_row_number": 18
   },
   {
     "date": "04/16/2026",
@@ -139,8 +243,8 @@
     "size_mb": ".16",
     "href": "/api/PdfDownload/101458?action=Get",
     "batch": 1,
-    "visible_row_index": 11,
-    "success_row_number": 11
+    "visible_row_index": 19,
+    "success_row_number": 19
   },
   {
     "date": "04/15/2026",
@@ -152,8 +256,8 @@
     "size_mb": "1.63",
     "href": "/api/PdfDownload/101435?action=Get",
     "batch": 1,
-    "visible_row_index": 12,
-    "success_row_number": 12
+    "visible_row_index": 20,
+    "success_row_number": 20
   },
   {
     "date": "04/15/2026",
@@ -165,8 +269,8 @@
     "size_mb": ".29",
     "href": "/api/PdfDownload/101436?action=Get",
     "batch": 1,
-    "visible_row_index": 13,
-    "success_row_number": 13
+    "visible_row_index": 21,
+    "success_row_number": 21
   },
   {
     "date": "04/15/2026",
@@ -178,8 +282,8 @@
     "size_mb": "4.50",
     "href": "/api/PdfDownload/101437?action=Get",
     "batch": 1,
-    "visible_row_index": 14,
-    "success_row_number": 14
+    "visible_row_index": 22,
+    "success_row_number": 22
   },
   {
     "date": "04/15/2026",
@@ -191,8 +295,8 @@
     "size_mb": ".24",
     "href": "/api/PdfDownload/101438?action=Get",
     "batch": 1,
-    "visible_row_index": 15,
-    "success_row_number": 15
+    "visible_row_index": 23,
+    "success_row_number": 23
   },
   {
     "date": "04/15/2026",
@@ -204,8 +308,47 @@
     "size_mb": "3.46",
     "href": "/api/PdfDownload/101462?action=Get",
     "batch": 1,
-    "visible_row_index": 16,
-    "success_row_number": 16
+    "visible_row_index": 24,
+    "success_row_number": 24
+  },
+  {
+    "date": "04/15/2026",
+    "issue": "Chippewa Valley TCD, WI General Obligation Promissory Notes, Series 2026D",
+    "manager_fa": "BAIRD (FA)",
+    "par_amt": "1,500,000.00",
+    "doc_type": "Prelim",
+    "type": "Comp",
+    "size_mb": "1.57",
+    "href": "/api/PdfDownload/101480?action=Get",
+    "batch": 1,
+    "visible_row_index": 25,
+    "success_row_number": 25
+  },
+  {
+    "date": "04/15/2026",
+    "issue": "Woodland Park (Borough of), NJ Bond Anticipation Notes (2026)",
+    "manager_fa": "None (FA)",
+    "par_amt": "17,180,000.00",
+    "doc_type": "Prelim",
+    "type": "Comp",
+    "size_mb": "4.37",
+    "href": "/api/PdfDownload/101486?action=Get",
+    "batch": 1,
+    "visible_row_index": 26,
+    "success_row_number": 26
+  },
+  {
+    "date": "04/15/2026",
+    "issue": "Woodland Park (Borough of), NJ Bond Anticipation Notes (2026)",
+    "manager_fa": "None (FA)",
+    "par_amt": "17,180,000.00",
+    "doc_type": "NOS",
+    "type": "Comp",
+    "size_mb": ".08",
+    "href": "/api/PdfDownload/101487?action=Get",
+    "batch": 1,
+    "visible_row_index": 27,
+    "success_row_number": 27
   },
   {
     "date": "04/14/2026",
@@ -217,8 +360,8 @@
     "size_mb": "3.68",
     "href": "/api/PdfDownload/101455?action=Get",
     "batch": 1,
-    "visible_row_index": 17,
-    "success_row_number": 17
+    "visible_row_index": 28,
+    "success_row_number": 28
   },
   {
     "date": "04/14/2026",
@@ -230,8 +373,8 @@
     "size_mb": ".27",
     "href": "/api/PdfDownload/101456?action=Get",
     "batch": 1,
-    "visible_row_index": 18,
-    "success_row_number": 18
+    "visible_row_index": 29,
+    "success_row_number": 29
   },
   {
     "date": "04/14/2026",
@@ -243,8 +386,112 @@
     "size_mb": ".66",
     "href": "/api/PdfDownload/101461?action=Get",
     "batch": 1,
-    "visible_row_index": 19,
-    "success_row_number": 19
+    "visible_row_index": 30,
+    "success_row_number": 30
+  },
+  {
+    "date": "04/14/2026",
+    "issue": "Kansas Development Finance Authority, KS Rev Bonds, Srs 2026D",
+    "manager_fa": "Columbia Capital Management, LLC (FA)",
+    "par_amt": "22,780,000.00",
+    "doc_type": "Prelim",
+    "type": "Comp",
+    "size_mb": "5.26",
+    "href": "/api/PdfDownload/101467?action=Get",
+    "batch": 1,
+    "visible_row_index": 31,
+    "success_row_number": 31
+  },
+  {
+    "date": "04/14/2026",
+    "issue": "Kansas Development Finance Authority, KS Rev Bonds, Srs 2026D",
+    "manager_fa": "Columbia Capital Management, LLC (FA)",
+    "par_amt": "22,780,000.00",
+    "doc_type": "NOS",
+    "type": "Comp",
+    "size_mb": ".29",
+    "href": "/api/PdfDownload/101468?action=Get",
+    "batch": 1,
+    "visible_row_index": 32,
+    "success_row_number": 32
+  },
+  {
+    "date": "04/14/2026",
+    "issue": "Kansas Development Finance Authority, KS Rev Bonds, Srs 2026D",
+    "manager_fa": "Columbia Capital Management, LLC (FA)",
+    "par_amt": "22,780,000.00",
+    "doc_type": "Moodys",
+    "type": "Comp",
+    "size_mb": ".05",
+    "href": "/api/PdfDownload/101469?action=Get",
+    "batch": 1,
+    "visible_row_index": 33,
+    "success_row_number": 33
+  },
+  {
+    "date": "04/14/2026",
+    "issue": "Kansas Development Finance Authority, KS Rev Bonds, Srs 2026D",
+    "manager_fa": "Columbia Capital Management, LLC (FA)",
+    "par_amt": "22,780,000.00",
+    "doc_type": "Credit",
+    "type": "Comp",
+    "size_mb": ".44",
+    "href": "/api/PdfDownload/101470?action=Get",
+    "batch": 1,
+    "visible_row_index": 34,
+    "success_row_number": 34
+  },
+  {
+    "date": "04/14/2026",
+    "issue": "Long Beach USD, CA 2026 GO Refunding Bonds",
+    "manager_fa": "Keygent LLC (FA)",
+    "par_amt": "402,720,000.00",
+    "doc_type": "Prelim",
+    "type": "Comp",
+    "size_mb": "2.94",
+    "href": "/api/PdfDownload/101473?action=Get",
+    "batch": 1,
+    "visible_row_index": 35,
+    "success_row_number": 35
+  },
+  {
+    "date": "04/14/2026",
+    "issue": "Long Beach USD, CA 2026 GO Refunding Bonds",
+    "manager_fa": "Keygent LLC (FA)",
+    "par_amt": "402,720,000.00",
+    "doc_type": "Moodys",
+    "type": "Comp",
+    "size_mb": ".05",
+    "href": "/api/PdfDownload/101475?action=Get",
+    "batch": 1,
+    "visible_row_index": 36,
+    "success_row_number": 36
+  },
+  {
+    "date": "04/14/2026",
+    "issue": "Long Beach USD, CA 2026 GO Refunding Bonds",
+    "manager_fa": "Keygent LLC (FA)",
+    "par_amt": "402,720,000.00",
+    "doc_type": "NIB",
+    "type": "Comp",
+    "size_mb": ".22",
+    "href": "/api/PdfDownload/101476?action=Get",
+    "batch": 1,
+    "visible_row_index": 37,
+    "success_row_number": 37
+  },
+  {
+    "date": "04/14/2026",
+    "issue": "Long Beach USD, CA 2026 GO Refunding Bonds",
+    "manager_fa": "Keygent LLC (FA)",
+    "par_amt": "402,720,000.00",
+    "doc_type": "S&P'S",
+    "type": "Comp",
+    "size_mb": ".16",
+    "href": "/api/PdfDownload/101474?action=Get",
+    "batch": 1,
+    "visible_row_index": 38,
+    "success_row_number": 38
   },
   {
     "date": "04/13/2026",
@@ -253,11 +500,11 @@
     "par_amt": "8,500,000.00",
     "doc_type": "Prelim",
     "type": "Comp",
-    "size_mb": "3.33",
+    "size_mb": "3.34",
     "href": "/api/PdfDownload/101464?action=Get",
     "batch": 1,
-    "visible_row_index": 20,
-    "success_row_number": 20
+    "visible_row_index": 39,
+    "success_row_number": 39
   },
   {
     "date": "04/13/2026",
@@ -266,11 +513,24 @@
     "par_amt": "8,500,000.00",
     "doc_type": "NOS",
     "type": "Comp",
-    "size_mb": ".15",
+    "size_mb": ".16",
     "href": "/api/PdfDownload/101465?action=Get",
     "batch": 1,
-    "visible_row_index": 21,
-    "success_row_number": 21
+    "visible_row_index": 40,
+    "success_row_number": 40
+  },
+  {
+    "date": "04/13/2026",
+    "issue": "Giles County, TN GO Public Improvement Bonds, Srs 2026",
+    "manager_fa": "Stephens Inc. (FA)",
+    "par_amt": "8,500,000.00",
+    "doc_type": "POS Supp",
+    "type": "Comp",
+    "size_mb": ".06",
+    "href": "/api/PdfDownload/101489?action=Get",
+    "batch": 1,
+    "visible_row_index": 41,
+    "success_row_number": 41
   },
   {
     "date": "04/09/2026",
@@ -282,8 +542,8 @@
     "size_mb": "6.36",
     "href": "/api/PdfDownload/101417?action=Get",
     "batch": 1,
-    "visible_row_index": 22,
-    "success_row_number": 22
+    "visible_row_index": 42,
+    "success_row_number": 42
   },
   {
     "date": "04/09/2026",
@@ -295,8 +555,8 @@
     "size_mb": ".05",
     "href": "/api/PdfDownload/101418?action=Get",
     "batch": 1,
-    "visible_row_index": 23,
-    "success_row_number": 23
+    "visible_row_index": 43,
+    "success_row_number": 43
   },
   {
     "date": "04/09/2026",
@@ -308,8 +568,8 @@
     "size_mb": "2.15",
     "href": "/api/PdfDownload/101430?action=Get",
     "batch": 1,
-    "visible_row_index": 24,
-    "success_row_number": 24
+    "visible_row_index": 44,
+    "success_row_number": 44
   },
   {
     "date": "04/09/2026",
@@ -321,8 +581,8 @@
     "size_mb": "6.68",
     "href": "/api/PdfDownload/101441?action=Get",
     "batch": 1,
-    "visible_row_index": 25,
-    "success_row_number": 25
+    "visible_row_index": 45,
+    "success_row_number": 45
   },
   {
     "date": "04/09/2026",
@@ -334,8 +594,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/101442?action=Get",
     "batch": 1,
-    "visible_row_index": 26,
-    "success_row_number": 26
+    "visible_row_index": 46,
+    "success_row_number": 46
   },
   {
     "date": "04/09/2026",
@@ -347,8 +607,8 @@
     "size_mb": "8.11",
     "href": "/api/PdfDownload/101443?action=Get",
     "batch": 1,
-    "visible_row_index": 27,
-    "success_row_number": 27
+    "visible_row_index": 47,
+    "success_row_number": 47
   },
   {
     "date": "04/09/2026",
@@ -360,8 +620,8 @@
     "size_mb": ".58",
     "href": "/api/PdfDownload/101444?action=Get",
     "batch": 1,
-    "visible_row_index": 28,
-    "success_row_number": 28
+    "visible_row_index": 48,
+    "success_row_number": 48
   },
   {
     "date": "04/08/2026",
@@ -373,21 +633,8 @@
     "size_mb": "3.10",
     "href": "/api/PdfDownload/101415?action=Get",
     "batch": 1,
-    "visible_row_index": 29,
-    "success_row_number": 29
-  },
-  {
-    "date": "04/07/2026",
-    "issue": "Caldwell (City of), ID GO Bonds, Series 2026",
-    "manager_fa": "Zions Public Finance, Inc. (FA)",
-    "par_amt": "48,250,000.00",
-    "doc_type": "Prelim",
-    "type": "Comp",
-    "size_mb": "3.18",
-    "href": "/api/PdfDownload/101398?action=Get",
-    "batch": 1,
-    "visible_row_index": 30,
-    "success_row_number": 30
+    "visible_row_index": 49,
+    "success_row_number": 49
   },
   {
     "date": "04/07/2026",
@@ -399,8 +646,8 @@
     "size_mb": "5.43",
     "href": "/api/PdfDownload/101424?action=Get",
     "batch": 1,
-    "visible_row_index": 31,
-    "success_row_number": 31
+    "visible_row_index": 50,
+    "success_row_number": 50
   },
   {
     "date": "04/07/2026",
@@ -411,9 +658,9 @@
     "type": "Comp",
     "size_mb": ".05",
     "href": "/api/PdfDownload/101426?action=Get",
-    "batch": 1,
-    "visible_row_index": 32,
-    "success_row_number": 32
+    "batch": 2,
+    "visible_row_index": 52,
+    "success_row_number": 51
   },
   {
     "date": "04/07/2026",
@@ -424,9 +671,9 @@
     "type": "Comp",
     "size_mb": ".31",
     "href": "/api/PdfDownload/101425?action=Get",
-    "batch": 1,
-    "visible_row_index": 33,
-    "success_row_number": 33
+    "batch": 2,
+    "visible_row_index": 53,
+    "success_row_number": 52
   },
   {
     "date": "04/07/2026",
@@ -437,9 +684,9 @@
     "type": "Comp",
     "size_mb": "1.09",
     "href": "/api/PdfDownload/101427?action=Get",
-    "batch": 1,
-    "visible_row_index": 34,
-    "success_row_number": 34
+    "batch": 2,
+    "visible_row_index": 54,
+    "success_row_number": 53
   },
   {
     "date": "04/06/2026",
@@ -450,9 +697,9 @@
     "type": "Comp",
     "size_mb": "2.81",
     "href": "/api/PdfDownload/101402?action=Get",
-    "batch": 1,
-    "visible_row_index": 35,
-    "success_row_number": 35
+    "batch": 2,
+    "visible_row_index": 55,
+    "success_row_number": 54
   },
   {
     "date": "04/06/2026",
@@ -463,9 +710,9 @@
     "type": "Comp",
     "size_mb": ".27",
     "href": "/api/PdfDownload/101403?action=Get",
-    "batch": 1,
-    "visible_row_index": 36,
-    "success_row_number": 36
+    "batch": 2,
+    "visible_row_index": 56,
+    "success_row_number": 55
   },
   {
     "date": "04/06/2026",
@@ -476,9 +723,9 @@
     "type": "Neg",
     "size_mb": "1.22",
     "href": "/api/PdfDownload/101447?action=Get",
-    "batch": 1,
-    "visible_row_index": 37,
-    "success_row_number": 37
+    "batch": 2,
+    "visible_row_index": 57,
+    "success_row_number": 56
   },
   {
     "date": "04/02/2026",
@@ -489,9 +736,9 @@
     "type": "Comp",
     "size_mb": "1.69",
     "href": "/api/PdfDownload/101463?action=Get",
-    "batch": 1,
-    "visible_row_index": 38,
-    "success_row_number": 38
+    "batch": 2,
+    "visible_row_index": 58,
+    "success_row_number": 57
   },
   {
     "date": "04/02/2026",
@@ -502,9 +749,9 @@
     "type": "Comp",
     "size_mb": "5.65",
     "href": "/api/PdfDownload/101394?action=Get",
-    "batch": 1,
-    "visible_row_index": 39,
-    "success_row_number": 39
+    "batch": 2,
+    "visible_row_index": 59,
+    "success_row_number": 58
   },
   {
     "date": "04/02/2026",
@@ -515,9 +762,9 @@
     "type": "Comp",
     "size_mb": ".11",
     "href": "/api/PdfDownload/101395?action=Get",
-    "batch": 1,
-    "visible_row_index": 40,
-    "success_row_number": 40
+    "batch": 2,
+    "visible_row_index": 60,
+    "success_row_number": 59
   },
   {
     "date": "04/02/2026",
@@ -528,9 +775,9 @@
     "type": "Comp",
     "size_mb": "2.78",
     "href": "/api/PdfDownload/101407?action=Get",
-    "batch": 1,
-    "visible_row_index": 41,
-    "success_row_number": 41
+    "batch": 2,
+    "visible_row_index": 61,
+    "success_row_number": 60
   },
   {
     "date": "04/02/2026",
@@ -541,9 +788,9 @@
     "type": "Comp",
     "size_mb": ".08",
     "href": "/api/PdfDownload/101408?action=Get",
-    "batch": 1,
-    "visible_row_index": 42,
-    "success_row_number": 42
+    "batch": 2,
+    "visible_row_index": 62,
+    "success_row_number": 61
   },
   {
     "date": "04/02/2026",
@@ -554,9 +801,9 @@
     "type": "Comp",
     "size_mb": ".05",
     "href": "/api/PdfDownload/101409?action=Get",
-    "batch": 1,
-    "visible_row_index": 43,
-    "success_row_number": 43
+    "batch": 2,
+    "visible_row_index": 63,
+    "success_row_number": 62
   },
   {
     "date": "04/02/2026",
@@ -567,35 +814,22 @@
     "type": "Neg",
     "size_mb": "2.18",
     "href": "/api/PdfDownload/101433?action=Get",
-    "batch": 1,
-    "visible_row_index": 44,
-    "success_row_number": 44
+    "batch": 2,
+    "visible_row_index": 64,
+    "success_row_number": 63
   },
   {
     "date": "04/01/2026",
     "issue": "North Carolina at Asheville (The Univ of), NC General Rev Ref Bonds, Srs 2026",
     "manager_fa": "First Tryon Advisors (FA)",
-    "par_amt": "27,845,000.00",
-    "doc_type": "Prelim",
+    "par_amt": "28,015,000.00",
+    "doc_type": "Final",
     "type": "Comp",
-    "size_mb": "4.36",
-    "href": "/api/PdfDownload/101371?action=Get",
-    "batch": 1,
-    "visible_row_index": 45,
-    "success_row_number": 45
-  },
-  {
-    "date": "04/01/2026",
-    "issue": "North Carolina at Asheville (The Univ of), NC General Rev Ref Bonds, Srs 2026",
-    "manager_fa": "First Tryon Advisors (FA)",
-    "par_amt": "27,845,000.00",
-    "doc_type": "NOS",
-    "type": "Comp",
-    "size_mb": ".20",
-    "href": "/api/PdfDownload/101372?action=Get",
-    "batch": 1,
-    "visible_row_index": 46,
-    "success_row_number": 46
+    "size_mb": "4.37",
+    "href": "/api/PdfDownload/101481?action=Get",
+    "batch": 2,
+    "visible_row_index": 65,
+    "success_row_number": 64
   },
   {
     "date": "04/01/2026",
@@ -606,9 +840,9 @@
     "type": "Comp",
     "size_mb": "4.02",
     "href": "/api/PdfDownload/101449?action=Get",
-    "batch": 1,
-    "visible_row_index": 47,
-    "success_row_number": 47
+    "batch": 2,
+    "visible_row_index": 66,
+    "success_row_number": 65
   },
   {
     "date": "04/01/2026",
@@ -619,9 +853,9 @@
     "type": "Comp",
     "size_mb": "1.22",
     "href": "/api/PdfDownload/101459?action=Get",
-    "batch": 1,
-    "visible_row_index": 48,
-    "success_row_number": 48
+    "batch": 2,
+    "visible_row_index": 67,
+    "success_row_number": 66
   },
   {
     "date": "04/01/2026",
@@ -632,35 +866,22 @@
     "type": "Neg",
     "size_mb": "3.66",
     "href": "/api/PdfDownload/101454?action=Get",
-    "batch": 1,
-    "visible_row_index": 49,
-    "success_row_number": 49
-  },
-  {
-    "date": "03/31/2026",
-    "issue": "Memorial Hills UD, TX Unltd Tax Bonds, Series 2026",
-    "manager_fa": "Hilltop Securities Inc. (FA)",
-    "par_amt": "4,940,000.00",
-    "doc_type": "Prelim",
-    "type": "Comp",
-    "size_mb": "3.93",
-    "href": "/api/PdfDownload/101385?action=Get",
-    "batch": 1,
-    "visible_row_index": 50,
-    "success_row_number": 50
-  },
-  {
-    "date": "03/31/2026",
-    "issue": "Memorial Hills UD, TX Unltd Tax Bonds, Series 2026",
-    "manager_fa": "Hilltop Securities Inc. (FA)",
-    "par_amt": "4,940,000.00",
-    "doc_type": "NOS",
-    "type": "Comp",
-    "size_mb": ".23",
-    "href": "/api/PdfDownload/101386?action=Get",
     "batch": 2,
-    "visible_row_index": 51,
-    "success_row_number": 51
+    "visible_row_index": 68,
+    "success_row_number": 67
+  },
+  {
+    "date": "03/31/2026",
+    "issue": "Memorial Hills UD, TX Unltd Tax Bonds, Series 2026",
+    "manager_fa": "Hilltop Securities Inc. (FA)",
+    "par_amt": "4,940,000.00",
+    "doc_type": "Final",
+    "type": "Comp",
+    "size_mb": "4.69",
+    "href": "/api/PdfDownload/101488?action=Get",
+    "batch": 2,
+    "visible_row_index": 69,
+    "success_row_number": 68
   },
   {
     "date": "03/31/2026",
@@ -672,34 +893,21 @@
     "size_mb": "3.16",
     "href": "/api/PdfDownload/101387?action=Get",
     "batch": 2,
-    "visible_row_index": 52,
-    "success_row_number": 52
+    "visible_row_index": 70,
+    "success_row_number": 69
   },
   {
     "date": "03/31/2026",
     "issue": "Tarrant RWD, TX WCID, Water Revenue Refunding & Improv Bonds, Srs 2026",
     "manager_fa": "Hilltop Securities Inc. (FA)",
-    "par_amt": "333,850,000.00",
-    "doc_type": "Prelim",
+    "par_amt": "335,245,000.00",
+    "doc_type": "Final",
     "type": "Comp",
     "size_mb": "1.71",
-    "href": "/api/PdfDownload/101388?action=Get",
+    "href": "/api/PdfDownload/101471?action=Get",
     "batch": 2,
-    "visible_row_index": 53,
-    "success_row_number": 53
-  },
-  {
-    "date": "03/31/2026",
-    "issue": "Tarrant RWD, TX WCID, Water Revenue Refunding & Improv Bonds, Srs 2026",
-    "manager_fa": "Hilltop Securities Inc. (FA)",
-    "par_amt": "333,850,000.00",
-    "doc_type": "NOS",
-    "type": "Comp",
-    "size_mb": ".20",
-    "href": "/api/PdfDownload/101389?action=Get",
-    "batch": 2,
-    "visible_row_index": 54,
-    "success_row_number": 54
+    "visible_row_index": 71,
+    "success_row_number": 70
   },
   {
     "date": "03/26/2026",
@@ -711,8 +919,8 @@
     "size_mb": "1.01",
     "href": "/api/PdfDownload/101343?action=Get",
     "batch": 2,
-    "visible_row_index": 55,
-    "success_row_number": 55
+    "visible_row_index": 72,
+    "success_row_number": 71
   },
   {
     "date": "03/26/2026",
@@ -724,8 +932,8 @@
     "size_mb": "3.22",
     "href": "/api/PdfDownload/101358?action=Get",
     "batch": 2,
-    "visible_row_index": 56,
-    "success_row_number": 56
+    "visible_row_index": 73,
+    "success_row_number": 72
   },
   {
     "date": "03/26/2026",
@@ -737,8 +945,8 @@
     "size_mb": "2.34",
     "href": "/api/PdfDownload/101379?action=Get",
     "batch": 2,
-    "visible_row_index": 57,
-    "success_row_number": 57
+    "visible_row_index": 74,
+    "success_row_number": 73
   },
   {
     "date": "03/26/2026",
@@ -750,8 +958,8 @@
     "size_mb": ".33",
     "href": "/api/PdfDownload/101380?action=Get",
     "batch": 2,
-    "visible_row_index": 58,
-    "success_row_number": 58
+    "visible_row_index": 75,
+    "success_row_number": 74
   },
   {
     "date": "03/26/2026",
@@ -763,8 +971,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/101381?action=Get",
     "batch": 2,
-    "visible_row_index": 59,
-    "success_row_number": 59
+    "visible_row_index": 76,
+    "success_row_number": 75
   },
   {
     "date": "03/25/2026",
@@ -776,8 +984,8 @@
     "size_mb": "4.95",
     "href": "/api/PdfDownload/101421?action=Get",
     "batch": 2,
-    "visible_row_index": 60,
-    "success_row_number": 60
+    "visible_row_index": 77,
+    "success_row_number": 76
   },
   {
     "date": "03/25/2026",
@@ -789,8 +997,8 @@
     "size_mb": "5.45",
     "href": "/api/PdfDownload/101429?action=Get",
     "batch": 2,
-    "visible_row_index": 61,
-    "success_row_number": 61
+    "visible_row_index": 78,
+    "success_row_number": 77
   },
   {
     "date": "03/25/2026",
@@ -802,8 +1010,8 @@
     "size_mb": "4.25",
     "href": "/api/PdfDownload/101373?action=Get",
     "batch": 2,
-    "visible_row_index": 62,
-    "success_row_number": 62
+    "visible_row_index": 79,
+    "success_row_number": 78
   },
   {
     "date": "03/25/2026",
@@ -815,8 +1023,8 @@
     "size_mb": ".21",
     "href": "/api/PdfDownload/101374?action=Get",
     "batch": 2,
-    "visible_row_index": 63,
-    "success_row_number": 63
+    "visible_row_index": 80,
+    "success_row_number": 79
   },
   {
     "date": "03/25/2026",
@@ -828,8 +1036,8 @@
     "size_mb": ".62",
     "href": "/api/PdfDownload/101375?action=Get",
     "batch": 2,
-    "visible_row_index": 64,
-    "success_row_number": 64
+    "visible_row_index": 81,
+    "success_row_number": 80
   },
   {
     "date": "03/25/2026",
@@ -841,8 +1049,8 @@
     "size_mb": ".21",
     "href": "/api/PdfDownload/101376?action=Get",
     "batch": 2,
-    "visible_row_index": 65,
-    "success_row_number": 65
+    "visible_row_index": 82,
+    "success_row_number": 81
   },
   {
     "date": "03/25/2026",
@@ -854,8 +1062,8 @@
     "size_mb": ".19",
     "href": "/api/PdfDownload/101378?action=Get",
     "batch": 2,
-    "visible_row_index": 66,
-    "success_row_number": 66
+    "visible_row_index": 83,
+    "success_row_number": 82
   },
   {
     "date": "03/25/2026",
@@ -867,8 +1075,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/101377?action=Get",
     "batch": 2,
-    "visible_row_index": 67,
-    "success_row_number": 67
+    "visible_row_index": 84,
+    "success_row_number": 83
   },
   {
     "date": "03/25/2026",
@@ -880,8 +1088,8 @@
     "size_mb": "7.09",
     "href": "/api/PdfDownload/101460?action=Get",
     "batch": 2,
-    "visible_row_index": 68,
-    "success_row_number": 68
+    "visible_row_index": 85,
+    "success_row_number": 84
   },
   {
     "date": "03/24/2026",
@@ -893,8 +1101,8 @@
     "size_mb": "3.08",
     "href": "/api/PdfDownload/101412?action=Get",
     "batch": 2,
-    "visible_row_index": 69,
-    "success_row_number": 69
+    "visible_row_index": 86,
+    "success_row_number": 85
   },
   {
     "date": "03/24/2026",
@@ -906,8 +1114,8 @@
     "size_mb": "8.97",
     "href": "/api/PdfDownload/101420?action=Get",
     "batch": 2,
-    "visible_row_index": 70,
-    "success_row_number": 70
+    "visible_row_index": 87,
+    "success_row_number": 86
   },
   {
     "date": "03/24/2026",
@@ -919,8 +1127,8 @@
     "size_mb": "12.98",
     "href": "/api/PdfDownload/101411?action=Get",
     "batch": 2,
-    "visible_row_index": 71,
-    "success_row_number": 71
+    "visible_row_index": 88,
+    "success_row_number": 87
   },
   {
     "date": "03/24/2026",
@@ -932,8 +1140,8 @@
     "size_mb": "12.22",
     "href": "/api/PdfDownload/101419?action=Get",
     "batch": 2,
-    "visible_row_index": 72,
-    "success_row_number": 72
+    "visible_row_index": 89,
+    "success_row_number": 88
   },
   {
     "date": "03/24/2026",
@@ -945,8 +1153,8 @@
     "size_mb": "6.19",
     "href": "/api/PdfDownload/101356?action=Get",
     "batch": 2,
-    "visible_row_index": 73,
-    "success_row_number": 73
+    "visible_row_index": 90,
+    "success_row_number": 89
   },
   {
     "date": "03/24/2026",
@@ -958,8 +1166,8 @@
     "size_mb": ".04",
     "href": "/api/PdfDownload/101357?action=Get",
     "batch": 2,
-    "visible_row_index": 74,
-    "success_row_number": 74
+    "visible_row_index": 91,
+    "success_row_number": 90
   },
   {
     "date": "03/24/2026",
@@ -971,8 +1179,8 @@
     "size_mb": "15.46",
     "href": "/api/PdfDownload/101428?action=Get",
     "batch": 2,
-    "visible_row_index": 75,
-    "success_row_number": 75
+    "visible_row_index": 92,
+    "success_row_number": 91
   },
   {
     "date": "03/24/2026",
@@ -984,8 +1192,8 @@
     "size_mb": "6.20",
     "href": "/api/PdfDownload/101400?action=Get",
     "batch": 2,
-    "visible_row_index": 76,
-    "success_row_number": 76
+    "visible_row_index": 93,
+    "success_row_number": 92
   },
   {
     "date": "03/24/2026",
@@ -997,8 +1205,8 @@
     "size_mb": ".16",
     "href": "/api/PdfDownload/101401?action=Get",
     "batch": 2,
-    "visible_row_index": 77,
-    "success_row_number": 77
+    "visible_row_index": 94,
+    "success_row_number": 93
   },
   {
     "date": "03/23/2026",
@@ -1010,8 +1218,8 @@
     "size_mb": "2.68",
     "href": "/api/PdfDownload/101416?action=Get",
     "batch": 2,
-    "visible_row_index": 78,
-    "success_row_number": 78
+    "visible_row_index": 95,
+    "success_row_number": 94
   },
   {
     "date": "03/23/2026",
@@ -1023,8 +1231,8 @@
     "size_mb": "4.39",
     "href": "/api/PdfDownload/101345?action=Get",
     "batch": 2,
-    "visible_row_index": 79,
-    "success_row_number": 79
+    "visible_row_index": 96,
+    "success_row_number": 95
   },
   {
     "date": "03/23/2026",
@@ -1036,8 +1244,8 @@
     "size_mb": ".42",
     "href": "/api/PdfDownload/101346?action=Get",
     "batch": 2,
-    "visible_row_index": 80,
-    "success_row_number": 80
+    "visible_row_index": 97,
+    "success_row_number": 96
   },
   {
     "date": "03/23/2026",
@@ -1049,8 +1257,8 @@
     "size_mb": "1.61",
     "href": "/api/PdfDownload/101410?action=Get",
     "batch": 2,
-    "visible_row_index": 81,
-    "success_row_number": 81
+    "visible_row_index": 98,
+    "success_row_number": 97
   },
   {
     "date": "03/21/2026",
@@ -1062,8 +1270,8 @@
     "size_mb": ".10",
     "href": "/api/PdfDownload/101390?action=Get",
     "batch": 2,
-    "visible_row_index": 82,
-    "success_row_number": 82
+    "visible_row_index": 99,
+    "success_row_number": 98
   },
   {
     "date": "03/19/2026",
@@ -1075,8 +1283,8 @@
     "size_mb": "1.94",
     "href": "/api/PdfDownload/101333?action=Get",
     "batch": 2,
-    "visible_row_index": 83,
-    "success_row_number": 83
+    "visible_row_index": 100,
+    "success_row_number": 99
   },
   {
     "date": "03/19/2026",
@@ -1087,9 +1295,9 @@
     "type": "Comp",
     "size_mb": ".18",
     "href": "/api/PdfDownload/101334?action=Get",
-    "batch": 2,
-    "visible_row_index": 84,
-    "success_row_number": 84
+    "batch": 3,
+    "visible_row_index": 101,
+    "success_row_number": 100
   },
   {
     "date": "03/19/2026",
@@ -1100,9 +1308,9 @@
     "type": "Comp",
     "size_mb": ".08",
     "href": "/api/PdfDownload/101336?action=Get",
-    "batch": 2,
-    "visible_row_index": 85,
-    "success_row_number": 85
+    "batch": 3,
+    "visible_row_index": 102,
+    "success_row_number": 101
   },
   {
     "date": "03/19/2026",
@@ -1113,9 +1321,9 @@
     "type": "Comp",
     "size_mb": ".09",
     "href": "/api/PdfDownload/101335?action=Get",
-    "batch": 2,
-    "visible_row_index": 86,
-    "success_row_number": 86
+    "batch": 3,
+    "visible_row_index": 103,
+    "success_row_number": 102
   },
   {
     "date": "03/18/2026",
@@ -1126,9 +1334,9 @@
     "type": "Comp",
     "size_mb": "5.72",
     "href": "/api/PdfDownload/101404?action=Get",
-    "batch": 2,
-    "visible_row_index": 87,
-    "success_row_number": 87
+    "batch": 3,
+    "visible_row_index": 104,
+    "success_row_number": 103
   },
   {
     "date": "03/18/2026",
@@ -1139,9 +1347,9 @@
     "type": "Comp",
     "size_mb": "1.37",
     "href": "/api/PdfDownload/101396?action=Get",
-    "batch": 2,
-    "visible_row_index": 88,
-    "success_row_number": 88
+    "batch": 3,
+    "visible_row_index": 105,
+    "success_row_number": 104
   },
   {
     "date": "03/18/2026",
@@ -1152,9 +1360,9 @@
     "type": "Neg",
     "size_mb": "8.29",
     "href": "/api/PdfDownload/101366?action=Get",
-    "batch": 2,
-    "visible_row_index": 89,
-    "success_row_number": 89
+    "batch": 3,
+    "visible_row_index": 106,
+    "success_row_number": 105
   },
   {
     "date": "03/17/2026",
@@ -1165,9 +1373,9 @@
     "type": "Comp",
     "size_mb": "4.16",
     "href": "/api/PdfDownload/101393?action=Get",
-    "batch": 2,
-    "visible_row_index": 90,
-    "success_row_number": 90
+    "batch": 3,
+    "visible_row_index": 107,
+    "success_row_number": 106
   },
   {
     "date": "03/17/2026",
@@ -1178,9 +1386,9 @@
     "type": "Comp",
     "size_mb": "3.35",
     "href": "/api/PdfDownload/101322?action=Get",
-    "batch": 2,
-    "visible_row_index": 91,
-    "success_row_number": 91
+    "batch": 3,
+    "visible_row_index": 108,
+    "success_row_number": 107
   },
   {
     "date": "03/17/2026",
@@ -1191,9 +1399,9 @@
     "type": "Comp",
     "size_mb": "4.20",
     "href": "/api/PdfDownload/101329?action=Get",
-    "batch": 2,
-    "visible_row_index": 92,
-    "success_row_number": 92
+    "batch": 3,
+    "visible_row_index": 109,
+    "success_row_number": 108
   },
   {
     "date": "03/17/2026",
@@ -1204,9 +1412,9 @@
     "type": "Comp",
     "size_mb": ".26",
     "href": "/api/PdfDownload/101330?action=Get",
-    "batch": 2,
-    "visible_row_index": 93,
-    "success_row_number": 93
+    "batch": 3,
+    "visible_row_index": 110,
+    "success_row_number": 109
   },
   {
     "date": "03/17/2026",
@@ -1217,9 +1425,9 @@
     "type": "Comp",
     "size_mb": ".05",
     "href": "/api/PdfDownload/101331?action=Get",
-    "batch": 2,
-    "visible_row_index": 94,
-    "success_row_number": 94
+    "batch": 3,
+    "visible_row_index": 111,
+    "success_row_number": 110
   },
   {
     "date": "03/16/2026",
@@ -1230,9 +1438,9 @@
     "type": "Comp",
     "size_mb": "1.52",
     "href": "/api/PdfDownload/101384?action=Get",
-    "batch": 2,
-    "visible_row_index": 95,
-    "success_row_number": 95
+    "batch": 3,
+    "visible_row_index": 112,
+    "success_row_number": 111
   },
   {
     "date": "03/12/2026",
@@ -1243,9 +1451,35 @@
     "type": "Comp",
     "size_mb": "6.50",
     "href": "/api/PdfDownload/101305?action=Get",
-    "batch": 2,
-    "visible_row_index": 96,
-    "success_row_number": 96
+    "batch": 3,
+    "visible_row_index": 113,
+    "success_row_number": 112
+  },
+  {
+    "date": "03/12/2026",
+    "issue": "East Montgomery County MUD No. 3, TX Unlimited Tax Bonds, Srs 2026",
+    "manager_fa": "GMS Group, LLC (FA)",
+    "par_amt": "6,300,000.00",
+    "doc_type": "Final",
+    "type": "Comp",
+    "size_mb": "2.66",
+    "href": "/api/PdfDownload/101367?action=Get",
+    "batch": 3,
+    "visible_row_index": 114,
+    "success_row_number": 113
+  },
+  {
+    "date": "03/12/2026",
+    "issue": "Huntsville (City of), AL GO Warrants & Ref & School & Schl Ref Wrnt, Srs 2026 ABC&D",
+    "manager_fa": "PFM Financial Advisors LLC (FA)",
+    "par_amt": "192,150,000.00",
+    "doc_type": "Final",
+    "type": "Comp",
+    "size_mb": "4.18",
+    "href": "/api/PdfDownload/101370?action=Get",
+    "batch": 3,
+    "visible_row_index": 115,
+    "success_row_number": 114
   },
   {
     "date": "03/12/2026",
@@ -1256,9 +1490,9 @@
     "type": "Comp",
     "size_mb": "5.74",
     "href": "/api/PdfDownload/101314?action=Get",
-    "batch": 2,
-    "visible_row_index": 97,
-    "success_row_number": 97
+    "batch": 3,
+    "visible_row_index": 116,
+    "success_row_number": 115
   },
   {
     "date": "03/12/2026",
@@ -1269,9 +1503,9 @@
     "type": "Comp",
     "size_mb": ".10",
     "href": "/api/PdfDownload/101315?action=Get",
-    "batch": 2,
-    "visible_row_index": 98,
-    "success_row_number": 98
+    "batch": 3,
+    "visible_row_index": 117,
+    "success_row_number": 116
   },
   {
     "date": "03/12/2026",
@@ -1282,9 +1516,9 @@
     "type": "Comp",
     "size_mb": ".05",
     "href": "/api/PdfDownload/101316?action=Get",
-    "batch": 2,
-    "visible_row_index": 99,
-    "success_row_number": 99
+    "batch": 3,
+    "visible_row_index": 118,
+    "success_row_number": 117
   },
   {
     "date": "03/12/2026",
@@ -1295,9 +1529,9 @@
     "type": "Comp",
     "size_mb": ".08",
     "href": "/api/PdfDownload/101317?action=Get",
-    "batch": 2,
-    "visible_row_index": 100,
-    "success_row_number": 100
+    "batch": 3,
+    "visible_row_index": 119,
+    "success_row_number": 118
   },
   {
     "date": "03/11/2026",
@@ -1309,8 +1543,8 @@
     "size_mb": "1.78",
     "href": "/api/PdfDownload/101300?action=Get",
     "batch": 3,
-    "visible_row_index": 103,
-    "success_row_number": 101
+    "visible_row_index": 120,
+    "success_row_number": 119
   },
   {
     "date": "03/11/2026",
@@ -1322,8 +1556,8 @@
     "size_mb": ".06",
     "href": "/api/PdfDownload/101301?action=Get",
     "batch": 3,
-    "visible_row_index": 104,
-    "success_row_number": 102
+    "visible_row_index": 121,
+    "success_row_number": 120
   },
   {
     "date": "03/11/2026",
@@ -1335,8 +1569,8 @@
     "size_mb": "1.73",
     "href": "/api/PdfDownload/101368?action=Get",
     "batch": 3,
-    "visible_row_index": 105,
-    "success_row_number": 103
+    "visible_row_index": 122,
+    "success_row_number": 121
   },
   {
     "date": "03/10/2026",
@@ -1348,8 +1582,8 @@
     "size_mb": "2.05",
     "href": "/api/PdfDownload/101248?action=Get",
     "batch": 3,
-    "visible_row_index": 106,
-    "success_row_number": 104
+    "visible_row_index": 123,
+    "success_row_number": 122
   },
   {
     "date": "03/10/2026",
@@ -1361,8 +1595,8 @@
     "size_mb": "21.09",
     "href": "/api/PdfDownload/101277?action=Get",
     "batch": 3,
-    "visible_row_index": 107,
-    "success_row_number": 105
+    "visible_row_index": 124,
+    "success_row_number": 123
   },
   {
     "date": "03/10/2026",
@@ -1374,8 +1608,8 @@
     "size_mb": ".28",
     "href": "/api/PdfDownload/101278?action=Get",
     "batch": 3,
-    "visible_row_index": 108,
-    "success_row_number": 106
+    "visible_row_index": 125,
+    "success_row_number": 124
   },
   {
     "date": "03/10/2026",
@@ -1387,8 +1621,8 @@
     "size_mb": "4.16",
     "href": "/api/PdfDownload/101281?action=Get",
     "batch": 3,
-    "visible_row_index": 109,
-    "success_row_number": 107
+    "visible_row_index": 126,
+    "success_row_number": 125
   },
   {
     "date": "03/10/2026",
@@ -1400,8 +1634,8 @@
     "size_mb": "9.53",
     "href": "/api/PdfDownload/101351?action=Get",
     "batch": 3,
-    "visible_row_index": 110,
-    "success_row_number": 108
+    "visible_row_index": 127,
+    "success_row_number": 126
   },
   {
     "date": "03/10/2026",
@@ -1413,8 +1647,8 @@
     "size_mb": "3.16",
     "href": "/api/PdfDownload/101352?action=Get",
     "batch": 3,
-    "visible_row_index": 111,
-    "success_row_number": 109
+    "visible_row_index": 128,
+    "success_row_number": 127
   },
   {
     "date": "03/10/2026",
@@ -1426,8 +1660,8 @@
     "size_mb": "1.40",
     "href": "/api/PdfDownload/101344?action=Get",
     "batch": 3,
-    "visible_row_index": 112,
-    "success_row_number": 110
+    "visible_row_index": 129,
+    "success_row_number": 128
   },
   {
     "date": "03/10/2026",
@@ -1439,8 +1673,8 @@
     "size_mb": "3.12",
     "href": "/api/PdfDownload/101293?action=Get",
     "batch": 3,
-    "visible_row_index": 113,
-    "success_row_number": 111
+    "visible_row_index": 130,
+    "success_row_number": 129
   },
   {
     "date": "03/10/2026",
@@ -1452,8 +1686,8 @@
     "size_mb": ".26",
     "href": "/api/PdfDownload/101294?action=Get",
     "batch": 3,
-    "visible_row_index": 114,
-    "success_row_number": 112
+    "visible_row_index": 131,
+    "success_row_number": 130
   },
   {
     "date": "03/10/2026",
@@ -1465,8 +1699,8 @@
     "size_mb": ".26",
     "href": "/api/PdfDownload/101295?action=Get",
     "batch": 3,
-    "visible_row_index": 115,
-    "success_row_number": 113
+    "visible_row_index": 132,
+    "success_row_number": 131
   },
   {
     "date": "03/10/2026",
@@ -1478,8 +1712,8 @@
     "size_mb": "12.98",
     "href": "/api/PdfDownload/101354?action=Get",
     "batch": 3,
-    "visible_row_index": 116,
-    "success_row_number": 114
+    "visible_row_index": 133,
+    "success_row_number": 132
   },
   {
     "date": "03/10/2026",
@@ -1491,8 +1725,8 @@
     "size_mb": "6.79",
     "href": "/api/PdfDownload/101359?action=Get",
     "batch": 3,
-    "visible_row_index": 117,
-    "success_row_number": 115
+    "visible_row_index": 134,
+    "success_row_number": 133
   },
   {
     "date": "03/09/2026",
@@ -1504,8 +1738,8 @@
     "size_mb": "1.23",
     "href": "/api/PdfDownload/101337?action=Get",
     "batch": 3,
-    "visible_row_index": 118,
-    "success_row_number": 116
+    "visible_row_index": 135,
+    "success_row_number": 134
   },
   {
     "date": "03/05/2026",
@@ -1517,8 +1751,8 @@
     "size_mb": "2.22",
     "href": "/api/PdfDownload/101240?action=Get",
     "batch": 3,
-    "visible_row_index": 119,
-    "success_row_number": 117
+    "visible_row_index": 136,
+    "success_row_number": 135
   },
   {
     "date": "03/05/2026",
@@ -1530,8 +1764,8 @@
     "size_mb": ".26",
     "href": "/api/PdfDownload/101241?action=Get",
     "batch": 3,
-    "visible_row_index": 120,
-    "success_row_number": 118
+    "visible_row_index": 137,
+    "success_row_number": 136
   },
   {
     "date": "03/05/2026",
@@ -1543,8 +1777,8 @@
     "size_mb": ".48",
     "href": "/api/PdfDownload/101242?action=Get",
     "batch": 3,
-    "visible_row_index": 121,
-    "success_row_number": 119
+    "visible_row_index": 138,
+    "success_row_number": 137
   },
   {
     "date": "03/05/2026",
@@ -1556,8 +1790,8 @@
     "size_mb": "3.24",
     "href": "/api/PdfDownload/101339?action=Get",
     "batch": 3,
-    "visible_row_index": 122,
-    "success_row_number": 120
+    "visible_row_index": 139,
+    "success_row_number": 138
   },
   {
     "date": "03/05/2026",
@@ -1569,8 +1803,8 @@
     "size_mb": "3.98",
     "href": "/api/PdfDownload/101274?action=Get",
     "batch": 3,
-    "visible_row_index": 123,
-    "success_row_number": 121
+    "visible_row_index": 140,
+    "success_row_number": 139
   },
   {
     "date": "03/05/2026",
@@ -1582,8 +1816,8 @@
     "size_mb": ".40",
     "href": "/api/PdfDownload/101275?action=Get",
     "batch": 3,
-    "visible_row_index": 124,
-    "success_row_number": 122
+    "visible_row_index": 141,
+    "success_row_number": 140
   },
   {
     "date": "03/05/2026",
@@ -1595,8 +1829,8 @@
     "size_mb": ".05",
     "href": "/api/PdfDownload/101287?action=Get",
     "batch": 3,
-    "visible_row_index": 125,
-    "success_row_number": 123
+    "visible_row_index": 142,
+    "success_row_number": 141
   },
   {
     "date": "03/05/2026",
@@ -1608,8 +1842,8 @@
     "size_mb": ".13",
     "href": "/api/PdfDownload/101286?action=Get",
     "batch": 3,
-    "visible_row_index": 126,
-    "success_row_number": 124
+    "visible_row_index": 143,
+    "success_row_number": 142
   },
   {
     "date": "03/05/2026",
@@ -1621,8 +1855,8 @@
     "size_mb": ".13",
     "href": "/api/PdfDownload/101285?action=Get",
     "batch": 3,
-    "visible_row_index": 127,
-    "success_row_number": 125
+    "visible_row_index": 144,
+    "success_row_number": 143
   },
   {
     "date": "03/04/2026",
@@ -1634,8 +1868,8 @@
     "size_mb": "2.43",
     "href": "/api/PdfDownload/101321?action=Get",
     "batch": 3,
-    "visible_row_index": 128,
-    "success_row_number": 126
+    "visible_row_index": 145,
+    "success_row_number": 144
   },
   {
     "date": "03/04/2026",
@@ -1647,8 +1881,8 @@
     "size_mb": "4.29",
     "href": "/api/PdfDownload/101340?action=Get",
     "batch": 3,
-    "visible_row_index": 129,
-    "success_row_number": 127
+    "visible_row_index": 146,
+    "success_row_number": 145
   },
   {
     "date": "03/04/2026",
@@ -1660,8 +1894,8 @@
     "size_mb": ".99",
     "href": "/api/PdfDownload/101235?action=Get",
     "batch": 3,
-    "visible_row_index": 130,
-    "success_row_number": 128
+    "visible_row_index": 147,
+    "success_row_number": 146
   },
   {
     "date": "03/04/2026",
@@ -1673,8 +1907,8 @@
     "size_mb": ".38",
     "href": "/api/PdfDownload/101236?action=Get",
     "batch": 3,
-    "visible_row_index": 131,
-    "success_row_number": 129
+    "visible_row_index": 148,
+    "success_row_number": 147
   },
   {
     "date": "03/04/2026",
@@ -1686,8 +1920,8 @@
     "size_mb": "2.55",
     "href": "/api/PdfDownload/101260?action=Get",
     "batch": 3,
-    "visible_row_index": 132,
-    "success_row_number": 130
+    "visible_row_index": 149,
+    "success_row_number": 148
   },
   {
     "date": "03/04/2026",
@@ -1699,8 +1933,8 @@
     "size_mb": ".16",
     "href": "/api/PdfDownload/101261?action=Get",
     "batch": 3,
-    "visible_row_index": 133,
-    "success_row_number": 131
+    "visible_row_index": 150,
+    "success_row_number": 149
   },
   {
     "date": "03/04/2026",
@@ -1711,9 +1945,9 @@
     "type": "Comp",
     "size_mb": "6.87",
     "href": "/api/PdfDownload/101338?action=Get",
-    "batch": 3,
-    "visible_row_index": 134,
-    "success_row_number": 132
+    "batch": 4,
+    "visible_row_index": 151,
+    "success_row_number": 150
   },
   {
     "date": "03/03/2026",
@@ -1724,9 +1958,9 @@
     "type": "Comp",
     "size_mb": "6.27",
     "href": "/api/PdfDownload/101222?action=Get",
-    "batch": 3,
-    "visible_row_index": 135,
-    "success_row_number": 133
+    "batch": 4,
+    "visible_row_index": 152,
+    "success_row_number": 151
   },
   {
     "date": "03/03/2026",
@@ -1737,9 +1971,9 @@
     "type": "Comp",
     "size_mb": "20.61",
     "href": "/api/PdfDownload/101237?action=Get",
-    "batch": 3,
-    "visible_row_index": 136,
-    "success_row_number": 134
+    "batch": 4,
+    "visible_row_index": 153,
+    "success_row_number": 152
   },
   {
     "date": "03/03/2026",
@@ -1750,9 +1984,9 @@
     "type": "Comp",
     "size_mb": ".20",
     "href": "/api/PdfDownload/101238?action=Get",
-    "batch": 3,
-    "visible_row_index": 137,
-    "success_row_number": 135
+    "batch": 4,
+    "visible_row_index": 154,
+    "success_row_number": 153
   },
   {
     "date": "03/03/2026",
@@ -1763,9 +1997,9 @@
     "type": "Comp",
     "size_mb": ".33",
     "href": "/api/PdfDownload/101239?action=Get",
-    "batch": 3,
-    "visible_row_index": 138,
-    "success_row_number": 136
+    "batch": 4,
+    "visible_row_index": 155,
+    "success_row_number": 154
   },
   {
     "date": "03/03/2026",
@@ -1776,9 +2010,9 @@
     "type": "Comp",
     "size_mb": "1.44",
     "href": "/api/PdfDownload/101332?action=Get",
-    "batch": 3,
-    "visible_row_index": 139,
-    "success_row_number": 137
+    "batch": 4,
+    "visible_row_index": 156,
+    "success_row_number": 155
   },
   {
     "date": "03/03/2026",
@@ -1789,9 +2023,9 @@
     "type": "Comp",
     "size_mb": "1.73",
     "href": "/api/PdfDownload/101327?action=Get",
-    "batch": 3,
-    "visible_row_index": 140,
-    "success_row_number": 138
+    "batch": 4,
+    "visible_row_index": 157,
+    "success_row_number": 156
   },
   {
     "date": "03/03/2026",
@@ -1802,9 +2036,9 @@
     "type": "Comp",
     "size_mb": "3.92",
     "href": "/api/PdfDownload/101323?action=Get",
-    "batch": 3,
-    "visible_row_index": 141,
-    "success_row_number": 139
+    "batch": 4,
+    "visible_row_index": 158,
+    "success_row_number": 157
   },
   {
     "date": "03/01/2026",
@@ -1815,9 +2049,9 @@
     "type": "Comp",
     "size_mb": "1.23",
     "href": "/api/PdfDownload/101291?action=Get",
-    "batch": 3,
-    "visible_row_index": 142,
-    "success_row_number": 140
+    "batch": 4,
+    "visible_row_index": 159,
+    "success_row_number": 158
   },
   {
     "date": "02/26/2026",
@@ -1828,9 +2062,9 @@
     "type": "Comp",
     "size_mb": "2.02",
     "href": "/api/PdfDownload/101292?action=Get",
-    "batch": 3,
-    "visible_row_index": 143,
-    "success_row_number": 141
+    "batch": 4,
+    "visible_row_index": 160,
+    "success_row_number": 159
   },
   {
     "date": "02/26/2026",
@@ -1841,9 +2075,9 @@
     "type": "Comp",
     "size_mb": "3.96",
     "href": "/api/PdfDownload/101310?action=Get",
-    "batch": 3,
-    "visible_row_index": 144,
-    "success_row_number": 142
+    "batch": 4,
+    "visible_row_index": 161,
+    "success_row_number": 160
   },
   {
     "date": "02/26/2026",
@@ -1854,9 +2088,9 @@
     "type": "Comp",
     "size_mb": "14.07",
     "href": "/api/PdfDownload/101313?action=Get",
-    "batch": 3,
-    "visible_row_index": 145,
-    "success_row_number": 143
+    "batch": 4,
+    "visible_row_index": 162,
+    "success_row_number": 161
   },
   {
     "date": "02/25/2026",
@@ -1867,9 +2101,9 @@
     "type": "Comp",
     "size_mb": "2.82",
     "href": "/api/PdfDownload/101192?action=Get",
-    "batch": 3,
-    "visible_row_index": 146,
-    "success_row_number": 144
+    "batch": 4,
+    "visible_row_index": 163,
+    "success_row_number": 162
   },
   {
     "date": "02/25/2026",
@@ -1880,9 +2114,9 @@
     "type": "Comp",
     "size_mb": ".22",
     "href": "/api/PdfDownload/101193?action=Get",
-    "batch": 3,
-    "visible_row_index": 147,
-    "success_row_number": 145
+    "batch": 4,
+    "visible_row_index": 164,
+    "success_row_number": 163
   },
   {
     "date": "02/25/2026",
@@ -1893,9 +2127,9 @@
     "type": "Comp",
     "size_mb": ".32",
     "href": "/api/PdfDownload/101230?action=Get",
-    "batch": 3,
-    "visible_row_index": 148,
-    "success_row_number": 146
+    "batch": 4,
+    "visible_row_index": 165,
+    "success_row_number": 164
   },
   {
     "date": "02/25/2026",
@@ -1906,9 +2140,9 @@
     "type": "Comp",
     "size_mb": "1.46",
     "href": "/api/PdfDownload/101273?action=Get",
-    "batch": 3,
-    "visible_row_index": 149,
-    "success_row_number": 147
+    "batch": 4,
+    "visible_row_index": 166,
+    "success_row_number": 165
   },
   {
     "date": "02/25/2026",
@@ -1919,9 +2153,9 @@
     "type": "Comp",
     "size_mb": "3.40",
     "href": "/api/PdfDownload/101296?action=Get",
-    "batch": 3,
-    "visible_row_index": 150,
-    "success_row_number": 148
+    "batch": 4,
+    "visible_row_index": 167,
+    "success_row_number": 166
   },
   {
     "date": "02/24/2026",
@@ -1933,8 +2167,8 @@
     "size_mb": "1.62",
     "href": "/api/PdfDownload/101262?action=Get",
     "batch": 4,
-    "visible_row_index": 151,
-    "success_row_number": 149
+    "visible_row_index": 168,
+    "success_row_number": 167
   },
   {
     "date": "02/24/2026",
@@ -1946,8 +2180,8 @@
     "size_mb": "12.28",
     "href": "/api/PdfDownload/101280?action=Get",
     "batch": 4,
-    "visible_row_index": 152,
-    "success_row_number": 150
+    "visible_row_index": 169,
+    "success_row_number": 168
   },
   {
     "date": "02/24/2026",
@@ -1959,8 +2193,8 @@
     "size_mb": "1.07",
     "href": "/api/PdfDownload/101211?action=Get",
     "batch": 4,
-    "visible_row_index": 153,
-    "success_row_number": 151
+    "visible_row_index": 170,
+    "success_row_number": 169
   },
   {
     "date": "02/24/2026",
@@ -1972,8 +2206,8 @@
     "size_mb": ".30",
     "href": "/api/PdfDownload/101212?action=Get",
     "batch": 4,
-    "visible_row_index": 154,
-    "success_row_number": 152
+    "visible_row_index": 171,
+    "success_row_number": 170
   },
   {
     "date": "02/24/2026",
@@ -1985,8 +2219,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/101213?action=Get",
     "batch": 4,
-    "visible_row_index": 155,
-    "success_row_number": 153
+    "visible_row_index": 172,
+    "success_row_number": 171
   },
   {
     "date": "02/24/2026",
@@ -1998,8 +2232,8 @@
     "size_mb": "1.65",
     "href": "/api/PdfDownload/101263?action=Get",
     "batch": 4,
-    "visible_row_index": 156,
-    "success_row_number": 154
+    "visible_row_index": 173,
+    "success_row_number": 172
   },
   {
     "date": "02/23/2026",
@@ -2011,8 +2245,8 @@
     "size_mb": "1.82",
     "href": "/api/PdfDownload/101279?action=Get",
     "batch": 4,
-    "visible_row_index": 157,
-    "success_row_number": 155
+    "visible_row_index": 174,
+    "success_row_number": 173
   },
   {
     "date": "02/23/2026",
@@ -2024,8 +2258,8 @@
     "size_mb": "1.92",
     "href": "/api/PdfDownload/101282?action=Get",
     "batch": 4,
-    "visible_row_index": 158,
-    "success_row_number": 156
+    "visible_row_index": 175,
+    "success_row_number": 174
   },
   {
     "date": "02/23/2026",
@@ -2037,8 +2271,8 @@
     "size_mb": "1.34",
     "href": "/api/PdfDownload/101205?action=Get",
     "batch": 4,
-    "visible_row_index": 159,
-    "success_row_number": 157
+    "visible_row_index": 176,
+    "success_row_number": 175
   },
   {
     "date": "02/23/2026",
@@ -2050,8 +2284,8 @@
     "size_mb": ".24",
     "href": "/api/PdfDownload/101206?action=Get",
     "batch": 4,
-    "visible_row_index": 160,
-    "success_row_number": 158
+    "visible_row_index": 177,
+    "success_row_number": 176
   },
   {
     "date": "02/23/2026",
@@ -2063,8 +2297,8 @@
     "size_mb": ".28",
     "href": "/api/PdfDownload/101207?action=Get",
     "batch": 4,
-    "visible_row_index": 161,
-    "success_row_number": 159
+    "visible_row_index": 178,
+    "success_row_number": 177
   },
   {
     "date": "02/23/2026",
@@ -2076,8 +2310,8 @@
     "size_mb": "3.53",
     "href": "/api/PdfDownload/101276?action=Get",
     "batch": 4,
-    "visible_row_index": 162,
-    "success_row_number": 160
+    "visible_row_index": 179,
+    "success_row_number": 178
   },
   {
     "date": "02/19/2026",
@@ -2089,8 +2323,8 @@
     "size_mb": "12.69",
     "href": "/api/PdfDownload/101092?action=Get",
     "batch": 4,
-    "visible_row_index": 163,
-    "success_row_number": 161
+    "visible_row_index": 180,
+    "success_row_number": 179
   },
   {
     "date": "02/19/2026",
@@ -2102,8 +2336,8 @@
     "size_mb": ".32",
     "href": "/api/PdfDownload/101093?action=Get",
     "batch": 4,
-    "visible_row_index": 164,
-    "success_row_number": 162
+    "visible_row_index": 181,
+    "success_row_number": 180
   },
   {
     "date": "02/19/2026",
@@ -2115,8 +2349,8 @@
     "size_mb": ".05",
     "href": "/api/PdfDownload/101128?action=Get",
     "batch": 4,
-    "visible_row_index": 165,
-    "success_row_number": 163
+    "visible_row_index": 182,
+    "success_row_number": 181
   },
   {
     "date": "02/19/2026",
@@ -2128,8 +2362,8 @@
     "size_mb": ".16",
     "href": "/api/PdfDownload/101127?action=Get",
     "batch": 4,
-    "visible_row_index": 166,
-    "success_row_number": 164
+    "visible_row_index": 183,
+    "success_row_number": 182
   },
   {
     "date": "02/19/2026",
@@ -2141,8 +2375,8 @@
     "size_mb": "1.71",
     "href": "/api/PdfDownload/101189?action=Get",
     "batch": 4,
-    "visible_row_index": 167,
-    "success_row_number": 165
+    "visible_row_index": 184,
+    "success_row_number": 183
   },
   {
     "date": "02/19/2026",
@@ -2154,8 +2388,8 @@
     "size_mb": ".04",
     "href": "/api/PdfDownload/101190?action=Get",
     "batch": 4,
-    "visible_row_index": 168,
-    "success_row_number": 166
+    "visible_row_index": 185,
+    "success_row_number": 184
   },
   {
     "date": "02/19/2026",
@@ -2167,8 +2401,8 @@
     "size_mb": "2.14",
     "href": "/api/PdfDownload/101265?action=Get",
     "batch": 4,
-    "visible_row_index": 169,
-    "success_row_number": 167
+    "visible_row_index": 186,
+    "success_row_number": 185
   },
   {
     "date": "02/19/2026",
@@ -2180,8 +2414,8 @@
     "size_mb": "3.83",
     "href": "/api/PdfDownload/101196?action=Get",
     "batch": 4,
-    "visible_row_index": 170,
-    "success_row_number": 168
+    "visible_row_index": 187,
+    "success_row_number": 186
   },
   {
     "date": "02/19/2026",
@@ -2193,8 +2427,8 @@
     "size_mb": ".33",
     "href": "/api/PdfDownload/101197?action=Get",
     "batch": 4,
-    "visible_row_index": 171,
-    "success_row_number": 169
+    "visible_row_index": 188,
+    "success_row_number": 187
   },
   {
     "date": "02/19/2026",
@@ -2206,8 +2440,8 @@
     "size_mb": ".33",
     "href": "/api/PdfDownload/101198?action=Get",
     "batch": 4,
-    "visible_row_index": 172,
-    "success_row_number": 170
+    "visible_row_index": 189,
+    "success_row_number": 188
   },
   {
     "date": "02/19/2026",
@@ -2219,8 +2453,8 @@
     "size_mb": ".33",
     "href": "/api/PdfDownload/101199?action=Get",
     "batch": 4,
-    "visible_row_index": 173,
-    "success_row_number": 171
+    "visible_row_index": 190,
+    "success_row_number": 189
   },
   {
     "date": "02/18/2026",
@@ -2232,8 +2466,8 @@
     "size_mb": "9.89",
     "href": "/api/PdfDownload/101270?action=Get",
     "batch": 4,
-    "visible_row_index": 174,
-    "success_row_number": 172
+    "visible_row_index": 191,
+    "success_row_number": 190
   },
   {
     "date": "02/18/2026",
@@ -2245,8 +2479,8 @@
     "size_mb": "3.27",
     "href": "/api/PdfDownload/101244?action=Get",
     "batch": 4,
-    "visible_row_index": 175,
-    "success_row_number": 173
+    "visible_row_index": 192,
+    "success_row_number": 191
   },
   {
     "date": "02/18/2026",
@@ -2258,8 +2492,8 @@
     "size_mb": "5.30",
     "href": "/api/PdfDownload/101163?action=Get",
     "batch": 4,
-    "visible_row_index": 176,
-    "success_row_number": 174
+    "visible_row_index": 193,
+    "success_row_number": 192
   },
   {
     "date": "02/18/2026",
@@ -2271,21 +2505,8 @@
     "size_mb": ".22",
     "href": "/api/PdfDownload/101164?action=Get",
     "batch": 4,
-    "visible_row_index": 177,
-    "success_row_number": 175
-  },
-  {
-    "date": "02/18/2026",
-    "issue": "Marin Public Financing Auth, CA Wastewater Rev Bonds, Series 2026A",
-    "manager_fa": "Ridgeline Municipal Strategies, LLC (FA)",
-    "par_amt": "28,500,000.00",
-    "doc_type": "S&P'S",
-    "type": "Comp",
-    "size_mb": ".15",
-    "href": "/api/PdfDownload/101165?action=Get",
-    "batch": 4,
-    "visible_row_index": 178,
-    "success_row_number": 176
+    "visible_row_index": 194,
+    "success_row_number": 193
   },
   {
     "date": "02/18/2026",
@@ -2297,8 +2518,8 @@
     "size_mb": "8.72",
     "href": "/api/PdfDownload/101167?action=Get",
     "batch": 4,
-    "visible_row_index": 179,
-    "success_row_number": 177
+    "visible_row_index": 195,
+    "success_row_number": 194
   },
   {
     "date": "02/18/2026",
@@ -2310,34 +2531,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/101168?action=Get",
     "batch": 4,
-    "visible_row_index": 180,
-    "success_row_number": 178
-  },
-  {
-    "date": "02/18/2026",
-    "issue": "Kenilworth (Borough of) NJ, General Improv Bonds(2026)",
-    "manager_fa": "Rogut McCarthy LLC (FA)",
-    "par_amt": "12,345,000.00",
-    "doc_type": "Moodys",
-    "type": "Comp",
-    "size_mb": ".09",
-    "href": "/api/PdfDownload/101171?action=Get",
-    "batch": 4,
-    "visible_row_index": 181,
-    "success_row_number": 179
-  },
-  {
-    "date": "02/18/2026",
-    "issue": "Kenilworth (Borough of) NJ, General Improv Bonds(2026)",
-    "manager_fa": "Rogut McCarthy LLC (FA)",
-    "par_amt": "12,345,000.00",
-    "doc_type": "Proposal",
-    "type": "Comp",
-    "size_mb": ".09",
-    "href": "/api/PdfDownload/101170?action=Get",
-    "batch": 4,
-    "visible_row_index": 182,
-    "success_row_number": 180
+    "visible_row_index": 196,
+    "success_row_number": 195
   },
   {
     "date": "02/18/2026",
@@ -2349,8 +2544,8 @@
     "size_mb": "2.30",
     "href": "/api/PdfDownload/101175?action=Get",
     "batch": 4,
-    "visible_row_index": 183,
-    "success_row_number": 181
+    "visible_row_index": 197,
+    "success_row_number": 196
   },
   {
     "date": "02/18/2026",
@@ -2362,8 +2557,8 @@
     "size_mb": ".11",
     "href": "/api/PdfDownload/101176?action=Get",
     "batch": 4,
-    "visible_row_index": 184,
-    "success_row_number": 182
+    "visible_row_index": 198,
+    "success_row_number": 197
   },
   {
     "date": "02/18/2026",
@@ -2375,8 +2570,8 @@
     "size_mb": "1.38",
     "href": "/api/PdfDownload/101246?action=Get",
     "batch": 4,
-    "visible_row_index": 185,
-    "success_row_number": 183
+    "visible_row_index": 199,
+    "success_row_number": 198
   },
   {
     "date": "02/18/2026",
@@ -2388,8 +2583,8 @@
     "size_mb": "9.57",
     "href": "/api/PdfDownload/101264?action=Get",
     "batch": 4,
-    "visible_row_index": 186,
-    "success_row_number": 184
+    "visible_row_index": 200,
+    "success_row_number": 199
   },
   {
     "date": "02/17/2026",
@@ -2400,9 +2595,9 @@
     "type": "Neg",
     "size_mb": "2.47",
     "href": "/api/PdfDownload/101254?action=Get",
-    "batch": 4,
-    "visible_row_index": 187,
-    "success_row_number": 185
+    "batch": 5,
+    "visible_row_index": 204,
+    "success_row_number": 200
   },
   {
     "date": "02/17/2026",
@@ -2413,9 +2608,9 @@
     "type": "Comp",
     "size_mb": "3.15",
     "href": "/api/PdfDownload/101258?action=Get",
-    "batch": 4,
-    "visible_row_index": 188,
-    "success_row_number": 186
+    "batch": 5,
+    "visible_row_index": 205,
+    "success_row_number": 201
   },
   {
     "date": "02/17/2026",
@@ -2426,9 +2621,9 @@
     "type": "Neg",
     "size_mb": "4.23",
     "href": "/api/PdfDownload/101255?action=Get",
-    "batch": 4,
-    "visible_row_index": 189,
-    "success_row_number": 187
+    "batch": 5,
+    "visible_row_index": 206,
+    "success_row_number": 202
   },
   {
     "date": "02/17/2026",
@@ -2439,9 +2634,9 @@
     "type": "Comp",
     "size_mb": "4.82",
     "href": "/api/PdfDownload/101266?action=Get",
-    "batch": 4,
-    "visible_row_index": 190,
-    "success_row_number": 188
+    "batch": 5,
+    "visible_row_index": 207,
+    "success_row_number": 203
   },
   {
     "date": "02/17/2026",
@@ -2452,9 +2647,9 @@
     "type": "Comp",
     "size_mb": "9.01",
     "href": "/api/PdfDownload/101172?action=Get",
-    "batch": 4,
-    "visible_row_index": 191,
-    "success_row_number": 189
+    "batch": 5,
+    "visible_row_index": 208,
+    "success_row_number": 204
   },
   {
     "date": "02/17/2026",
@@ -2465,9 +2660,9 @@
     "type": "Comp",
     "size_mb": ".14",
     "href": "/api/PdfDownload/101173?action=Get",
-    "batch": 4,
-    "visible_row_index": 192,
-    "success_row_number": 190
+    "batch": 5,
+    "visible_row_index": 209,
+    "success_row_number": 205
   },
   {
     "date": "02/17/2026",
@@ -2478,9 +2673,9 @@
     "type": "Comp",
     "size_mb": "1.43",
     "href": "/api/PdfDownload/101259?action=Get",
-    "batch": 4,
-    "visible_row_index": 193,
-    "success_row_number": 191
+    "batch": 5,
+    "visible_row_index": 210,
+    "success_row_number": 206
   },
   {
     "date": "02/17/2026",
@@ -2491,9 +2686,9 @@
     "type": "Neg",
     "size_mb": "11.10",
     "href": "/api/PdfDownload/101253?action=Get",
-    "batch": 4,
-    "visible_row_index": 194,
-    "success_row_number": 192
+    "batch": 5,
+    "visible_row_index": 211,
+    "success_row_number": 207
   },
   {
     "date": "02/12/2026",
@@ -2504,9 +2699,9 @@
     "type": "Comp",
     "size_mb": "5.29",
     "href": "/api/PdfDownload/101221?action=Get",
-    "batch": 4,
-    "visible_row_index": 195,
-    "success_row_number": 193
+    "batch": 5,
+    "visible_row_index": 212,
+    "success_row_number": 208
   },
   {
     "date": "02/12/2026",
@@ -2517,9 +2712,9 @@
     "type": "Comp",
     "size_mb": "5.92",
     "href": "/api/PdfDownload/101226?action=Get",
-    "batch": 4,
-    "visible_row_index": 196,
-    "success_row_number": 194
+    "batch": 5,
+    "visible_row_index": 213,
+    "success_row_number": 209
   },
   {
     "date": "02/12/2026",
@@ -2530,9 +2725,9 @@
     "type": "Comp",
     "size_mb": "3.81",
     "href": "/api/PdfDownload/101177?action=Get",
-    "batch": 4,
-    "visible_row_index": 197,
-    "success_row_number": 195
+    "batch": 5,
+    "visible_row_index": 214,
+    "success_row_number": 210
   },
   {
     "date": "02/12/2026",
@@ -2543,9 +2738,9 @@
     "type": "Comp",
     "size_mb": ".47",
     "href": "/api/PdfDownload/101178?action=Get",
-    "batch": 4,
-    "visible_row_index": 198,
-    "success_row_number": 196
+    "batch": 5,
+    "visible_row_index": 215,
+    "success_row_number": 211
   },
   {
     "date": "02/12/2026",
@@ -2556,9 +2751,9 @@
     "type": "Comp",
     "size_mb": ".05",
     "href": "/api/PdfDownload/101179?action=Get",
-    "batch": 4,
-    "visible_row_index": 199,
-    "success_row_number": 197
+    "batch": 5,
+    "visible_row_index": 216,
+    "success_row_number": 212
   },
   {
     "date": "02/11/2026",
@@ -2569,9 +2764,9 @@
     "type": "Comp",
     "size_mb": "1.51",
     "href": "/api/PdfDownload/101220?action=Get",
-    "batch": 4,
-    "visible_row_index": 200,
-    "success_row_number": 198
+    "batch": 5,
+    "visible_row_index": 217,
+    "success_row_number": 213
   },
   {
     "date": "02/11/2026",
@@ -2583,8 +2778,8 @@
     "size_mb": "3.21",
     "href": "/api/PdfDownload/101143?action=Get",
     "batch": 5,
-    "visible_row_index": 201,
-    "success_row_number": 199
+    "visible_row_index": 218,
+    "success_row_number": 214
   },
   {
     "date": "02/11/2026",
@@ -2596,8 +2791,8 @@
     "size_mb": "9.10",
     "href": "/api/PdfDownload/101245?action=Get",
     "batch": 5,
-    "visible_row_index": 202,
-    "success_row_number": 200
+    "visible_row_index": 219,
+    "success_row_number": 215
   },
   {
     "date": "02/10/2026",
@@ -2609,8 +2804,8 @@
     "size_mb": "6.27",
     "href": "/api/PdfDownload/101086?action=Get",
     "batch": 5,
-    "visible_row_index": 203,
-    "success_row_number": 201
+    "visible_row_index": 220,
+    "success_row_number": 216
   },
   {
     "date": "02/10/2026",
@@ -2622,8 +2817,8 @@
     "size_mb": "12.06",
     "href": "/api/PdfDownload/101104?action=Get",
     "batch": 5,
-    "visible_row_index": 204,
-    "success_row_number": 202
+    "visible_row_index": 221,
+    "success_row_number": 217
   },
   {
     "date": "02/10/2026",
@@ -2635,8 +2830,8 @@
     "size_mb": ".24",
     "href": "/api/PdfDownload/101108?action=Get",
     "batch": 5,
-    "visible_row_index": 205,
-    "success_row_number": 203
+    "visible_row_index": 222,
+    "success_row_number": 218
   },
   {
     "date": "02/10/2026",
@@ -2648,8 +2843,8 @@
     "size_mb": ".24",
     "href": "/api/PdfDownload/101109?action=Get",
     "batch": 5,
-    "visible_row_index": 206,
-    "success_row_number": 204
+    "visible_row_index": 223,
+    "success_row_number": 219
   },
   {
     "date": "02/10/2026",
@@ -2661,8 +2856,8 @@
     "size_mb": "9.94",
     "href": "/api/PdfDownload/101208?action=Get",
     "batch": 5,
-    "visible_row_index": 207,
-    "success_row_number": 205
+    "visible_row_index": 224,
+    "success_row_number": 220
   },
   {
     "date": "02/10/2026",
@@ -2674,8 +2869,8 @@
     "size_mb": "12.96",
     "href": "/api/PdfDownload/101216?action=Get",
     "batch": 5,
-    "visible_row_index": 208,
-    "success_row_number": 206
+    "visible_row_index": 225,
+    "success_row_number": 221
   },
   {
     "date": "02/10/2026",
@@ -2687,8 +2882,8 @@
     "size_mb": "12.94",
     "href": "/api/PdfDownload/101217?action=Get",
     "batch": 5,
-    "visible_row_index": 209,
-    "success_row_number": 207
+    "visible_row_index": 226,
+    "success_row_number": 222
   },
   {
     "date": "02/10/2026",
@@ -2700,8 +2895,8 @@
     "size_mb": "9.56",
     "href": "/api/PdfDownload/101121?action=Get",
     "batch": 5,
-    "visible_row_index": 210,
-    "success_row_number": 208
+    "visible_row_index": 227,
+    "success_row_number": 223
   },
   {
     "date": "02/10/2026",
@@ -2713,8 +2908,8 @@
     "size_mb": ".28",
     "href": "/api/PdfDownload/101122?action=Get",
     "batch": 5,
-    "visible_row_index": 211,
-    "success_row_number": 209
+    "visible_row_index": 228,
+    "success_row_number": 224
   },
   {
     "date": "02/10/2026",
@@ -2726,8 +2921,8 @@
     "size_mb": "7.10",
     "href": "/api/PdfDownload/101131?action=Get",
     "batch": 5,
-    "visible_row_index": 212,
-    "success_row_number": 210
+    "visible_row_index": 229,
+    "success_row_number": 225
   },
   {
     "date": "02/10/2026",
@@ -2739,8 +2934,8 @@
     "size_mb": ".14",
     "href": "/api/PdfDownload/101132?action=Get",
     "batch": 5,
-    "visible_row_index": 213,
-    "success_row_number": 211
+    "visible_row_index": 230,
+    "success_row_number": 226
   },
   {
     "date": "02/10/2026",
@@ -2752,8 +2947,8 @@
     "size_mb": ".05",
     "href": "/api/PdfDownload/101133?action=Get",
     "batch": 5,
-    "visible_row_index": 214,
-    "success_row_number": 212
+    "visible_row_index": 231,
+    "success_row_number": 227
   },
   {
     "date": "02/09/2026",
@@ -2765,8 +2960,8 @@
     "size_mb": "16.95",
     "href": "/api/PdfDownload/101105?action=Get",
     "batch": 5,
-    "visible_row_index": 215,
-    "success_row_number": 213
+    "visible_row_index": 232,
+    "success_row_number": 228
   },
   {
     "date": "02/09/2026",
@@ -2778,8 +2973,8 @@
     "size_mb": ".29",
     "href": "/api/PdfDownload/101106?action=Get",
     "batch": 5,
-    "visible_row_index": 216,
-    "success_row_number": 214
+    "visible_row_index": 233,
+    "success_row_number": 229
   },
   {
     "date": "02/09/2026",
@@ -2791,8 +2986,8 @@
     "size_mb": ".24",
     "href": "/api/PdfDownload/101107?action=Get",
     "batch": 5,
-    "visible_row_index": 217,
-    "success_row_number": 215
+    "visible_row_index": 234,
+    "success_row_number": 230
   },
   {
     "date": "02/09/2026",
@@ -2804,8 +2999,8 @@
     "size_mb": "1.36",
     "href": "/api/PdfDownload/101111?action=Get",
     "batch": 5,
-    "visible_row_index": 218,
-    "success_row_number": 216
+    "visible_row_index": 235,
+    "success_row_number": 231
   },
   {
     "date": "02/09/2026",
@@ -2817,8 +3012,8 @@
     "size_mb": ".29",
     "href": "/api/PdfDownload/101112?action=Get",
     "batch": 5,
-    "visible_row_index": 219,
-    "success_row_number": 217
+    "visible_row_index": 236,
+    "success_row_number": 232
   },
   {
     "date": "02/09/2026",
@@ -2830,8 +3025,8 @@
     "size_mb": ".27",
     "href": "/api/PdfDownload/101113?action=Get",
     "batch": 5,
-    "visible_row_index": 220,
-    "success_row_number": 218
+    "visible_row_index": 237,
+    "success_row_number": 233
   },
   {
     "date": "02/05/2026",
@@ -2843,8 +3038,8 @@
     "size_mb": "6.91",
     "href": "/api/PdfDownload/101191?action=Get",
     "batch": 5,
-    "visible_row_index": 221,
-    "success_row_number": 219
+    "visible_row_index": 238,
+    "success_row_number": 234
   },
   {
     "date": "02/05/2026",
@@ -2856,8 +3051,8 @@
     "size_mb": "5.27",
     "href": "/api/PdfDownload/101186?action=Get",
     "batch": 5,
-    "visible_row_index": 222,
-    "success_row_number": 220
+    "visible_row_index": 239,
+    "success_row_number": 235
   },
   {
     "date": "02/04/2026",
@@ -2869,8 +3064,8 @@
     "size_mb": "12.69",
     "href": "/api/PdfDownload/101088?action=Get",
     "batch": 5,
-    "visible_row_index": 223,
-    "success_row_number": 221
+    "visible_row_index": 240,
+    "success_row_number": 236
   },
   {
     "date": "02/04/2026",
@@ -2882,8 +3077,8 @@
     "size_mb": ".32",
     "href": "/api/PdfDownload/101089?action=Get",
     "batch": 5,
-    "visible_row_index": 224,
-    "success_row_number": 222
+    "visible_row_index": 241,
+    "success_row_number": 237
   },
   {
     "date": "02/04/2026",
@@ -2895,8 +3090,8 @@
     "size_mb": ".30",
     "href": "/api/PdfDownload/101090?action=Get",
     "batch": 5,
-    "visible_row_index": 225,
-    "success_row_number": 223
+    "visible_row_index": 242,
+    "success_row_number": 238
   },
   {
     "date": "02/04/2026",
@@ -2908,8 +3103,8 @@
     "size_mb": ".05",
     "href": "/api/PdfDownload/101130?action=Get",
     "batch": 5,
-    "visible_row_index": 226,
-    "success_row_number": 224
+    "visible_row_index": 243,
+    "success_row_number": 239
   },
   {
     "date": "02/04/2026",
@@ -2921,8 +3116,8 @@
     "size_mb": ".16",
     "href": "/api/PdfDownload/101129?action=Get",
     "batch": 5,
-    "visible_row_index": 227,
-    "success_row_number": 225
+    "visible_row_index": 244,
+    "success_row_number": 240
   },
   {
     "date": "02/03/2026",
@@ -2934,8 +3129,8 @@
     "size_mb": "3.17",
     "href": "/api/PdfDownload/101161?action=Get",
     "batch": 5,
-    "visible_row_index": 228,
-    "success_row_number": 226
+    "visible_row_index": 245,
+    "success_row_number": 241
   },
   {
     "date": "02/03/2026",
@@ -2947,8 +3142,8 @@
     "size_mb": "2.32",
     "href": "/api/PdfDownload/101146?action=Get",
     "batch": 5,
-    "visible_row_index": 229,
-    "success_row_number": 227
+    "visible_row_index": 246,
+    "success_row_number": 242
   },
   {
     "date": "02/02/2026",
@@ -2960,8 +3155,8 @@
     "size_mb": "1.63",
     "href": "/api/PdfDownload/101162?action=Get",
     "batch": 5,
-    "visible_row_index": 230,
-    "success_row_number": 228
+    "visible_row_index": 247,
+    "success_row_number": 243
   },
   {
     "date": "01/29/2026",
@@ -2973,8 +3168,8 @@
     "size_mb": "4.99",
     "href": "/api/PdfDownload/101074?action=Get",
     "batch": 5,
-    "visible_row_index": 231,
-    "success_row_number": 229
+    "visible_row_index": 248,
+    "success_row_number": 244
   },
   {
     "date": "01/29/2026",
@@ -2986,8 +3181,8 @@
     "size_mb": "3.85",
     "href": "/api/PdfDownload/101142?action=Get",
     "batch": 5,
-    "visible_row_index": 232,
-    "success_row_number": 230
+    "visible_row_index": 249,
+    "success_row_number": 245
   },
   {
     "date": "01/28/2026",
@@ -2999,8 +3194,8 @@
     "size_mb": "1.79",
     "href": "/api/PdfDownload/101150?action=Get",
     "batch": 5,
-    "visible_row_index": 233,
-    "success_row_number": 231
+    "visible_row_index": 250,
+    "success_row_number": 246
   },
   {
     "date": "01/27/2026",
@@ -3011,9 +3206,9 @@
     "type": "Comp",
     "size_mb": "12.27",
     "href": "/api/PdfDownload/101114?action=Get",
-    "batch": 5,
-    "visible_row_index": 234,
-    "success_row_number": 232
+    "batch": 6,
+    "visible_row_index": 251,
+    "success_row_number": 247
   },
   {
     "date": "01/27/2026",
@@ -3024,9 +3219,9 @@
     "type": "Neg",
     "size_mb": "2.54",
     "href": "/api/PdfDownload/101125?action=Get",
-    "batch": 5,
-    "visible_row_index": 235,
-    "success_row_number": 233
+    "batch": 6,
+    "visible_row_index": 252,
+    "success_row_number": 248
   },
   {
     "date": "01/26/2026",
@@ -3037,9 +3232,9 @@
     "type": "Comp",
     "size_mb": "8.46",
     "href": "/api/PdfDownload/101115?action=Get",
-    "batch": 5,
-    "visible_row_index": 236,
-    "success_row_number": 234
+    "batch": 6,
+    "visible_row_index": 253,
+    "success_row_number": 249
   },
   {
     "date": "01/22/2026",
@@ -3050,9 +3245,9 @@
     "type": "Neg",
     "size_mb": "1.72",
     "href": "/api/PdfDownload/101102?action=Get",
-    "batch": 5,
-    "visible_row_index": 237,
-    "success_row_number": 235
+    "batch": 6,
+    "visible_row_index": 254,
+    "success_row_number": 250
   },
   {
     "date": "01/22/2026",
@@ -3063,9 +3258,9 @@
     "type": "Comp",
     "size_mb": "4.67",
     "href": "/api/PdfDownload/101064?action=Get",
-    "batch": 5,
-    "visible_row_index": 238,
-    "success_row_number": 236
+    "batch": 6,
+    "visible_row_index": 255,
+    "success_row_number": 251
   },
   {
     "date": "01/22/2026",
@@ -3076,9 +3271,9 @@
     "type": "Comp",
     "size_mb": ".08",
     "href": "/api/PdfDownload/101065?action=Get",
-    "batch": 5,
-    "visible_row_index": 239,
-    "success_row_number": 237
+    "batch": 6,
+    "visible_row_index": 256,
+    "success_row_number": 252
   },
   {
     "date": "01/22/2026",
@@ -3089,9 +3284,9 @@
     "type": "Comp",
     "size_mb": ".15",
     "href": "/api/PdfDownload/101066?action=Get",
-    "batch": 5,
-    "visible_row_index": 240,
-    "success_row_number": 238
+    "batch": 6,
+    "visible_row_index": 257,
+    "success_row_number": 253
   },
   {
     "date": "01/21/2026",
@@ -3102,9 +3297,9 @@
     "type": "Comp",
     "size_mb": "3.12",
     "href": "/api/PdfDownload/101081?action=Get",
-    "batch": 5,
-    "visible_row_index": 241,
-    "success_row_number": 239
+    "batch": 6,
+    "visible_row_index": 258,
+    "success_row_number": 254
   },
   {
     "date": "01/21/2026",
@@ -3115,9 +3310,9 @@
     "type": "Comp",
     "size_mb": "2.07",
     "href": "/api/PdfDownload/101045?action=Get",
-    "batch": 5,
-    "visible_row_index": 242,
-    "success_row_number": 240
+    "batch": 6,
+    "visible_row_index": 259,
+    "success_row_number": 255
   },
   {
     "date": "01/21/2026",
@@ -3128,9 +3323,9 @@
     "type": "Comp",
     "size_mb": ".94",
     "href": "/api/PdfDownload/101098?action=Get",
-    "batch": 5,
-    "visible_row_index": 243,
-    "success_row_number": 241
+    "batch": 6,
+    "visible_row_index": 260,
+    "success_row_number": 256
   },
   {
     "date": "01/21/2026",
@@ -3141,9 +3336,9 @@
     "type": "Comp",
     "size_mb": "1.79",
     "href": "/api/PdfDownload/101101?action=Get",
-    "batch": 5,
-    "visible_row_index": 244,
-    "success_row_number": 242
+    "batch": 6,
+    "visible_row_index": 261,
+    "success_row_number": 257
   },
   {
     "date": "01/21/2026",
@@ -3154,9 +3349,9 @@
     "type": "Neg",
     "size_mb": "2.51",
     "href": "/api/PdfDownload/101097?action=Get",
-    "batch": 5,
-    "visible_row_index": 245,
-    "success_row_number": 243
+    "batch": 6,
+    "visible_row_index": 262,
+    "success_row_number": 258
   },
   {
     "date": "01/21/2026",
@@ -3167,9 +3362,9 @@
     "type": "Comp",
     "size_mb": "4.40",
     "href": "/api/PdfDownload/101095?action=Get",
-    "batch": 5,
-    "visible_row_index": 246,
-    "success_row_number": 244
+    "batch": 6,
+    "visible_row_index": 263,
+    "success_row_number": 259
   },
   {
     "date": "01/21/2026",
@@ -3180,9 +3375,9 @@
     "type": "Neg",
     "size_mb": "2.98",
     "href": "/api/PdfDownload/101087?action=Get",
-    "batch": 5,
-    "visible_row_index": 247,
-    "success_row_number": 245
+    "batch": 6,
+    "visible_row_index": 264,
+    "success_row_number": 260
   },
   {
     "date": "01/20/2026",
@@ -3193,9 +3388,9 @@
     "type": "Comp",
     "size_mb": "2.14",
     "href": "/api/PdfDownload/101096?action=Get",
-    "batch": 5,
-    "visible_row_index": 248,
-    "success_row_number": 246
+    "batch": 6,
+    "visible_row_index": 265,
+    "success_row_number": 261
   },
   {
     "date": "01/20/2026",
@@ -3206,9 +3401,9 @@
     "type": "Comp",
     "size_mb": "1.23",
     "href": "/api/PdfDownload/101083?action=Get",
-    "batch": 5,
-    "visible_row_index": 249,
-    "success_row_number": 247
+    "batch": 6,
+    "visible_row_index": 266,
+    "success_row_number": 262
   },
   {
     "date": "01/15/2026",
@@ -3219,9 +3414,9 @@
     "type": "Comp",
     "size_mb": "16.78",
     "href": "/api/PdfDownload/101075?action=Get",
-    "batch": 5,
-    "visible_row_index": 250,
-    "success_row_number": 248
+    "batch": 6,
+    "visible_row_index": 267,
+    "success_row_number": 263
   },
   {
     "date": "01/15/2026",
@@ -3233,8 +3428,8 @@
     "size_mb": "2.71",
     "href": "/api/PdfDownload/101070?action=Get",
     "batch": 6,
-    "visible_row_index": 251,
-    "success_row_number": 249
+    "visible_row_index": 268,
+    "success_row_number": 264
   },
   {
     "date": "01/15/2026",
@@ -3246,8 +3441,8 @@
     "size_mb": "1.51",
     "href": "/api/PdfDownload/101080?action=Get",
     "batch": 6,
-    "visible_row_index": 252,
-    "success_row_number": 250
+    "visible_row_index": 269,
+    "success_row_number": 265
   },
   {
     "date": "01/15/2026",
@@ -3259,8 +3454,8 @@
     "size_mb": "2.84",
     "href": "/api/PdfDownload/101040?action=Get",
     "batch": 6,
-    "visible_row_index": 253,
-    "success_row_number": 251
+    "visible_row_index": 270,
+    "success_row_number": 266
   },
   {
     "date": "01/15/2026",
@@ -3272,8 +3467,8 @@
     "size_mb": ".08",
     "href": "/api/PdfDownload/101041?action=Get",
     "batch": 6,
-    "visible_row_index": 254,
-    "success_row_number": 252
+    "visible_row_index": 271,
+    "success_row_number": 267
   },
   {
     "date": "01/14/2026",
@@ -3285,8 +3480,8 @@
     "size_mb": "4.10",
     "href": "/api/PdfDownload/101010?action=Get",
     "batch": 6,
-    "visible_row_index": 255,
-    "success_row_number": 253
+    "visible_row_index": 272,
+    "success_row_number": 268
   },
   {
     "date": "01/14/2026",
@@ -3298,8 +3493,8 @@
     "size_mb": "1.00",
     "href": "/api/PdfDownload/101011?action=Get",
     "batch": 6,
-    "visible_row_index": 256,
-    "success_row_number": 254
+    "visible_row_index": 273,
+    "success_row_number": 269
   },
   {
     "date": "01/14/2026",
@@ -3311,8 +3506,8 @@
     "size_mb": ".14",
     "href": "/api/PdfDownload/101012?action=Get",
     "batch": 6,
-    "visible_row_index": 257,
-    "success_row_number": 255
+    "visible_row_index": 274,
+    "success_row_number": 270
   },
   {
     "date": "01/14/2026",
@@ -3324,8 +3519,8 @@
     "size_mb": "1.38",
     "href": "/api/PdfDownload/101073?action=Get",
     "batch": 6,
-    "visible_row_index": 258,
-    "success_row_number": 256
+    "visible_row_index": 275,
+    "success_row_number": 271
   },
   {
     "date": "01/14/2026",
@@ -3337,8 +3532,8 @@
     "size_mb": "8.90",
     "href": "/api/PdfDownload/101068?action=Get",
     "batch": 6,
-    "visible_row_index": 259,
-    "success_row_number": 257
+    "visible_row_index": 276,
+    "success_row_number": 272
   },
   {
     "date": "01/14/2026",
@@ -3350,8 +3545,8 @@
     "size_mb": "4.59",
     "href": "/api/PdfDownload/101038?action=Get",
     "batch": 6,
-    "visible_row_index": 260,
-    "success_row_number": 258
+    "visible_row_index": 277,
+    "success_row_number": 273
   },
   {
     "date": "01/14/2026",
@@ -3363,8 +3558,8 @@
     "size_mb": ".39",
     "href": "/api/PdfDownload/101039?action=Get",
     "batch": 6,
-    "visible_row_index": 261,
-    "success_row_number": 259
+    "visible_row_index": 278,
+    "success_row_number": 274
   },
   {
     "date": "01/13/2026",
@@ -3376,8 +3571,8 @@
     "size_mb": "11.78",
     "href": "/api/PdfDownload/101017?action=Get",
     "batch": 6,
-    "visible_row_index": 262,
-    "success_row_number": 260
+    "visible_row_index": 279,
+    "success_row_number": 275
   },
   {
     "date": "01/13/2026",
@@ -3389,8 +3584,8 @@
     "size_mb": ".26",
     "href": "/api/PdfDownload/101018?action=Get",
     "batch": 6,
-    "visible_row_index": 263,
-    "success_row_number": 261
+    "visible_row_index": 280,
+    "success_row_number": 276
   },
   {
     "date": "01/13/2026",
@@ -3402,8 +3597,8 @@
     "size_mb": ".26",
     "href": "/api/PdfDownload/101019?action=Get",
     "batch": 6,
-    "visible_row_index": 264,
-    "success_row_number": 262
+    "visible_row_index": 281,
+    "success_row_number": 277
   },
   {
     "date": "01/13/2026",
@@ -3415,8 +3610,8 @@
     "size_mb": "2.06",
     "href": "/api/PdfDownload/101071?action=Get",
     "batch": 6,
-    "visible_row_index": 265,
-    "success_row_number": 263
+    "visible_row_index": 282,
+    "success_row_number": 278
   },
   {
     "date": "01/13/2026",
@@ -3428,8 +3623,8 @@
     "size_mb": "2.76",
     "href": "/api/PdfDownload/101067?action=Get",
     "batch": 6,
-    "visible_row_index": 266,
-    "success_row_number": 264
+    "visible_row_index": 283,
+    "success_row_number": 279
   },
   {
     "date": "01/13/2026",
@@ -3441,8 +3636,8 @@
     "size_mb": "1.74",
     "href": "/api/PdfDownload/101025?action=Get",
     "batch": 6,
-    "visible_row_index": 267,
-    "success_row_number": 265
+    "visible_row_index": 284,
+    "success_row_number": 280
   },
   {
     "date": "01/13/2026",
@@ -3454,8 +3649,8 @@
     "size_mb": ".28",
     "href": "/api/PdfDownload/101026?action=Get",
     "batch": 6,
-    "visible_row_index": 268,
-    "success_row_number": 266
+    "visible_row_index": 285,
+    "success_row_number": 281
   },
   {
     "date": "01/13/2026",
@@ -3467,8 +3662,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/101027?action=Get",
     "batch": 6,
-    "visible_row_index": 269,
-    "success_row_number": 267
+    "visible_row_index": 286,
+    "success_row_number": 282
   },
   {
     "date": "01/13/2026",
@@ -3480,8 +3675,8 @@
     "size_mb": "4.72",
     "href": "/api/PdfDownload/101035?action=Get",
     "batch": 6,
-    "visible_row_index": 270,
-    "success_row_number": 268
+    "visible_row_index": 287,
+    "success_row_number": 283
   },
   {
     "date": "01/13/2026",
@@ -3493,8 +3688,8 @@
     "size_mb": "4.69",
     "href": "/api/PdfDownload/101036?action=Get",
     "batch": 6,
-    "visible_row_index": 271,
-    "success_row_number": 269
+    "visible_row_index": 288,
+    "success_row_number": 284
   },
   {
     "date": "01/08/2026",
@@ -3506,8 +3701,8 @@
     "size_mb": "4.55",
     "href": "/api/PdfDownload/101060?action=Get",
     "batch": 6,
-    "visible_row_index": 272,
-    "success_row_number": 270
+    "visible_row_index": 289,
+    "success_row_number": 285
   },
   {
     "date": "01/07/2026",
@@ -3519,8 +3714,8 @@
     "size_mb": "6.59",
     "href": "/api/PdfDownload/101063?action=Get",
     "batch": 6,
-    "visible_row_index": 273,
-    "success_row_number": 271
+    "visible_row_index": 290,
+    "success_row_number": 286
   },
   {
     "date": "01/06/2026",
@@ -3532,8 +3727,8 @@
     "size_mb": "7.39",
     "href": "/api/PdfDownload/101046?action=Get",
     "batch": 6,
-    "visible_row_index": 274,
-    "success_row_number": 272
+    "visible_row_index": 291,
+    "success_row_number": 287
   },
   {
     "date": "12/18/2025",
@@ -3545,8 +3740,8 @@
     "size_mb": "16.71",
     "href": "/api/PdfDownload/101004?action=Get",
     "batch": 6,
-    "visible_row_index": 275,
-    "success_row_number": 273
+    "visible_row_index": 292,
+    "success_row_number": 288
   },
   {
     "date": "12/18/2025",
@@ -3558,8 +3753,8 @@
     "size_mb": "4.21",
     "href": "/api/PdfDownload/101013?action=Get",
     "batch": 6,
-    "visible_row_index": 276,
-    "success_row_number": 274
+    "visible_row_index": 293,
+    "success_row_number": 289
   },
   {
     "date": "12/18/2025",
@@ -3571,8 +3766,8 @@
     "size_mb": "4.01",
     "href": "/api/PdfDownload/101014?action=Get",
     "batch": 6,
-    "visible_row_index": 277,
-    "success_row_number": 275
+    "visible_row_index": 294,
+    "success_row_number": 290
   },
   {
     "date": "12/17/2025",
@@ -3584,8 +3779,8 @@
     "size_mb": "4.30",
     "href": "/api/PdfDownload/100982?action=Get",
     "batch": 6,
-    "visible_row_index": 278,
-    "success_row_number": 276
+    "visible_row_index": 295,
+    "success_row_number": 291
   },
   {
     "date": "12/17/2025",
@@ -3597,47 +3792,8 @@
     "size_mb": "2.60",
     "href": "/api/PdfDownload/100998?action=Get",
     "batch": 6,
-    "visible_row_index": 279,
-    "success_row_number": 277
-  },
-  {
-    "date": "12/16/2025",
-    "issue": "Williamson County MUD No. 25, TX Unlimited Tax Bonds, Series 2026",
-    "manager_fa": "Specialized Public Finance Inc. (FA)",
-    "par_amt": "7,000,000.00",
-    "doc_type": "Final",
-    "type": "Comp",
-    "size_mb": "4.76",
-    "href": "/api/PdfDownload/101008?action=Get",
-    "batch": 6,
-    "visible_row_index": 280,
-    "success_row_number": 278
-  },
-  {
-    "date": "12/16/2025",
-    "issue": "Harris County WC&ID No. 99, TX Unlimited Tax Bonds Series 2026",
-    "manager_fa": "GMS Group, LLC (FA)",
-    "par_amt": "4,220,000.00",
-    "doc_type": "Prelim",
-    "type": "Comp",
-    "size_mb": "6.18",
-    "href": "/api/PdfDownload/100944?action=Get",
-    "batch": 6,
-    "visible_row_index": 281,
-    "success_row_number": 279
-  },
-  {
-    "date": "12/16/2025",
-    "issue": "Harris County WC&ID No. 99, TX Unlimited Tax Bonds Series 2026",
-    "manager_fa": "GMS Group, LLC (FA)",
-    "par_amt": "4,220,000.00",
-    "doc_type": "NOS",
-    "type": "Comp",
-    "size_mb": ".19",
-    "href": "/api/PdfDownload/100945?action=Get",
-    "batch": 6,
-    "visible_row_index": 282,
-    "success_row_number": 280
+    "visible_row_index": 296,
+    "success_row_number": 292
   },
   {
     "date": "12/16/2025",
@@ -3649,8 +3805,8 @@
     "size_mb": "2.59",
     "href": "/api/PdfDownload/100999?action=Get",
     "batch": 6,
-    "visible_row_index": 283,
-    "success_row_number": 281
+    "visible_row_index": 297,
+    "success_row_number": 293
   },
   {
     "date": "12/16/2025",
@@ -3662,8 +3818,8 @@
     "size_mb": "3.33",
     "href": "/api/PdfDownload/100996?action=Get",
     "batch": 6,
-    "visible_row_index": 284,
-    "success_row_number": 282
+    "visible_row_index": 298,
+    "success_row_number": 294
   },
   {
     "date": "12/16/2025",
@@ -3675,8 +3831,8 @@
     "size_mb": ".67",
     "href": "/api/PdfDownload/100997?action=Get",
     "batch": 6,
-    "visible_row_index": 285,
-    "success_row_number": 283
+    "visible_row_index": 299,
+    "success_row_number": 295
   },
   {
     "date": "12/16/2025",
@@ -3688,8 +3844,8 @@
     "size_mb": "2.16",
     "href": "/api/PdfDownload/101006?action=Get",
     "batch": 6,
-    "visible_row_index": 286,
-    "success_row_number": 284
+    "visible_row_index": 300,
+    "success_row_number": 296
   },
   {
     "date": "12/15/2025",
@@ -3700,9 +3856,9 @@
     "type": "Comp",
     "size_mb": "2.80",
     "href": "/api/PdfDownload/100993?action=Get",
-    "batch": 6,
-    "visible_row_index": 287,
-    "success_row_number": 285
+    "batch": 7,
+    "visible_row_index": 304,
+    "success_row_number": 297
   },
   {
     "date": "12/15/2025",
@@ -3713,9 +3869,9 @@
     "type": "Comp",
     "size_mb": "2.49",
     "href": "/api/PdfDownload/100994?action=Get",
-    "batch": 6,
-    "visible_row_index": 288,
-    "success_row_number": 286
+    "batch": 7,
+    "visible_row_index": 305,
+    "success_row_number": 298
   },
   {
     "date": "12/15/2025",
@@ -3726,9 +3882,9 @@
     "type": "Comp",
     "size_mb": "2.93",
     "href": "/api/PdfDownload/101007?action=Get",
-    "batch": 6,
-    "visible_row_index": 289,
-    "success_row_number": 287
+    "batch": 7,
+    "visible_row_index": 306,
+    "success_row_number": 299
   },
   {
     "date": "12/15/2025",
@@ -3739,9 +3895,9 @@
     "type": "Comp",
     "size_mb": "17.46",
     "href": "/api/PdfDownload/101009?action=Get",
-    "batch": 6,
-    "visible_row_index": 290,
-    "success_row_number": 288
+    "batch": 7,
+    "visible_row_index": 307,
+    "success_row_number": 300
   },
   {
     "date": "12/15/2025",
@@ -3752,9 +3908,9 @@
     "type": "Comp",
     "size_mb": "22.14",
     "href": "/api/PdfDownload/101000?action=Get",
-    "batch": 6,
-    "visible_row_index": 291,
-    "success_row_number": 289
+    "batch": 7,
+    "visible_row_index": 308,
+    "success_row_number": 301
   },
   {
     "date": "12/11/2025",
@@ -3765,9 +3921,9 @@
     "type": "Neg",
     "size_mb": "5.28",
     "href": "/api/PdfDownload/100995?action=Get",
-    "batch": 6,
-    "visible_row_index": 292,
-    "success_row_number": 290
+    "batch": 7,
+    "visible_row_index": 309,
+    "success_row_number": 302
   },
   {
     "date": "12/11/2025",
@@ -3778,9 +3934,9 @@
     "type": "Comp",
     "size_mb": "8.13",
     "href": "/api/PdfDownload/100988?action=Get",
-    "batch": 6,
-    "visible_row_index": 293,
-    "success_row_number": 291
+    "batch": 7,
+    "visible_row_index": 310,
+    "success_row_number": 303
   },
   {
     "date": "12/11/2025",
@@ -3791,9 +3947,9 @@
     "type": "Comp",
     "size_mb": "4.50",
     "href": "/api/PdfDownload/100954?action=Get",
-    "batch": 6,
-    "visible_row_index": 294,
-    "success_row_number": 292
+    "batch": 7,
+    "visible_row_index": 311,
+    "success_row_number": 304
   },
   {
     "date": "12/11/2025",
@@ -3804,9 +3960,9 @@
     "type": "Comp",
     "size_mb": ".49",
     "href": "/api/PdfDownload/100955?action=Get",
-    "batch": 6,
-    "visible_row_index": 295,
-    "success_row_number": 293
+    "batch": 7,
+    "visible_row_index": 312,
+    "success_row_number": 305
   },
   {
     "date": "12/10/2025",
@@ -3817,9 +3973,9 @@
     "type": "Comp",
     "size_mb": "1.61",
     "href": "/api/PdfDownload/100992?action=Get",
-    "batch": 6,
-    "visible_row_index": 296,
-    "success_row_number": 294
+    "batch": 7,
+    "visible_row_index": 313,
+    "success_row_number": 306
   },
   {
     "date": "12/10/2025",
@@ -3830,9 +3986,35 @@
     "type": "Comp",
     "size_mb": "5.07",
     "href": "/api/PdfDownload/100991?action=Get",
-    "batch": 6,
-    "visible_row_index": 297,
-    "success_row_number": 295
+    "batch": 7,
+    "visible_row_index": 314,
+    "success_row_number": 307
+  },
+  {
+    "date": "12/09/2025",
+    "issue": "Texas A&M University System (BOR of the), TX Rev Financing Sys Bonds, Srs 2025A&Tax 2025B",
+    "manager_fa": "Wells Fargo Securities / Fidelity Financial Services, L.C. / Morgan Stanley / Hilltop Securities Inc. (FA)",
+    "par_amt": "277,820,000.00",
+    "doc_type": "Final",
+    "type": "Neg",
+    "size_mb": "2.97",
+    "href": "/api/PdfDownload/100978?action=Get",
+    "batch": 7,
+    "visible_row_index": 315,
+    "success_row_number": 308
+  },
+  {
+    "date": "12/09/2025",
+    "issue": "Beeville (City of), TX Combo Tax & Revenue COO's, Series 2026",
+    "manager_fa": "TEXAS CAPITAL SECURITIES / Piper Sandler & Co. / Specialized Public Finance Inc. (FA)",
+    "par_amt": "33,800,000.00",
+    "doc_type": "Final",
+    "type": "Neg",
+    "size_mb": "2.64",
+    "href": "/api/PdfDownload/100981?action=Get",
+    "batch": 7,
+    "visible_row_index": 316,
+    "success_row_number": 309
   },
   {
     "date": "12/09/2025",
@@ -3843,9 +4025,9 @@
     "type": "Comp",
     "size_mb": "12.95",
     "href": "/api/PdfDownload/100984?action=Get",
-    "batch": 6,
-    "visible_row_index": 298,
-    "success_row_number": 296
+    "batch": 7,
+    "visible_row_index": 317,
+    "success_row_number": 310
   },
   {
     "date": "12/09/2025",
@@ -3856,9 +4038,9 @@
     "type": "Neg",
     "size_mb": "1.96",
     "href": "/api/PdfDownload/100983?action=Get",
-    "batch": 6,
-    "visible_row_index": 299,
-    "success_row_number": 297
+    "batch": 7,
+    "visible_row_index": 318,
+    "success_row_number": 311
   },
   {
     "date": "12/09/2025",
@@ -3869,9 +4051,9 @@
     "type": "Neg",
     "size_mb": "3.30",
     "href": "/api/PdfDownload/100989?action=Get",
-    "batch": 6,
-    "visible_row_index": 300,
-    "success_row_number": 298
+    "batch": 7,
+    "visible_row_index": 319,
+    "success_row_number": 312
   },
   {
     "date": "12/09/2025",
@@ -3883,8 +4065,8 @@
     "size_mb": "3.21",
     "href": "/api/PdfDownload/100977?action=Get",
     "batch": 7,
-    "visible_row_index": 303,
-    "success_row_number": 299
+    "visible_row_index": 320,
+    "success_row_number": 313
   },
   {
     "date": "12/08/2025",
@@ -3896,8 +4078,8 @@
     "size_mb": "2.48",
     "href": "/api/PdfDownload/100990?action=Get",
     "batch": 7,
-    "visible_row_index": 304,
-    "success_row_number": 300
+    "visible_row_index": 321,
+    "success_row_number": 314
   },
   {
     "date": "12/08/2025",
@@ -3909,8 +4091,8 @@
     "size_mb": ".35",
     "href": "/api/PdfDownload/100973?action=Get",
     "batch": 7,
-    "visible_row_index": 305,
-    "success_row_number": 301
+    "visible_row_index": 322,
+    "success_row_number": 315
   },
   {
     "date": "12/04/2025",
@@ -3922,8 +4104,8 @@
     "size_mb": "3.87",
     "href": "/api/PdfDownload/100858?action=Get",
     "batch": 7,
-    "visible_row_index": 306,
-    "success_row_number": 302
+    "visible_row_index": 323,
+    "success_row_number": 316
   },
   {
     "date": "12/04/2025",
@@ -3935,8 +4117,8 @@
     "size_mb": ".40",
     "href": "/api/PdfDownload/100859?action=Get",
     "batch": 7,
-    "visible_row_index": 307,
-    "success_row_number": 303
+    "visible_row_index": 324,
+    "success_row_number": 317
   },
   {
     "date": "12/04/2025",
@@ -3948,8 +4130,8 @@
     "size_mb": "8.16",
     "href": "/api/PdfDownload/100968?action=Get",
     "batch": 7,
-    "visible_row_index": 308,
-    "success_row_number": 304
+    "visible_row_index": 325,
+    "success_row_number": 318
   },
   {
     "date": "12/04/2025",
@@ -3961,8 +4143,8 @@
     "size_mb": "2.92",
     "href": "/api/PdfDownload/100974?action=Get",
     "batch": 7,
-    "visible_row_index": 309,
-    "success_row_number": 305
+    "visible_row_index": 326,
+    "success_row_number": 319
   },
   {
     "date": "12/04/2025",
@@ -3974,8 +4156,8 @@
     "size_mb": "2.24",
     "href": "/api/PdfDownload/100976?action=Get",
     "batch": 7,
-    "visible_row_index": 310,
-    "success_row_number": 306
+    "visible_row_index": 327,
+    "success_row_number": 320
   },
   {
     "date": "12/04/2025",
@@ -3987,8 +4169,8 @@
     "size_mb": "1.32",
     "href": "/api/PdfDownload/100902?action=Get",
     "batch": 7,
-    "visible_row_index": 311,
-    "success_row_number": 307
+    "visible_row_index": 328,
+    "success_row_number": 321
   },
   {
     "date": "12/04/2025",
@@ -4000,8 +4182,8 @@
     "size_mb": "1.03",
     "href": "/api/PdfDownload/100889?action=Get",
     "batch": 7,
-    "visible_row_index": 312,
-    "success_row_number": 308
+    "visible_row_index": 329,
+    "success_row_number": 322
   },
   {
     "date": "12/04/2025",
@@ -4013,8 +4195,8 @@
     "size_mb": "4.65",
     "href": "/api/PdfDownload/100975?action=Get",
     "batch": 7,
-    "visible_row_index": 313,
-    "success_row_number": 309
+    "visible_row_index": 330,
+    "success_row_number": 323
   },
   {
     "date": "12/03/2025",
@@ -4026,8 +4208,8 @@
     "size_mb": "11.32",
     "href": "/api/PdfDownload/100855?action=Get",
     "batch": 7,
-    "visible_row_index": 314,
-    "success_row_number": 310
+    "visible_row_index": 331,
+    "success_row_number": 324
   },
   {
     "date": "12/03/2025",
@@ -4039,8 +4221,8 @@
     "size_mb": ".25",
     "href": "/api/PdfDownload/100856?action=Get",
     "batch": 7,
-    "visible_row_index": 315,
-    "success_row_number": 311
+    "visible_row_index": 332,
+    "success_row_number": 325
   },
   {
     "date": "12/03/2025",
@@ -4052,8 +4234,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/100857?action=Get",
     "batch": 7,
-    "visible_row_index": 316,
-    "success_row_number": 312
+    "visible_row_index": 333,
+    "success_row_number": 326
   },
   {
     "date": "12/03/2025",
@@ -4065,8 +4247,8 @@
     "size_mb": "4.97",
     "href": "/api/PdfDownload/100899?action=Get",
     "batch": 7,
-    "visible_row_index": 317,
-    "success_row_number": 313
+    "visible_row_index": 334,
+    "success_row_number": 327
   },
   {
     "date": "12/03/2025",
@@ -4078,8 +4260,8 @@
     "size_mb": ".24",
     "href": "/api/PdfDownload/100873?action=Get",
     "batch": 7,
-    "visible_row_index": 318,
-    "success_row_number": 314
+    "visible_row_index": 335,
+    "success_row_number": 328
   },
   {
     "date": "12/03/2025",
@@ -4091,8 +4273,8 @@
     "size_mb": "3.49",
     "href": "/api/PdfDownload/100971?action=Get",
     "batch": 7,
-    "visible_row_index": 319,
-    "success_row_number": 315
+    "visible_row_index": 336,
+    "success_row_number": 329
   },
   {
     "date": "12/03/2025",
@@ -4104,8 +4286,8 @@
     "size_mb": ".02",
     "href": "/api/PdfDownload/100987?action=Get",
     "batch": 7,
-    "visible_row_index": 320,
-    "success_row_number": 316
+    "visible_row_index": 337,
+    "success_row_number": 330
   },
   {
     "date": "12/03/2025",
@@ -4117,8 +4299,8 @@
     "size_mb": "2.79",
     "href": "/api/PdfDownload/100972?action=Get",
     "batch": 7,
-    "visible_row_index": 321,
-    "success_row_number": 317
+    "visible_row_index": 338,
+    "success_row_number": 331
   },
   {
     "date": "12/03/2025",
@@ -4130,8 +4312,8 @@
     "size_mb": "4.11",
     "href": "/api/PdfDownload/100950?action=Get",
     "batch": 7,
-    "visible_row_index": 322,
-    "success_row_number": 318
+    "visible_row_index": 339,
+    "success_row_number": 332
   },
   {
     "date": "12/03/2025",
@@ -4143,8 +4325,8 @@
     "size_mb": "3.95",
     "href": "/api/PdfDownload/100967?action=Get",
     "batch": 7,
-    "visible_row_index": 323,
-    "success_row_number": 319
+    "visible_row_index": 340,
+    "success_row_number": 333
   },
   {
     "date": "12/03/2025",
@@ -4156,8 +4338,8 @@
     "size_mb": ".02",
     "href": "/api/PdfDownload/100986?action=Get",
     "batch": 7,
-    "visible_row_index": 324,
-    "success_row_number": 320
+    "visible_row_index": 341,
+    "success_row_number": 334
   },
   {
     "date": "12/02/2025",
@@ -4169,8 +4351,8 @@
     "size_mb": "2.94",
     "href": "/api/PdfDownload/100970?action=Get",
     "batch": 7,
-    "visible_row_index": 325,
-    "success_row_number": 321
+    "visible_row_index": 342,
+    "success_row_number": 335
   },
   {
     "date": "12/02/2025",
@@ -4182,8 +4364,8 @@
     "size_mb": ".98",
     "href": "/api/PdfDownload/100969?action=Get",
     "batch": 7,
-    "visible_row_index": 326,
-    "success_row_number": 322
+    "visible_row_index": 343,
+    "success_row_number": 336
   },
   {
     "date": "12/02/2025",
@@ -4195,8 +4377,8 @@
     "size_mb": "3.67",
     "href": "/api/PdfDownload/100949?action=Get",
     "batch": 7,
-    "visible_row_index": 327,
-    "success_row_number": 323
+    "visible_row_index": 344,
+    "success_row_number": 337
   },
   {
     "date": "12/02/2025",
@@ -4208,8 +4390,8 @@
     "size_mb": "3.87",
     "href": "/api/PdfDownload/100959?action=Get",
     "batch": 7,
-    "visible_row_index": 328,
-    "success_row_number": 324
+    "visible_row_index": 345,
+    "success_row_number": 338
   },
   {
     "date": "12/02/2025",
@@ -4221,8 +4403,8 @@
     "size_mb": "4.80",
     "href": "/api/PdfDownload/100870?action=Get",
     "batch": 7,
-    "visible_row_index": 329,
-    "success_row_number": 325
+    "visible_row_index": 346,
+    "success_row_number": 339
   },
   {
     "date": "12/02/2025",
@@ -4234,8 +4416,8 @@
     "size_mb": ".24",
     "href": "/api/PdfDownload/100871?action=Get",
     "batch": 7,
-    "visible_row_index": 330,
-    "success_row_number": 326
+    "visible_row_index": 347,
+    "success_row_number": 340
   },
   {
     "date": "12/02/2025",
@@ -4247,8 +4429,8 @@
     "size_mb": "9.30",
     "href": "/api/PdfDownload/100900?action=Get",
     "batch": 7,
-    "visible_row_index": 331,
-    "success_row_number": 327
+    "visible_row_index": 348,
+    "success_row_number": 341
   },
   {
     "date": "12/02/2025",
@@ -4260,8 +4442,8 @@
     "size_mb": ".26",
     "href": "/api/PdfDownload/100901?action=Get",
     "batch": 7,
-    "visible_row_index": 332,
-    "success_row_number": 328
+    "visible_row_index": 349,
+    "success_row_number": 342
   },
   {
     "date": "12/01/2025",
@@ -4273,8 +4455,8 @@
     "size_mb": "2.60",
     "href": "/api/PdfDownload/100956?action=Get",
     "batch": 7,
-    "visible_row_index": 333,
-    "success_row_number": 329
+    "visible_row_index": 350,
+    "success_row_number": 343
   },
   {
     "date": "11/25/2025",
@@ -4285,9 +4467,9 @@
     "type": "Comp",
     "size_mb": "1.66",
     "href": "/api/PdfDownload/100951?action=Get",
-    "batch": 7,
-    "visible_row_index": 334,
-    "success_row_number": 330
+    "batch": 8,
+    "visible_row_index": 351,
+    "success_row_number": 344
   },
   {
     "date": "11/24/2025",
@@ -4298,9 +4480,9 @@
     "type": "Neg",
     "size_mb": "2.77",
     "href": "/api/PdfDownload/100933?action=Get",
-    "batch": 7,
-    "visible_row_index": 335,
-    "success_row_number": 331
+    "batch": 8,
+    "visible_row_index": 352,
+    "success_row_number": 345
   },
   {
     "date": "11/24/2025",
@@ -4311,9 +4493,9 @@
     "type": "Neg",
     "size_mb": "2.98",
     "href": "/api/PdfDownload/100934?action=Get",
-    "batch": 7,
-    "visible_row_index": 336,
-    "success_row_number": 332
+    "batch": 8,
+    "visible_row_index": 353,
+    "success_row_number": 346
   },
   {
     "date": "11/24/2025",
@@ -4324,9 +4506,9 @@
     "type": "Comp",
     "size_mb": "3.39",
     "href": "/api/PdfDownload/100920?action=Get",
-    "batch": 7,
-    "visible_row_index": 337,
-    "success_row_number": 333
+    "batch": 8,
+    "visible_row_index": 354,
+    "success_row_number": 347
   },
   {
     "date": "11/24/2025",
@@ -4337,9 +4519,9 @@
     "type": "Neg",
     "size_mb": "5.39",
     "href": "/api/PdfDownload/100926?action=Get",
-    "batch": 7,
-    "visible_row_index": 338,
-    "success_row_number": 334
+    "batch": 8,
+    "visible_row_index": 355,
+    "success_row_number": 348
   },
   {
     "date": "11/24/2025",
@@ -4350,9 +4532,9 @@
     "type": "Neg",
     "size_mb": "2.86",
     "href": "/api/PdfDownload/100947?action=Get",
-    "batch": 7,
-    "visible_row_index": 339,
-    "success_row_number": 335
+    "batch": 8,
+    "visible_row_index": 356,
+    "success_row_number": 349
   },
   {
     "date": "11/20/2025",
@@ -4363,9 +4545,9 @@
     "type": "Comp",
     "size_mb": "1.42",
     "href": "/api/PdfDownload/100887?action=Get",
-    "batch": 7,
-    "visible_row_index": 340,
-    "success_row_number": 336
+    "batch": 8,
+    "visible_row_index": 357,
+    "success_row_number": 350
   },
   {
     "date": "11/20/2025",
@@ -4376,9 +4558,9 @@
     "type": "Comp",
     "size_mb": "9.23",
     "href": "/api/PdfDownload/100788?action=Get",
-    "batch": 7,
-    "visible_row_index": 341,
-    "success_row_number": 337
+    "batch": 8,
+    "visible_row_index": 358,
+    "success_row_number": 351
   },
   {
     "date": "11/20/2025",
@@ -4389,9 +4571,9 @@
     "type": "Comp",
     "size_mb": "1.88",
     "href": "/api/PdfDownload/100903?action=Get",
-    "batch": 7,
-    "visible_row_index": 342,
-    "success_row_number": 338
+    "batch": 8,
+    "visible_row_index": 359,
+    "success_row_number": 352
   },
   {
     "date": "11/20/2025",
@@ -4402,9 +4584,9 @@
     "type": "Comp",
     "size_mb": "4.41",
     "href": "/api/PdfDownload/100879?action=Get",
-    "batch": 7,
-    "visible_row_index": 343,
-    "success_row_number": 339
+    "batch": 8,
+    "visible_row_index": 360,
+    "success_row_number": 353
   },
   {
     "date": "11/20/2025",
@@ -4415,9 +4597,9 @@
     "type": "Comp",
     "size_mb": "2.30",
     "href": "/api/PdfDownload/100898?action=Get",
-    "batch": 7,
-    "visible_row_index": 344,
-    "success_row_number": 340
+    "batch": 8,
+    "visible_row_index": 361,
+    "success_row_number": 354
   },
   {
     "date": "11/20/2025",
@@ -4428,9 +4610,9 @@
     "type": "Comp",
     "size_mb": "4.83",
     "href": "/api/PdfDownload/100821?action=Get",
-    "batch": 7,
-    "visible_row_index": 345,
-    "success_row_number": 341
+    "batch": 8,
+    "visible_row_index": 362,
+    "success_row_number": 355
   },
   {
     "date": "11/20/2025",
@@ -4441,9 +4623,9 @@
     "type": "Comp",
     "size_mb": ".90",
     "href": "/api/PdfDownload/100822?action=Get",
-    "batch": 7,
-    "visible_row_index": 346,
-    "success_row_number": 342
+    "batch": 8,
+    "visible_row_index": 363,
+    "success_row_number": 356
   },
   {
     "date": "11/20/2025",
@@ -4454,9 +4636,9 @@
     "type": "Comp",
     "size_mb": "3.13",
     "href": "/api/PdfDownload/100829?action=Get",
-    "batch": 7,
-    "visible_row_index": 347,
-    "success_row_number": 343
+    "batch": 8,
+    "visible_row_index": 364,
+    "success_row_number": 357
   },
   {
     "date": "11/20/2025",
@@ -4467,35 +4649,35 @@
     "type": "Comp",
     "size_mb": "1.61",
     "href": "/api/PdfDownload/100830?action=Get",
-    "batch": 7,
-    "visible_row_index": 348,
-    "success_row_number": 344
+    "batch": 8,
+    "visible_row_index": 365,
+    "success_row_number": 358
   },
   {
     "date": "11/19/2025",
-    "issue": "Fulton County, GA, Water & Sewerage Revenue Refunding Bonds, Series 2025",
-    "manager_fa": "Raymond James (FA)",
-    "par_amt": "195,675,000.00",
-    "doc_type": "Prelim",
+    "issue": "Williamson County MUD No. 19G, TX Unltd Tax Bonds, Series 2025",
+    "manager_fa": "Specialized Public Finance Inc. (FA)",
+    "par_amt": "5,155,000.00",
+    "doc_type": "Final",
     "type": "Comp",
-    "size_mb": "2.69",
-    "href": "/api/PdfDownload/100799?action=Get",
-    "batch": 7,
-    "visible_row_index": 349,
-    "success_row_number": 345
+    "size_mb": "5.68",
+    "href": "/api/PdfDownload/100907?action=Get",
+    "batch": 8,
+    "visible_row_index": 366,
+    "success_row_number": 359
   },
   {
     "date": "11/19/2025",
-    "issue": "Fulton County, GA, Water & Sewerage Revenue Refunding Bonds, Series 2025",
-    "manager_fa": "Raymond James (FA)",
-    "par_amt": "195,675,000.00",
-    "doc_type": "NOS",
+    "issue": "Waller County Road Improvement District No. 1, TX Unltd Tax Bonds, Series 2025B",
+    "manager_fa": "GMS Group, LLC (FA)",
+    "par_amt": "11,145,000.00",
+    "doc_type": "Final",
     "type": "Comp",
-    "size_mb": ".71",
-    "href": "/api/PdfDownload/100800?action=Get",
-    "batch": 7,
-    "visible_row_index": 350,
-    "success_row_number": 346
+    "size_mb": "3.77",
+    "href": "/api/PdfDownload/100872?action=Get",
+    "batch": 8,
+    "visible_row_index": 367,
+    "success_row_number": 360
   },
   {
     "date": "11/19/2025",
@@ -4507,8 +4689,8 @@
     "size_mb": "1.28",
     "href": "/api/PdfDownload/100891?action=Get",
     "batch": 8,
-    "visible_row_index": 351,
-    "success_row_number": 347
+    "visible_row_index": 368,
+    "success_row_number": 361
   },
   {
     "date": "11/19/2025",
@@ -4520,8 +4702,8 @@
     "size_mb": "2.48",
     "href": "/api/PdfDownload/100912?action=Get",
     "batch": 8,
-    "visible_row_index": 352,
-    "success_row_number": 348
+    "visible_row_index": 369,
+    "success_row_number": 362
   },
   {
     "date": "11/19/2025",
@@ -4533,8 +4715,34 @@
     "size_mb": "5.17",
     "href": "/api/PdfDownload/100890?action=Get",
     "batch": 8,
-    "visible_row_index": 353,
-    "success_row_number": 349
+    "visible_row_index": 370,
+    "success_row_number": 363
+  },
+  {
+    "date": "11/19/2025",
+    "issue": "Fulton County, GA, Water & Sewerage Revenue Refunding Bonds, Series 2025",
+    "manager_fa": "Raymond James (FA)",
+    "par_amt": "195,675,000.00",
+    "doc_type": "Prelim",
+    "type": "Comp",
+    "size_mb": "2.69",
+    "href": "/api/PdfDownload/100799?action=Get",
+    "batch": 8,
+    "visible_row_index": 371,
+    "success_row_number": 364
+  },
+  {
+    "date": "11/19/2025",
+    "issue": "Fulton County, GA, Water & Sewerage Revenue Refunding Bonds, Series 2025",
+    "manager_fa": "Raymond James (FA)",
+    "par_amt": "195,675,000.00",
+    "doc_type": "NOS",
+    "type": "Comp",
+    "size_mb": ".71",
+    "href": "/api/PdfDownload/100800?action=Get",
+    "batch": 8,
+    "visible_row_index": 372,
+    "success_row_number": 365
   },
   {
     "date": "11/19/2025",
@@ -4546,8 +4754,8 @@
     "size_mb": "2.15",
     "href": "/api/PdfDownload/100916?action=Get",
     "batch": 8,
-    "visible_row_index": 356,
-    "success_row_number": 350
+    "visible_row_index": 373,
+    "success_row_number": 366
   },
   {
     "date": "11/19/2025",
@@ -4559,8 +4767,8 @@
     "size_mb": "4.37",
     "href": "/api/PdfDownload/100905?action=Get",
     "batch": 8,
-    "visible_row_index": 357,
-    "success_row_number": 351
+    "visible_row_index": 374,
+    "success_row_number": 367
   },
   {
     "date": "11/19/2025",
@@ -4572,8 +4780,8 @@
     "size_mb": "1.63",
     "href": "/api/PdfDownload/100918?action=Get",
     "batch": 8,
-    "visible_row_index": 358,
-    "success_row_number": 352
+    "visible_row_index": 375,
+    "success_row_number": 368
   },
   {
     "date": "11/19/2025",
@@ -4585,8 +4793,8 @@
     "size_mb": "3.30",
     "href": "/api/PdfDownload/100910?action=Get",
     "batch": 8,
-    "visible_row_index": 359,
-    "success_row_number": 353
+    "visible_row_index": 376,
+    "success_row_number": 369
   },
   {
     "date": "11/19/2025",
@@ -4598,8 +4806,8 @@
     "size_mb": "3.14",
     "href": "/api/PdfDownload/100921?action=Get",
     "batch": 8,
-    "visible_row_index": 360,
-    "success_row_number": 354
+    "visible_row_index": 377,
+    "success_row_number": 370
   },
   {
     "date": "11/18/2025",
@@ -4611,8 +4819,8 @@
     "size_mb": "4.75",
     "href": "/api/PdfDownload/100908?action=Get",
     "batch": 8,
-    "visible_row_index": 361,
-    "success_row_number": 355
+    "visible_row_index": 378,
+    "success_row_number": 371
   },
   {
     "date": "11/18/2025",
@@ -4624,8 +4832,8 @@
     "size_mb": "6.90",
     "href": "/api/PdfDownload/100911?action=Get",
     "batch": 8,
-    "visible_row_index": 362,
-    "success_row_number": 356
+    "visible_row_index": 379,
+    "success_row_number": 372
   },
   {
     "date": "11/18/2025",
@@ -4637,8 +4845,8 @@
     "size_mb": "18.00",
     "href": "/api/PdfDownload/100919?action=Get",
     "batch": 8,
-    "visible_row_index": 363,
-    "success_row_number": 357
+    "visible_row_index": 380,
+    "success_row_number": 373
   },
   {
     "date": "11/18/2025",
@@ -4650,8 +4858,8 @@
     "size_mb": "1.31",
     "href": "/api/PdfDownload/100877?action=Get",
     "batch": 8,
-    "visible_row_index": 364,
-    "success_row_number": 358
+    "visible_row_index": 381,
+    "success_row_number": 374
   },
   {
     "date": "11/18/2025",
@@ -4663,8 +4871,8 @@
     "size_mb": "2.59",
     "href": "/api/PdfDownload/100884?action=Get",
     "batch": 8,
-    "visible_row_index": 365,
-    "success_row_number": 359
+    "visible_row_index": 382,
+    "success_row_number": 375
   },
   {
     "date": "11/18/2025",
@@ -4676,8 +4884,8 @@
     "size_mb": "6.32",
     "href": "/api/PdfDownload/100865?action=Get",
     "batch": 8,
-    "visible_row_index": 366,
-    "success_row_number": 360
+    "visible_row_index": 383,
+    "success_row_number": 376
   },
   {
     "date": "11/18/2025",
@@ -4689,8 +4897,8 @@
     "size_mb": "3.45",
     "href": "/api/PdfDownload/100896?action=Get",
     "batch": 8,
-    "visible_row_index": 367,
-    "success_row_number": 361
+    "visible_row_index": 384,
+    "success_row_number": 377
   },
   {
     "date": "11/18/2025",
@@ -4702,8 +4910,8 @@
     "size_mb": "12.22",
     "href": "/api/PdfDownload/100869?action=Get",
     "batch": 8,
-    "visible_row_index": 368,
-    "success_row_number": 362
+    "visible_row_index": 385,
+    "success_row_number": 378
   },
   {
     "date": "11/18/2025",
@@ -4715,8 +4923,8 @@
     "size_mb": "7.28",
     "href": "/api/PdfDownload/100909?action=Get",
     "batch": 8,
-    "visible_row_index": 369,
-    "success_row_number": 363
+    "visible_row_index": 386,
+    "success_row_number": 379
   },
   {
     "date": "11/18/2025",
@@ -4728,8 +4936,8 @@
     "size_mb": ".13",
     "href": "/api/PdfDownload/100786?action=Get",
     "batch": 8,
-    "visible_row_index": 370,
-    "success_row_number": 364
+    "visible_row_index": 387,
+    "success_row_number": 380
   },
   {
     "date": "11/18/2025",
@@ -4741,8 +4949,8 @@
     "size_mb": "1.73",
     "href": "/api/PdfDownload/100894?action=Get",
     "batch": 8,
-    "visible_row_index": 371,
-    "success_row_number": 365
+    "visible_row_index": 388,
+    "success_row_number": 381
   },
   {
     "date": "11/18/2025",
@@ -4754,8 +4962,8 @@
     "size_mb": "4.72",
     "href": "/api/PdfDownload/100880?action=Get",
     "batch": 8,
-    "visible_row_index": 372,
-    "success_row_number": 366
+    "visible_row_index": 389,
+    "success_row_number": 382
   },
   {
     "date": "11/18/2025",
@@ -4767,8 +4975,8 @@
     "size_mb": "6.26",
     "href": "/api/PdfDownload/100809?action=Get",
     "batch": 8,
-    "visible_row_index": 373,
-    "success_row_number": 367
+    "visible_row_index": 390,
+    "success_row_number": 383
   },
   {
     "date": "11/18/2025",
@@ -4780,8 +4988,8 @@
     "size_mb": ".18",
     "href": "/api/PdfDownload/100810?action=Get",
     "batch": 8,
-    "visible_row_index": 374,
-    "success_row_number": 368
+    "visible_row_index": 391,
+    "success_row_number": 384
   },
   {
     "date": "11/17/2025",
@@ -4793,8 +5001,8 @@
     "size_mb": "5.92",
     "href": "/api/PdfDownload/100897?action=Get",
     "batch": 8,
-    "visible_row_index": 375,
-    "success_row_number": 369
+    "visible_row_index": 392,
+    "success_row_number": 385
   },
   {
     "date": "11/17/2025",
@@ -4806,8 +5014,8 @@
     "size_mb": ".07",
     "href": "/api/PdfDownload/100735?action=Get",
     "batch": 8,
-    "visible_row_index": 376,
-    "success_row_number": 370
+    "visible_row_index": 393,
+    "success_row_number": 386
   },
   {
     "date": "11/17/2025",
@@ -4819,8 +5027,8 @@
     "size_mb": "5.51",
     "href": "/api/PdfDownload/100892?action=Get",
     "batch": 8,
-    "visible_row_index": 377,
-    "success_row_number": 371
+    "visible_row_index": 394,
+    "success_row_number": 387
   },
   {
     "date": "11/17/2025",
@@ -4832,8 +5040,8 @@
     "size_mb": ".07",
     "href": "/api/PdfDownload/100738?action=Get",
     "batch": 8,
-    "visible_row_index": 378,
-    "success_row_number": 372
+    "visible_row_index": 395,
+    "success_row_number": 388
   },
   {
     "date": "11/17/2025",
@@ -4845,8 +5053,8 @@
     "size_mb": "5.51",
     "href": "/api/PdfDownload/100893?action=Get",
     "batch": 8,
-    "visible_row_index": 379,
-    "success_row_number": 373
+    "visible_row_index": 396,
+    "success_row_number": 389
   },
   {
     "date": "11/14/2025",
@@ -4858,34 +5066,8 @@
     "size_mb": "1.82",
     "href": "/api/PdfDownload/100831?action=Get",
     "batch": 8,
-    "visible_row_index": 380,
-    "success_row_number": 374
-  },
-  {
-    "date": "11/13/2025",
-    "issue": "Harris County MUD No. 586, TX Unltd Tax Road Bonds, Series 2025",
-    "manager_fa": "GMS Group, LLC (FA)",
-    "par_amt": "3,340,000.00",
-    "doc_type": "Final",
-    "type": "Comp",
-    "size_mb": "1.87",
-    "href": "/api/PdfDownload/100850?action=Get",
-    "batch": 8,
-    "visible_row_index": 381,
-    "success_row_number": 375
-  },
-  {
-    "date": "11/13/2025",
-    "issue": "Harris County MUD No. 86, TX Unltd Tax Bonds, Series 2025",
-    "manager_fa": "GMS Group, LLC (FA)",
-    "par_amt": "4,405,000.00",
-    "doc_type": "Final",
-    "type": "Comp",
-    "size_mb": "1.45",
-    "href": "/api/PdfDownload/100853?action=Get",
-    "batch": 8,
-    "visible_row_index": 382,
-    "success_row_number": 376
+    "visible_row_index": 397,
+    "success_row_number": 390
   },
   {
     "date": "11/13/2025",
@@ -4897,8 +5079,8 @@
     "size_mb": "4.60",
     "href": "/api/PdfDownload/100864?action=Get",
     "batch": 8,
-    "visible_row_index": 383,
-    "success_row_number": 377
+    "visible_row_index": 398,
+    "success_row_number": 391
   },
   {
     "date": "11/13/2025",
@@ -4910,47 +5092,8 @@
     "size_mb": "1.83",
     "href": "/api/PdfDownload/100724?action=Get",
     "batch": 8,
-    "visible_row_index": 384,
-    "success_row_number": 378
-  },
-  {
-    "date": "11/13/2025",
-    "issue": "Virginia Housing Development Authority, VA Rental Housing Bonds, 2025 Series F-Non-AMT",
-    "manager_fa": "---------- (FA)",
-    "par_amt": "102,780,000.00",
-    "doc_type": "NOS",
-    "type": "Comp",
-    "size_mb": ".18",
-    "href": "/api/PdfDownload/100725?action=Get",
-    "batch": 8,
-    "visible_row_index": 385,
-    "success_row_number": 379
-  },
-  {
-    "date": "11/13/2025",
-    "issue": "Virginia Housing Development Authority, VA Rental Housing Bonds, 2025 Series F-Non-AMT",
-    "manager_fa": "---------- (FA)",
-    "par_amt": "102,780,000.00",
-    "doc_type": "Memo",
-    "type": "Comp",
-    "size_mb": ".41",
-    "href": "/api/PdfDownload/100726?action=Get",
-    "batch": 8,
-    "visible_row_index": 386,
-    "success_row_number": 380
-  },
-  {
-    "date": "11/13/2025",
-    "issue": "East Baton Rouge Parish SB, LA Limited Tax Bonds, Series 2025",
-    "manager_fa": "Foley & Judell, L.L.P., (FA)",
-    "par_amt": "40,000,000.00",
-    "doc_type": "Final",
-    "type": "Comp",
-    "size_mb": "1.19",
-    "href": "/api/PdfDownload/100842?action=Get",
-    "batch": 8,
-    "visible_row_index": 387,
-    "success_row_number": 381
+    "visible_row_index": 399,
+    "success_row_number": 392
   },
   {
     "date": "11/13/2025",
@@ -4962,8 +5105,47 @@
     "size_mb": "4.19",
     "href": "/api/PdfDownload/100754?action=Get",
     "batch": 8,
-    "visible_row_index": 388,
-    "success_row_number": 382
+    "visible_row_index": 400,
+    "success_row_number": 393
+  },
+  {
+    "date": "11/13/2025",
+    "issue": "Virginia Housing Development Authority, VA Rental Housing Bonds, 2025 Series F-Non-AMT",
+    "manager_fa": "---------- (FA)",
+    "par_amt": "102,780,000.00",
+    "doc_type": "NOS",
+    "type": "Comp",
+    "size_mb": ".18",
+    "href": "/api/PdfDownload/100725?action=Get",
+    "batch": 9,
+    "visible_row_index": 402,
+    "success_row_number": 394
+  },
+  {
+    "date": "11/13/2025",
+    "issue": "Virginia Housing Development Authority, VA Rental Housing Bonds, 2025 Series F-Non-AMT",
+    "manager_fa": "---------- (FA)",
+    "par_amt": "102,780,000.00",
+    "doc_type": "Memo",
+    "type": "Comp",
+    "size_mb": ".41",
+    "href": "/api/PdfDownload/100726?action=Get",
+    "batch": 9,
+    "visible_row_index": 403,
+    "success_row_number": 395
+  },
+  {
+    "date": "11/13/2025",
+    "issue": "East Baton Rouge Parish SB, LA Limited Tax Bonds, Series 2025",
+    "manager_fa": "Foley & Judell, L.L.P., (FA)",
+    "par_amt": "40,000,000.00",
+    "doc_type": "Final",
+    "type": "Comp",
+    "size_mb": "1.19",
+    "href": "/api/PdfDownload/100842?action=Get",
+    "batch": 9,
+    "visible_row_index": 404,
+    "success_row_number": 396
   },
   {
     "date": "11/13/2025",
@@ -4974,9 +5156,9 @@
     "type": "Comp",
     "size_mb": ".11",
     "href": "/api/PdfDownload/100755?action=Get",
-    "batch": 8,
-    "visible_row_index": 389,
-    "success_row_number": 383
+    "batch": 9,
+    "visible_row_index": 406,
+    "success_row_number": 397
   },
   {
     "date": "11/13/2025",
@@ -4987,9 +5169,9 @@
     "type": "Comp",
     "size_mb": ".09",
     "href": "/api/PdfDownload/100756?action=Get",
-    "batch": 8,
-    "visible_row_index": 390,
-    "success_row_number": 384
+    "batch": 9,
+    "visible_row_index": 407,
+    "success_row_number": 398
   },
   {
     "date": "11/12/2025",
@@ -5000,9 +5182,9 @@
     "type": "Comp",
     "size_mb": "4.98",
     "href": "/api/PdfDownload/100845?action=Get",
-    "batch": 8,
-    "visible_row_index": 391,
-    "success_row_number": 385
+    "batch": 9,
+    "visible_row_index": 408,
+    "success_row_number": 399
   },
   {
     "date": "11/12/2025",
@@ -5013,9 +5195,9 @@
     "type": "Comp",
     "size_mb": ".36",
     "href": "/api/PdfDownload/100838?action=Get",
-    "batch": 8,
-    "visible_row_index": 392,
-    "success_row_number": 386
+    "batch": 9,
+    "visible_row_index": 409,
+    "success_row_number": 400
   },
   {
     "date": "11/12/2025",
@@ -5026,9 +5208,9 @@
     "type": "Comp",
     "size_mb": "3.59",
     "href": "/api/PdfDownload/100849?action=Get",
-    "batch": 8,
-    "visible_row_index": 393,
-    "success_row_number": 387
+    "batch": 9,
+    "visible_row_index": 410,
+    "success_row_number": 401
   },
   {
     "date": "11/12/2025",
@@ -5039,9 +5221,9 @@
     "type": "Comp",
     "size_mb": "2.27",
     "href": "/api/PdfDownload/100854?action=Get",
-    "batch": 8,
-    "visible_row_index": 394,
-    "success_row_number": 388
+    "batch": 9,
+    "visible_row_index": 411,
+    "success_row_number": 402
   },
   {
     "date": "11/10/2025",
@@ -5052,9 +5234,9 @@
     "type": "Comp",
     "size_mb": "3.68",
     "href": "/api/PdfDownload/100836?action=Get",
-    "batch": 8,
-    "visible_row_index": 395,
-    "success_row_number": 389
+    "batch": 9,
+    "visible_row_index": 412,
+    "success_row_number": 403
   },
   {
     "date": "11/10/2025",
@@ -5065,9 +5247,9 @@
     "type": "Comp",
     "size_mb": "13.18",
     "href": "/api/PdfDownload/100841?action=Get",
-    "batch": 8,
-    "visible_row_index": 396,
-    "success_row_number": 390
+    "batch": 9,
+    "visible_row_index": 413,
+    "success_row_number": 404
   },
   {
     "date": "11/10/2025",
@@ -5078,9 +5260,9 @@
     "type": "Comp",
     "size_mb": "3.78",
     "href": "/api/PdfDownload/100837?action=Get",
-    "batch": 8,
-    "visible_row_index": 397,
-    "success_row_number": 391
+    "batch": 9,
+    "visible_row_index": 414,
+    "success_row_number": 405
   },
   {
     "date": "11/06/2025",
@@ -5091,9 +5273,9 @@
     "type": "Comp",
     "size_mb": "2.51",
     "href": "/api/PdfDownload/100832?action=Get",
-    "batch": 8,
-    "visible_row_index": 398,
-    "success_row_number": 392
+    "batch": 9,
+    "visible_row_index": 415,
+    "success_row_number": 406
   },
   {
     "date": "11/06/2025",
@@ -5104,9 +5286,9 @@
     "type": "Comp",
     "size_mb": ".56",
     "href": "/api/PdfDownload/100798?action=Get",
-    "batch": 8,
-    "visible_row_index": 399,
-    "success_row_number": 393
+    "batch": 9,
+    "visible_row_index": 416,
+    "success_row_number": 407
   },
   {
     "date": "11/05/2025",
@@ -5117,9 +5299,9 @@
     "type": "Comp",
     "size_mb": "4.72",
     "href": "/api/PdfDownload/100772?action=Get",
-    "batch": 8,
-    "visible_row_index": 400,
-    "success_row_number": 394
+    "batch": 9,
+    "visible_row_index": 417,
+    "success_row_number": 408
   },
   {
     "date": "11/05/2025",
@@ -5131,8 +5313,8 @@
     "size_mb": ".76",
     "href": "/api/PdfDownload/100777?action=Get",
     "batch": 9,
-    "visible_row_index": 401,
-    "success_row_number": 395
+    "visible_row_index": 418,
+    "success_row_number": 409
   },
   {
     "date": "11/05/2025",
@@ -5144,8 +5326,8 @@
     "size_mb": "4.05",
     "href": "/api/PdfDownload/100802?action=Get",
     "batch": 9,
-    "visible_row_index": 402,
-    "success_row_number": 396
+    "visible_row_index": 419,
+    "success_row_number": 410
   },
   {
     "date": "11/05/2025",
@@ -5157,8 +5339,8 @@
     "size_mb": "6.71",
     "href": "/api/PdfDownload/100711?action=Get",
     "batch": 9,
-    "visible_row_index": 403,
-    "success_row_number": 397
+    "visible_row_index": 420,
+    "success_row_number": 411
   },
   {
     "date": "11/05/2025",
@@ -5170,8 +5352,8 @@
     "size_mb": ".23",
     "href": "/api/PdfDownload/100712?action=Get",
     "batch": 9,
-    "visible_row_index": 404,
-    "success_row_number": 398
+    "visible_row_index": 421,
+    "success_row_number": 412
   },
   {
     "date": "11/04/2025",
@@ -5183,8 +5365,8 @@
     "size_mb": "3.18",
     "href": "/api/PdfDownload/100668?action=Get",
     "batch": 9,
-    "visible_row_index": 405,
-    "success_row_number": 399
+    "visible_row_index": 422,
+    "success_row_number": 413
   },
   {
     "date": "11/04/2025",
@@ -5196,8 +5378,8 @@
     "size_mb": "2.03",
     "href": "/api/PdfDownload/100673?action=Get",
     "batch": 9,
-    "visible_row_index": 406,
-    "success_row_number": 400
+    "visible_row_index": 423,
+    "success_row_number": 414
   },
   {
     "date": "11/04/2025",
@@ -5209,8 +5391,8 @@
     "size_mb": ".88",
     "href": "/api/PdfDownload/100771?action=Get",
     "batch": 9,
-    "visible_row_index": 407,
-    "success_row_number": 401
+    "visible_row_index": 424,
+    "success_row_number": 415
   },
   {
     "date": "11/04/2025",
@@ -5222,8 +5404,8 @@
     "size_mb": "1.60",
     "href": "/api/PdfDownload/100789?action=Get",
     "batch": 9,
-    "visible_row_index": 408,
-    "success_row_number": 402
+    "visible_row_index": 425,
+    "success_row_number": 416
   },
   {
     "date": "11/04/2025",
@@ -5235,8 +5417,8 @@
     "size_mb": "3.62",
     "href": "/api/PdfDownload/100700?action=Get",
     "batch": 9,
-    "visible_row_index": 409,
-    "success_row_number": 403
+    "visible_row_index": 426,
+    "success_row_number": 417
   },
   {
     "date": "11/04/2025",
@@ -5248,8 +5430,8 @@
     "size_mb": ".31",
     "href": "/api/PdfDownload/100701?action=Get",
     "batch": 9,
-    "visible_row_index": 410,
-    "success_row_number": 404
+    "visible_row_index": 427,
+    "success_row_number": 418
   },
   {
     "date": "11/03/2025",
@@ -5261,8 +5443,8 @@
     "size_mb": "11.04",
     "href": "/api/PdfDownload/100792?action=Get",
     "batch": 9,
-    "visible_row_index": 411,
-    "success_row_number": 405
+    "visible_row_index": 428,
+    "success_row_number": 419
   },
   {
     "date": "11/03/2025",
@@ -5274,8 +5456,8 @@
     "size_mb": "11.21",
     "href": "/api/PdfDownload/100801?action=Get",
     "batch": 9,
-    "visible_row_index": 412,
-    "success_row_number": 406
+    "visible_row_index": 429,
+    "success_row_number": 420
   },
   {
     "date": "10/30/2025",
@@ -5287,8 +5469,8 @@
     "size_mb": "5.20",
     "href": "/api/PdfDownload/100760?action=Get",
     "batch": 9,
-    "visible_row_index": 413,
-    "success_row_number": 407
+    "visible_row_index": 430,
+    "success_row_number": 421
   },
   {
     "date": "10/30/2025",
@@ -5300,8 +5482,8 @@
     "size_mb": "5.63",
     "href": "/api/PdfDownload/100662?action=Get",
     "batch": 9,
-    "visible_row_index": 414,
-    "success_row_number": 408
+    "visible_row_index": 431,
+    "success_row_number": 422
   },
   {
     "date": "10/30/2025",
@@ -5313,8 +5495,8 @@
     "size_mb": ".04",
     "href": "/api/PdfDownload/100663?action=Get",
     "batch": 9,
-    "visible_row_index": 415,
-    "success_row_number": 409
+    "visible_row_index": 432,
+    "success_row_number": 423
   },
   {
     "date": "10/29/2025",
@@ -5326,8 +5508,8 @@
     "size_mb": "2.48",
     "href": "/api/PdfDownload/100742?action=Get",
     "batch": 9,
-    "visible_row_index": 416,
-    "success_row_number": 410
+    "visible_row_index": 433,
+    "success_row_number": 424
   },
   {
     "date": "10/28/2025",
@@ -5339,8 +5521,8 @@
     "size_mb": "11.07",
     "href": "/api/PdfDownload/100704?action=Get",
     "batch": 9,
-    "visible_row_index": 417,
-    "success_row_number": 411
+    "visible_row_index": 434,
+    "success_row_number": 425
   },
   {
     "date": "10/28/2025",
@@ -5352,8 +5534,8 @@
     "size_mb": "23.89",
     "href": "/api/PdfDownload/100745?action=Get",
     "batch": 9,
-    "visible_row_index": 418,
-    "success_row_number": 412
+    "visible_row_index": 435,
+    "success_row_number": 426
   },
   {
     "date": "10/28/2025",
@@ -5365,8 +5547,8 @@
     "size_mb": "24.09",
     "href": "/api/PdfDownload/100748?action=Get",
     "batch": 9,
-    "visible_row_index": 419,
-    "success_row_number": 413
+    "visible_row_index": 436,
+    "success_row_number": 427
   },
   {
     "date": "10/28/2025",
@@ -5378,8 +5560,8 @@
     "size_mb": ".12",
     "href": "/api/PdfDownload/100793?action=Get",
     "batch": 9,
-    "visible_row_index": 420,
-    "success_row_number": 414
+    "visible_row_index": 437,
+    "success_row_number": 428
   },
   {
     "date": "10/28/2025",
@@ -5391,8 +5573,8 @@
     "size_mb": "1.93",
     "href": "/api/PdfDownload/100641?action=Get",
     "batch": 9,
-    "visible_row_index": 421,
-    "success_row_number": 415
+    "visible_row_index": 438,
+    "success_row_number": 429
   },
   {
     "date": "10/28/2025",
@@ -5404,8 +5586,8 @@
     "size_mb": ".20",
     "href": "/api/PdfDownload/100642?action=Get",
     "batch": 9,
-    "visible_row_index": 422,
-    "success_row_number": 416
+    "visible_row_index": 439,
+    "success_row_number": 430
   },
   {
     "date": "10/28/2025",
@@ -5417,8 +5599,8 @@
     "size_mb": "2.31",
     "href": "/api/PdfDownload/100710?action=Get",
     "batch": 9,
-    "visible_row_index": 423,
-    "success_row_number": 417
+    "visible_row_index": 440,
+    "success_row_number": 431
   },
   {
     "date": "10/28/2025",
@@ -5430,8 +5612,8 @@
     "size_mb": "1.58",
     "href": "/api/PdfDownload/100732?action=Get",
     "batch": 9,
-    "visible_row_index": 424,
-    "success_row_number": 418
+    "visible_row_index": 441,
+    "success_row_number": 432
   },
   {
     "date": "10/28/2025",
@@ -5443,8 +5625,8 @@
     "size_mb": "4.52",
     "href": "/api/PdfDownload/100720?action=Get",
     "batch": 9,
-    "visible_row_index": 425,
-    "success_row_number": 419
+    "visible_row_index": 442,
+    "success_row_number": 433
   },
   {
     "date": "10/28/2025",
@@ -5456,8 +5638,8 @@
     "size_mb": "3.33",
     "href": "/api/PdfDownload/100727?action=Get",
     "batch": 9,
-    "visible_row_index": 426,
-    "success_row_number": 420
+    "visible_row_index": 443,
+    "success_row_number": 434
   },
   {
     "date": "10/28/2025",
@@ -5469,8 +5651,8 @@
     "size_mb": "2.13",
     "href": "/api/PdfDownload/100741?action=Get",
     "batch": 9,
-    "visible_row_index": 427,
-    "success_row_number": 421
+    "visible_row_index": 444,
+    "success_row_number": 435
   },
   {
     "date": "10/28/2025",
@@ -5482,8 +5664,8 @@
     "size_mb": "1.83",
     "href": "/api/PdfDownload/100766?action=Get",
     "batch": 9,
-    "visible_row_index": 428,
-    "success_row_number": 422
+    "visible_row_index": 445,
+    "success_row_number": 436
   },
   {
     "date": "10/27/2025",
@@ -5495,8 +5677,8 @@
     "size_mb": "8.09",
     "href": "/api/PdfDownload/100723?action=Get",
     "batch": 9,
-    "visible_row_index": 429,
-    "success_row_number": 423
+    "visible_row_index": 446,
+    "success_row_number": 437
   },
   {
     "date": "10/27/2025",
@@ -5508,21 +5690,8 @@
     "size_mb": "8.69",
     "href": "/api/PdfDownload/100746?action=Get",
     "batch": 9,
-    "visible_row_index": 430,
-    "success_row_number": 424
-  },
-  {
-    "date": "10/23/2025",
-    "issue": "Branford (Town of), CT General Obligation Bonds, Issue of 2025",
-    "manager_fa": "Munistat Services, Inc. (FA)",
-    "par_amt": "9,500,000.00",
-    "doc_type": "Final",
-    "type": "Comp",
-    "size_mb": "1.59",
-    "href": "/api/PdfDownload/100678?action=Get",
-    "batch": 9,
-    "visible_row_index": 431,
-    "success_row_number": 425
+    "visible_row_index": 447,
+    "success_row_number": 438
   },
   {
     "date": "10/23/2025",
@@ -5534,8 +5703,8 @@
     "size_mb": "5.20",
     "href": "/api/PdfDownload/100714?action=Get",
     "batch": 9,
-    "visible_row_index": 432,
-    "success_row_number": 426
+    "visible_row_index": 448,
+    "success_row_number": 439
   },
   {
     "date": "10/23/2025",
@@ -5547,60 +5716,8 @@
     "size_mb": "4.37",
     "href": "/api/PdfDownload/100713?action=Get",
     "batch": 9,
-    "visible_row_index": 433,
-    "success_row_number": 427
-  },
-  {
-    "date": "10/23/2025",
-    "issue": "Springhollow MUD, TX Unlimited Tax Bonds, Series 2025",
-    "manager_fa": "Specialized Public Finance Inc. (FA)",
-    "par_amt": "7,500,000.00",
-    "doc_type": "OS Supp",
-    "type": "Comp",
-    "size_mb": ".12",
-    "href": "/api/PdfDownload/100824?action=Get",
-    "batch": 9,
-    "visible_row_index": 434,
-    "success_row_number": 428
-  },
-  {
-    "date": "10/23/2025",
-    "issue": "Springhollow MUD, TX Unltd Tax Road Bonds, Series 2025A",
-    "manager_fa": "Specialized Public Finance Inc. (FA)",
-    "par_amt": "2,000,000.00",
-    "doc_type": "Final",
-    "type": "Comp",
-    "size_mb": "4.36",
-    "href": "/api/PdfDownload/100716?action=Get",
-    "batch": 9,
-    "visible_row_index": 435,
-    "success_row_number": 429
-  },
-  {
-    "date": "10/23/2025",
-    "issue": "Springhollow MUD, TX Unltd Tax Road Bonds, Series 2025A",
-    "manager_fa": "Specialized Public Finance Inc. (FA)",
-    "par_amt": "2,000,000.00",
-    "doc_type": "OS Supp",
-    "type": "Comp",
-    "size_mb": ".12",
-    "href": "/api/PdfDownload/100823?action=Get",
-    "batch": 9,
-    "visible_row_index": 436,
-    "success_row_number": 430
-  },
-  {
-    "date": "10/23/2025",
-    "issue": "The Metropolitan District, CT Clean Water Project Revenue Bonds, Series 2025",
-    "manager_fa": "Munistat Services, Inc. (FA)",
-    "par_amt": "50,000,000.00",
-    "doc_type": "Prelim",
-    "type": "Comp",
-    "size_mb": "1.92",
-    "href": "/api/PdfDownload/100620?action=Get",
-    "batch": 9,
-    "visible_row_index": 437,
-    "success_row_number": 431
+    "visible_row_index": 449,
+    "success_row_number": 440
   },
   {
     "date": "10/23/2025",
@@ -5612,8 +5729,60 @@
     "size_mb": "10.44",
     "href": "/api/PdfDownload/100706?action=Get",
     "batch": 9,
-    "visible_row_index": 438,
-    "success_row_number": 432
+    "visible_row_index": 450,
+    "success_row_number": 441
+  },
+  {
+    "date": "10/23/2025",
+    "issue": "Springhollow MUD, TX Unlimited Tax Bonds, Series 2025",
+    "manager_fa": "Specialized Public Finance Inc. (FA)",
+    "par_amt": "7,500,000.00",
+    "doc_type": "OS Supp",
+    "type": "Comp",
+    "size_mb": ".12",
+    "href": "/api/PdfDownload/100824?action=Get",
+    "batch": 10,
+    "visible_row_index": 451,
+    "success_row_number": 442
+  },
+  {
+    "date": "10/23/2025",
+    "issue": "Springhollow MUD, TX Unltd Tax Road Bonds, Series 2025A",
+    "manager_fa": "Specialized Public Finance Inc. (FA)",
+    "par_amt": "2,000,000.00",
+    "doc_type": "Final",
+    "type": "Comp",
+    "size_mb": "4.36",
+    "href": "/api/PdfDownload/100716?action=Get",
+    "batch": 10,
+    "visible_row_index": 452,
+    "success_row_number": 443
+  },
+  {
+    "date": "10/23/2025",
+    "issue": "Springhollow MUD, TX Unltd Tax Road Bonds, Series 2025A",
+    "manager_fa": "Specialized Public Finance Inc. (FA)",
+    "par_amt": "2,000,000.00",
+    "doc_type": "OS Supp",
+    "type": "Comp",
+    "size_mb": ".12",
+    "href": "/api/PdfDownload/100823?action=Get",
+    "batch": 10,
+    "visible_row_index": 453,
+    "success_row_number": 444
+  },
+  {
+    "date": "10/23/2025",
+    "issue": "The Metropolitan District, CT Clean Water Project Revenue Bonds, Series 2025",
+    "manager_fa": "Munistat Services, Inc. (FA)",
+    "par_amt": "50,000,000.00",
+    "doc_type": "Prelim",
+    "type": "Comp",
+    "size_mb": "1.92",
+    "href": "/api/PdfDownload/100620?action=Get",
+    "batch": 10,
+    "visible_row_index": 454,
+    "success_row_number": 445
   },
   {
     "date": "10/22/2025",
@@ -5624,9 +5793,9 @@
     "type": "Neg",
     "size_mb": "2.07",
     "href": "/api/PdfDownload/100702?action=Get",
-    "batch": 9,
-    "visible_row_index": 439,
-    "success_row_number": 433
+    "batch": 10,
+    "visible_row_index": 456,
+    "success_row_number": 446
   },
   {
     "date": "10/22/2025",
@@ -5637,9 +5806,9 @@
     "type": "Comp",
     "size_mb": "2.25",
     "href": "/api/PdfDownload/100667?action=Get",
-    "batch": 9,
-    "visible_row_index": 440,
-    "success_row_number": 434
+    "batch": 10,
+    "visible_row_index": 457,
+    "success_row_number": 447
   },
   {
     "date": "10/22/2025",
@@ -5650,9 +5819,9 @@
     "type": "Neg",
     "size_mb": "7.65",
     "href": "/api/PdfDownload/100692?action=Get",
-    "batch": 9,
-    "visible_row_index": 441,
-    "success_row_number": 435
+    "batch": 10,
+    "visible_row_index": 458,
+    "success_row_number": 448
   },
   {
     "date": "10/22/2025",
@@ -5663,9 +5832,9 @@
     "type": "Comp",
     "size_mb": "2.64",
     "href": "/api/PdfDownload/100703?action=Get",
-    "batch": 9,
-    "visible_row_index": 442,
-    "success_row_number": 436
+    "batch": 10,
+    "visible_row_index": 459,
+    "success_row_number": 449
   },
   {
     "date": "10/22/2025",
@@ -5676,9 +5845,9 @@
     "type": "Comp",
     "size_mb": "6.42",
     "href": "/api/PdfDownload/100699?action=Get",
-    "batch": 9,
-    "visible_row_index": 443,
-    "success_row_number": 437
+    "batch": 10,
+    "visible_row_index": 460,
+    "success_row_number": 450
   },
   {
     "date": "10/22/2025",
@@ -5689,9 +5858,9 @@
     "type": "Comp",
     "size_mb": "2.06",
     "href": "/api/PdfDownload/100623?action=Get",
-    "batch": 9,
-    "visible_row_index": 444,
-    "success_row_number": 438
+    "batch": 10,
+    "visible_row_index": 461,
+    "success_row_number": 451
   },
   {
     "date": "10/22/2025",
@@ -5702,9 +5871,9 @@
     "type": "Comp",
     "size_mb": ".13",
     "href": "/api/PdfDownload/100624?action=Get",
-    "batch": 9,
-    "visible_row_index": 445,
-    "success_row_number": 439
+    "batch": 10,
+    "visible_row_index": 462,
+    "success_row_number": 452
   },
   {
     "date": "10/22/2025",
@@ -5715,9 +5884,9 @@
     "type": "Comp",
     "size_mb": "8.15",
     "href": "/api/PdfDownload/100715?action=Get",
-    "batch": 9,
-    "visible_row_index": 446,
-    "success_row_number": 440
+    "batch": 10,
+    "visible_row_index": 463,
+    "success_row_number": 453
   },
   {
     "date": "10/21/2025",
@@ -5728,9 +5897,22 @@
     "type": "Comp",
     "size_mb": "5.83",
     "href": "/api/PdfDownload/100677?action=Get",
-    "batch": 9,
-    "visible_row_index": 447,
-    "success_row_number": 441
+    "batch": 10,
+    "visible_row_index": 464,
+    "success_row_number": 454
+  },
+  {
+    "date": "10/21/2025",
+    "issue": "Fayetteville (City of), NC Public Works Commission Revenue Bonds, Series 2025",
+    "manager_fa": "North American Capital Markets (FA)",
+    "par_amt": "156,445,000.00",
+    "doc_type": "Final",
+    "type": "Comp",
+    "size_mb": "3.34",
+    "href": "/api/PdfDownload/100690?action=Get",
+    "batch": 10,
+    "visible_row_index": 465,
+    "success_row_number": 455
   },
   {
     "date": "10/21/2025",
@@ -5741,35 +5923,22 @@
     "type": "Neg",
     "size_mb": "2.91",
     "href": "/api/PdfDownload/100688?action=Get",
-    "batch": 9,
-    "visible_row_index": 448,
-    "success_row_number": 442
+    "batch": 10,
+    "visible_row_index": 466,
+    "success_row_number": 456
   },
   {
     "date": "10/21/2025",
-    "issue": "Bastrop (City of), TX Combination Tax & Rev COO, Series 2025",
-    "manager_fa": "Specialized Public Finance Inc. (FA)",
-    "par_amt": "14,765,000.00",
-    "doc_type": "Final",
-    "type": "Comp",
-    "size_mb": "1.50",
-    "href": "/api/PdfDownload/100695?action=Get",
-    "batch": 9,
-    "visible_row_index": 449,
-    "success_row_number": 443
-  },
-  {
-    "date": "10/21/2025",
-    "issue": "Crosby MUD, TX Defined Area No. 1 Unltd Tax Bonds, Series 2025",
-    "manager_fa": "Hilltop Securities Inc. (FA)",
-    "par_amt": "5,000,000.00",
-    "doc_type": "Final",
-    "type": "Comp",
-    "size_mb": "3.41",
-    "href": "/api/PdfDownload/100696?action=Get",
-    "batch": 9,
-    "visible_row_index": 450,
-    "success_row_number": 444
+    "issue": "Wylie ISD, TX Unltd Tax Ref Bonds, Series 2025",
+    "manager_fa": "SAMCO Capital / Frost Bank / Stephens Inc. / Hilltop Securities Inc. (FA)",
+    "par_amt": "25,325,000.00",
+    "doc_type": "Addendum",
+    "type": "Neg",
+    "size_mb": "2.90",
+    "href": "/api/PdfDownload/100839?action=Get",
+    "batch": 10,
+    "visible_row_index": 467,
+    "success_row_number": 457
   },
   {
     "date": "10/21/2025",
@@ -5781,8 +5950,34 @@
     "size_mb": "1.00",
     "href": "/api/PdfDownload/100689?action=Get",
     "batch": 10,
-    "visible_row_index": 451,
-    "success_row_number": 445
+    "visible_row_index": 468,
+    "success_row_number": 458
+  },
+  {
+    "date": "10/21/2025",
+    "issue": "Bastrop (City of), TX Combination Tax & Rev COO, Series 2025",
+    "manager_fa": "Specialized Public Finance Inc. (FA)",
+    "par_amt": "14,765,000.00",
+    "doc_type": "Final",
+    "type": "Comp",
+    "size_mb": "1.50",
+    "href": "/api/PdfDownload/100695?action=Get",
+    "batch": 10,
+    "visible_row_index": 469,
+    "success_row_number": 459
+  },
+  {
+    "date": "10/21/2025",
+    "issue": "Crosby MUD, TX Defined Area No. 1 Unltd Tax Bonds, Series 2025",
+    "manager_fa": "Hilltop Securities Inc. (FA)",
+    "par_amt": "5,000,000.00",
+    "doc_type": "Final",
+    "type": "Comp",
+    "size_mb": "3.41",
+    "href": "/api/PdfDownload/100696?action=Get",
+    "batch": 10,
+    "visible_row_index": 470,
+    "success_row_number": 460
   },
   {
     "date": "10/21/2025",
@@ -5794,8 +5989,8 @@
     "size_mb": "1.17",
     "href": "/api/PdfDownload/100611?action=Get",
     "batch": 10,
-    "visible_row_index": 454,
-    "success_row_number": 446
+    "visible_row_index": 471,
+    "success_row_number": 461
   },
   {
     "date": "10/21/2025",
@@ -5807,8 +6002,8 @@
     "size_mb": ".14",
     "href": "/api/PdfDownload/100612?action=Get",
     "batch": 10,
-    "visible_row_index": 455,
-    "success_row_number": 447
+    "visible_row_index": 472,
+    "success_row_number": 462
   },
   {
     "date": "10/21/2025",
@@ -5820,8 +6015,8 @@
     "size_mb": "2.83",
     "href": "/api/PdfDownload/100625?action=Get",
     "batch": 10,
-    "visible_row_index": 456,
-    "success_row_number": 448
+    "visible_row_index": 473,
+    "success_row_number": 463
   },
   {
     "date": "10/21/2025",
@@ -5833,8 +6028,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/100626?action=Get",
     "batch": 10,
-    "visible_row_index": 457,
-    "success_row_number": 449
+    "visible_row_index": 474,
+    "success_row_number": 464
   },
   {
     "date": "10/21/2025",
@@ -5846,8 +6041,8 @@
     "size_mb": ".15",
     "href": "/api/PdfDownload/100627?action=Get",
     "batch": 10,
-    "visible_row_index": 458,
-    "success_row_number": 450
+    "visible_row_index": 475,
+    "success_row_number": 465
   },
   {
     "date": "10/21/2025",
@@ -5859,8 +6054,8 @@
     "size_mb": ".09",
     "href": "/api/PdfDownload/100628?action=Get",
     "batch": 10,
-    "visible_row_index": 459,
-    "success_row_number": 451
+    "visible_row_index": 476,
+    "success_row_number": 466
   },
   {
     "date": "10/21/2025",
@@ -5872,8 +6067,8 @@
     "size_mb": ".05",
     "href": "/api/PdfDownload/100629?action=Get",
     "batch": 10,
-    "visible_row_index": 460,
-    "success_row_number": 452
+    "visible_row_index": 477,
+    "success_row_number": 467
   },
   {
     "date": "10/20/2025",
@@ -5885,8 +6080,8 @@
     "size_mb": "5.59",
     "href": "/api/PdfDownload/100683?action=Get",
     "batch": 10,
-    "visible_row_index": 461,
-    "success_row_number": 453
+    "visible_row_index": 478,
+    "success_row_number": 468
   },
   {
     "date": "10/20/2025",
@@ -5898,8 +6093,8 @@
     "size_mb": "3.22",
     "href": "/api/PdfDownload/100681?action=Get",
     "batch": 10,
-    "visible_row_index": 462,
-    "success_row_number": 454
+    "visible_row_index": 479,
+    "success_row_number": 469
   },
   {
     "date": "10/20/2025",
@@ -5911,8 +6106,8 @@
     "size_mb": "9.23",
     "href": "/api/PdfDownload/100575?action=Get",
     "batch": 10,
-    "visible_row_index": 463,
-    "success_row_number": 455
+    "visible_row_index": 480,
+    "success_row_number": 470
   },
   {
     "date": "10/20/2025",
@@ -5924,8 +6119,8 @@
     "size_mb": ".26",
     "href": "/api/PdfDownload/100576?action=Get",
     "batch": 10,
-    "visible_row_index": 464,
-    "success_row_number": 456
+    "visible_row_index": 481,
+    "success_row_number": 471
   },
   {
     "date": "10/20/2025",
@@ -5937,8 +6132,8 @@
     "size_mb": ".26",
     "href": "/api/PdfDownload/100577?action=Get",
     "batch": 10,
-    "visible_row_index": 465,
-    "success_row_number": 457
+    "visible_row_index": 482,
+    "success_row_number": 472
   },
   {
     "date": "10/20/2025",
@@ -5950,8 +6145,8 @@
     "size_mb": "3.08",
     "href": "/api/PdfDownload/100679?action=Get",
     "batch": 10,
-    "visible_row_index": 466,
-    "success_row_number": 458
+    "visible_row_index": 483,
+    "success_row_number": 473
   },
   {
     "date": "10/16/2025",
@@ -5963,8 +6158,8 @@
     "size_mb": "2.40",
     "href": "/api/PdfDownload/100675?action=Get",
     "batch": 10,
-    "visible_row_index": 467,
-    "success_row_number": 459
+    "visible_row_index": 484,
+    "success_row_number": 474
   },
   {
     "date": "10/16/2025",
@@ -5976,8 +6171,8 @@
     "size_mb": "7.18",
     "href": "/api/PdfDownload/100671?action=Get",
     "batch": 10,
-    "visible_row_index": 468,
-    "success_row_number": 460
+    "visible_row_index": 485,
+    "success_row_number": 475
   },
   {
     "date": "10/16/2025",
@@ -5989,8 +6184,8 @@
     "size_mb": ".13",
     "href": "/api/PdfDownload/100528?action=Get",
     "batch": 10,
-    "visible_row_index": 469,
-    "success_row_number": 461
+    "visible_row_index": 486,
+    "success_row_number": 476
   },
   {
     "date": "10/16/2025",
@@ -6002,8 +6197,8 @@
     "size_mb": "2.94",
     "href": "/api/PdfDownload/100672?action=Get",
     "batch": 10,
-    "visible_row_index": 470,
-    "success_row_number": 462
+    "visible_row_index": 487,
+    "success_row_number": 477
   },
   {
     "date": "10/16/2025",
@@ -6015,8 +6210,8 @@
     "size_mb": "1.88",
     "href": "/api/PdfDownload/100674?action=Get",
     "batch": 10,
-    "visible_row_index": 471,
-    "success_row_number": 463
+    "visible_row_index": 488,
+    "success_row_number": 478
   },
   {
     "date": "10/16/2025",
@@ -6028,8 +6223,8 @@
     "size_mb": "2.59",
     "href": "/api/PdfDownload/100658?action=Get",
     "batch": 10,
-    "visible_row_index": 472,
-    "success_row_number": 464
+    "visible_row_index": 489,
+    "success_row_number": 479
   },
   {
     "date": "10/16/2025",
@@ -6041,8 +6236,8 @@
     "size_mb": ".14",
     "href": "/api/PdfDownload/100564?action=Get",
     "batch": 10,
-    "visible_row_index": 473,
-    "success_row_number": 465
+    "visible_row_index": 490,
+    "success_row_number": 480
   },
   {
     "date": "10/16/2025",
@@ -6054,8 +6249,8 @@
     "size_mb": "2.22",
     "href": "/api/PdfDownload/100565?action=Get",
     "batch": 10,
-    "visible_row_index": 474,
-    "success_row_number": 466
+    "visible_row_index": 491,
+    "success_row_number": 481
   },
   {
     "date": "10/16/2025",
@@ -6067,8 +6262,8 @@
     "size_mb": ".05",
     "href": "/api/PdfDownload/100566?action=Get",
     "batch": 10,
-    "visible_row_index": 475,
-    "success_row_number": 467
+    "visible_row_index": 492,
+    "success_row_number": 482
   },
   {
     "date": "10/16/2025",
@@ -6080,8 +6275,8 @@
     "size_mb": ".05",
     "href": "/api/PdfDownload/100567?action=Get",
     "batch": 10,
-    "visible_row_index": 476,
-    "success_row_number": 468
+    "visible_row_index": 493,
+    "success_row_number": 483
   },
   {
     "date": "10/16/2025",
@@ -6093,8 +6288,8 @@
     "size_mb": "3.55",
     "href": "/api/PdfDownload/100656?action=Get",
     "batch": 10,
-    "visible_row_index": 477,
-    "success_row_number": 469
+    "visible_row_index": 494,
+    "success_row_number": 484
   },
   {
     "date": "10/16/2025",
@@ -6106,8 +6301,8 @@
     "size_mb": "3.01",
     "href": "/api/PdfDownload/100670?action=Get",
     "batch": 10,
-    "visible_row_index": 478,
-    "success_row_number": 470
+    "visible_row_index": 495,
+    "success_row_number": 485
   },
   {
     "date": "10/16/2025",
@@ -6119,8 +6314,8 @@
     "size_mb": "23.08",
     "href": "/api/PdfDownload/100596?action=Get",
     "batch": 10,
-    "visible_row_index": 479,
-    "success_row_number": 471
+    "visible_row_index": 496,
+    "success_row_number": 486
   },
   {
     "date": "10/15/2025",
@@ -6132,21 +6327,8 @@
     "size_mb": "2.31",
     "href": "/api/PdfDownload/100538?action=Get",
     "batch": 10,
-    "visible_row_index": 480,
-    "success_row_number": 472
-  },
-  {
-    "date": "10/15/2025",
-    "issue": "Piscataway (Township of), NJ General Improvement Bonds (2025)",
-    "manager_fa": "NW Financial Group, LLC (FA)",
-    "par_amt": "48,695,000.00",
-    "doc_type": "NOS",
-    "type": "Comp",
-    "size_mb": ".07",
-    "href": "/api/PdfDownload/100503?action=Get",
-    "batch": 10,
-    "visible_row_index": 481,
-    "success_row_number": 473
+    "visible_row_index": 497,
+    "success_row_number": 487
   },
   {
     "date": "10/15/2025",
@@ -6158,21 +6340,8 @@
     "size_mb": "2.29",
     "href": "/api/PdfDownload/100537?action=Get",
     "batch": 10,
-    "visible_row_index": 482,
-    "success_row_number": 474
-  },
-  {
-    "date": "10/15/2025",
-    "issue": "Piscataway (Township of), NJ Bond Anticipation Notes, Series 2025",
-    "manager_fa": "NW Financial Group, LLC (FA)",
-    "par_amt": "31,721,675.00",
-    "doc_type": "NOS",
-    "type": "Comp",
-    "size_mb": ".04",
-    "href": "/api/PdfDownload/100504?action=Get",
-    "batch": 10,
-    "visible_row_index": 483,
-    "success_row_number": 475
+    "visible_row_index": 498,
+    "success_row_number": 488
   },
   {
     "date": "10/15/2025",
@@ -6184,8 +6353,8 @@
     "size_mb": "1.68",
     "href": "/api/PdfDownload/100639?action=Get",
     "batch": 10,
-    "visible_row_index": 484,
-    "success_row_number": 476
+    "visible_row_index": 499,
+    "success_row_number": 489
   },
   {
     "date": "10/15/2025",
@@ -6197,8 +6366,8 @@
     "size_mb": "3.43",
     "href": "/api/PdfDownload/100649?action=Get",
     "batch": 10,
-    "visible_row_index": 485,
-    "success_row_number": 477
+    "visible_row_index": 500,
+    "success_row_number": 490
   },
   {
     "date": "10/14/2025",
@@ -6209,9 +6378,9 @@
     "type": "Comp",
     "size_mb": "2.63",
     "href": "/api/PdfDownload/100650?action=Get",
-    "batch": 10,
-    "visible_row_index": 486,
-    "success_row_number": 478
+    "batch": 11,
+    "visible_row_index": 503,
+    "success_row_number": 491
   },
   {
     "date": "10/14/2025",
@@ -6222,9 +6391,9 @@
     "type": "Comp",
     "size_mb": "8.21",
     "href": "/api/PdfDownload/100640?action=Get",
-    "batch": 10,
-    "visible_row_index": 487,
-    "success_row_number": 479
+    "batch": 11,
+    "visible_row_index": 504,
+    "success_row_number": 492
   },
   {
     "date": "10/14/2025",
@@ -6235,9 +6404,9 @@
     "type": "Comp",
     "size_mb": "4.67",
     "href": "/api/PdfDownload/100539?action=Get",
-    "batch": 10,
-    "visible_row_index": 488,
-    "success_row_number": 480
+    "batch": 11,
+    "visible_row_index": 505,
+    "success_row_number": 493
   },
   {
     "date": "10/14/2025",
@@ -6248,9 +6417,9 @@
     "type": "Comp",
     "size_mb": ".59",
     "href": "/api/PdfDownload/100540?action=Get",
-    "batch": 10,
-    "visible_row_index": 489,
-    "success_row_number": 481
+    "batch": 11,
+    "visible_row_index": 506,
+    "success_row_number": 494
   },
   {
     "date": "10/14/2025",
@@ -6261,9 +6430,9 @@
     "type": "Comp",
     "size_mb": ".04",
     "href": "/api/PdfDownload/100541?action=Get",
-    "batch": 10,
-    "visible_row_index": 490,
-    "success_row_number": 482
+    "batch": 11,
+    "visible_row_index": 507,
+    "success_row_number": 495
   },
   {
     "date": "10/14/2025",
@@ -6274,9 +6443,9 @@
     "type": "Comp",
     "size_mb": "3.34",
     "href": "/api/PdfDownload/100543?action=Get",
-    "batch": 10,
-    "visible_row_index": 491,
-    "success_row_number": 483
+    "batch": 11,
+    "visible_row_index": 508,
+    "success_row_number": 496
   },
   {
     "date": "10/14/2025",
@@ -6287,9 +6456,9 @@
     "type": "Comp",
     "size_mb": "3.87",
     "href": "/api/PdfDownload/100544?action=Get",
-    "batch": 10,
-    "visible_row_index": 492,
-    "success_row_number": 484
+    "batch": 11,
+    "visible_row_index": 509,
+    "success_row_number": 497
   },
   {
     "date": "10/14/2025",
@@ -6300,9 +6469,9 @@
     "type": "Comp",
     "size_mb": ".34",
     "href": "/api/PdfDownload/100545?action=Get",
-    "batch": 10,
-    "visible_row_index": 493,
-    "success_row_number": 485
+    "batch": 11,
+    "visible_row_index": 510,
+    "success_row_number": 498
   },
   {
     "date": "10/14/2025",
@@ -6313,73 +6482,8 @@
     "type": "Comp",
     "size_mb": ".50",
     "href": "/api/PdfDownload/100546?action=Get",
-    "batch": 10,
-    "visible_row_index": 494,
-    "success_row_number": 486
-  },
-  {
-    "date": "10/09/2025",
-    "issue": "East Montgomery County MUD No. 4, TX Unlimited Tax Bonds, Series 2025",
-    "manager_fa": "GMS Group, LLC (FA)",
-    "par_amt": "12,550,000.00",
-    "doc_type": "Final",
-    "type": "Comp",
-    "size_mb": "2.83",
-    "href": "/api/PdfDownload/100630?action=Get",
-    "batch": 10,
-    "visible_row_index": 495,
-    "success_row_number": 487
-  },
-  {
-    "date": "10/09/2025",
-    "issue": "South Brunswick (Township of), NJ BANs, Srs 2024A & Spl Emerg Notes, Srs2025",
-    "manager_fa": "NW Financial Group, LLC (FA)",
-    "par_amt": "32,530,247.00",
-    "doc_type": "Prelim",
-    "type": "Comp",
-    "size_mb": "5.16",
-    "href": "/api/PdfDownload/100511?action=Get",
-    "batch": 10,
-    "visible_row_index": 496,
-    "success_row_number": 488
-  },
-  {
-    "date": "10/09/2025",
-    "issue": "South Brunswick (Township of), NJ BANs, Srs 2024A & Spl Emerg Notes, Srs2025",
-    "manager_fa": "NW Financial Group, LLC (FA)",
-    "par_amt": "32,530,247.00",
-    "doc_type": "NOS",
-    "type": "Comp",
-    "size_mb": ".21",
-    "href": "/api/PdfDownload/100512?action=Get",
-    "batch": 10,
-    "visible_row_index": 497,
-    "success_row_number": 489
-  },
-  {
-    "date": "10/09/2025",
-    "issue": "South Brunswick (Township of), NJ BANs, Srs 2024A & Spl Emerg Notes, Srs2025",
-    "manager_fa": "NW Financial Group, LLC (FA)",
-    "par_amt": "32,530,247.00",
-    "doc_type": "Moodys",
-    "type": "Comp",
-    "size_mb": ".04",
-    "href": "/api/PdfDownload/100513?action=Get",
-    "batch": 10,
-    "visible_row_index": 498,
-    "success_row_number": 490
-  },
-  {
-    "date": "10/09/2025",
-    "issue": "South Brunswick (Township of), NJ BANs, Srs 2024A & Spl Emerg Notes, Srs2025",
-    "manager_fa": "NW Financial Group, LLC (FA)",
-    "par_amt": "32,530,247.00",
-    "doc_type": "Credit",
-    "type": "Comp",
-    "size_mb": ".08",
-    "href": "/api/PdfDownload/100514?action=Get",
-    "batch": 10,
-    "visible_row_index": 499,
-    "success_row_number": 491
+    "batch": 11,
+    "visible_row_index": 511,
+    "success_row_number": 499
   }
 ]
